@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>484.sk — Mokrance Dvojdom</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   MOKRANCE 484 — Single-file real estate listing
+   Bazos logic · editorial green · DM Sans
+   ============================================================ */
+:root {
+  --green:        #1a6b3c;
+  --green-mid:    #218a4d;
+  --green-light:  #e8f5ee;
+  --green-border: #c2e0cf;
+  --white:        #ffffff;
+  --surface:      #f7f8f7;
+  --border:       #e2e4e2;
+  --border-dark:  #c8cbc8;
+  --text:         #222623;
+  --text-mid:     #4a524d;
+  --text-soft:    #7a857e;
+  --text-xsoft:   #a8b2ac;
+  --price-green:  #1a6b3c;
+  --tag-bg:       #eef4f1;
+  --font: 'DM Sans', sans-serif;
+  --mono: 'DM Mono', monospace;
+  --radius: 4px;
+  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 15px; scroll-behavior: smooth; height: 100%; }
+body { font-family: var(--font); background: var(--surface); color: var(--text); line-height: 1.55; -webkit-font-smoothing: antialiased; min-height: 100vh; display: flex; flex-direction: column; }
+main { flex: 1; }
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+
+/* ── FILTER BAR ── */
+.filter-bar {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  padding: 0 0 0 0;
+}
+.filter-bar-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 12px 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: flex-end;
+}
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.filter-label {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-soft);
+  font-family: var(--mono);
+}
+.filter-pills {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+.filter-pill {
+  padding: 5px 12px;
+  border: 1.5px solid var(--border-dark);
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-mid);
+  background: var(--white);
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+  user-select: none;
+}
+.filter-pill:hover { border-color: var(--green); color: var(--green); }
+.filter-pill.active {
+  background: var(--green);
+  border-color: var(--green);
+  color: var(--white);
+}
+.filter-divider {
+  width: 1px;
+  background: var(--border);
+  align-self: stretch;
+  margin: 2px 0;
+}
+.filter-reset {
+  padding: 5px 10px;
+  font-size: 12px;
+  color: var(--text-soft);
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: var(--font);
+  transition: color 0.15s;
+  align-self: flex-end;
+  margin-bottom: 1px;
+}
+.filter-reset:hover { color: var(--green); }
+
+/* ── HEADER ── */
+.header { background: var(--white); border-bottom: 2px solid var(--green); position: sticky; top: 0; z-index: 100; }
+.header-inner { max-width: 1100px; margin: 0 auto; padding: 0 16px; height: 52px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.logo { display: flex; align-items: center; gap: 7px; font-family: var(--mono); font-size: 18px; font-weight: 500; color: var(--green); letter-spacing: -0.02em; }
+.logo-dot { width: 7px; height: 7px; background: var(--green); border-radius: 50%; flex-shrink: 0; }
+.header-nav { display: flex; align-items: center; gap: 8px; }
+.btn { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; font-family: var(--font); font-size: 13px; font-weight: 600; border-radius: var(--radius); cursor: pointer; transition: background 0.15s, color 0.15s, border-color 0.15s; white-space: nowrap; border: 1.5px solid transparent; }
+.btn-primary { background: var(--green); color: var(--white); border-color: var(--green); }
+.btn-primary:hover { background: var(--green-mid); border-color: var(--green-mid); }
+.btn-ghost { background: transparent; color: var(--text-mid); border-color: var(--border-dark); }
+.btn-ghost:hover { border-color: var(--green); color: var(--green); background: var(--green-light); }
+
+/* ── LAYOUT ── */
+.page-wrap { max-width: 1100px; margin: 0 auto; padding: 20px 16px 48px; }
+
+/* ── PAGE BAR ── */
+.page-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; flex-wrap: wrap; gap: 8px; }
+.breadcrumb { font-size: 13px; color: var(--text-soft); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.breadcrumb a { color: var(--green); }
+.breadcrumb a:hover { text-decoration: underline; }
+.breadcrumb-sep { color: var(--text-xsoft); }
+.results-count { font-size: 13px; color: var(--text-soft); font-family: var(--mono); }
+
+/* ── LISTING CARDS ── */
+.listings-list { display: flex; flex-direction: column; gap: 2px; }
+.listing-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); display: flex; align-items: stretch; cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s; overflow: hidden; text-decoration: none; color: inherit; }
+.listing-card:hover { border-color: var(--green-border); box-shadow: var(--shadow-md); }
+.listing-card:hover .listing-title { color: var(--green); }
+.listing-thumb { width: 200px; min-width: 200px; height: 150px; background: var(--surface); overflow: hidden; position: relative; flex-shrink: 0; }
+.listing-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
+.listing-card:hover .listing-thumb img { transform: scale(1.03); }
+.thumb-badge { position: absolute; top: 8px; left: 8px; background: var(--green); color: var(--white); font-size: 11px; font-weight: 600; padding: 2px 7px; border-radius: 2px; letter-spacing: 0.04em; }
+.listing-body { flex: 1; padding: 14px 18px; display: flex; flex-direction: column; justify-content: space-between; min-width: 0; }
+.listing-top { margin-bottom: 8px; }
+.listing-title { font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: 4px; line-height: 1.35; transition: color 0.15s; }
+.listing-snippet { font-size: 13px; color: var(--text-mid); line-height: 1.5; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.listing-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+.tag { background: var(--tag-bg); color: var(--green); font-size: 11.5px; font-weight: 500; padding: 2px 8px; border-radius: 2px; border: 1px solid var(--green-border); }
+.listing-aside { padding: 14px 18px; display: flex; flex-direction: column; align-items: flex-end; justify-content: space-between; flex-shrink: 0; min-width: 160px; border-left: 1px solid var(--border); gap: 8px; }
+.listing-price { font-size: 22px; font-weight: 700; color: var(--price-green); letter-spacing: -0.02em; white-space: nowrap; }
+.listing-price-note { font-size: 11px; font-weight: 400; color: var(--text-soft); margin-top: 2px; text-align: right; }
+.listing-meta { text-align: right; }
+.listing-location { font-size: 12px; color: var(--text-soft); margin-bottom: 2px; }
+.listing-date { font-size: 12px; color: var(--text-xsoft); font-family: var(--mono); }
+.listing-cta { font-size: 12px; color: var(--green); font-weight: 600; display: flex; align-items: center; gap: 4px; }
+
+/* ── VIEW TOGGLE ── */
+.detail-view { display: none; }
+.detail-view.active { display: block; }
+.listings-view.hidden { display: none; }
+
+/* ── DETAIL GRID ── */
+.detail-grid { display: grid; grid-template-columns: 1fr 300px; gap: 20px; align-items: start; }
+.detail-header { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 22px 16px; margin-bottom: 16px; }
+.detail-eyebrow { font-size: 12px; font-weight: 600; color: var(--green); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; font-family: var(--mono); }
+.detail-title { font-size: 20px; font-weight: 700; color: var(--text); line-height: 1.3; margin-bottom: 10px; }
+.detail-price-row { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.detail-price { font-size: 28px; font-weight: 700; color: var(--price-green); letter-spacing: -0.02em; }
+.detail-price-note { font-size: 13px; color: var(--text-soft); }
+
+/* ── GALLERY ── */
+.gallery-section { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; margin-bottom: 16px; }
+.gallery-section-title { font-size: 12px; font-weight: 600; color: var(--text-soft); letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 12px; font-family: var(--mono); }
+
+/*
+  FLEXIBLE GITHUB GALLERY
+  ─────────────────────────────────────────────────────────────
+  auto-fill adapts to any image count automatically:
+  • 1 img  → single card, not stretched (see :has rule below)
+  • 2 imgs → one clean row
+  • 6+ imgs → compact multi-row grid
+  Add images: push to GitHub, add <div class="gallery-item">
+  <img src="CDN_URL" alt="..."></div> inside .gallery-grid
+  ─────────────────────────────────────────────────────────────
+*/
+.gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 6px; }
+.gallery-item { aspect-ratio: 4/3; overflow: hidden; border-radius: 3px; border: 1px solid var(--border); cursor: pointer; position: relative; background: var(--surface); }
+.gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.25s ease, filter 0.25s; }
+.gallery-item:hover img { transform: scale(1.06); filter: brightness(1.06); }
+.gallery-item.gallery-featured { grid-column: span 2; aspect-ratio: 16/9; }
+/* Single image: don't stretch to full width */
+.gallery-grid:has(.gallery-item:only-child) { grid-template-columns: minmax(140px, 320px); }
+
+/* ── LIGHTBOX ── */
+.lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.88); z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
+.lightbox.open { display: flex; }
+.lightbox img { max-width: 90vw; max-height: 88vh; object-fit: contain; border-radius: 3px; }
+.lightbox-close { position: fixed; top: 16px; right: 20px; color: white; font-size: 24px; cursor: pointer; background: rgba(255,255,255,0.1); border: none; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+.lightbox-close:hover { background: rgba(255,255,255,0.2); }
+.lightbox-nav { position: fixed; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.12); border: none; color: white; font-size: 22px; width: 46px; height: 46px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+.lightbox-nav:hover { background: rgba(255,255,255,0.22); }
+.lightbox-prev { left: 16px; }
+.lightbox-next { right: 16px; }
+.lightbox-counter { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,0.6); font-size: 13px; font-family: var(--mono); }
+
+/* ── SPECS ── */
+.specs-section { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 22px; margin-bottom: 16px; }
+.specs-section-title { font-size: 12px; font-weight: 600; color: var(--text-soft); letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 12px; font-family: var(--mono); }
+.specs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+.spec-row { display: flex; justify-content: space-between; align-items: center; padding: 9px 0; border-bottom: 1px solid var(--border); gap: 12px; }
+.spec-row:last-child { border-bottom: none; }
+.spec-label { font-size: 13px; color: var(--text-soft); flex-shrink: 0; }
+.spec-val { font-size: 13px; font-weight: 600; color: var(--text); text-align: right; }
+.spec-val.highlight { color: var(--green); }
+
+/* ── DESCRIPTION ── */
+.desc-section { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 22px; margin-bottom: 16px; }
+.desc-section-title { font-size: 12px; font-weight: 600; color: var(--text-soft); letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 12px; font-family: var(--mono); }
+.desc-text { font-size: 14px; color: var(--text-mid); line-height: 1.7; }
+.desc-text p + p { margin-top: 10px; }
+.floor-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
+.floor-col-title { font-size: 12px; font-weight: 600; color: var(--green); margin-bottom: 7px; text-transform: uppercase; letter-spacing: 0.06em; font-family: var(--mono); }
+.floor-list { list-style: none; }
+.floor-list li { font-size: 13px; color: var(--text-mid); padding: 4px 0; border-bottom: 1px dashed var(--border); display: flex; align-items: center; gap: 7px; }
+.floor-list li::before { content: ''; width: 5px; height: 5px; background: var(--green-border); border-radius: 50%; flex-shrink: 0; }
+
+/* ── CONTACT BOX ── */
+.contact-box { background: var(--white); border: 1.5px solid var(--green-border); border-radius: var(--radius); overflow: hidden; position: sticky; top: 72px; }
+.contact-box-header { background: var(--green); color: var(--white); padding: 14px 18px; }
+.contact-box-label { font-size: 11px; font-weight: 500; opacity: 0.75; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 2px; font-family: var(--mono); }
+.contact-box-title { font-size: 16px; font-weight: 700; }
+.contact-box-body { padding: 16px 18px; }
+.contact-price-block { text-align: center; padding: 12px 0 16px; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
+.contact-price { font-size: 30px; font-weight: 700; color: var(--price-green); letter-spacing: -0.02em; }
+.contact-price-note { font-size: 12px; color: var(--text-soft); margin-top: 2px; }
+.contact-phone-block { margin-bottom: 12px; }
+.contact-phone-label { font-size: 11px; color: var(--text-soft); font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 4px; font-family: var(--mono); }
+.contact-phone-num { font-size: 18px; font-weight: 700; color: var(--text); }
+.contact-phone-num a { color: inherit; transition: color 0.15s; }
+.contact-phone-num a:hover { color: var(--green); }
+.contact-pills { display: flex; flex-direction: column; gap: 7px; margin-bottom: 16px; }
+.contact-pill { display: flex; justify-content: space-between; font-size: 13px; }
+.contact-pill-label { color: var(--text-soft); }
+.contact-pill-val { font-weight: 600; color: var(--text); }
+.btn-call { display: flex; align-items: center; justify-content: center; gap: 7px; width: 100%; padding: 11px; background: var(--green); color: var(--white); font-family: var(--font); font-size: 14px; font-weight: 700; border: none; border-radius: var(--radius); cursor: pointer; margin-top: 14px; transition: background 0.15s; text-decoration: none; letter-spacing: 0.01em; }
+.btn-call:hover { background: var(--green-mid); }
+.no-agent-note { margin-top: 12px; padding: 10px 12px; background: var(--green-light); border-radius: var(--radius); font-size: 12px; color: var(--green); font-weight: 500; text-align: center; border: 1px solid var(--green-border); }
+.sidebar-note { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; margin-top: 14px; font-size: 12px; color: var(--text-soft); text-align: center; line-height: 1.6; }
+.sidebar-note strong { color: var(--text); }
+
+/* ── FOOTER ── */
+.site-footer { background: var(--white); border-top: 1px solid var(--border); margin-top: 32px; }
+.footer-inner { max-width: 1100px; margin: 0 auto; padding: 16px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+.footer-logo { font-family: var(--mono); font-size: 14px; font-weight: 500; color: var(--green); }
+.footer-copy { font-size: 12px; color: var(--text-xsoft); }
+.footer-links { display: flex; gap: 16px; }
+.footer-links a { font-size: 12px; color: var(--text-soft); transition: color 0.15s; }
+.footer-links a:hover { color: var(--green); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 800px) {
+  .detail-grid { grid-template-columns: 1fr; }
+  .contact-box { position: static; }
+  .specs-grid { grid-template-columns: 1fr; }
+  .floor-cols { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .listing-card { flex-direction: column; }
+  .listing-thumb { width: 100%; min-width: unset; height: 180px; }
+  .listing-aside { flex-direction: row; justify-content: space-between; align-items: center; border-left: none; border-top: 1px solid var(--border); min-width: unset; padding: 10px 14px; }
+  .listing-meta { text-align: left; }
+  .listing-price { font-size: 19px; }
+  .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
+}
+@media (max-width: 400px) {
+  .header-nav .btn-ghost { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <a href="#" class="logo" onclick="showListings(); return false;">
+      <span class="logo-dot"></span>484.sk
+    </a>
+    <nav class="header-nav">
+      <a href="#" class="btn btn-ghost" onclick="showListings(); return false;">← Všetky ponuky</a>
+      <a href="tel:0905323484" class="btn btn-primary">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.63 3.44 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6.11 6.11l.98-.98a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        Volať
+      </a>
+    </nav>
+  </div>
+</header>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightboxOnBg(event)">
+  <button class="lightbox-close" onclick="closeLightbox()">×</button>
+  <button class="lightbox-nav lightbox-prev" onclick="lightboxNav(-1)">&#8249;</button>
+  <img id="lightboxImg" src="" alt="">
+  <button class="lightbox-nav lightbox-next" onclick="lightboxNav(1)">&#8250;</button>
+  <div class="lightbox-counter" id="lightboxCounter"></div>
+</div>
+
+<!-- FILTER BAR -->
+<div class="filter-bar" id="filterBar">
+  <div class="filter-bar-inner">
+    <div class="filter-group">
+      <div class="filter-label">Typ nehnuteľnosti</div>
+      <div class="filter-pills">
+        <span class="filter-pill active" data-filter="typ" data-val="vsetky" onclick="setFilter(this,'typ')">Všetky</span>
+        <span class="filter-pill" data-filter="typ" data-val="dom" onclick="setFilter(this,'typ')">Rodinný dom</span>
+        <span class="filter-pill" data-filter="typ" data-val="byt" onclick="setFilter(this,'typ')">Byt</span>
+        <span class="filter-pill" data-filter="typ" data-val="pozemok" onclick="setFilter(this,'typ')">Pozemok</span>
+        <span class="filter-pill" data-filter="typ" data-val="kancelaria" onclick="setFilter(this,'typ')">Kancelária</span>
+      </div>
+    </div>
+    <div class="filter-divider"></div>
+    <div class="filter-group">
+      <div class="filter-label">Kraj</div>
+      <div class="filter-pills">
+        <span class="filter-pill active" data-filter="kraj" data-val="vsetky" onclick="setFilter(this,'kraj')">Všetky kraje</span>
+        <span class="filter-pill" data-filter="kraj" data-val="kosicky" onclick="setFilter(this,'kraj')">Košický</span>
+        <span class="filter-pill" data-filter="kraj" data-val="bratislavsky" onclick="setFilter(this,'kraj')">Bratislavský</span>
+        <span class="filter-pill" data-filter="kraj" data-val="presovsky" onclick="setFilter(this,'kraj')">Prešovský</span>
+        <span class="filter-pill" data-filter="kraj" data-val="banskobystricky" onclick="setFilter(this,'kraj')">Banskobystrický</span>
+        <span class="filter-pill" data-filter="kraj" data-val="nitriansky" onclick="setFilter(this,'kraj')">Nitriansky</span>
+        <span class="filter-pill" data-filter="kraj" data-val="zilinsky" onclick="setFilter(this,'kraj')">Žilinský</span>
+        <span class="filter-pill" data-filter="kraj" data-val="trnavsky" onclick="setFilter(this,'kraj')">Trnavský</span>
+        <span class="filter-pill" data-filter="kraj" data-val="trenciansky" onclick="setFilter(this,'kraj')">Trenčiansky</span>
+      </div>
+    </div>
+    <button class="filter-reset" onclick="resetFilters()">✕ Zrušiť filtre</button>
+  </div>
+</div>
+
+<main>
+<div class="page-wrap">
+
+  <!-- ═══════════════════════
+       LISTINGS (homepage)
+  ═══════════════════════ -->
+  <div class="listings-view" id="listingsView">
+    <div class="page-bar">
+      <div class="breadcrumb">
+        <span>Nehnuteľnosti</span><span class="breadcrumb-sep">›</span>
+        <span id="crumbTyp">Rodinné domy</span><span class="breadcrumb-sep">›</span>
+        <span id="crumbKraj">Košický kraj</span><span class="breadcrumb-sep">›</span>
+        <strong>Mokrance</strong>
+      </div>
+      <div class="results-count">2 ponuky</div>
+    </div>
+
+    <div class="listings-list">
+      <!-- Card 1 -->
+      <a class="listing-card" href="#" onclick="showDetail(1); return false;" data-typ="dom" data-kraj="kosicky">
+        <div class="listing-thumb">
+          <img src="https://cdn.jsdelivr.net/gh/not1draggy/mokrancee@main/dom-1-predna.png" alt="Dom č. 1" loading="lazy">
+          <span class="thumb-badge">NOVÝ</span>
+        </div>
+        <div class="listing-body">
+          <div class="listing-top">
+            <div class="listing-title">Moderný 4-izbový dom Mokrance — Dvojdom č. 1 (Ľavý)</div>
+            <div class="listing-snippet">Pozemok 486,58 m² · Úžitková plocha 121 m² · Energetická trieda A0 · Novostavba ŠTANDARD</div>
+          </div>
+          <div class="listing-tags">
+            <span class="tag">Novostavba</span>
+            <span class="tag">Trieda A0</span>
+            <span class="tag">3 spálne</span>
+            <span class="tag">Terasa</span>
+            <span class="tag">Osobné vlastníctvo</span>
+          </div>
+        </div>
+        <div class="listing-aside">
+          <div>
+            <div class="listing-price">287 000 €</div>
+            <div class="listing-price-note">Priamy predaj · bez RK</div>
+          </div>
+          <div class="listing-meta">
+            <div class="listing-location">📍 Mokrance, KE kraj</div>
+            <div class="listing-date">19.03.2026</div>
+          </div>
+          <div class="listing-cta">Zobraziť <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></div>
+        </div>
+      </a>
+
+      <!-- Card 2 -->
+      <a class="listing-card" href="#" onclick="showDetail(2); return false;" data-typ="dom" data-kraj="kosicky">
+        <div class="listing-thumb">
+          <img src="https://cdn.jsdelivr.net/gh/not1draggy/mokrancee@main/dom-2-predna.png" alt="Dom č. 2" loading="lazy">
+          <span class="thumb-badge">NOVÝ</span>
+        </div>
+        <div class="listing-body">
+          <div class="listing-top">
+            <div class="listing-title">Moderný 4-izbový dom Mokrance — Dvojdom č. 2 (Pravý)</div>
+            <div class="listing-snippet">Pozemok 586,62 m² · Úžitková plocha 121 m² · Energetická trieda A0 · Novostavba ŠTANDARD</div>
+          </div>
+          <div class="listing-tags">
+            <span class="tag">Novostavba</span>
+            <span class="tag">Trieda A0</span>
+            <span class="tag">3 spálne</span>
+            <span class="tag">Väčší pozemok</span>
+            <span class="tag">Osobné vlastníctvo</span>
+          </div>
+        </div>
+        <div class="listing-aside">
+          <div>
+            <div class="listing-price">298 000 €</div>
+            <div class="listing-price-note">Priamy predaj · bez RK</div>
+          </div>
+          <div class="listing-meta">
+            <div class="listing-location">📍 Mokrance, KE kraj</div>
+            <div class="listing-date">19.03.2026</div>
+          </div>
+          <div class="listing-cta">Zobraziť <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></div>
+        </div>
+      </a>
+    </div><!-- /listings-list -->
+    <div id="noResults" style="display:none; text-align:center; padding:60px 20px; background:var(--white); border:1px solid var(--border); border-radius:var(--radius); margin-top:2px;">
+      <div style="font-size:32px; margin-bottom:12px;">🔍</div>
+      <div style="font-size:15px; font-weight:600; color:var(--text); margin-bottom:6px;">Žiadne výsledky</div>
+      <div style="font-size:13px; color:var(--text-soft); margin-bottom:16px;">Pre zvolené filtre momentálne nemáme žiadne ponuky.</div>
+      <button onclick="resetFilters()" style="padding:8px 20px; background:var(--green); color:white; border:none; border-radius:var(--radius); font-size:13px; font-weight:600; cursor:pointer;">Zobraziť všetky</button>
+    </div>
+  </div><!-- /listings-view -->
+
+
+  <!-- ═══════════════════════
+       DETAIL — DOM č. 1
+  ═══════════════════════ -->
+  <div class="detail-view" id="detail1">
+    <div class="page-bar">
+      <div class="breadcrumb">
+        <a href="#" onclick="showListings(); return false;">Všetky ponuky</a>
+        <span class="breadcrumb-sep">›</span><span>Rodinné domy</span>
+        <span class="breadcrumb-sep">›</span><strong>Dom č. 1 — Ľavý</strong>
+      </div>
+    </div>
+    <div class="detail-grid">
+      <div class="detail-main">
+        <div class="detail-header">
+          <div class="detail-eyebrow">dom-č-1 · ľavý · mokrance · slepá ulica</div>
+          <h1 class="detail-title">Moderný 4-izbový rodinný dom Mokrance — Dvojdom č. 1 (Ľavý)</h1>
+          <div class="detail-price-row">
+            <div class="detail-price">287 000 €</div>
+            <div class="detail-price-note">Priamy predaj od majiteľa · bez realitky · bez provízií</div>
+          </div>
+        </div>
+
+        <div class="gallery-section">
+          <div class="gallery-section-title">Fotogaléria</div>
+          <!--
+            FLEXIBLE GITHUB GALLERY — automatické načítanie
+            Fotky sa načítavajú podľa názvov: FD1.jpg, FD2.jpg, FD3.jpg ...
+            Stačí nahrať na GitHub a galéria sa sama rozšíri.
+            Prefix "FD1" = Dom č.1 fotky, "FD2" bude Dom č.2 ak odlíšiš.
+          -->
+          <div class="gallery-grid" id="gallery1" data-folder="dom1"></div>
+        </div>
+
+        <div class="specs-section">
+          <div class="specs-section-title">Technické parametre</div>
+          <div class="specs-grid">
+            <div class="spec-row"><span class="spec-label">Obec</span><span class="spec-val">Mokrance</span></div>
+            <div class="spec-row"><span class="spec-label">Od Košíc</span><span class="spec-val highlight">≈ 20 min</span></div>
+            <div class="spec-row"><span class="spec-label">Pozemok</span><span class="spec-val highlight">486,58 m²</span></div>
+            <div class="spec-row"><span class="spec-label">Zastavaná plocha</span><span class="spec-val">82 m²</span></div>
+            <div class="spec-row"><span class="spec-label">Úžitková plocha</span><span class="spec-val highlight">121 m²</span></div>
+            <div class="spec-row"><span class="spec-label">Prízemie</span><span class="spec-val">65,63 m²</span></div>
+            <div class="spec-row"><span class="spec-label">Poschodie</span><span class="spec-val">55,34 m²</span></div>
+            <div class="spec-row"><span class="spec-label">Dispozícia</span><span class="spec-val">3 spálne · 2 kúpeľne</span></div>
+            <div class="spec-row"><span class="spec-label">Energetická trieda</span><span class="spec-val highlight">A0</span></div>
+            <div class="spec-row"><span class="spec-label">Strecha</span><span class="spec-val">Fatrafol · kamienok</span></div>
+            <div class="spec-row"><span class="spec-label">Okná</span><span class="spec-val">Plastové</span></div>
+            <div class="spec-row"><span class="spec-label">Stav</span><span class="spec-val">Novostavba · ŠTANDARD</span></div>
+            <div class="spec-row"><span class="spec-label">Terasa / Sklad</span><span class="spec-val">Áno / Áno</span></div>
+            <div class="spec-row"><span class="spec-label">Vlastníctvo</span><span class="spec-val">Osobné</span></div>
+            <div class="spec-row"><span class="spec-label">Na kľúč</span><span class="spec-val">Na požiadanie</span></div>
+            <div class="spec-row"><span class="spec-label">Typ pozemku</span><span class="spec-val">Rovina</span></div>
+          </div>
+        </div>
+
+        <div class="desc-section">
+          <div class="desc-section-title">Popis</div>
+          <div class="desc-text">
+            <p>Ponúkame na predaj moderný rodinný dom — ľavú časť dvojdomu situovaného na slepej ulici v obci Mokrance, vzdialený len cca 20 minút jazdy od centra Košíc. Predaj priamo od majiteľa, bez realitnej kancelárie, bez provízií.</p>
+            <p>Dom je novostavba v štandarde ŠTANDARD, s plochou strechou zo systému Fatrafol s kamienkovým zásypom, plastovými oknami a energetickou triedou A0. Na požiadanie je možné dokončenie „na kľúč".</p>
+            <div class="floor-cols">
+              <div>
+                <div class="floor-col-title">Prízemie · 65,63 m²</div>
+                <ul class="floor-list">
+                  <li>Priestranná obývačka + kuchyňa</li>
+                  <li>Výstup na terasu</li>
+                  <li>Kúpeľňa so sprchovým kútom + WC</li>
+                  <li>Vstupná predsieň</li>
+                  <li>Technická miestnosť</li>
+                  <li>Sklad / bicykle (vstup z ext.)</li>
+                </ul>
+              </div>
+              <div>
+                <div class="floor-col-title">Poschodie · 55,34 m²</div>
+                <ul class="floor-list">
+                  <li>3 samostatné izby (spálne)</li>
+                  <li>Kúpeľňa s vaňou aj sprchou</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact sidebar -->
+      <div>
+        <div class="contact-box">
+          <div class="contact-box-header">
+            <div class="contact-box-label">Priamy kontakt</div>
+            <div class="contact-box-title">Dom č. 1 — Ľavý</div>
+          </div>
+          <div class="contact-box-body">
+            <div class="contact-price-block">
+              <div class="contact-price">287 000 €</div>
+              <div class="contact-price-note">Pozemok 486,58 m²</div>
+            </div>
+            <div class="contact-pills">
+              <div class="contact-pill"><span class="contact-pill-label">Úžitková plocha</span><span class="contact-pill-val">121 m²</span></div>
+              <div class="contact-pill"><span class="contact-pill-label">Energetika</span><span class="contact-pill-val">A0</span></div>
+              <div class="contact-pill"><span class="contact-pill-label">Stav</span><span class="contact-pill-val">Novostavba</span></div>
+            </div>
+            <div class="contact-phone-block">
+              <div class="contact-phone-label">Telefón 1</div>
+              <div class="contact-phone-num"><a href="tel:0905323484">0905 323 484</a></div>
+            </div>
+            <div class="contact-phone-block">
+              <div class="contact-phone-label">Telefón 2</div>
+              <div class="contact-phone-num"><a href="tel:0919067725">0919 067 725</a></div>
+            </div>
+            <a href="tel:0905323484" class="btn-call">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.63 3.44 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6.11 6.11l.98-.98a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              Zavolať predajcovi
+            </a>
+            <div class="no-agent-note">✓ Bez realitky · bez provízií</div>
+          </div>
+        </div>
+        <div class="sidebar-note"><strong>Súkromný predaj</strong><br>Predáva priamo majiteľ.<br>Obhliadka na dohodnutie.</div>
+      </div>
+    </div>
+  </div><!-- /detail1 -->
+
+
+  <!-- ═══════════════════════
+       DETAIL — DOM č. 2
+  ═══════════════════════ -->
+  <div class="detail-view" id="detail2">
+    <div class="page-bar">
+      <div class="breadcrumb">
+        <a href="#" onclick="showListings(); return false;">Všetky ponuky</a>
+        <span class="breadcrumb-sep">›</span><span>Rodinné domy</span>
+        <span class="breadcrumb-sep">›</span><strong>Dom č. 2 — Pravý</strong>
+      </div>
+    </div>
+    <div class="detail-grid">
+      <div class="detail-main">
+        <div class="detail-header">
+          <div class="detail-eyebrow">dom-č-2 · pravý · mokrance · slepá ulica</div>
+          <h1 class="detail-title">Moderný 4-izbový rodinný dom Mokrance — Dvojdom č. 2 (Pravý)</h1>
+          <div class="detail-price-row">
+            <div class="detail-price">298 000 €</div>
+            <div class="detail-price-note">Priamy predaj od majiteľa · bez realitky · bez provízií</div>
+          </div>
+        </div>
+
+        <div class="gallery-section">
+          <div class="gallery-section-title">Fotogaléria</div>
+          <div class="gallery-grid" id="gallery2" data-folder="dom2"></div>
+        </div>
+
+        <div class="specs-section">
+          <div class="specs-section-title">Technické parametre</div>
+          <div class="specs-grid">
+            <div class="spec-row"><span class="spec-label">Obec</span><span class="spec-val">Mokrance</span></div>
+            <div class="spec-row"><span class="spec-label">Od Košíc</span><span class="spec-val highlight">≈ 20 min</span></div>
+            <div class="spec-row"><span class="spec-label">Pozemok</span><span class="spec-val highlight">586,62 m²</span></div>
+            <div class="spec-row"><span class="spec-label">Zastavaná plocha</span><span class="spec-val">82 m²</span></div>
+            <div class="spec-row"><span class="spec-label">Úžitková plocha</span><span class="spec-val highlight">121 m²</span></div>
+            <div class="spec-row"><span class="spec-label">Prízemie</span><span class="spec-val">65,63 m²</span></div>
+            <div class="spec-row"><span class="spec-label">Poschodie</span><span class="spec-val">55,34 m²</span></div>
+            <div class="spec-row"><span class="spec-label">Dispozícia</span><span class="spec-val">3 spálne · 2 kúpeľne</span></div>
+            <div class="spec-row"><span class="spec-label">Energetická trieda</span><span class="spec-val highlight">A0</span></div>
+            <div class="spec-row"><span class="spec-label">Strecha</span><span class="spec-val">Fatrafol · kamienok</span></div>
+            <div class="spec-row"><span class="spec-label">Okná</span><span class="spec-val">Plastové</span></div>
+            <div class="spec-row"><span class="spec-label">Stav</span><span class="spec-val">Novostavba · ŠTANDARD</span></div>
+            <div class="spec-row"><span class="spec-label">Terasa / Sklad</span><span class="spec-val">Áno / Áno</span></div>
+            <div class="spec-row"><span class="spec-label">Vlastníctvo</span><span class="spec-val">Osobné</span></div>
+            <div class="spec-row"><span class="spec-label">Na kľúč</span><span class="spec-val">Na požiadanie</span></div>
+            <div class="spec-row"><span class="spec-label">Typ pozemku</span><span class="spec-val">Rovina</span></div>
+          </div>
+        </div>
+
+        <div class="desc-section">
+          <div class="desc-section-title">Popis</div>
+          <div class="desc-text">
+            <p>Ponúkame na predaj moderný rodinný dom — pravú časť dvojdomu v obci Mokrance, 20 minút od centra Košíc. Dom č. 2 disponuje väčším pozemkom oproti susednému Domu č. 1. Predaj priamo od majiteľa, bez realitnej kancelárie.</p>
+            <p>Dom je novostavba v štandarde ŠTANDARD, s plochou strechou Fatrafol, plastovými oknami a energetickou triedou A0. Na požiadanie dokončenie „na kľúč".</p>
+            <div class="floor-cols">
+              <div>
+                <div class="floor-col-title">Prízemie · 65,63 m²</div>
+                <ul class="floor-list">
+                  <li>Priestranná obývačka + kuchyňa</li>
+                  <li>Výstup na terasu</li>
+                  <li>Kúpeľňa so sprchovým kútom + WC</li>
+                  <li>Vstupná predsieň</li>
+                  <li>Technická miestnosť</li>
+                  <li>Sklad / bicykle (vstup z ext.)</li>
+                </ul>
+              </div>
+              <div>
+                <div class="floor-col-title">Poschodie · 55,34 m²</div>
+                <ul class="floor-list">
+                  <li>3 samostatné izby (spálne)</li>
+                  <li>Kúpeľňa s vaňou aj sprchou</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="contact-box">
+          <div class="contact-box-header">
+            <div class="contact-box-label">Priamy kontakt</div>
+            <div class="contact-box-title">Dom č. 2 — Pravý</div>
+          </div>
+          <div class="contact-box-body">
+            <div class="contact-price-block">
+              <div class="contact-price">298 000 €</div>
+              <div class="contact-price-note">Pozemok 586,62 m²</div>
+            </div>
+            <div class="contact-pills">
+              <div class="contact-pill"><span class="contact-pill-label">Úžitková plocha</span><span class="contact-pill-val">121 m²</span></div>
+              <div class="contact-pill"><span class="contact-pill-label">Energetika</span><span class="contact-pill-val">A0</span></div>
+              <div class="contact-pill"><span class="contact-pill-label">Stav</span><span class="contact-pill-val">Novostavba</span></div>
+            </div>
+            <div class="contact-phone-block">
+              <div class="contact-phone-label">Telefón 1</div>
+              <div class="contact-phone-num"><a href="tel:0905323484">0905 323 484</a></div>
+            </div>
+            <div class="contact-phone-block">
+              <div class="contact-phone-label">Telefón 2</div>
+              <div class="contact-phone-num"><a href="tel:0919067725">0919 067 725</a></div>
+            </div>
+            <a href="tel:0905323484" class="btn-call">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.63 3.44 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6.11 6.11l.98-.98a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              Zavolať predajcovi
+            </a>
+            <div class="no-agent-note">✓ Bez realitky · bez provízií</div>
+          </div>
+        </div>
+        <div class="sidebar-note"><strong>Súkromný predaj</strong><br>Predáva priamo majiteľ.<br>Obhliadka na dohodnutie.</div>
+      </div>
+    </div>
+  </div><!-- /detail2 -->
+
+</div><!-- /page-wrap -->
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <span class="footer-logo">484.sk</span>
+    <span class="footer-copy">© 2026 Mokrance Dvojdomy · Všetky práva vyhradené</span>
+    <div class="footer-links">
+      <a href="#">Mokrance</a>
+      <a href="#">Košický kraj</a>
+      <a href="tel:0905323484">Kontakt</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── View routing ──────────────────────────────────────────
+function showListings() {
+  document.getElementById('listingsView').classList.remove('hidden');
+  document.querySelectorAll('.detail-view').forEach(el => el.classList.remove('active'));
+  document.getElementById('filterBar').style.display = '';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function showDetail(n) {
+  document.getElementById('listingsView').classList.add('hidden');
+  document.querySelectorAll('.detail-view').forEach(el => el.classList.remove('active'));
+  document.getElementById('filterBar').style.display = 'none';
+  const target = document.getElementById('detail' + n);
+  if (target) target.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ── Lightbox ──────────────────────────────────────────────
+let lightboxImages = [];
+let lightboxIndex  = 0;
+
+// ── Gallery auto-loader ───────────────────────────────────
+// Fotky sa ťahajú z GitHub priečinkov dom1/ a dom2/
+// podľa názvov FD1.jpg, FD2.jpg, FD3.jpg ...
+//
+// Štruktúra repozitára:
+//   not1draggy/mokrancee
+//   ├── dom1/
+//   │   ├── FD1.jpg
+//   │   ├── FD2.jpg
+//   │   └── ...
+//   └── dom2/
+//       ├── FD1.jpg
+//       ├── FD2.jpg
+//       └── ...
+//
+// Stačí nahrať ďalšie fotky — galéria sa rozšíri sama.
+
+const REPO_BASE = 'https://cdn.jsdelivr.net/gh/not1draggy/mokrancee@main/';
+const IMG_EXTS  = ['jpg', 'jpeg', 'png', 'webp'];
+const MAX_PROBE = 30;
+
+function buildGallery(grid) {
+  const folder = grid.dataset.folder || 'dom1'; // "dom1" alebo "dom2"
+  let loaded = 0;
+
+  function tryLoad(n) {
+    if (n > MAX_PROBE) {
+      if (loaded === 0) showGalleryEmpty(grid);
+      else attachLightbox(grid);
+      return;
+    }
+    probeImage(folder, 'FD' + n, 0, n);
+  }
+
+  function probeImage(folder, filename, extIdx, n) {
+    if (extIdx >= IMG_EXTS.length) {
+      // Žiadna prípona nefungovala = koniec galérie
+      if (loaded === 0) showGalleryEmpty(grid);
+      else attachLightbox(grid);
+      return;
+    }
+    const ext = IMG_EXTS[extIdx];
+    const src = REPO_BASE + folder + '/' + filename + '.' + ext;
+    const img = new Image();
+    img.onload = function () {
+      addGalleryItem(grid, src, 'Fotografia ' + n, loaded === 0);
+      loaded++;
+      tryLoad(n + 1);
+    };
+    img.onerror = function () {
+      probeImage(folder, filename, extIdx + 1, n);
+    };
+    img.src = src;
+  }
+
+  tryLoad(1);
+}
+
+function addGalleryItem(grid, src, name, isFeatured) {
+  const div = document.createElement('div');
+  div.className = 'gallery-item' + (isFeatured ? ' gallery-featured' : '');
+  const img = document.createElement('img');
+  img.src = src;
+  img.alt = name;
+  img.loading = 'lazy';
+  div.appendChild(img);
+  grid.appendChild(div);
+}
+
+function showGalleryEmpty(grid) {
+  grid.innerHTML = '<div style="grid-column:1/-1;padding:32px;text-align:center;color:var(--text-soft);font-size:13px;">Fotky sa čoskoro pridajú.</div>';
+}
+
+function attachLightbox(grid) {
+  const items = grid.querySelectorAll('.gallery-item img');
+  items.forEach(function (img, idx) {
+    img.parentElement.addEventListener('click', function () {
+      lightboxImages = Array.from(items).map(i => ({ src: i.src, alt: i.alt }));
+      openLightbox(idx);
+    });
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.gallery-grid[data-folder]').forEach(buildGallery);
+});
+
+function openLightbox(idx) {
+  lightboxIndex = idx;
+  const lbImg = document.getElementById('lightboxImg');
+  lbImg.src = lightboxImages[idx].src;
+  lbImg.alt = lightboxImages[idx].alt;
+  updateCounter();
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeLightboxOnBg(e) {
+  if (e.target === document.getElementById('lightbox')) closeLightbox();
+}
+function lightboxNav(dir) {
+  lightboxIndex = (lightboxIndex + dir + lightboxImages.length) % lightboxImages.length;
+  const lbImg = document.getElementById('lightboxImg');
+  lbImg.src = lightboxImages[lightboxIndex].src;
+  lbImg.alt = lightboxImages[lightboxIndex].alt;
+  updateCounter();
+}
+function updateCounter() {
+  document.getElementById('lightboxCounter').textContent = (lightboxIndex + 1) + ' / ' + lightboxImages.length;
+}
+document.addEventListener('keydown', function (e) {
+  if (!document.getElementById('lightbox').classList.contains('open')) return;
+  if (e.key === 'Escape')     closeLightbox();
+  if (e.key === 'ArrowRight') lightboxNav(1);
+  if (e.key === 'ArrowLeft')  lightboxNav(-1);
+});
+
+// ── Filter logic ──────────────────────────────────────────
+const activeFilters = { typ: 'vsetky', kraj: 'vsetky' };
+
+const typLabels = {
+  vsetky: 'Rodinné domy', dom: 'Rodinné domy',
+  byt: 'Byty', pozemok: 'Pozemky', kancelaria: 'Kancelárie'
+};
+const krajLabels = {
+  vsetky: 'Košický kraj', kosicky: 'Košický kraj',
+  bratislavsky: 'Bratislavský kraj', presovsky: 'Prešovský kraj',
+  banskobystricky: 'Banskobystrický kraj', nitriansky: 'Nitriansky kraj',
+  zilinsky: 'Žilinský kraj', trnavsky: 'Trnavský kraj', trenciansky: 'Trenčiansky kraj'
+};
+
+function setFilter(el, group) {
+  // Deactivate siblings
+  el.closest('.filter-pills').querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  activeFilters[group] = el.dataset.val;
+  applyFilters();
+}
+
+function resetFilters() {
+  activeFilters.typ = 'vsetky';
+  activeFilters.kraj = 'vsetky';
+  document.querySelectorAll('.filter-pill').forEach(p => {
+    p.classList.toggle('active', p.dataset.val === 'vsetky');
+  });
+  applyFilters();
+}
+
+function applyFilters() {
+  const cards = document.querySelectorAll('#listingsView .listing-card');
+  let visible = 0;
+  cards.forEach(card => {
+    const matchTyp  = activeFilters.typ  === 'vsetky' || card.dataset.typ  === activeFilters.typ;
+    const matchKraj = activeFilters.kraj === 'vsetky' || card.dataset.kraj === activeFilters.kraj;
+    const show = matchTyp && matchKraj;
+    card.style.display = show ? '' : 'none';
+    if (show) visible++;
+  });
+  // Update count
+  const countEl = document.getElementById('resultsCount');
+  if (countEl) countEl.textContent = visible + (visible === 1 ? ' ponuka' : visible < 5 ? ' ponuky' : ' ponúk');
+  // Show/hide no results
+  const noResults = document.getElementById('noResults');
+  if (noResults) noResults.style.display = visible === 0 ? '' : 'none';
+  // Update breadcrumb
+  const crumbTyp  = document.getElementById('crumbTyp');
+  const crumbKraj = document.getElementById('crumbKraj');
+  if (crumbTyp)  crumbTyp.textContent  = typLabels[activeFilters.typ]  || 'Všetky typy';
+  if (crumbKraj) crumbKraj.textContent = krajLabels[activeFilters.kraj] || 'Všetky kraje';
+}
+
+</script>
+</body>
+</html>
