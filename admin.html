@@ -2,7 +2,8 @@
 <html lang="sk">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
 <title>484.sk — Admin</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -13,39 +14,43 @@
   --red:#c0392b;--red-light:#fdf3f2;
   --shadow-sm:0 2px 8px rgba(0,0,0,0.07);--shadow-md:0 8px 24px rgba(0,0,0,0.09);
   --font:'DM Sans',-apple-system,sans-serif;--mono:'DM Mono','SF Mono',monospace;
-  --radius:6px;--radius-sm:3px;
+  --radius:8px;--radius-sm:6px;--tap:48px;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{font-size:15px;-webkit-text-size-adjust:100%}
 body{font-family:var(--font);background:var(--surface);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
 button{font-family:var(--font);cursor:pointer}
-::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar{width:4px}
 ::-webkit-scrollbar-thumb{background:var(--green-border);border-radius:99px}
 
-/* ── LOGIN SCREEN ── */
-.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
-.login-box{background:white;border:1px solid var(--border);border-radius:10px;padding:40px;width:100%;max-width:380px;box-shadow:var(--shadow-md)}
-.login-logo{font-family:var(--mono);font-size:20px;font-weight:500;color:var(--green);text-align:center;margin-bottom:8px}
+/* LOGIN */
+.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:var(--surface)}
+.login-box{background:white;border:1px solid var(--border);border-radius:14px;padding:36px 28px;width:100%;max-width:400px;box-shadow:var(--shadow-md)}
+.login-logo{font-family:var(--mono);font-size:24px;font-weight:500;color:var(--green);text-align:center;margin-bottom:4px}
 .login-sub{text-align:center;font-size:13px;color:var(--text-soft);margin-bottom:28px}
-.login-field{display:flex;flex-direction:column;gap:5px;margin-bottom:16px}
-.login-field label{font-size:12px;font-weight:600;color:var(--text-soft)}
-.login-field input{border:1.5px solid var(--border-mid);border-radius:4px;padding:10px 12px;font-size:14px;font-family:var(--font);outline:none;transition:border-color .2s}
-.login-field input:focus{border-color:var(--green);box-shadow:0 0 0 3px var(--green-glow)}
-.login-btn{width:100%;background:var(--green);color:white;border:none;border-radius:4px;padding:12px;font-size:14px;font-weight:700;cursor:pointer;transition:background .2s;margin-top:4px}
-.login-btn:hover{background:var(--green-dark)}
-.login-error{background:#fdf3f2;border:1px solid #e8a29a;color:var(--red);padding:10px 12px;border-radius:4px;font-size:13px;margin-bottom:14px;display:none}
+.login-error{background:#fdf3f2;border:1px solid #e8a29a;color:var(--red);padding:12px 14px;border-radius:var(--radius-sm);font-size:13px;margin-bottom:16px;display:none}
 .login-error.show{display:block}
+.login-success{background:var(--green-light);border:1px solid var(--green-border);color:var(--green);padding:12px 14px;border-radius:var(--radius-sm);font-size:13px;margin-bottom:16px;display:none;text-align:center}
+.login-success.show{display:block}
+.login-field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.login-field label{font-size:13px;font-weight:600;color:var(--text-soft)}
+.login-field input{border:1.5px solid var(--border-mid);border-radius:var(--radius-sm);padding:13px 14px;font-size:16px;font-family:var(--font);outline:none;transition:border-color .2s;min-height:var(--tap);-webkit-appearance:none}
+.login-field input:focus{border-color:var(--green);box-shadow:0 0 0 3px var(--green-glow)}
+.login-btn{width:100%;background:var(--green);color:white;border:none;border-radius:var(--radius-sm);padding:15px;font-size:16px;font-weight:700;cursor:pointer;transition:background .2s;margin-top:6px;min-height:var(--tap);font-family:var(--font)}
+.login-btn:hover{background:var(--green-dark)}
+.login-btn:disabled{opacity:.6;cursor:not-allowed}
+.login-forgot{text-align:center;margin-top:16px}
+.login-forgot button{background:none;border:none;color:var(--green);font-size:13.5px;cursor:pointer;font-family:var(--font);text-decoration:underline;padding:4px;min-height:var(--tap)}
 
-/* ── ADMIN LAYOUT ── */
+/* ADMIN */
 .admin-wrap{display:none}
 .admin-wrap.show{display:block}
-
-.admin-header{background:white;border-bottom:1px solid var(--border);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
-.admin-logo{font-family:var(--mono);font-size:16px;font-weight:500;color:var(--green)}
-.admin-logo span{color:var(--text-soft);font-size:12px;margin-left:10px}
-.admin-header-right{display:flex;align-items:center;gap:10px}
-.btn-sm{padding:6px 14px;font-size:12.5px;font-weight:600;border-radius:var(--radius-sm);border:1.5px solid transparent;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:5px}
+.admin-header{background:white;border-bottom:1px solid var(--border);padding:0 16px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;gap:8px}
+.admin-logo{font-family:var(--mono);font-size:15px;font-weight:500;color:var(--green);flex-shrink:0}
+.admin-logo span{color:var(--text-soft);font-size:12px;margin-left:6px}
+.admin-header-right{display:flex;align-items:center;gap:6px}
+.btn-sm{padding:0 14px;font-size:13px;font-weight:600;border-radius:var(--radius-sm);border:1.5px solid transparent;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:5px;height:var(--tap);font-family:var(--font);white-space:nowrap}
 .btn-primary{background:var(--green);color:white;border-color:var(--green)}
 .btn-primary:hover{background:var(--green-dark)}
 .btn-ghost{background:transparent;color:var(--text-mid);border-color:var(--border-mid)}
@@ -53,95 +58,108 @@ button{font-family:var(--font);cursor:pointer}
 .btn-danger{background:transparent;color:var(--red);border-color:#e8a29a}
 .btn-danger:hover{background:var(--red-light)}
 
-.admin-body{max-width:1100px;margin:0 auto;padding:24px 20px 60px;display:grid;grid-template-columns:1fr 380px;gap:20px;align-items:start}
+/* LAYOUT */
+.admin-body{max-width:1100px;margin:0 auto;padding:16px 14px 100px;display:grid;grid-template-columns:1fr;gap:14px}
+@media(min-width:900px){
+  .admin-body{grid-template-columns:1fr 400px;padding:24px 20px 60px;gap:20px}
+  .form-panel{position:sticky;top:76px}
+}
 
-/* ── LISTINGS TABLE ── */
+/* PANEL */
 .panel{background:white;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
-.panel-header{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.panel-header{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
 .panel-title{font-family:var(--mono);font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-xsoft)}
 .panel-count{font-family:var(--mono);font-size:11px;color:var(--text-xsoft);background:var(--surface);padding:2px 8px;border-radius:10px}
 
-.listings-table{width:100%;border-collapse:collapse}
+/* Mobile listing cards */
+.listings-cards{display:flex;flex-direction:column}
+.listing-row{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px}
+.listing-row:last-child{border-bottom:none}
+.listing-row:active{background:var(--green-light)}
+.lr-info{flex:1;min-width:0}
+.lr-name{font-size:14px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:3px}
+.lr-meta{font-size:12px;color:var(--text-soft);display:flex;gap:8px;align-items:center}
+.lr-price{font-family:var(--mono);font-weight:700;color:var(--green)}
+.lr-badge{display:inline-block;padding:2px 7px;border-radius:2px;font-size:10px;font-weight:700;text-transform:uppercase}
+.badge-active{background:var(--green-light);color:var(--green);border:1px solid var(--green-border)}
+.badge-inactive{background:var(--surface-2);color:var(--text-xsoft);border:1px solid var(--border)}
+.lr-actions{display:flex;gap:6px;flex-shrink:0}
+.tbl-empty{text-align:center;padding:40px;color:var(--text-soft);font-size:13px;font-family:var(--mono)}
+
+/* Desktop table */
+.listings-table{width:100%;border-collapse:collapse;display:none}
+@media(min-width:700px){.listings-table{display:table}.listings-cards{display:none}}
 .listings-table th{font-family:var(--mono);font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-xsoft);padding:10px 14px;text-align:left;border-bottom:1px solid var(--border);background:var(--surface)}
 .listings-table td{padding:12px 14px;border-bottom:1px solid var(--border);font-size:13px;vertical-align:middle}
 .listings-table tr:last-child td{border-bottom:none}
 .listings-table tr:hover td{background:var(--green-light)}
-.tbl-name{font-weight:600;color:var(--text);max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tbl-name{font-weight:600;color:var(--text);max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .tbl-price{font-family:var(--mono);font-weight:700;color:var(--green)}
-.tbl-badge{display:inline-block;padding:2px 7px;border-radius:2px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em}
-.badge-active{background:var(--green-light);color:var(--green);border:1px solid var(--green-border)}
-.badge-inactive{background:var(--surface-2);color:var(--text-xsoft);border:1px solid var(--border)}
 .tbl-actions{display:flex;gap:6px}
-.tbl-empty{text-align:center;padding:40px;color:var(--text-soft);font-size:13px;font-family:var(--mono)}
 
-/* ── FORM PANEL ── */
-.form-panel{background:white;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;position:sticky;top:76px}
-.form-panel-header{background:var(--green);padding:14px 18px}
-.form-panel-title{font-size:14px;font-weight:700;color:white}
-.form-panel-sub{font-size:11px;color:rgba(255,255,255,.65);font-family:var(--mono);margin-top:2px}
-.form-body{padding:18px;max-height:calc(100vh - 180px);overflow-y:auto}
-
-.form-section{margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border)}
+/* FORM */
+.form-panel{background:white;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.form-panel-header{background:var(--green);padding:16px 18px}
+.form-panel-title{font-size:15px;font-weight:700;color:white}
+.form-panel-sub{font-size:11.5px;color:rgba(255,255,255,.65);font-family:var(--mono);margin-top:2px}
+.form-body{padding:18px;overflow-y:auto}
+@media(min-width:900px){.form-body{max-height:calc(100vh - 200px)}}
+.form-section{margin-bottom:22px;padding-bottom:22px;border-bottom:1px solid var(--border)}
 .form-section:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
 .form-section-title{font-family:var(--mono);font-size:9.5px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-xsoft);margin-bottom:12px}
-
-.field{display:flex;flex-direction:column;gap:4px;margin-bottom:10px}
-.field label{font-size:11.5px;font-weight:600;color:var(--text-soft)}
-.field input,.field select,.field textarea{border:1.5px solid var(--border-mid);border-radius:4px;padding:8px 10px;font-size:13px;font-family:var(--font);color:var(--text);outline:none;transition:border-color .2s,box-shadow .2s;width:100%}
+.field{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
+.field label{font-size:13px;font-weight:600;color:var(--text-soft)}
+.field input,.field select,.field textarea{border:1.5px solid var(--border-mid);border-radius:var(--radius-sm);padding:12px 13px;font-size:16px;font-family:var(--font);color:var(--text);outline:none;transition:border-color .2s,box-shadow .2s;width:100%;min-height:var(--tap);-webkit-appearance:none}
 .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px var(--green-glow)}
-.field textarea{resize:vertical;min-height:90px;line-height:1.6}
+.field textarea{resize:vertical;min-height:110px;line-height:1.6}
 .field input[type=number]{font-family:var(--mono)}
 .field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-
-/* Specs builder */
-.specs-builder{display:flex;flex-direction:column;gap:6px;margin-bottom:8px}
-.spec-row-builder{display:grid;grid-template-columns:1fr 1fr 24px;gap:6px;align-items:center}
-.spec-row-builder input{border:1.5px solid var(--border-mid);border-radius:4px;padding:6px 8px;font-size:12.5px;font-family:var(--font);outline:none;width:100%;transition:border-color .2s}
+.specs-builder{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+.spec-row-builder{display:grid;grid-template-columns:1fr 1fr 44px;gap:8px;align-items:center}
+.spec-row-builder input{border:1.5px solid var(--border-mid);border-radius:var(--radius-sm);padding:11px 12px;font-size:15px;font-family:var(--font);outline:none;width:100%;min-height:var(--tap);transition:border-color .2s;-webkit-appearance:none}
 .spec-row-builder input:focus{border-color:var(--green)}
-.btn-remove{background:none;border:none;color:var(--text-xsoft);width:24px;height:24px;display:flex;align-items:center;justify-content:center;border-radius:50%;font-size:16px;cursor:pointer;transition:color .2s}
+.btn-remove{background:none;border:none;color:var(--text-xsoft);width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:50%;font-size:20px;cursor:pointer;transition:color .2s}
 .btn-remove:hover{color:var(--red)}
-.btn-add-row{background:none;border:1.5px dashed var(--border-mid);color:var(--text-soft);font-size:12px;padding:6px 10px;border-radius:4px;cursor:pointer;font-family:var(--font);transition:all .2s;text-align:left;width:100%}
+.btn-add-row{background:none;border:1.5px dashed var(--border-mid);color:var(--text-soft);font-size:14px;padding:12px 14px;border-radius:var(--radius-sm);cursor:pointer;font-family:var(--font);transition:all .2s;text-align:left;width:100%;min-height:var(--tap)}
 .btn-add-row:hover{border-color:var(--green);color:var(--green);background:var(--green-light)}
-
-/* Photo upload */
-.dropzone{border:2px dashed var(--border-mid);border-radius:6px;padding:24px 16px;text-align:center;cursor:pointer;transition:all .2s;position:relative}
+.dropzone{border:2px dashed var(--border-mid);border-radius:var(--radius);padding:28px 16px;text-align:center;cursor:pointer;transition:all .2s;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:130px}
 .dropzone:hover,.dropzone.drag-over{border-color:var(--green);background:var(--green-light)}
 .dropzone input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
-.dropzone-icon{font-size:24px;margin-bottom:6px}
-.dropzone-text{font-size:13px;color:var(--text-mid);font-weight:500}
-.dropzone-sub{font-size:11px;color:var(--text-xsoft);font-family:var(--mono);margin-top:2px}
-.photo-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:10px}
-.photo-thumb{position:relative;aspect-ratio:1;border-radius:4px;overflow:hidden;border:1px solid var(--border)}
+.dropzone-icon{font-size:30px;margin-bottom:8px}
+.dropzone-text{font-size:14px;color:var(--text-mid);font-weight:500}
+.dropzone-sub{font-size:12px;color:var(--text-xsoft);font-family:var(--mono);margin-top:3px}
+.photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+@media(min-width:400px){.photo-grid{grid-template-columns:repeat(4,1fr)}}
+.photo-thumb{position:relative;aspect-ratio:1;border-radius:var(--radius-sm);overflow:hidden;border:1px solid var(--border)}
 .photo-thumb img{width:100%;height:100%;object-fit:cover}
-.photo-thumb .rm{position:absolute;top:2px;right:2px;background:rgba(0,0,0,0.6);color:white;border:none;border-radius:50%;width:18px;height:18px;font-size:11px;display:flex;align-items:center;justify-content:center;cursor:pointer}
-.photo-thumb .rm:hover{background:rgba(192,57,43,0.85)}
-
-/* Progress */
-.upload-log{display:none;flex-direction:column;gap:4px;margin-top:10px;max-height:120px;overflow-y:auto}
+.photo-thumb .rm{position:absolute;top:4px;right:4px;background:rgba(0,0,0,0.65);color:white;border:none;border-radius:50%;width:26px;height:26px;font-size:14px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.upload-log{display:none;flex-direction:column;gap:4px;margin-top:10px;max-height:140px;overflow-y:auto}
 .upload-log.show{display:flex}
-.log-item{font-size:11.5px;font-family:var(--mono);color:var(--text-soft);padding:3px 6px;border-radius:3px}
+.log-item{font-size:12px;font-family:var(--mono);color:var(--text-soft);padding:5px 8px;border-radius:4px}
 .log-ok{color:var(--green);background:var(--green-light)}
 .log-err{color:var(--red);background:var(--red-light)}
-
-/* Form footer */
 .form-footer{padding:14px 18px;border-top:1px solid var(--border);display:flex;gap:8px;background:var(--surface)}
-.btn-full{flex:1;padding:10px;font-size:13.5px;font-weight:700;border-radius:4px;border:none;cursor:pointer;transition:all .2s;font-family:var(--font)}
+.btn-full{flex:1;padding:14px;font-size:15px;font-weight:700;border-radius:var(--radius-sm);border:none;cursor:pointer;transition:all .2s;font-family:var(--font);min-height:var(--tap)}
 .btn-submit{background:var(--green);color:white}
 .btn-submit:hover{background:var(--green-dark)}
 .btn-submit:disabled{opacity:.5;cursor:not-allowed}
 .btn-cancel-form{background:var(--surface-2);color:var(--text-soft);border:1.5px solid var(--border-mid)}
-.btn-cancel-form:hover{border-color:var(--border-mid)}
 
-/* Toast */
-.toast{position:fixed;bottom:24px;right:24px;background:var(--text);color:white;padding:12px 18px;border-radius:6px;font-size:13.5px;font-weight:500;box-shadow:var(--shadow-md);transform:translateY(80px);opacity:0;transition:all .3s;z-index:9999}
-.toast.show{transform:translateY(0);opacity:1}
+/* TOAST */
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--text);color:white;padding:12px 20px;border-radius:24px;font-size:14px;font-weight:500;box-shadow:var(--shadow-md);opacity:0;transition:all .3s;z-index:9999;white-space:nowrap}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
 .toast.green{background:var(--green)}
 .toast.red{background:var(--red)}
+@media(min-width:600px){
+  .toast{bottom:24px;left:auto;right:24px;transform:translateY(80px);border-radius:8px}
+  .toast.show{transform:translateY(0)}
+}
 
-/* ── NOTIFY BUTTON ── */
-.btn-report{position:fixed;bottom:24px;right:24px;background:var(--green);color:white;border:none;border-radius:24px;padding:11px 20px;font-size:13px;font-weight:600;font-family:var(--font);cursor:pointer;display:flex;align-items:center;gap:8px;box-shadow:0 4px 16px rgba(26,107,60,0.3);z-index:500;transition:all .2s}
-.btn-report:hover{background:var(--green-dark);transform:translateY(-1px)}
-.btn-report svg{width:15px;height:15px}
+/* FAB */
+.btn-report{position:fixed;bottom:20px;right:16px;background:var(--green);color:white;border:none;border-radius:24px;padding:13px 18px;font-size:13px;font-weight:600;font-family:var(--font);cursor:pointer;display:none;align-items:center;gap:7px;box-shadow:0 4px 20px rgba(26,107,60,0.35);z-index:500;transition:all .2s;min-height:var(--tap)}
+.btn-report:hover{background:var(--green-dark);transform:translateY(-2px)}
+.btn-report svg{width:15px;height:15px;flex-shrink:0}
+@media(min-width:600px){.btn-report{right:24px;bottom:24px}}
 </style>
 </head>
 <body>
@@ -150,8 +168,9 @@ button{font-family:var(--font);cursor:pointer}
 <div class="login-wrap" id="loginWrap">
   <div class="login-box">
     <div class="login-logo">484.sk</div>
-    <div class="login-sub">Admin panel · Prihlásenie</div>
-    <div class="login-error" id="loginError">Nesprávny email alebo heslo.</div>
+    <div class="login-sub">Admin panel</div>
+    <div class="login-error" id="loginError"></div>
+    <div class="login-success" id="loginSuccess"></div>
     <div class="login-field">
       <label>Email</label>
       <input type="email" id="loginEmail" placeholder="admin@484.sk" autocomplete="email">
@@ -161,51 +180,42 @@ button{font-family:var(--font);cursor:pointer}
       <input type="password" id="loginPass" placeholder="••••••••" autocomplete="current-password">
     </div>
     <button class="login-btn" id="loginBtn" onclick="Auth.login()">Prihlásiť sa</button>
+    <div class="login-forgot">
+      <button onclick="Auth.resetPassword()">Zabudol som heslo</button>
+    </div>
   </div>
 </div>
 
-<!-- ADMIN APP -->
+<!-- ADMIN -->
 <div class="admin-wrap" id="adminWrap">
-
   <header class="admin-header">
-    <div>
-      <span class="admin-logo">484.sk <span>/ admin</span></span>
-    </div>
+    <span class="admin-logo">484.sk <span>/ admin</span></span>
     <div class="admin-header-right">
-      <a href="index.html" target="_blank" class="btn-sm btn-ghost">🌐 Web</a>
-      <button class="btn-sm btn-primary" onclick="Form.openNew()">+ Nový inzerát</button>
+      <a href="index.html" target="_blank" class="btn-sm btn-ghost">Web</a>
+      <button class="btn-sm btn-primary" onclick="Form.openNew()">+ Nový</button>
       <button class="btn-sm btn-ghost" onclick="Auth.logout()">Odhlásiť</button>
     </div>
   </header>
 
   <div class="admin-body">
-
-    <!-- TABLE -->
     <div>
       <div class="panel">
         <div class="panel-header">
           <span class="panel-title">Inzeráty</span>
           <span class="panel-count" id="listingCount">—</span>
         </div>
+        <!-- Mobile -->
+        <div class="listings-cards" id="listingCards">
+          <div class="tbl-empty">Načítavam...</div>
+        </div>
+        <!-- Desktop -->
         <table class="listings-table">
-          <thead>
-            <tr>
-              <th>Názov</th>
-              <th>Cena</th>
-              <th>Obec</th>
-              <th>Typ</th>
-              <th>Stav</th>
-              <th>Akcie</th>
-            </tr>
-          </thead>
-          <tbody id="listingsBody">
-            <tr><td colspan="6" class="tbl-empty">Načítavam…</td></tr>
-          </tbody>
+          <thead><tr><th>Názov</th><th>Cena</th><th>Obec</th><th>Stav</th><th>Akcie</th></tr></thead>
+          <tbody id="listingsBody"><tr><td colspan="5" class="tbl-empty">Načítavam...</td></tr></tbody>
         </table>
       </div>
     </div>
 
-    <!-- FORM PANEL -->
     <div class="form-panel" id="formPanel">
       <div class="form-panel-header">
         <div class="form-panel-title" id="formPanelTitle">Nový inzerát</div>
@@ -213,26 +223,15 @@ button{font-family:var(--font);cursor:pointer}
       </div>
       <div class="form-body">
 
-        <!-- Basic -->
         <div class="form-section">
           <div class="form-section-title">Základné info</div>
-          <div class="field">
-            <label>Názov *</label>
-            <input type="text" id="fNazov" placeholder="napr. 4-izbový rodinný dom Mokrance">
+          <div class="field"><label>Názov *</label><input type="text" id="fNazov" placeholder="napr. 4-izbový rodinný dom Mokrance"></div>
+          <div class="field-row">
+            <div class="field"><label>Cena (€) *</label><input type="number" id="fCena" placeholder="287000"></div>
+            <div class="field"><label>Badge</label><input type="text" id="fBadge" value="NOVÝ"></div>
           </div>
           <div class="field-row">
-            <div class="field">
-              <label>Cena (€) *</label>
-              <input type="number" id="fCena" placeholder="287000">
-            </div>
-            <div class="field">
-              <label>Badge</label>
-              <input type="text" id="fBadge" value="NOVÝ" placeholder="NOVÝ / ZNÍŽENÁ...">
-            </div>
-          </div>
-          <div class="field-row">
-            <div class="field">
-              <label>Typ</label>
+            <div class="field"><label>Typ</label>
               <select id="fTyp">
                 <option value="dom">Rodinný dom</option>
                 <option value="byt">Byt</option>
@@ -240,8 +239,7 @@ button{font-family:var(--font);cursor:pointer}
                 <option value="kancelaria">Kancelária</option>
               </select>
             </div>
-            <div class="field">
-              <label>Kraj</label>
+            <div class="field"><label>Kraj</label>
               <select id="fKraj">
                 <option value="kosicky">Košický</option>
                 <option value="bratislavsky">Bratislavský</option>
@@ -255,38 +253,27 @@ button{font-family:var(--font);cursor:pointer}
             </div>
           </div>
           <div class="field-row">
-            <div class="field">
-              <label>Obec *</label>
-              <input type="text" id="fObec" placeholder="napr. Mokrance">
-            </div>
-            <div class="field">
-              <label>Aktívny</label>
-              <select id="fAktivny">
-                <option value="true">Áno</option>
-                <option value="false">Nie (skrytý)</option>
-              </select>
+            <div class="field"><label>Obec *</label><input type="text" id="fObec" placeholder="Mokrance"></div>
+            <div class="field"><label>Aktívny</label>
+              <select id="fAktivny"><option value="true">Áno</option><option value="false">Skrytý</option></select>
             </div>
           </div>
-          <div class="field">
-            <label>Popis *</label>
-            <textarea id="fPopis" rows="5" placeholder="Detailný popis nehnuteľnosti…"></textarea>
-          </div>
+          <div class="field"><label>Popis *</label><textarea id="fPopis" rows="5" placeholder="Detailný popis nehnuteľnosti..."></textarea></div>
         </div>
 
-        <!-- Specs -->
         <div class="form-section">
           <div class="form-section-title">Technické parametre</div>
           <div class="field-row">
-            <div class="field"><label>Pozemok (m²)</label><input type="number" id="fPozemok" placeholder="486"></div>
-            <div class="field"><label>Úžitk. plocha (m²)</label><input type="number" id="fUzitk" placeholder="121"></div>
+            <div class="field"><label>Pozemok (m²)</label><input type="number" id="fPozemok"></div>
+            <div class="field"><label>Úžitková plocha (m²)</label><input type="number" id="fUzitk"></div>
           </div>
           <div class="field-row">
-            <div class="field"><label>Zastav. plocha (m²)</label><input type="number" id="fZastav" placeholder="82"></div>
+            <div class="field"><label>Zastavaná plocha (m²)</label><input type="number" id="fZastav"></div>
             <div class="field"><label>Dispozícia</label><input type="text" id="fDispozicia" placeholder="3+2"></div>
           </div>
           <div class="field-row">
             <div class="field"><label>Energetická trieda</label><input type="text" id="fEnergia" placeholder="A0"></div>
-            <div class="field"><label>Stav</label><input type="text" id="fStav" placeholder="Novostavba ŠTANDARD"></div>
+            <div class="field"><label>Stav</label><input type="text" id="fStav" placeholder="Novostavba"></div>
           </div>
           <div class="field-row">
             <div class="field"><label>Prízemie</label><input type="text" id="fPrizemie" placeholder="65,63 m²"></div>
@@ -298,32 +285,25 @@ button{font-family:var(--font);cursor:pointer}
             </div>
             <div class="field"><label>Vlastníctvo</label><input type="text" id="fVlastnictvo" value="Osobné"></div>
           </div>
-
-          <!-- Extra specs -->
           <div class="form-section-title" style="margin-top:14px;">Ďalšie parametre</div>
           <div class="specs-builder" id="extraSpecs"></div>
           <button class="btn-add-row" onclick="Form.addSpec()">+ Pridať parameter</button>
         </div>
 
-        <!-- Photos -->
         <div class="form-section">
           <div class="form-section-title">Fotografie</div>
-          <div class="field">
-            <label>Priečinok (GitHub CDN fallback)</label>
-            <input type="text" id="fFolder" placeholder="dom1, dom2, dom3…">
-          </div>
+          <div class="field"><label>Priečinok (CDN fallback)</label><input type="text" id="fFolder" placeholder="dom1, dom2, dom3..."></div>
           <div class="dropzone" id="dropzone">
             <input type="file" accept="image/*" multiple onchange="Form.handleFiles(this.files)">
             <div class="dropzone-icon">📷</div>
             <div class="dropzone-text">Kliknite alebo pretiahnite fotky</div>
-            <div class="dropzone-sub">JPG, PNG, WEBP · Max 10 MB/foto</div>
+            <div class="dropzone-sub">JPG, PNG, WEBP · Max 10 MB/fotka</div>
           </div>
           <div class="photo-grid" id="photoGrid"></div>
           <div class="upload-log" id="uploadLog"></div>
         </div>
 
-      </div><!-- /form-body -->
-
+      </div>
       <div class="form-footer">
         <button class="btn-full btn-cancel-form" onclick="Form.cancel()">Zrušiť</button>
         <button class="btn-full btn-submit" id="btnSave" onclick="Form.save()">
@@ -331,99 +311,56 @@ button{font-family:var(--font);cursor:pointer}
         </button>
       </div>
     </div>
-
   </div>
 </div>
 
-<!-- TOAST -->
 <div class="toast" id="toast"></div>
-
-<!-- NAHLÁSIŤ PROBLÉM -->
-<button class="btn-report" id="btnReport" onclick="Notify.reportProblem()" style="display:none;">
+<button class="btn-report" id="btnReport" onclick="Notify.reportProblem()">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
   Nahlásiť problém
 </button>
 
 <script src="config.js"></script>
 <script>
-/* ══════════════════════════════════════════════════════════════
-   484.SK ADMIN — Core
-══════════════════════════════════════════════════════════════ */
-
-/* ── SUPABASE CLIENT ── */
 const sb = {
   url: CONFIG.SUPABASE_URL,
   key: CONFIG.SUPABASE_ANON,
-
   headers(token) {
-    return {
-      'apikey': this.key,
-      'Authorization': `Bearer ${token || this.key}`,
-      'Content-Type': 'application/json',
-      'Prefer': 'return=representation',
-    };
+    return { 'apikey':this.key, 'Authorization':`Bearer ${token||this.key}`, 'Content-Type':'application/json', 'Prefer':'return=representation' };
   },
-
-  async get(table, params = '') {
-    const token = Auth.token();
-    const res = await fetch(`${this.url}/rest/v1/${table}?${params}`, { headers: this.headers(token) });
+  async get(table, params='') {
+    const res = await fetch(`${this.url}/rest/v1/${table}?${params}`, { headers:this.headers(Auth.token()) });
     if (!res.ok) throw new Error(await res.text());
     return res.json();
   },
-
   async post(table, body) {
-    const token = Auth.token();
-    const res = await fetch(`${this.url}/rest/v1/${table}`, {
-      method: 'POST',
-      headers: this.headers(token),
-      body: JSON.stringify(body),
-    });
+    const res = await fetch(`${this.url}/rest/v1/${table}`, { method:'POST', headers:this.headers(Auth.token()), body:JSON.stringify(body) });
     if (!res.ok) throw new Error(await res.text());
     return res.json();
   },
-
   async patch(table, id, body) {
-    const token = Auth.token();
-    const res = await fetch(`${this.url}/rest/v1/${table}?id=eq.${id}`, {
-      method: 'PATCH',
-      headers: this.headers(token),
-      body: JSON.stringify(body),
-    });
+    const res = await fetch(`${this.url}/rest/v1/${table}?id=eq.${id}`, { method:'PATCH', headers:this.headers(Auth.token()), body:JSON.stringify(body) });
     if (!res.ok) throw new Error(await res.text());
     return res.json();
   },
-
   async delete(table, id) {
-    const token = Auth.token();
-    const res = await fetch(`${this.url}/rest/v1/${table}?id=eq.${id}`, {
-      method: 'DELETE',
-      headers: this.headers(token),
-    });
+    const res = await fetch(`${this.url}/rest/v1/${table}?id=eq.${id}`, { method:'DELETE', headers:this.headers(Auth.token()) });
     if (!res.ok) throw new Error(await res.text());
     return true;
   },
-
   async uploadPhoto(bucket, path, file) {
-    const token = Auth.token();
     const res = await fetch(`${this.url}/storage/v1/object/${bucket}/${path}`, {
-      method: 'POST',
-      headers: {
-        'apikey': this.key,
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': file.type,
-        'x-upsert': 'true',
-      },
-      body: file,
+      method:'POST',
+      headers:{ 'apikey':this.key, 'Authorization':`Bearer ${Auth.token()}`, 'Content-Type':file.type, 'x-upsert':'true' },
+      body:file
     });
     if (!res.ok) throw new Error(await res.text());
     return `${this.url}/storage/v1/object/public/${bucket}/${path}`;
   }
 };
 
-/* ── AUTH ── */
 const Auth = (() => {
   let _token = null;
-
   function token() { return _token || localStorage.getItem('admin_token_484'); }
 
   async function login() {
@@ -431,31 +368,51 @@ const Auth = (() => {
     const pass  = document.getElementById('loginPass').value.trim();
     const errEl = document.getElementById('loginError');
     errEl.classList.remove('show');
-
+    if (!email || !pass) { errEl.textContent = 'Zadajte email aj heslo.'; errEl.classList.add('show'); return; }
+    const btn = document.getElementById('loginBtn');
+    btn.textContent = 'Prihlasovanie...'; btn.disabled = true;
     try {
       const res = await fetch(`${CONFIG.SUPABASE_URL}/auth/v1/token?grant_type=password`, {
-        method: 'POST',
-        headers: { 'apikey': CONFIG.SUPABASE_ANON, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password: pass }),
+        method:'POST', headers:{ 'apikey':CONFIG.SUPABASE_ANON, 'Content-Type':'application/json' },
+        body:JSON.stringify({ email, password:pass }),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error('Nesprávny email alebo heslo. Skúste znova.');
-
+      if (!res.ok) throw new Error('Nesprávny email alebo heslo.');
       _token = data.access_token;
       localStorage.setItem('admin_token_484', _token);
       Notify.onLogin();
       showAdmin();
     } catch(err) {
-      errEl.textContent = err.message;
-      errEl.classList.add('show');
+      errEl.textContent = err.message; errEl.classList.add('show');
+    } finally {
+      btn.textContent = 'Prihlásiť sa'; btn.disabled = false;
+    }
+  }
+
+  async function resetPassword() {
+    const email = document.getElementById('loginEmail').value.trim();
+    const errEl = document.getElementById('loginError');
+    const sucEl = document.getElementById('loginSuccess');
+    errEl.classList.remove('show'); sucEl.classList.remove('show');
+    if (!email) { errEl.textContent = 'Najprv zadajte email do poľa vyššie.'; errEl.classList.add('show'); return; }
+    try {
+      const res = await fetch(`${CONFIG.SUPABASE_URL}/auth/v1/recover`, {
+        method:'POST', headers:{ 'apikey':CONFIG.SUPABASE_ANON, 'Content-Type':'application/json' },
+        body:JSON.stringify({ email }),
+      });
+      if (!res.ok) throw new Error();
+      sucEl.textContent = `Reset link odoslaný na ${email}. Skontrolujte email.`;
+      sucEl.classList.add('show');
+    } catch {
+      errEl.textContent = 'Nepodarilo sa odoslať reset link.'; errEl.classList.add('show');
     }
   }
 
   function logout() {
-    _token = null;
-    localStorage.removeItem('admin_token_484');
+    _token = null; localStorage.removeItem('admin_token_484');
     document.getElementById('adminWrap').classList.remove('show');
     document.getElementById('loginWrap').style.display = '';
+    document.getElementById('btnReport').style.display = 'none';
   }
 
   function tryAutoLogin() {
@@ -470,15 +427,13 @@ const Auth = (() => {
     Listings.load();
   }
 
-  // Enter key
   document.addEventListener('keydown', e => {
     if (e.key === 'Enter' && document.getElementById('loginWrap').style.display !== 'none') login();
   });
 
-  return { login, logout, token, tryAutoLogin };
+  return { login, logout, token, tryAutoLogin, resetPassword };
 })();
 
-/* ── LISTINGS ── */
 const Listings = (() => {
   let all = [];
 
@@ -486,154 +441,136 @@ const Listings = (() => {
     try {
       all = await sb.get('inzeraty', 'select=*&order=created_at.desc');
       render(all);
-    } catch(err) {
-      toast('Chyba načítania: ' + err.message, 'red');
-    }
+    } catch(err) { toast('Chyba načítania: ' + err.message, 'red'); }
   }
 
-  function render(data) {
-    const tbody = document.getElementById('listingsBody');
-    const count = document.getElementById('listingCount');
-    count.textContent = `${data.length} inzerátov`;
+  function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function fmt(n) { return Number(n).toLocaleString('sk') + ' €'; }
 
-    if (data.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="6" class="tbl-empty">Žiadne inzeráty</td></tr>';
+  function render(data) {
+    document.getElementById('listingCount').textContent = `${data.length} inzerátov`;
+    const cards = document.getElementById('listingCards');
+    const tbody = document.getElementById('listingsBody');
+
+    if (!data.length) {
+      cards.innerHTML = '<div class="tbl-empty">Žiadne inzeráty</div>';
+      tbody.innerHTML = '<tr><td colspan="5" class="tbl-empty">Žiadne inzeráty</td></tr>';
       return;
     }
+
+    cards.innerHTML = data.map(item => `
+      <div class="listing-row">
+        <div class="lr-info">
+          <div class="lr-name">${esc(item.nazov)}</div>
+          <div class="lr-meta">
+            <span class="lr-price">${fmt(item.cena)}</span>
+            <span class="lr-badge ${item.aktivny ? 'badge-active' : 'badge-inactive'}">${item.aktivny ? 'Aktívny' : 'Skrytý'}</span>
+          </div>
+        </div>
+        <div class="lr-actions">
+          <button class="btn-sm btn-ghost" onclick="Form.openEdit(${item.id})">Upraviť</button>
+          <button class="btn-sm btn-danger" onclick="Listings.confirmDelete(${item.id})">Zmazať</button>
+        </div>
+      </div>`).join('');
 
     tbody.innerHTML = data.map(item => `
       <tr>
         <td class="tbl-name" title="${esc(item.nazov)}">${esc(item.nazov)}</td>
         <td class="tbl-price">${fmt(item.cena)}</td>
         <td>${esc(item.obec)}</td>
-        <td>${esc(item.typ)}</td>
         <td><span class="tbl-badge ${item.aktivny ? 'badge-active' : 'badge-inactive'}">${item.aktivny ? 'Aktívny' : 'Skrytý'}</span></td>
-        <td>
-          <div class="tbl-actions">
-            <button class="btn-sm btn-ghost" onclick="Form.openEdit(${item.id})">Upraviť</button>
-            <button class="btn-sm btn-danger" onclick="Listings.confirmDelete(${item.id})">Vymazať</button>
-          </div>
-        </td>
-      </tr>
-    `).join('');
+        <td><div class="tbl-actions">
+          <button class="btn-sm btn-ghost" onclick="Form.openEdit(${item.id})">Upraviť</button>
+          <button class="btn-sm btn-danger" onclick="Listings.confirmDelete(${item.id})">Vymazať</button>
+        </div></td>
+      </tr>`).join('');
   }
 
   async function confirmDelete(id) {
     if (!confirm('Naozaj vymazať tento inzerát? Akcia je nevratná.')) return;
     try {
-      const item = Listings.get(id);
+      const item = all.find(i => i.id == id);
       await sb.delete('inzeraty', id);
       Notify.onInzeratDeleted(item?.nazov || `ID ${id}`);
       toast('Inzerát vymazaný', 'green');
       load();
-    } catch(err) {
-      toast('Chyba: ' + err.message, 'red');
-    }
+    } catch(err) { toast('Chyba: ' + err.message, 'red'); }
   }
 
   function get(id) { return all.find(i => i.id == id); }
-
-  function fmt(n) { return Number(n).toLocaleString('sk') + ' €'; }
-  function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-
   return { load, confirmDelete, get };
 })();
 
-/* ── FORM ── */
 const Form = (() => {
   let editId = null;
   let selectedFiles = [];
 
   function openNew() {
-    editId = null;
-    selectedFiles = [];
+    editId = null; selectedFiles = [];
     document.getElementById('formPanelTitle').textContent = 'Nový inzerát';
-    document.getElementById('formPanelSub').textContent = 'Vyplňte údaje a uložte';
+    document.getElementById('formPanelSub').textContent   = 'Vyplňte údaje a uložte';
     clearForm();
-    document.getElementById('formPanel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.getElementById('formPanel').scrollIntoView({ behavior:'smooth', block:'start' });
   }
 
   function openEdit(id) {
-    editId = id;
-    selectedFiles = [];
+    editId = id; selectedFiles = [];
     const item = Listings.get(id);
     if (!item) return;
     document.getElementById('formPanelTitle').textContent = 'Upraviť inzerát';
-    document.getElementById('formPanelSub').textContent = `ID: ${id}`;
+    document.getElementById('formPanelSub').textContent   = `ID: ${id}`;
     fillForm(item);
-    document.getElementById('formPanel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.getElementById('formPanel').scrollIntoView({ behavior:'smooth', block:'start' });
   }
 
   function cancel() { editId = null; selectedFiles = []; clearForm(); }
 
   function clearForm() {
+    const defaults = { fBadge:'NOVÝ', fVlastnictvo:'Osobné', fAktivny:'true', fNaKluc:'false' };
     ['fNazov','fCena','fBadge','fObec','fPopis','fPozemok','fUzitk','fZastav',
-     'fDispozicia','fEnergia','fStav','fPrizemie','fPoschodie','fFolder','fVlastnictvo']
-    .forEach(id => { const el = document.getElementById(id); if (el) el.value = el.defaultValue || ''; });
-    document.getElementById('fBadge').value = 'NOVÝ';
-    document.getElementById('fVlastnictvo').value = 'Osobné';
-    document.getElementById('fAktivny').value = 'true';
-    document.getElementById('fNaKluc').value = 'false';
+     'fDispozicia','fEnergia','fStav','fPrizemie','fPoschodie','fFolder','fVlastnictvo','fAktivny','fNaKluc']
+    .forEach(id => { const el = document.getElementById(id); if (el) el.value = defaults[id] || ''; });
     document.getElementById('extraSpecs').innerHTML = '';
-    document.getElementById('photoGrid').innerHTML = '';
-    document.getElementById('uploadLog').innerHTML = '';
+    document.getElementById('photoGrid').innerHTML  = '';
+    document.getElementById('uploadLog').innerHTML  = '';
     document.getElementById('uploadLog').classList.remove('show');
   }
 
   function fillForm(item) {
     clearForm();
     const set = (id, val) => { const el = document.getElementById(id); if (el) el.value = val ?? ''; };
-    set('fNazov', item.nazov);
-    set('fCena', item.cena);
-    set('fBadge', item.badge);
-    set('fObec', item.obec);
-    set('fPopis', item.popis);
-    set('fPozemok', item.pozemok);
-    set('fUzitk', item.uzitk_plocha);
-    set('fZastav', item.zastav_plocha);
-    set('fDispozicia', item.dispozicia);
-    set('fEnergia', item.energy_class);
-    set('fStav', item.stav);
-    set('fPrizemie', item.prizemie);
-    set('fPoschodie', item.poschodie);
-    set('fFolder', item.folder);
-    set('fVlastnictvo', item.vlastnictvo);
+    set('fNazov',item.nazov); set('fCena',item.cena); set('fBadge',item.badge);
+    set('fObec',item.obec); set('fPopis',item.popis); set('fPozemok',item.pozemok);
+    set('fUzitk',item.uzitk_plocha); set('fZastav',item.zastav_plocha);
+    set('fDispozicia',item.dispozicia); set('fEnergia',item.energy_class);
+    set('fStav',item.stav); set('fPrizemie',item.prizemie); set('fPoschodie',item.poschodie);
+    set('fFolder',item.folder); set('fVlastnictvo',item.vlastnictvo);
     document.getElementById('fTyp').value    = item.typ;
     document.getElementById('fKraj').value   = item.kraj;
     document.getElementById('fAktivny').value= String(item.aktivny);
     document.getElementById('fNaKluc').value = String(item.na_kluc);
-
-    // Extra specs
-    const extras = Array.isArray(item.extra_specs) ? item.extra_specs : [];
-    extras.forEach(s => addSpec(s.key, s.val));
+    (Array.isArray(item.extra_specs) ? item.extra_specs : []).forEach(s => addSpec(s.key, s.val));
   }
 
-  function addSpec(key = '', val = '') {
-    const builder = document.getElementById('extraSpecs');
+  function addSpec(key='', val='') {
+    const esc = s => String(s||'').replace(/"/g,'&quot;');
     const row = document.createElement('div');
     row.className = 'spec-row-builder';
-    row.innerHTML = `
-      <input type="text" placeholder="Názov" value="${esc(key)}">
-      <input type="text" placeholder="Hodnota" value="${esc(val)}">
-      <button class="btn-remove" onclick="this.closest('.spec-row-builder').remove()" title="Odstrániť">×</button>
-    `;
-    builder.appendChild(row);
+    row.innerHTML = `<input type="text" placeholder="Názov" value="${esc(key)}"><input type="text" placeholder="Hodnota" value="${esc(val)}"><button class="btn-remove" onclick="this.closest('.spec-row-builder').remove()">×</button>`;
+    document.getElementById('extraSpecs').appendChild(row);
   }
 
   function handleFiles(fileList) {
     Array.from(fileList).forEach(file => {
       if (!file.type.startsWith('image/')) return;
-      if (file.size > 10 * 1024 * 1024) { toast(`${file.name} je príliš veľký (max 10 MB)`, 'red'); return; }
+      if (file.size > 10*1024*1024) { toast(`${file.name} je príliš veľký`, 'red'); return; }
       const idx = selectedFiles.length;
       selectedFiles.push(file);
-
       const url = URL.createObjectURL(file);
-      const grid = document.getElementById('photoGrid');
       const div = document.createElement('div');
-      div.className = 'photo-thumb';
-      div.dataset.idx = idx;
+      div.className = 'photo-thumb'; div.dataset.idx = idx;
       div.innerHTML = `<img src="${url}" alt=""><button class="rm" onclick="Form.removePhoto(${idx})">×</button>`;
-      grid.appendChild(div);
+      document.getElementById('photoGrid').appendChild(div);
     });
   }
 
@@ -645,7 +582,7 @@ const Form = (() => {
   function getExtraSpecs() {
     return Array.from(document.querySelectorAll('#extraSpecs .spec-row-builder')).map(row => {
       const inputs = row.querySelectorAll('input');
-      return { key: inputs[0].value.trim(), val: inputs[1].value.trim() };
+      return { key:inputs[0].value.trim(), val:inputs[1].value.trim() };
     }).filter(s => s.key);
   }
 
@@ -658,71 +595,52 @@ const Form = (() => {
       kraj:         document.getElementById('fKraj').value,
       obec:         document.getElementById('fObec').value.trim(),
       popis:        document.getElementById('fPopis').value.trim(),
-      pozemok:      Number(document.getElementById('fPozemok').value) || null,
-      uzitk_plocha: Number(document.getElementById('fUzitk').value)   || null,
-      zastav_plocha:Number(document.getElementById('fZastav').value)  || null,
-      dispozicia:   document.getElementById('fDispozicia').value.trim() || null,
-      energy_class: document.getElementById('fEnergia').value.trim() || null,
-      stav:         document.getElementById('fStav').value.trim()    || null,
-      prizemie:     document.getElementById('fPrizemie').value.trim()|| null,
-      poschodie:    document.getElementById('fPoschodie').value.trim()|| null,
+      pozemok:      Number(document.getElementById('fPozemok').value)  || null,
+      uzitk_plocha: Number(document.getElementById('fUzitk').value)    || null,
+      zastav_plocha:Number(document.getElementById('fZastav').value)   || null,
+      dispozicia:   document.getElementById('fDispozicia').value.trim()|| null,
+      energy_class: document.getElementById('fEnergia').value.trim()   || null,
+      stav:         document.getElementById('fStav').value.trim()      || null,
+      prizemie:     document.getElementById('fPrizemie').value.trim()  || null,
+      poschodie:    document.getElementById('fPoschodie').value.trim() || null,
       na_kluc:      document.getElementById('fNaKluc').value === 'true',
       vlastnictvo:  document.getElementById('fVlastnictvo').value.trim() || 'Osobné',
       aktivny:      document.getElementById('fAktivny').value === 'true',
-      folder:       document.getElementById('fFolder').value.trim() || null,
+      folder:       document.getElementById('fFolder').value.trim()    || null,
       extra_specs:  getExtraSpecs(),
     };
   }
 
   async function save() {
     const body = getBody();
-    if (!body.nazov) { toast('Zadajte názov', 'red'); return; }
+    if (!body.nazov) { toast('Zadajte názov','red'); return; }
     if (!body.cena)  { toast('Zadajte cenu', 'red'); return; }
     if (!body.obec)  { toast('Zadajte obec', 'red'); return; }
-    if (!body.popis) { toast('Zadajte popis', 'red'); return; }
+    if (!body.popis) { toast('Zadajte popis','red'); return; }
 
-    const btn   = document.getElementById('btnSave');
-    const label = document.getElementById('btnSaveLabel');
+    const btn = document.getElementById('btnSave');
+    const lbl = document.getElementById('btnSaveLabel');
     btn.disabled = true;
-    label.textContent = 'Ukladám...';
 
     try {
-      // Auto-preklad cez DeepL
-      label.textContent = 'Prekladám...';
-      const langs = [
-        { code: 'en', deepl: 'EN-GB' },
-        { code: 'de', deepl: 'DE'    },
-        { code: 'ru', deepl: 'RU'    },
-        { code: 'uk', deepl: 'UK'    },
-      ];
-
-      for (const lang of langs) {
+      lbl.textContent = 'Prekladám...';
+      for (const { code, deepl } of [{ code:'en',deepl:'EN-GB'},{ code:'de',deepl:'DE'},{ code:'ru',deepl:'RU'},{ code:'uk',deepl:'UK'}]) {
         try {
           const res = await fetch(CONFIG.DEEPL_URL, {
-            method: 'POST',
-            headers: {
-              'Authorization': `DeepL-Auth-Key ${CONFIG.DEEPL_KEY}`,
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              text: [body.nazov, body.popis],
-              source_lang: 'SK',
-              target_lang: lang.deepl,
-            })
+            method:'POST',
+            headers:{ 'Authorization':`DeepL-Auth-Key ${CONFIG.DEEPL_KEY}`, 'Content-Type':'application/json' },
+            body:JSON.stringify({ text:[body.nazov,body.popis], source_lang:'SK', target_lang:deepl })
           });
           if (res.ok) {
             const data = await res.json();
-            body[`nazov_${lang.code}`] = data.translations[0].text;
-            body[`popis_${lang.code}`] = data.translations[1].text;
+            body[`nazov_${code}`] = data.translations[0].text;
+            body[`popis_${code}`] = data.translations[1].text;
           }
-        } catch(e) {
-          console.warn(`Preklad ${lang.code} zlyhal:`, e);
-        }
+        } catch(e) { console.warn(`Preklad ${code}:`, e); }
       }
 
-      label.textContent = 'Ukladám do databázy...';
+      lbl.textContent = 'Ukladám...';
       let savedId = editId;
-
       if (editId) {
         await sb.patch('inzeraty', editId, body);
       } else {
@@ -730,31 +648,23 @@ const Form = (() => {
         savedId = result[0]?.id;
       }
 
-      // Upload photos
       const files = selectedFiles.filter(Boolean);
-      if (files.length > 0 && savedId) {
+      if (files.length && savedId) {
         const logEl = document.getElementById('uploadLog');
-        logEl.innerHTML = '';
-        logEl.classList.add('show');
-
+        logEl.innerHTML = ''; logEl.classList.add('show');
         const uploadedUrls = [];
         for (let i = 0; i < files.length; i++) {
           const file = files[i];
           const ext  = file.name.split('.').pop();
           const path = `inzeraty/${savedId}/FD${i+1}.${ext}`;
-
-          logItem(logEl, `Nahrávam FD${i+1}.${ext}…`, '');
+          logItem(logEl, `Nahrávam FD${i+1}.${ext}...`, '');
           try {
             const url = await sb.uploadPhoto(CONFIG.BUCKET, path, file);
             uploadedUrls.push(url);
             logItem(logEl, `✓ FD${i+1}.${ext}`, 'ok');
-          } catch(err) {
-            logItem(logEl, `✗ FD${i+1}.${ext}: ${err.message}`, 'err');
-          }
+          } catch(err) { logItem(logEl, `✗ ${err.message}`, 'err'); }
         }
-
-        if (uploadedUrls.length > 0) {
-          // Get existing urls and merge
+        if (uploadedUrls.length) {
           const existing = Listings.get(savedId)?.foto_urls || [];
           await sb.patch('inzeraty', savedId, {
             foto_urls: [...(Array.isArray(existing) ? existing : []), ...uploadedUrls]
@@ -764,107 +674,82 @@ const Form = (() => {
 
       toast(editId ? 'Inzerát aktualizovaný ✓' : 'Inzerát pridaný ✓', 'green');
       Notify.onInzeratSaved(body.nazov, !editId);
-      cancel();
-      Listings.load();
+      cancel(); Listings.load();
     } catch(err) {
       toast('Chyba: ' + err.message, 'red');
     } finally {
-      btn.disabled = false;
-      label.textContent = 'Uložiť inzerát';
+      btn.disabled = false; lbl.textContent = 'Uložiť inzerát';
     }
   }
 
   function logItem(container, text, type) {
     const div = document.createElement('div');
-    div.className = 'log-item' + (type === 'ok' ? ' log-ok' : type === 'err' ? ' log-err' : '');
+    div.className = 'log-item' + (type==='ok' ? ' log-ok' : type==='err' ? ' log-err' : '');
     div.textContent = text;
     container.appendChild(div);
     container.scrollTop = container.scrollHeight;
   }
 
-  function esc(s) { return String(s||'').replace(/"/g,'&quot;'); }
-
   return { openNew, openEdit, cancel, save, addSpec, handleFiles, removePhoto };
 })();
 
-/* ── TOAST ── */
-function toast(msg, type = '') {
+function toast(msg, type='') {
   const el = document.getElementById('toast');
   el.textContent = msg;
-  el.className = 'toast show' + (type ? ' ' + type : '');
+  el.className = 'toast show' + (type ? ' '+type : '');
   clearTimeout(toast._t);
   toast._t = setTimeout(() => el.classList.remove('show'), 3500);
 }
 
-/* ══════════════════════════════════════════════════════════════
-   NOTIFY ENGINE — Telegram cez CallMeBot
-══════════════════════════════════════════════════════════════ */
 const Notify = (() => {
-
   async function send(msg) {
     try {
-      const encoded = encodeURIComponent(msg);
-      const url = `https://api.callmebot.com/text.php?user=@${CONFIG.TELEGRAM_USER}&text=${encoded}`;
-      // Image ping — obchádza CORS bez servera
+      const url = `https://api.callmebot.com/text.php?user=@${CONFIG.TELEGRAM_USER}&text=${encodeURIComponent(msg)}`;
       return new Promise(resolve => {
         const img = new Image();
         img.onload = img.onerror = () => resolve();
         img.src = url;
-        setTimeout(resolve, 3000); // fallback timeout
+        setTimeout(resolve, 3000);
       });
-    } catch(e) {
-      console.warn('Notify error:', e);
-    }
+    } catch(e) { console.warn('Notify:', e); }
   }
 
   function now() {
-    return new Date().toLocaleString('sk-SK', {
-      day:'2-digit', month:'2-digit', year:'numeric',
-      hour:'2-digit', minute:'2-digit'
-    });
+    return new Date().toLocaleString('sk-SK', { day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit' });
   }
 
   function onInzeratSaved(nazov, isNew) {
-    const akcia = isNew ? 'pridaný ✅' : 'upravený ✏️';
-    send(`484.sk Admin%0AInzerát ${akcia}%0A"${nazov}"%0A${now()}`);
+    send(`484.sk Admin\nInzerát ${isNew ? 'pridaný ✅' : 'upravený ✏️'}\n"${nazov}"\n${now()}`);
   }
 
   function onInzeratDeleted(nazov) {
-    send(`484.sk Admin 🗑%0AInzerát vymazaný%0A"${nazov}"%0A${now()}`);
+    send(`484.sk Admin 🗑\nInzerát vymazaný\n"${nazov}"\n${now()}`);
   }
 
   function onLogin() {
-    send(`484.sk Admin 🔐%0APrihlásenie do admin panelu%0A${now()}`);
+    send(`484.sk Admin 🔐\nPrihlásenie do admin panelu\n${now()}`);
   }
 
   async function reportProblem() {
     const popis = prompt('Opíšte problém (môžete nechať prázdne):') ?? '';
-    const info = [
-      `484.sk ⚠️ PROBLÉM NAHLÁSENÝ`,
+    await send([
+      '484.sk ⚠️ PROBLÉM',
       `Čas: ${now()}`,
       `Popis: ${popis || 'Bez popisu'}`,
       `URL: ${window.location.href}`,
       `Zariadenie: ${navigator.userAgent.includes('Mobile') ? 'Mobil' : 'Desktop'}`,
-      `Prehliadač: ${navigator.userAgent.split(') ')[0].split('(')[1] || 'Neznámy'}`,
-    ].join('%0A');
-    await send(info);
-    toast('Problém nahlásený Danielovi ✓', 'green');
+    ].join('\n'));
+    toast('Problém nahlásený ✓', 'green');
   }
 
   return { send, onInzeratSaved, onInzeratDeleted, onLogin, reportProblem };
 })();
 
-/* ── DRAG & DROP ── */
 document.addEventListener('DOMContentLoaded', () => {
   const dz = document.getElementById('dropzone');
   dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('drag-over'); });
   dz.addEventListener('dragleave', () => dz.classList.remove('drag-over'));
-  dz.addEventListener('drop', e => {
-    e.preventDefault();
-    dz.classList.remove('drag-over');
-    Form.handleFiles(e.dataTransfer.files);
-  });
-
+  dz.addEventListener('drop', e => { e.preventDefault(); dz.classList.remove('drag-over'); Form.handleFiles(e.dataTransfer.files); });
   Auth.tryAutoLogin();
 });
 </script>

@@ -3,8 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>484.sk — Nehnuteľnosti priamo od majiteľa</title>
-<meta name="description" content="Predaj nehnuteľností priamo od majiteľa, bez realitnej kancelárie a bez provízií. Aktuálne ponuky v Košickom kraji.">
+<meta name="description" content="Predaj moderných novostavieb priamo od majiteľa v Mokranciach, 20 minút od Košíc. Rodinné domy triedy A0, bez realitnej kancelárie, bez provízií.">
+<meta name="keywords" content="predaj domu Mokrance, rodinný dom Košice, novostavba Košický kraj, predaj nehnuteľnosti bez realitky, dom trieda A0">
+<meta name="author" content="484.sk">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://484.sk/">
+
+<!-- Open Graph (Facebook, WhatsApp, iMessage) -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://484.sk/">
+<meta property="og:title" content="484.sk — Predaj rodinných domov Mokrance">
+<meta property="og:description" content="Moderné novostavby triedy A0 v Mokranciach, 20 minút od Košíc. Priamy predaj od majiteľa — bez provízií, bez realitky.">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/not1draggy/mokrance.V2@main/dom1/FD1.png">
+<meta property="og:locale" content="sk_SK">
+<meta property="og:site_name" content="484.sk">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="484.sk — Predaj rodinných domov Mokrance">
+<meta name="twitter:description" content="Moderné novostavby triedy A0, 20 minút od Košíc. Priamy predaj od majiteľa.">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/not1draggy/mokrance.V2@main/dom1/FD1.png">
+
+<title>484.sk — Predaj rodinných domov Mokrance | Košický kraj</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -247,6 +267,22 @@ button{font-family:var(--font);cursor:pointer}
 .footer-links a{font-size:12px;color:var(--text-soft);transition:color var(--transition)}
 .footer-links a:hover{color:var(--green)}
 
+/* ── LANGUAGE SWITCHER ── */
+.lang-switcher{position:relative;display:flex;align-items:center}
+.lang-btn{display:flex;align-items:center;gap:5px;padding:6px 10px;border:1.5px solid var(--border-mid);border-radius:var(--radius-sm);background:white;cursor:pointer;font-family:var(--font);font-size:12.5px;font-weight:600;color:var(--text-mid);transition:all var(--transition)}
+.lang-btn:hover{border-color:var(--green);color:var(--green)}
+.lang-flag{font-size:14px;line-height:1}
+.lang-dropdown{position:absolute;top:calc(100% + 6px);right:0;background:white;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-md);z-index:500;min-width:150px;overflow:hidden;display:none}
+.lang-dropdown.open{display:block}
+.lang-option{display:flex;align-items:center;gap:10px;padding:9px 14px;font-size:13px;color:var(--text-mid);cursor:pointer;transition:background var(--transition);border:none;background:none;width:100%;text-align:left;font-family:var(--font)}
+.lang-option:hover{background:var(--green-light)}
+.lang-option.active{background:var(--green-light);color:var(--green);font-weight:600}
+.lang-option-flag{font-size:15px}
+.lang-option-name{flex:1}
+.lang-option-code{font-size:11px;color:var(--text-xsoft);font-family:var(--mono)}
+.translating-bar{display:none;position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--text);color:white;padding:10px 20px;border-radius:20px;font-size:13px;font-weight:500;z-index:9999;align-items:center;gap:8px;box-shadow:var(--shadow-md)}
+.translating-bar.show{display:flex}
+
 /* ── RESPONSIVE ── */
 @media(max-width:900px){
   .detail-grid{grid-template-columns:1fr}
@@ -291,6 +327,18 @@ button{font-family:var(--font);cursor:pointer}
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
         Všetky ponuky
       </button>
+      <button class="btn btn-ghost" id="btnFilterToggle">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+        Filter
+      </button>
+      <div class="lang-switcher" id="langSwitcher">
+        <button class="lang-btn" id="langBtn" onclick="LangEngine.toggle()">
+          <span class="lang-flag" id="langFlag">🇸🇰</span>
+          <span id="langCode">SK</span>
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="lang-dropdown" id="langDropdown"></div>
+      </div>
       <a id="headerTel" href="tel:0905323484" class="btn btn-primary">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.63 3.44 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6.11 6.11l.98-.98a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
         Volať
@@ -396,10 +444,154 @@ button{font-family:var(--font);cursor:pointer}
   </div>
 </footer>
 
+<!-- TRANSLATING BAR -->
+<div class="translating-bar" id="translatingBar">
+  <div class="spinner"></div>
+  <span id="translatingMsg">Prekladám...</span>
+</div>
+
 <!-- CONFIG — načítaj pred app.js -->
 <script src="config.js"></script>
 
 <script>
+/* ═══════════════════════════════════════════════════════════════
+   LANGUAGE ENGINE — DeepL powered
+   ═══════════════════════════════════════════════════════════════ */
+const LangEngine = (() => {
+  let currentLang = 'sk';
+  let cache = {}; // cache preložených textov
+
+  // Polia ktoré prekladáme
+  const TRANSLATE_FIELDS = ['nazov','popis','stav','dispozicia','obec'];
+
+  function init() {
+    const dropdown = document.getElementById('langDropdown');
+    CONFIG.LANGUAGES.forEach(lang => {
+      const btn = document.createElement('button');
+      btn.className = 'lang-option' + (lang.code === 'sk' ? ' active' : '');
+      btn.innerHTML = `
+        <span class="lang-option-flag">${lang.flag}</span>
+        <span class="lang-option-name">${lang.name}</span>
+        <span class="lang-option-code">${lang.label}</span>
+      `;
+      btn.addEventListener('click', () => switchLang(lang));
+      dropdown.appendChild(btn);
+    });
+
+    // Zatvorenie po kliku mimo
+    document.addEventListener('click', e => {
+      if (!document.getElementById('langSwitcher').contains(e.target)) {
+        document.getElementById('langDropdown').classList.remove('open');
+      }
+    });
+  }
+
+  function toggle() {
+    document.getElementById('langDropdown').classList.toggle('open');
+  }
+
+  async function switchLang(lang) {
+    document.getElementById('langDropdown').classList.remove('open');
+    if (lang.code === currentLang) return;
+
+    currentLang = lang.code;
+
+    // Update button
+    document.getElementById('langFlag').textContent = lang.flag;
+    document.getElementById('langCode').textContent = lang.label;
+
+    // Update html lang attr
+    document.documentElement.lang = lang.code;
+
+    // Update active state
+    document.querySelectorAll('.lang-option').forEach((btn, i) => {
+      btn.classList.toggle('active', CONFIG.LANGUAGES[i].code === lang.code);
+    });
+
+    if (lang.code === 'sk') {
+      // Rerender z originálnych dát
+      App.rerender();
+      return;
+    }
+
+    // Preložiť všetky načítané inzeráty
+    showBar(`Prekladám do ${lang.name}...`);
+    try {
+      await translateListings(lang);
+    } catch(err) {
+      console.error('Translation error:', err);
+    }
+    hideBar();
+  }
+
+  async function translateText(texts, targetLang) {
+    const cacheKey = `${targetLang}:${texts.join('||')}`;
+    if (cache[cacheKey]) return cache[cacheKey];
+
+    const res = await fetch(CONFIG.DEEPL_URL, {
+      method: 'POST',
+      headers: {
+        'Authorization': `DeepL-Auth-Key ${CONFIG.DEEPL_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        text: texts,
+        source_lang: 'SK',
+        target_lang: targetLang,
+      })
+    });
+
+    if (!res.ok) throw new Error(`DeepL error: ${res.status}`);
+    const data = await res.json();
+    const translated = data.translations.map(t => t.text);
+    cache[cacheKey] = translated;
+    return translated;
+  }
+
+  async function translateListings(lang) {
+    const listings = App.getListings();
+    if (!listings.length) return;
+
+    // Zbierieme všetky texty na preklad
+    const allTexts = [];
+    const mapping = []; // {listingIdx, field, textIdx}
+
+    listings.forEach((item, li) => {
+      TRANSLATE_FIELDS.forEach(field => {
+        if (item[field]) {
+          mapping.push({ li, field, ti: allTexts.length });
+          allTexts.push(item[field]);
+        }
+      });
+    });
+
+    if (!allTexts.length) return;
+
+    const translated = await translateText(allTexts, lang.deepl);
+
+    // Aplikujeme preklady
+    const translatedListings = listings.map(item => ({...item}));
+    mapping.forEach(({ li, field, ti }) => {
+      translatedListings[li][field] = translated[ti];
+    });
+
+    App.renderWithData(translatedListings);
+  }
+
+  function showBar(msg) {
+    const bar = document.getElementById('translatingBar');
+    document.getElementById('translatingMsg').textContent = msg;
+    bar.classList.add('show');
+  }
+
+  function hideBar() {
+    document.getElementById('translatingBar').classList.remove('show');
+  }
+
+  function getCurrentLang() { return currentLang; }
+
+  return { init, toggle, switchLang, getCurrentLang };
+})();
 /* ═══════════════════════════════════════════════════════════════
    484.SK — App Core (dynamický, Supabase-powered)
    ═══════════════════════════════════════════════════════════════ */
@@ -698,6 +890,14 @@ const App = (() => {
     switchView('viewListings');
   }
 
+  function toggleFilterBar() {
+    document.getElementById('filterBar').classList.toggle('hidden');
+  }
+
+  function hideFilterBar() {
+    document.getElementById('filterBar').classList.add('hidden');
+  }
+
   /* ── FILTERS ── */
   function setFilter(group, val) {
     filters[group] = val;
@@ -739,7 +939,16 @@ const App = (() => {
       p.addEventListener('click', () => setFilter('typ', p.dataset.val)));
     document.querySelectorAll('#filterKraj .pill').forEach(p =>
       p.addEventListener('click', () => setFilter('kraj', p.dataset.val)));
-    document.getElementById('btnReset').addEventListener('click', resetFilters);
+
+    // "Zrušiť" tlačidlo zatvorí filter bar (nielen vymaže filtre)
+    document.getElementById('btnReset').addEventListener('click', () => {
+      resetFilters();
+      hideFilterBar();
+    });
+
+    // Toggle filter bar z headeru
+    document.getElementById('btnFilterToggle').addEventListener('click', toggleFilterBar);
+
     document.getElementById('logoLink').addEventListener('click', e => { e.preventDefault(); goListings(); });
     document.getElementById('btnBack').addEventListener('click',  e => { e.preventDefault(); goListings(); });
 
@@ -748,11 +957,28 @@ const App = (() => {
     first.style.display = 'block';
     first.classList.add('active');
 
+    // Init language engine
+    LangEngine.init();
+
     loadListings();
   }
 
+  function getListings() { return allListings; }
+
+  function rerender() { renderCards(allListings); }
+
+  function renderWithData(data) {
+    const stack = document.getElementById('listingsStack');
+    stack.innerHTML = '';
+    data.forEach(item => {
+      const card = buildCard(item);
+      stack.appendChild(card);
+    });
+    applyFilters();
+  }
+
   document.addEventListener('DOMContentLoaded', init);
-  return { goListings, setFilter, resetFilters };
+  return { goListings, setFilter, resetFilters, getListings, rerender, renderWithData };
 })();
 
 /* ══════════════════════════════════════════════════════════════
