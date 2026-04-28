@@ -282,19 +282,18 @@ button{font-family:var(--font);cursor:pointer}
 .footer-links a{font-size:12px;color:var(--text-soft);transition:color var(--transition)}
 .footer-links a:hover{color:var(--green)}
 
-/* ── LANGUAGE SWITCHER ── */
+/* ── GOOGLE TRANSLATE ── */
+#google_translate_element{display:none}
 .lang-switcher{position:relative;display:flex;align-items:center}
 .lang-btn{display:flex;align-items:center;gap:5px;padding:6px 10px;border:1.5px solid var(--border-mid);border-radius:var(--radius-sm);background:white;cursor:pointer;font-family:var(--font);font-size:12.5px;font-weight:600;color:var(--text-mid);transition:all var(--transition)}
 .lang-btn:hover{border-color:var(--green);color:var(--green)}
-.lang-flag{font-size:14px;line-height:1}
-.lang-dropdown{position:absolute;top:calc(100% + 6px);right:0;background:white;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-md);z-index:500;min-width:150px;overflow:hidden;display:none}
+.lang-dropdown{position:absolute;top:calc(100% + 6px);right:0;background:white;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-md);z-index:500;min-width:160px;overflow:hidden;display:none}
 .lang-dropdown.open{display:block}
 .lang-option{display:flex;align-items:center;gap:10px;padding:9px 14px;font-size:13px;color:var(--text-mid);cursor:pointer;transition:background var(--transition);border:none;background:none;width:100%;text-align:left;font-family:var(--font)}
 .lang-option:hover{background:var(--green-light)}
 .lang-option.active{background:var(--green-light);color:var(--green);font-weight:600}
 .lang-option-flag{font-size:15px}
 .lang-option-name{flex:1}
-.lang-option-code{font-size:11px;color:var(--text-xsoft);font-family:var(--mono)}
 .translating-bar{display:none;position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--text);color:white;padding:10px 20px;border-radius:20px;font-size:13px;font-weight:500;z-index:9999;align-items:center;gap:8px;box-shadow:var(--shadow-md)}
 .translating-bar.show{display:flex}
 
@@ -465,39 +464,37 @@ button{font-family:var(--font);cursor:pointer}
   <span id="translatingMsg">Prekladám...</span>
 </div>
 
-<!-- CONFIG — načítaj pred app.js -->
+<!-- CONFIG -->
 <script src="config.js"></script>
 
 <script>
 /* ═══════════════════════════════════════════════════════════════
-   LANGUAGE ENGINE — DeepL powered
+   LANGUAGE ENGINE — cez Supabase Edge Function (bez CORS)
    ═══════════════════════════════════════════════════════════════ */
 const LangEngine = (() => {
   let currentLang = 'sk';
-  let cache = {}; // cache preložených textov
-
-  // Polia ktoré prekladáme
-  const TRANSLATE_FIELDS = ['nazov','popis','stav','dispozicia','obec'];
+  let cache = {};
+  const FIELDS = ['nazov','popis','stav','dispozicia','obec'];
+  const LANGS = [
+    { code:'sk', label:'SK', flag:'🇸🇰', deepl:null,    name:'Slovenčina' },
+    { code:'en', label:'EN', flag:'🇬🇧', deepl:'EN-GB', name:'English'    },
+    { code:'de', label:'DE', flag:'🇩🇪', deepl:'DE',    name:'Deutsch'    },
+    { code:'ru', label:'RU', flag:'🇷🇺', deepl:'RU',    name:'Русский'    },
+    { code:'uk', label:'UK', flag:'🇺🇦', deepl:'UK',    name:'Українська' },
+  ];
 
   function init() {
-    const dropdown = document.getElementById('langDropdown');
-    CONFIG.LANGUAGES.forEach(lang => {
+    const dd = document.getElementById('langDropdown');
+    LANGS.forEach(lang => {
       const btn = document.createElement('button');
       btn.className = 'lang-option' + (lang.code === 'sk' ? ' active' : '');
-      btn.innerHTML = `
-        <span class="lang-option-flag">${lang.flag}</span>
-        <span class="lang-option-name">${lang.name}</span>
-        <span class="lang-option-code">${lang.label}</span>
-      `;
+      btn.innerHTML = `<span class="lang-option-flag">${lang.flag}</span><span class="lang-option-name">${lang.name}</span>`;
       btn.addEventListener('click', () => switchLang(lang));
-      dropdown.appendChild(btn);
+      dd.appendChild(btn);
     });
-
-    // Zatvorenie po kliku mimo
     document.addEventListener('click', e => {
-      if (!document.getElementById('langSwitcher').contains(e.target)) {
+      if (!document.getElementById('langSwitcher').contains(e.target))
         document.getElementById('langDropdown').classList.remove('open');
-      }
     });
   }
 
@@ -508,70 +505,35 @@ const LangEngine = (() => {
   async function switchLang(lang) {
     document.getElementById('langDropdown').classList.remove('open');
     if (lang.code === currentLang) return;
-
     currentLang = lang.code;
 
-    // Update button
     document.getElementById('langFlag').textContent = lang.flag;
     document.getElementById('langCode').textContent = lang.label;
-
-    // Update html lang attr
     document.documentElement.lang = lang.code;
-
-    // Update active state
     document.querySelectorAll('.lang-option').forEach((btn, i) => {
-      btn.classList.toggle('active', CONFIG.LANGUAGES[i].code === lang.code);
+      btn.classList.toggle('active', LANGS[i].code === lang.code);
     });
 
-    if (lang.code === 'sk') {
-      // Rerender z originálnych dát
-      App.rerender();
-      return;
-    }
+    if (lang.code === 'sk') { App.rerender(); return; }
 
-    // Preložiť všetky načítané inzeráty
     showBar(`Prekladám do ${lang.name}...`);
     try {
-      await translateListings(lang);
+      await translateAll(lang);
     } catch(err) {
-      console.error('Translation error:', err);
+      console.error('Preklad zlyhal:', err);
     }
     hideBar();
   }
 
-  async function translateText(texts, targetLang) {
-    const cacheKey = `${targetLang}:${texts.join('||')}`;
-    if (cache[cacheKey]) return cache[cacheKey];
-
-    const res = await fetch(CONFIG.DEEPL_URL, {
-      method: 'POST',
-      headers: {
-        'Authorization': `DeepL-Auth-Key ${CONFIG.DEEPL_KEY}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        text: texts,
-        source_lang: 'SK',
-        target_lang: targetLang,
-      })
-    });
-
-    if (!res.ok) throw new Error(`DeepL error: ${res.status}`);
-    const data = await res.json();
-    const translated = data.translations.map(t => t.text);
-    cache[cacheKey] = translated;
-    return translated;
-  }
-
-  async function translateListings(lang) {
+  async function translateAll(lang) {
     const listings = App.getListings();
     if (!listings.length) return;
 
     const allTexts = [];
-    const mapping = [];
+    const mapping  = [];
 
     listings.forEach((item, li) => {
-      TRANSLATE_FIELDS.forEach(field => {
+      FIELDS.forEach(field => {
         if (item[field]) {
           mapping.push({ li, field, ti: allTexts.length });
           allTexts.push(item[field]);
@@ -581,32 +543,44 @@ const LangEngine = (() => {
 
     if (!allTexts.length) return;
 
-    const translated = await translateText(allTexts, lang.deepl);
+    // Skontroluj cache
+    const cacheKey = `${lang.deepl}:${allTexts.join('|')}`;
+    let translated;
+    if (cache[cacheKey]) {
+      translated = cache[cacheKey];
+    } else {
+      // Volaj Edge Function namiesto DeepL priamo
+      const res = await fetch(CONFIG.TRANSLATE_FN, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ texts: allTexts, target_lang: lang.deepl }),
+      });
+      if (!res.ok) throw new Error(`Edge Function error: ${res.status}`);
+      const data = await res.json();
+      translated = data.translations.map(t => t.text);
+      cache[cacheKey] = translated;
+    }
 
-    const translatedListings = listings.map(item => ({...item}));
+    const result = listings.map(item => ({...item}));
     mapping.forEach(({ li, field, ti }) => {
-      translatedListings[li][field] = translated[ti];
+      result[li][field] = translated[ti];
     });
 
-    // Uložíme preložené dáta do App aj pre detail view
-    App.renderWithData(translatedListings);
-    App.setTranslatedListings(translatedListings);
+    App.renderWithData(result);
+    App.setTranslatedListings(result);
   }
 
   function showBar(msg) {
-    const bar = document.getElementById('translatingBar');
     document.getElementById('translatingMsg').textContent = msg;
-    bar.classList.add('show');
+    document.getElementById('translatingBar').classList.add('show');
   }
-
   function hideBar() {
     document.getElementById('translatingBar').classList.remove('show');
   }
 
-  function getCurrentLang() { return currentLang; }
-
-  return { init, toggle, switchLang, getCurrentLang };
+  return { init, toggle, getCurrentLang: () => currentLang };
 })();
+
 /* ═══════════════════════════════════════════════════════════════
    484.SK — App Core (dynamický, Supabase-powered)
    ═══════════════════════════════════════════════════════════════ */
@@ -978,6 +952,7 @@ const App = (() => {
     // Init language engine
     LangEngine.init();
 
+    // Init complete
     loadListings();
   }
 

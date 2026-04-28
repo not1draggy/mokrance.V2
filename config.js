@@ -7,9 +7,8 @@ const CONFIG = {
   SUPABASE_URL:     'https://vrzztcgwmmzegkiexgpl.supabase.co',
   SUPABASE_ANON:    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZyenp0Y2d3bW16ZWdraWV4Z3BsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYyNTA5NjUsImV4cCI6MjA5MTgyNjk2NX0.tHAGNJdnjW1O7fH8jbHVzI52il9HFhOuDMxzVXj6TFE',
 
-  // ── DeepL Prekladač ───────────────────────────────────────────
-  DEEPL_KEY:        '193a73ce-789a-4f5d-9b43-b42f255fbb0c:fx',
-  DEEPL_URL:        'https://api-free.deepl.com/v2/translate',
+  // ── Edge Functions ────────────────────────────────────────────
+  TRANSLATE_FN:     'https://vrzztcgwmmzegkiexgpl.supabase.co/functions/v1/rapid-api',
 
   // ── Jazyky ────────────────────────────────────────────────────
   LANGUAGES: [
