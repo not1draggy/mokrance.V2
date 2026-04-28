@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="Predaj moderných novostavieb priamo od majiteľa v Mokranciach, 20 minút od Košíc. Rodinné domy triedy A0, bez realitnej kancelárie, bez provízií. Aktuálne ponuky na webe.">
+<meta name="keywords" content="predaj domu Mokrance, rodinný dom Košice, novostavba Košický kraj, predaj nehnuteľnosti bez realitky, dom trieda A0">
+<meta name="author" content="484.sk">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://484.sk/">
+
+<!-- Open Graph (Facebook, WhatsApp, iMessage) -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://484.sk/">
+<meta property="og:title" content="484.sk — Predaj rodinných domov Mokrance">
+<meta property="og:description" content="Moderné novostavby triedy A0 v Mokranciach, 20 minút od Košíc. Priamy predaj od majiteľa — bez provízií, bez realitky.">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/not1draggy/mokrance.V2@main/dom1/FD1.png">
+<meta property="og:locale" content="sk_SK">
+<meta property="og:site_name" content="484.sk">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="484.sk — Predaj rodinných domov Mokrance">
+<meta name="twitter:description" content="Moderné novostavby triedy A0, 20 minút od Košíc. Priamy predaj od majiteľa.">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/not1draggy/mokrance.V2@main/dom1/FD1.png">
+
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="alternate icon" href="favicon.svg">
+
+<!-- Structured Data pre Google -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "RealEstateAgent",
+  "name": "484.sk",
+  "url": "https://484.sk",
+  "description": "Predaj rodinných domov priamo od majiteľa v Mokranciach, Košický kraj.",
+  "areaServed": "Košický kraj, Slovensko"
+}
+</script>
+
+<title>484.sk — Predaj rodinných domov Mokrance | Košický kraj</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ── DESIGN TOKENS ── */
+:root {
+  --green:         #1a6b3c;
+  --green-mid:     #218a4d;
+  --green-dark:    #145530;
+  --green-light:   #f0f7f3;
+  --green-border:  #c2ddd0;
+  --green-glow:    rgba(26,107,60,0.12);
+  --white:         #ffffff;
+  --surface:       #f5f6f5;
+  --surface-2:     #eff0ef;
+  --border:        #e0e2e0;
+  --border-mid:    #ccceca;
+  --text:          #1a1c1a;
+  --text-mid:      #4a524d;
+  --text-soft:     #6e7870;
+  --text-xsoft:    #9da89f;
+  --shadow-xs:     0 1px 2px rgba(0,0,0,0.05);
+  --shadow-sm:     0 2px 8px rgba(0,0,0,0.07),0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md:     0 8px 24px rgba(0,0,0,0.09),0 2px 6px rgba(0,0,0,0.05);
+  --shadow-lg:     0 20px 60px rgba(0,0,0,0.12),0 4px 12px rgba(0,0,0,0.06);
+  --font:          'DM Sans',-apple-system,sans-serif;
+  --mono:          'DM Mono','SF Mono',monospace;
+  --radius-sm:     3px;
+  --radius:        6px;
+  --radius-lg:     10px;
+  --header-h:      54px;
+  --transition:    0.2s cubic-bezier(0.4,0,0.2,1);
+  --transition-lg: 0.35s cubic-bezier(0.4,0,0.2,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:15px;scroll-behavior:smooth;height:100%;-webkit-text-size-adjust:100%}
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:var(--surface)}
+::-webkit-scrollbar-thumb{background:var(--green-border);border-radius:99px}
+::-webkit-scrollbar-thumb:hover{background:var(--green)}
+body{font-family:var(--font);background:var(--surface);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column;overflow-x:hidden}
+main{flex:1}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+button{font-family:var(--font);cursor:pointer}
+
+/* ── VIEWS ── */
+.view{opacity:0;transform:translateY(6px);transition:opacity var(--transition-lg),transform var(--transition-lg);pointer-events:none;display:none}
+.view.active{opacity:1;transform:translateY(0);pointer-events:auto;display:block}
+
+/* ── HEADER ── */
+.header{position:sticky;top:0;z-index:200;height:var(--header-h);background:rgba(255,255,255,0.97);backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid var(--border);box-shadow:var(--shadow-xs)}
+.header-inner{max-width:1160px;margin:0 auto;padding:0 20px;height:100%;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:17px;font-weight:500;color:var(--green);letter-spacing:-0.03em;flex-shrink:0}
+.logo-mark{width:28px;height:28px;background:var(--green);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.logo-mark svg{width:14px;height:14px}
+.header-right{display:flex;align-items:center;gap:8px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:8px 16px;font-family:var(--font);font-size:13px;font-weight:600;letter-spacing:0.01em;border-radius:var(--radius-sm);border:1.5px solid transparent;cursor:pointer;transition:all var(--transition);white-space:nowrap;line-height:1}
+.btn-ghost{background:transparent;color:var(--text-mid);border-color:var(--border-mid)}
+.btn-ghost:hover{border-color:var(--green);color:var(--green);background:var(--green-light)}
+.btn-primary{background:var(--green);color:white;border-color:var(--green);box-shadow:0 1px 3px rgba(26,107,60,0.3)}
+.btn-primary:hover{background:var(--green-dark);border-color:var(--green-dark);box-shadow:0 3px 10px rgba(26,107,60,0.35);transform:translateY(-1px)}
+.btn-lg{padding:13px 24px;font-size:14px;width:100%;border-radius:var(--radius);letter-spacing:0.02em}
+
+/* ── FILTER BAR ── */
+.filter-bar{background:white;border-bottom:1px solid var(--border);position:sticky;top:var(--header-h);z-index:100}
+.filter-bar.hidden{display:none}
+.filter-inner{max-width:1160px;margin:0 auto;padding:10px 20px;display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+.filter-group{display:flex;flex-direction:column;gap:4px}
+.filter-label{font-family:var(--mono);font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-xsoft)}
+.filter-pills{display:flex;gap:4px;flex-wrap:wrap}
+.pill{padding:4px 11px;border-radius:20px;font-size:12.5px;font-weight:500;border:1.5px solid var(--border-mid);color:var(--text-mid);background:white;cursor:pointer;transition:all var(--transition);user-select:none;white-space:nowrap}
+.pill:hover{border-color:var(--green);color:var(--green)}
+.pill.active{background:var(--green);border-color:var(--green);color:white}
+.filter-sep{width:1px;height:32px;background:var(--border);flex-shrink:0;align-self:flex-end;margin-bottom:1px}
+.filter-meta{margin-left:auto;display:flex;align-items:center;gap:10px;align-self:flex-end;padding-bottom:1px}
+.results-label{font-family:var(--mono);font-size:12px;color:var(--text-xsoft)}
+.btn-reset{font-size:11.5px;color:var(--text-soft);background:none;border:none;cursor:pointer;padding:3px 6px;border-radius:3px;transition:color var(--transition);font-family:var(--font)}
+.btn-reset:hover{color:var(--green)}
+
+/* ── MOBILE FILTER SCROLL ── */
+@media(max-width:680px){
+  .filter-inner{flex-direction:column;gap:0;padding:0}
+  .filter-group{width:100%;padding:8px 16px 0}
+  .filter-group:last-of-type{padding-bottom:8px}
+  .filter-pills{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px}
+  .filter-pills::-webkit-scrollbar{display:none}
+  .filter-sep{display:none}
+  .filter-meta{width:100%;padding:6px 16px 8px;border-top:1px solid var(--border);margin-left:0;justify-content:space-between}
+}
+
+/* ── PAGE ── */
+.page-wrap{max-width:1160px;margin:0 auto;padding:20px 20px 60px}
+.page-topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px}
+.breadcrumb{display:flex;align-items:center;gap:5px;font-size:12.5px;color:var(--text-soft);font-family:var(--mono);flex-wrap:wrap}
+.breadcrumb a{color:var(--green)}
+.breadcrumb-sep{color:var(--text-xsoft);font-size:10px}
+.breadcrumb strong{color:var(--text-mid);font-weight:500}
+
+/* ── SKELETON LOADER ── */
+.skeleton{background:linear-gradient(90deg,var(--surface-2) 25%,var(--border) 50%,var(--surface-2) 75%);background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:4px}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.skeleton-card{height:155px;border-radius:var(--radius);margin-bottom:3px}
+
+/* ── LISTING CARDS ── */
+.listings-stack{display:flex;flex-direction:column;gap:3px}
+.listing-card{background:white;border:1px solid var(--border);border-radius:var(--radius);display:flex;cursor:pointer;transition:border-color var(--transition),box-shadow var(--transition),transform var(--transition);overflow:hidden;color:inherit;text-decoration:none;will-change:transform}
+.listing-card:hover{border-color:var(--green-border);box-shadow:var(--shadow-md);transform:translateY(-1px)}
+.listing-card:hover .listing-title{color:var(--green)}
+.card-thumb{width:210px;min-width:210px;height:155px;overflow:hidden;position:relative;background:var(--surface-2);flex-shrink:0}
+.card-thumb img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s cubic-bezier(0.25,1,0.5,1)}
+.listing-card:hover .card-thumb img{transform:scale(1.05)}
+.card-thumb-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:36px;background:var(--surface-2)}
+.card-badge{position:absolute;top:10px;left:10px;background:var(--green);color:white;font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:3px 8px;border-radius:2px}
+.card-body{flex:1;padding:16px 20px;display:flex;flex-direction:column;justify-content:space-between;min-width:0}
+.listing-title{font-size:15.5px;font-weight:600;color:var(--text);line-height:1.35;margin-bottom:5px;transition:color var(--transition)}
+.listing-snippet{font-size:12.5px;color:var(--text-soft);line-height:1.5;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;margin-bottom:10px}
+.card-tags{display:flex;flex-wrap:wrap;gap:4px}
+.tag{background:var(--green-light);color:var(--green);border:1px solid var(--green-border);font-size:11px;font-weight:500;padding:2px 7px;border-radius:2px}
+.card-aside{padding:16px 18px;display:flex;flex-direction:column;align-items:flex-end;justify-content:space-between;flex-shrink:0;min-width:170px;border-left:1px solid var(--border)}
+.card-price{font-size:22px;font-weight:800;color:var(--green);letter-spacing:-0.03em;line-height:1}
+.card-price-note{font-size:11px;color:var(--text-xsoft);margin-top:3px;text-align:right;font-family:var(--mono)}
+.card-meta{text-align:right;display:flex;flex-direction:column;gap:3px}
+.card-location{font-size:12px;color:var(--text-soft);font-family:var(--mono)}
+.card-date{font-size:11.5px;color:var(--text-xsoft);font-family:var(--mono)}
+.card-cta{display:flex;align-items:center;gap:4px;font-size:12px;font-weight:600;color:var(--green)}
+
+/* ── NO RESULTS ── */
+.no-results{display:none;text-align:center;padding:72px 24px;background:white;border:1px solid var(--border);border-radius:var(--radius)}
+.no-results.show{display:block}
+.no-results-icon{font-size:40px;margin-bottom:16px}
+.no-results h3{font-size:17px;font-weight:600;color:var(--text);margin-bottom:6px}
+.no-results p{font-size:13px;color:var(--text-soft);margin-bottom:20px}
+
+/* ── ERROR STATE ── */
+.error-state{text-align:center;padding:72px 24px;background:white;border:1px solid var(--border);border-radius:var(--radius)}
+.error-state-icon{font-size:40px;margin-bottom:16px}
+.error-state h3{font-size:17px;font-weight:600;color:var(--text);margin-bottom:6px}
+.error-state p{font-size:13px;color:var(--text-soft)}
+
+/* ── DETAIL ── */
+.detail-grid{display:grid;grid-template-columns:1fr 310px;gap:20px;align-items:start}
+.detail-header-card{background:white;border:1px solid var(--border);border-radius:var(--radius);padding:24px 28px 20px;margin-bottom:12px}
+.detail-eyebrow{font-family:var(--mono);font-size:11px;font-weight:500;color:var(--green);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px}
+.detail-title{font-size:21px;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:14px}
+.detail-price-row{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.detail-price{font-size:30px;font-weight:800;color:var(--green);letter-spacing:-0.03em}
+.detail-price-note{font-size:13px;color:var(--text-soft);font-family:var(--mono)}
+.section-card{background:white;border:1px solid var(--border);border-radius:var(--radius);padding:20px 24px;margin-bottom:12px;overflow:hidden}
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+.section-title{font-family:var(--mono);font-size:10.5px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-xsoft)}
+.section-count{font-family:var(--mono);font-size:11px;color:var(--text-xsoft);background:var(--surface);padding:2px 8px;border-radius:10px}
+
+/* ── GALLERY ── */
+.gallery-loading{display:flex;align-items:center;justify-content:center;padding:40px;gap:8px;color:var(--text-soft);font-size:13px}
+.spinner{width:16px;height:16px;border:2px solid var(--border);border-top-color:var(--green);border-radius:50%;animation:spin 0.7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.gallery-grid{display:grid;gap:4px}
+.gallery-grid.layout-1{grid-template-columns:1fr}
+.gallery-grid.layout-1 .gi{aspect-ratio:16/7}
+.gallery-grid.layout-2{grid-template-columns:1fr 1fr}
+.gallery-grid.layout-2 .gi{aspect-ratio:4/3}
+.gallery-grid.layout-3{grid-template-columns:2fr 1fr}
+.gallery-grid.layout-3 .gi{aspect-ratio:4/3}
+.gallery-grid.layout-3 .gi:first-child{grid-row:span 2;aspect-ratio:auto}
+.gallery-grid.layout-mid{grid-template-columns:repeat(3,1fr)}
+.gallery-grid.layout-mid .gi{aspect-ratio:4/3}
+.gallery-grid.layout-mid .gi:first-child{grid-column:span 2;aspect-ratio:16/9}
+.gallery-grid.layout-dense{grid-template-columns:repeat(4,1fr)}
+.gallery-grid.layout-dense .gi{aspect-ratio:1}
+.gallery-grid.layout-dense .gi:first-child{grid-column:span 2;grid-row:span 2;aspect-ratio:1}
+.gi{overflow:hidden;border-radius:3px;cursor:zoom-in;background:var(--surface-2);position:relative}
+.gi img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.4s cubic-bezier(0.25,1,0.5,1),filter 0.3s}
+.gi:hover img{transform:scale(1.04);filter:brightness(1.06)}
+.gi-overlay{position:absolute;inset:0;background:rgba(0,0,0,0);transition:background 0.25s;display:flex;align-items:center;justify-content:center}
+.gi:hover .gi-overlay{background:rgba(0,0,0,0.08)}
+.gi-icon{opacity:0;transform:scale(0.8);transition:opacity 0.2s,transform 0.2s;color:white;font-size:20px;text-shadow:0 1px 4px rgba(0,0,0,0.5)}
+.gi:hover .gi-icon{opacity:1;transform:scale(1)}
+.gallery-empty{padding:40px;text-align:center;color:var(--text-soft);font-size:13px;font-family:var(--mono)}
+
+/* ── SPECS ── */
+.specs-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 32px}
+.spec-row{display:flex;justify-content:space-between;align-items:center;padding:11px 4px;border-bottom:1px solid var(--border);gap:20px}
+.spec-row:last-child,.spec-row:nth-last-child(2):nth-child(odd){border-bottom:none}
+.spec-key{font-size:13px;color:var(--text-soft);flex-shrink:0;min-width:110px}
+.spec-val{font-size:13.5px;font-weight:700;color:var(--text);text-align:right;font-family:var(--mono);letter-spacing:-0.01em}
+.spec-val.em{color:var(--green)}
+
+/* ── DESC ── */
+.desc-body{font-size:14px;color:var(--text-mid);line-height:1.75}
+.desc-body p+p{margin-top:12px}
+.floor-cols{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px;padding-top:18px;border-top:1px solid var(--border)}
+.floor-col-label{font-family:var(--mono);font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:var(--green);margin-bottom:10px}
+.floor-list{list-style:none;display:flex;flex-direction:column;gap:7px}
+.floor-list li{font-size:13px;color:var(--text-mid);display:flex;align-items:flex-start;gap:8px;line-height:1.45}
+.floor-list li::before{content:'';width:4px;height:4px;background:var(--green-border);border-radius:50%;flex-shrink:0;margin-top:6px}
+
+/* ── CONTACT SIDEBAR ── */
+.contact-sidebar{position:sticky;top:calc(var(--header-h) + 20px)}
+.contact-card{background:white;border:1.5px solid var(--green-border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm)}
+.contact-card-header{background:var(--green);padding:14px 18px;position:relative;overflow:hidden}
+.contact-card-header::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.08) 0%,transparent 60%)}
+.contact-card-eyebrow{font-family:var(--mono);font-size:9.5px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:rgba(255,255,255,0.65);margin-bottom:3px}
+.contact-card-name{font-size:15.5px;font-weight:700;color:white}
+.contact-card-body{padding:18px}
+.contact-price-block{text-align:center;padding:14px 0 16px;border-bottom:1px solid var(--border);margin-bottom:16px}
+.contact-price{font-size:32px;font-weight:800;color:var(--green);letter-spacing:-0.04em;line-height:1}
+.contact-price-sub{font-family:var(--mono);font-size:11px;color:var(--text-xsoft);margin-top:4px}
+.contact-pills-row{display:flex;flex-direction:column;gap:8px;margin-bottom:18px}
+.contact-pill-item{display:flex;justify-content:space-between;align-items:center;font-size:13px;padding:0 2px}
+.contact-pill-label{color:var(--text-soft);font-size:12.5px}
+.contact-pill-val{font-weight:600;color:var(--text);font-family:var(--mono);font-size:12.5px}
+.contact-phones{display:flex;flex-direction:column;gap:10px;margin-bottom:16px}
+.phone-label{font-family:var(--mono);font-size:9.5px;font-weight:500;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-xsoft);margin-bottom:2px}
+.phone-number{font-size:19px;font-weight:700;color:var(--text);letter-spacing:-0.02em;transition:color var(--transition);display:block}
+.phone-number:hover{color:var(--green)}
+.no-agency{margin-top:12px;padding:9px 12px;background:var(--green-light);border-radius:var(--radius-sm);border:1px solid var(--green-border);font-size:12px;color:var(--green);font-weight:500;text-align:center;line-height:1.4}
+.seller-note{margin-top:10px;padding:12px 14px;background:var(--surface);border-radius:var(--radius-sm);border:1px solid var(--border);font-size:12px;color:var(--text-soft);text-align:center;line-height:1.6}
+.seller-note strong{color:var(--text-mid);display:block;margin-bottom:2px}
+
+/* ── LIGHTBOX ── */
+.lightbox{display:none;position:fixed;inset:0;z-index:9000;background:rgba(10,12,10,0.93);backdrop-filter:blur(12px);align-items:center;justify-content:center}
+.lightbox.open{display:flex}
+.lb-inner{position:relative;max-width:92vw;max-height:90vh;display:flex;align-items:center;justify-content:center}
+.lb-img{max-width:92vw;max-height:88vh;object-fit:contain;border-radius:var(--radius-sm);box-shadow:var(--shadow-lg);user-select:none;display:block}
+.lb-btn{position:fixed;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);color:white;border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;transition:background var(--transition);backdrop-filter:blur(8px)}
+.lb-btn:hover{background:rgba(255,255,255,0.2)}
+.lb-close{top:18px;right:18px;font-size:20px}
+.lb-prev{left:16px;top:50%;transform:translateY(-50%)}
+.lb-next{right:16px;top:50%;transform:translateY(-50%)}
+.lb-counter{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:12px;color:rgba(255,255,255,0.5);letter-spacing:0.06em}
+.lb-caption{position:fixed;bottom:46px;left:50%;transform:translateX(-50%);font-size:13px;color:rgba(255,255,255,0.7);text-align:center;white-space:nowrap}
+
+/* ── FOOTER ── */
+.site-footer{background:white;border-top:1px solid var(--border);margin-top:auto}
+.footer-inner{max-width:1160px;margin:0 auto;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.footer-logo{font-family:var(--mono);font-size:14px;font-weight:500;color:var(--green)}
+.footer-copy{font-size:12px;color:var(--text-xsoft);font-family:var(--mono)}
+.footer-links{display:flex;gap:18px}
+.footer-links a{font-size:12px;color:var(--text-soft);transition:color var(--transition)}
+.footer-links a:hover{color:var(--green)}
+
+/* ── GOOGLE TRANSLATE ── */
+#google_translate_element{display:none}
+.lang-switcher{position:relative;display:flex;align-items:center}
+.lang-btn{display:flex;align-items:center;gap:5px;padding:6px 10px;border:1.5px solid var(--border-mid);border-radius:var(--radius-sm);background:white;cursor:pointer;font-family:var(--font);font-size:12.5px;font-weight:600;color:var(--text-mid);transition:all var(--transition)}
+.lang-btn:hover{border-color:var(--green);color:var(--green)}
+.lang-dropdown{position:absolute;top:calc(100% + 6px);right:0;background:white;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-md);z-index:500;min-width:160px;overflow:hidden;display:none}
+.lang-dropdown.open{display:block}
+.lang-option{display:flex;align-items:center;gap:10px;padding:9px 14px;font-size:13px;color:var(--text-mid);cursor:pointer;transition:background var(--transition);border:none;background:none;width:100%;text-align:left;font-family:var(--font)}
+.lang-option:hover{background:var(--green-light)}
+.lang-option.active{background:var(--green-light);color:var(--green);font-weight:600}
+.lang-option-flag{font-size:15px}
+.lang-option-name{flex:1}
+.translating-bar{display:none;position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--text);color:white;padding:10px 20px;border-radius:20px;font-size:13px;font-weight:500;z-index:9999;align-items:center;gap:8px;box-shadow:var(--shadow-md)}
+.translating-bar.show{display:flex}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .detail-grid{grid-template-columns:1fr}
+  .contact-sidebar{position:static}
+  .specs-grid{grid-template-columns:1fr}
+  .floor-cols{grid-template-columns:1fr}
+  .gallery-grid.layout-dense{grid-template-columns:repeat(3,1fr)}
+  .gallery-grid.layout-mid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:680px){
+  :root{--header-h:50px}
+  .listing-card{flex-direction:column}
+  .card-thumb{width:100%;min-width:unset;height:190px}
+  .card-aside{flex-direction:row;justify-content:space-between;align-items:center;border-left:none;border-top:1px solid var(--border);min-width:unset;padding:10px 14px}
+  .card-meta{display:none}
+  .card-price{font-size:19px}
+  .gallery-grid.layout-dense{grid-template-columns:repeat(2,1fr)}
+  .gallery-grid.layout-dense .gi:first-child{grid-column:span 2;grid-row:1}
+  .filter-inner{gap:10px}
+  .filter-sep{display:none}
+  .filter-meta{width:100%;justify-content:space-between}
+  .btn-ghost{display:none}
+  .page-wrap{padding:14px 14px 48px}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <a class="logo" href="#" id="logoLink">
+      <div class="logo-mark">
+        <svg viewBox="0 0 14 14" fill="none" stroke="white" stroke-width="2" stroke-linecap="round">
+          <path d="M2 6.5L7 2l5 4.5V12H9V9H5v3H2V6.5z"/>
+        </svg>
+      </div>
+      484.sk
+    </a>
+    <div class="header-right">
+      <button class="btn btn-ghost" id="btnBack">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+        <span id="btnBackText">Všetky ponuky</span>
+      </button>
+      <button class="btn btn-ghost" id="btnFilterToggle">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+        <span id="btnFilterToggleText">Filter</span>
+      </button>
+      <div class="lang-switcher" id="langSwitcher">
+        <button class="lang-btn" id="langBtn" onclick="LangEngine.toggle()">
+          <span class="lang-flag" id="langFlag">🇸🇰</span>
+          <span id="langCode">SK</span>
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="lang-dropdown" id="langDropdown"></div>
+      </div>
+      <a id="headerTel" href="tel:0905323484" class="btn btn-primary">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.63 3.44 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6.11 6.11l.98-.98a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        Volať
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- FILTER BAR -->
+<div class="filter-bar" id="filterBar">
+  <div class="filter-inner">
+    <div class="filter-group">
+      <div class="filter-label" id="filterTypLabel">Typ nehnuteľnosti</div>
+      <div class="filter-pills" id="filterTyp">
+        <span class="pill active" data-val="vsetky">Všetky</span>
+        <span class="pill" data-val="dom">Rodinný dom</span>
+        <span class="pill" data-val="byt">Byt</span>
+        <span class="pill" data-val="pozemok">Pozemok</span>
+        <span class="pill" data-val="kancelaria">Kancelária</span>
+      </div>
+    </div>
+    <div class="filter-sep"></div>
+    <div class="filter-group">
+      <div class="filter-label" id="filterKrajLabel">Kraj</div>
+      <div class="filter-pills" id="filterKraj">
+        <span class="pill active" data-val="vsetky">Všetky</span>
+        <span class="pill" data-val="kosicky">Košický</span>
+        <span class="pill" data-val="bratislavsky">Bratislavský</span>
+        <span class="pill" data-val="presovsky">Prešovský</span>
+        <span class="pill" data-val="banskobystricky">Banskobystrický</span>
+        <span class="pill" data-val="nitriansky">Nitriansky</span>
+        <span class="pill" data-val="zilinsky">Žilinský</span>
+        <span class="pill" data-val="trnavsky">Trnavský</span>
+        <span class="pill" data-val="trenciansky">Trenčiansky</span>
+      </div>
+    </div>
+    <div class="filter-meta">
+      <span class="results-label" id="resultsLabel">Načítavam…</span>
+      <button class="btn-reset" id="btnReset">✕ Zrušiť</button>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<main>
+  <div class="page-wrap">
+
+    <!-- LISTINGS VIEW -->
+    <div class="view active" id="viewListings">
+      <div class="page-topbar">
+        <nav class="breadcrumb">
+          <span>Nehnuteľnosti</span>
+          <span class="breadcrumb-sep">›</span>
+          <span id="crumbTyp">Všetky typy</span>
+          <span class="breadcrumb-sep">›</span>
+          <span id="crumbKraj">Všetky kraje</span>
+        </nav>
+      </div>
+      <!-- Skeleton loaders -->
+      <div id="skeletonLoaders">
+        <div class="skeleton skeleton-card"></div>
+        <div class="skeleton skeleton-card"></div>
+      </div>
+      <div class="listings-stack" id="listingsStack" style="display:none;"></div>
+      <div class="no-results" id="noResults">
+        <div class="no-results-icon">🔍</div>
+        <h3>Žiadne výsledky</h3>
+        <p>Pre zvolené filtre momentálne nemáme žiadne ponuky.</p>
+        <button class="btn btn-primary" onclick="App.resetFilters()">Zobraziť všetky ponuky</button>
+      </div>
+      <div class="error-state" id="errorState" style="display:none;">
+        <div class="error-state-icon">⚠️</div>
+        <h3>Chyba pri načítaní</h3>
+        <p id="errorMsg">Nepodarilo sa načítať inzeráty. Skúste obnoviť stránku.</p>
+      </div>
+    </div>
+
+    <!-- DETAIL VIEW (dynamicky generovaný) -->
+    <div class="view" id="viewDetail"></div>
+
+  </div>
+</main>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lb-btn lb-close" id="lbClose">×</button>
+  <button class="lb-btn lb-prev" id="lbPrev">&#8249;</button>
+  <div class="lb-inner"><img class="lb-img" id="lbImg" src="" alt=""></div>
+  <button class="lb-btn lb-next" id="lbNext">&#8250;</button>
+  <div class="lb-caption" id="lbCaption"></div>
+  <div class="lb-counter" id="lbCounter"></div>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <span class="footer-logo">484.sk</span>
+    <span class="footer-copy">© 2026 484.sk · Všetky práva vyhradené</span>
+    <div class="footer-links">
+      <a href="#">Nehnuteľnosti</a>
+      <a id="footerTel" href="tel:0905323484">Kontakt</a>
+    </div>
+  </div>
+</footer>
+
+<!-- TRANSLATING BAR -->
+<div class="translating-bar" id="translatingBar">
+  <div class="spinner"></div>
+  <span id="translatingMsg">Prekladám...</span>
+</div>
+
+<!-- CONFIG -->
+<script src="config.js"></script>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   LANGUAGE ENGINE — cez Supabase Edge Function (bez CORS)
+   ═══════════════════════════════════════════════════════════════ */
+const LangEngine = (() => {
+  let currentLang = 'sk';
+  let cache = {};
+  const FIELDS = ['nazov','popis','stav','dispozicia'];
+
+  // UI texty ktoré sa preložia
+  const UI = {
+    sk: {
+      allOffers:'Všetky ponuky', filter:'Filter', call:'Volať',
+      typLabel:'TYP NEHNUTEĽNOSTI', krajLabel:'KRAJ',
+      allTypes:'Všetky', dom:'Rodinný dom', byt:'Byt', pozemok:'Pozemok', kancelaria:'Kancelária',
+      allKraje:'Všetky', results:'ponuky', cancel:'✕ Zrušiť',
+      gallery:'Fotogaléria', params:'Technické parametre', desc:'Popis nehnuteľnosti',
+      callSeller:'Zavolať predajcovi', directSale:'✓ Priamy predaj od majiteľa · bez provízií',
+      directSaleBadge:'Priamy predaj · bez RK', directSaleNote:'priamy predaj od majiteľa · bez RK · bez provízií',
+      privateSale:'Súkromný predaj', privateDesc:'Predáva priamo majiteľ.<br>Obhliadka na dohodnutie.',
+      noResults:'Žiadne výsledky', noResultsDesc:'Pre zvolené filtre momentálne nemáme žiadne ponuky.',
+      showAll:'Zobraziť všetky ponuky', loading:'Načítavam...',
+      noPhotos:'Fotografie budú čoskoro doplnené.',
+      phone1:'Telefón 1', phone2:'Telefón 2',
+      obec:'Obec', kraj:'Kraj', pozemok:'Pozemok', zastavana:'Zastavaná plocha',
+      uzitkovaPlocha:'Úžitková plocha', prizemie:'Prízemie', poschodie:'Poschodie',
+      dispozicia:'Dispozícia', energTrieda:'Energetická trieda', stav:'Stav',
+      vlastnictvo:'Vlastníctvo', naKluc:'Na kľúč', naKlucAno:'Na požiadanie', naKlucNie:'Nie',
+      typLabels:{ dom:'Rodinný dom', byt:'Byt', pozemok:'Pozemok', kancelaria:'Kancelária' },
+    },
+    en: {
+      allOffers:'All listings', filter:'Filter', call:'Call',
+      typLabel:'PROPERTY TYPE', krajLabel:'REGION',
+      allTypes:'All', dom:'House', byt:'Apartment', pozemok:'Land', kancelaria:'Office',
+      allKraje:'All', results:'listings', cancel:'✕ Clear',
+      gallery:'Photo gallery', params:'Technical parameters', desc:'Property description',
+      callSeller:'Call seller', directSale:'✓ Direct sale · no agency fees',
+      directSaleBadge:'Direct sale · no agency', directSaleNote:'direct sale from owner · no fees',
+      privateSale:'Private sale', privateDesc:'Sold directly by owner.<br>Viewing by appointment.',
+      noResults:'No results', noResultsDesc:'No listings match your filters.',
+      showAll:'Show all listings', loading:'Loading...',
+      noPhotos:'Photos coming soon.',
+      phone1:'Phone 1', phone2:'Phone 2',
+      obec:'Village', kraj:'Region', pozemok:'Land', zastavana:'Built-up area',
+      uzitkovaPlocha:'Usable area', prizemie:'Ground floor', poschodie:'Upper floor',
+      dispozicia:'Layout', energTrieda:'Energy class', stav:'Condition',
+      vlastnictvo:'Ownership', naKluc:'Turnkey', naKlucAno:'On request', naKlucNie:'No',
+      typLabels:{ dom:'House', byt:'Apartment', pozemok:'Land', kancelaria:'Office' },
+    },
+    de: {
+      allOffers:'Alle Angebote', filter:'Filter', call:'Anrufen',
+      typLabel:'IMMOBILIENTYP', krajLabel:'REGION',
+      allTypes:'Alle', dom:'Haus', byt:'Wohnung', pozemok:'Grundstück', kancelaria:'Büro',
+      allKraje:'Alle', results:'Angebote', cancel:'✕ Löschen',
+      gallery:'Fotogalerie', params:'Technische Parameter', desc:'Objektbeschreibung',
+      callSeller:'Verkäufer anrufen', directSale:'✓ Direktverkauf · keine Maklergebühren',
+      directSaleBadge:'Direktverkauf · ohne Makler', directSaleNote:'Direktverkauf vom Eigentümer · ohne Gebühren',
+      privateSale:'Privatverkauf', privateDesc:'Direkt vom Eigentümer.<br>Besichtigung nach Vereinbarung.',
+      noResults:'Keine Ergebnisse', noResultsDesc:'Keine Angebote entsprechen Ihren Filtern.',
+      showAll:'Alle Angebote anzeigen', loading:'Laden...',
+      noPhotos:'Fotos folgen in Kürze.',
+      phone1:'Telefon 1', phone2:'Telefon 2',
+      obec:'Gemeinde', kraj:'Region', pozemok:'Grundstück', zastavana:'Bebaute Fläche',
+      uzitkovaPlocha:'Nutzfläche', prizemie:'Erdgeschoss', poschodie:'Obergeschoss',
+      dispozicia:'Raumaufteilung', energTrieda:'Energieklasse', stav:'Zustand',
+      vlastnictvo:'Eigentumsform', naKluc:'Schlüsselfertig', naKlucAno:'Auf Anfrage', naKlucNie:'Nein',
+      typLabels:{ dom:'Haus', byt:'Wohnung', pozemok:'Grundstück', kancelaria:'Büro' },
+    },
+    ru: {
+      allOffers:'Все объявления', filter:'Фильтр', call:'Позвонить',
+      typLabel:'ТИП НЕДВИЖИМОСТИ', krajLabel:'РЕГИОН',
+      allTypes:'Все', dom:'Дом', byt:'Квартира', pozemok:'Участок', kancelaria:'Офис',
+      allKraje:'Все', results:'объявления', cancel:'✕ Сбросить',
+      gallery:'Фотогалерея', params:'Технические параметры', desc:'Описание объекта',
+      callSeller:'Позвонить продавцу', directSale:'✓ Прямая продажа · без комиссий',
+      directSaleBadge:'Прямая продажа · без агентства', directSaleNote:'прямая продажа от владельца · без комиссий',
+      privateSale:'Частная продажа', privateDesc:'Продаёт напрямую владелец.<br>Просмотр по договорённости.',
+      noResults:'Нет результатов', noResultsDesc:'Нет объявлений по вашим фильтрам.',
+      showAll:'Показать все объявления', loading:'Загрузка...',
+      noPhotos:'Фотографии появятся в ближайшее время.',
+      phone1:'Телефон 1', phone2:'Телефон 2',
+      obec:'Населённый пункт', kraj:'Регион', pozemok:'Участок', zastavana:'Застроенная площадь',
+      uzitkovaPlocha:'Полезная площадь', prizemie:'Первый этаж', poschodie:'Второй этаж',
+      dispozicia:'Планировка', energTrieda:'Энергетический класс', stav:'Состояние',
+      vlastnictvo:'Форма собственности', naKluc:'Под ключ', naKlucAno:'По запросу', naKlucNie:'Нет',
+      typLabels:{ dom:'Дом', byt:'Квартира', pozemok:'Участок', kancelaria:'Офис' },
+    },
+    uk: {
+      allOffers:'Всі оголошення', filter:'Фільтр', call:'Зателефонувати',
+      typLabel:'ТИП НЕРУХОМОСТІ', krajLabel:'РЕГІОН',
+      allTypes:'Всі', dom:'Будинок', byt:'Квартира', pozemok:'Ділянка', kancelaria:'Офіс',
+      allKraje:'Всі', results:'оголошення', cancel:'✕ Скинути',
+      gallery:'Фотогалерея', params:'Технічні параметри', desc:'Опис об\'єкта',
+      callSeller:'Зателефонувати продавцю', directSale:'✓ Прямий продаж · без комісій',
+      directSaleBadge:'Прямий продаж · без агентства', directSaleNote:'прямий продаж від власника · без комісій',
+      privateSale:'Приватний продаж', privateDesc:'Продає безпосередньо власник.<br>Огляд за домовленістю.',
+      noResults:'Немає результатів', noResultsDesc:'Немає оголошень за вашими фільтрами.',
+      showAll:'Показати всі оголошення', loading:'Завантаження...',
+      noPhotos:'Фотографії з\'являться найближчим часом.',
+      phone1:'Телефон 1', phone2:'Телефон 2',
+      obec:'Населений пункт', kraj:'Регіон', pozemok:'Ділянка', zastavana:'Забудована площа',
+      uzitkovaPlocha:'Корисна площа', prizemie:'Перший поверх', poschodie:'Другий поверх',
+      dispozicia:'Планування', energTrieda:'Енергетичний клас', stav:'Стан',
+      vlastnictvo:'Форма власності', naKluc:'Під ключ', naKlucAno:'За запитом', naKlucNie:'Ні',
+      typLabels:{ dom:'Будинок', byt:'Квартира', pozemok:'Ділянка', kancelaria:'Офіс' },
+    },
+  };
+
+  function getUI() { return UI[currentLang] || UI.sk; }
+  const LANGS = [
+    { code:'sk', label:'SK', flag:'🇸🇰', deepl:null,    name:'Slovenčina' },
+    { code:'en', label:'EN', flag:'🇬🇧', deepl:'EN-GB', name:'English'    },
+    { code:'de', label:'DE', flag:'🇩🇪', deepl:'DE',    name:'Deutsch'    },
+    { code:'ru', label:'RU', flag:'🇷🇺', deepl:'RU',    name:'Русский'    },
+    { code:'uk', label:'UK', flag:'🇺🇦', deepl:'UK',    name:'Українська' },
+  ];
+
+  function init() {
+    const dd = document.getElementById('langDropdown');
+    LANGS.forEach(lang => {
+      const btn = document.createElement('button');
+      btn.className = 'lang-option' + (lang.code === 'sk' ? ' active' : '');
+      btn.innerHTML = `<span class="lang-option-flag">${lang.flag}</span><span class="lang-option-name">${lang.name}</span>`;
+      btn.addEventListener('click', () => switchLang(lang));
+      dd.appendChild(btn);
+    });
+    document.addEventListener('click', e => {
+      if (!document.getElementById('langSwitcher').contains(e.target))
+        document.getElementById('langDropdown').classList.remove('open');
+    });
+  }
+
+  function toggle() {
+    document.getElementById('langDropdown').classList.toggle('open');
+  }
+
+  async function switchLang(lang) {
+    document.getElementById('langDropdown').classList.remove('open');
+    if (lang.code === currentLang) return;
+    currentLang = lang.code;
+
+    document.getElementById('langFlag').textContent = lang.flag;
+    document.getElementById('langCode').textContent = lang.label;
+    document.documentElement.lang = lang.code;
+    document.querySelectorAll('.lang-option').forEach((btn, i) => {
+      btn.classList.toggle('active', LANGS[i].code === lang.code);
+    });
+
+    if (lang.code === 'sk') { applyUI('sk'); App.rerender(); return; }
+
+    applyUI(lang.code);
+    showBar(`Prekladám do ${lang.name}...`);
+    try {
+      await translateAll(lang);
+    } catch(err) {
+      console.error('Preklad zlyhal:', err);
+    }
+    hideBar();
+  }
+
+  async function translateAll(lang) {
+    const listings = App.getListings();
+    if (!listings.length) return;
+
+    const allTexts = [];
+    const mapping  = [];
+
+    listings.forEach((item, li) => {
+      FIELDS.forEach(field => {
+        if (item[field]) {
+          mapping.push({ li, field, ti: allTexts.length });
+          allTexts.push(item[field]);
+        }
+      });
+      // Preložiť aj extra_specs kľúče a hodnoty
+      if (Array.isArray(item.extra_specs)) {
+        item.extra_specs.forEach((spec, si) => {
+          if (spec.key) { mapping.push({ li, field:`extra_key_${si}`, ti:allTexts.length }); allTexts.push(spec.key); }
+          if (spec.val) { mapping.push({ li, field:`extra_val_${si}`, ti:allTexts.length }); allTexts.push(spec.val); }
+        });
+      }
+    });
+
+    if (!allTexts.length) return;
+
+    const cacheKey = `${lang.deepl}:${allTexts.join('|')}`;
+    let translated;
+    if (cache[cacheKey]) {
+      translated = cache[cacheKey];
+    } else {
+      const res = await fetch(CONFIG.TRANSLATE_FN, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': CONFIG.SUPABASE_ANON,
+          'Authorization': `Bearer ${CONFIG.SUPABASE_ANON}`,
+        },
+        body: JSON.stringify({ texts: allTexts, target_lang: lang.deepl }),
+      });
+      if (!res.ok) throw new Error(`Edge Function error: ${res.status}`);
+      const data = await res.json();
+      translated = data.translations.map(t => t.text);
+      cache[cacheKey] = translated;
+    }
+
+    const result = listings.map(item => ({...item, extra_specs: item.extra_specs ? [...item.extra_specs.map(s=>({...s}))] : []}));
+    mapping.forEach(({ li, field, ti }) => {
+      if (field.startsWith('extra_key_')) {
+        const si = parseInt(field.replace('extra_key_',''));
+        if (result[li].extra_specs[si]) result[li].extra_specs[si].key = translated[ti];
+      } else if (field.startsWith('extra_val_')) {
+        const si = parseInt(field.replace('extra_val_',''));
+        if (result[li].extra_specs[si]) result[li].extra_specs[si].val = translated[ti];
+      } else {
+        result[li][field] = translated[ti];
+      }
+    });
+
+    App.renderWithData(result);
+    App.setTranslatedListings(result);
+  }
+
+  function showBar(msg) {
+    document.getElementById('translatingMsg').textContent = msg;
+    document.getElementById('translatingBar').classList.add('show');
+  }
+  function hideBar() {
+    document.getElementById('translatingBar').classList.remove('show');
+  }
+
+  function applyUI(code) {
+    const t = UI[code] || UI.sk;
+    const s = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+    s('btnBackText', t.allOffers);
+    s('btnFilterToggleText', t.filter);
+    s('filterTypLabel', t.typLabel);
+    s('filterKrajLabel', t.krajLabel);
+    s('btnReset', t.cancel);
+    document.querySelectorAll('#filterTyp .pill').forEach(p => {
+      const map = { vsetky:t.allTypes, dom:t.dom, byt:t.byt, pozemok:t.pozemok, kancelaria:t.kancelaria };
+      if (map[p.dataset.val]) p.textContent = map[p.dataset.val];
+    });
+  }
+
+  return { init, toggle, getCurrentLang: () => currentLang, getUI };
+})();
+
+/* ═══════════════════════════════════════════════════════════════
+   484.SK — App Core (dynamický, Supabase-powered)
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── SUPABASE CLIENT (lightweight, bez npm) ── */
+const sb = {
+  url: CONFIG.SUPABASE_URL,
+  key: CONFIG.SUPABASE_ANON,
+
+  async query(table, params = '') {
+    const res = await fetch(`${this.url}/rest/v1/${table}?${params}`, {
+      headers: {
+        'apikey': this.key,
+        'Authorization': `Bearer ${this.key}`,
+        'Content-Type': 'application/json',
+      }
+    });
+    if (!res.ok) throw new Error(`Supabase error: ${res.status}`);
+    return res.json();
+  },
+
+  storageUrl(bucket, path) {
+    return `${this.url}/storage/v1/object/public/${bucket}/${path}`;
+  }
+};
+
+/* ── UTILS ── */
+const fmt = {
+  price: n => Number(n).toLocaleString('sk') + ' €',
+  date:  d => new Date(d).toLocaleDateString('sk-SK', { day:'2-digit', month:'2-digit', year:'numeric' }),
+  esc:   s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'),
+  plural: n => n === 1 ? '1 ponuka' : n >= 2 && n <= 4 ? `${n} ponuky` : `${n} ponúk`,
+};
+
+const typLabels  = { vsetky:'Všetky typy', dom:'Rodinné domy', byt:'Byty', pozemok:'Pozemky', kancelaria:'Kancelárie' };
+const krajLabels = {
+  vsetky:'Všetky kraje', kosicky:'Košický kraj', bratislavsky:'Bratislavský kraj',
+  presovsky:'Prešovský kraj', banskobystricky:'Banskobystrický kraj',
+  nitriansky:'Nitriansky kraj', zilinsky:'Žilinský kraj',
+  trnavsky:'Trnavský kraj', trenciansky:'Trenčiansky kraj'
+};
+
+/* ══════════════════════════════════════════════════════════════
+   APP
+══════════════════════════════════════════════════════════════ */
+const App = (() => {
+  let allListings = [];
+  let _translatedListings = null;
+  let filters = { typ: 'vsetky', kraj: 'vsetky' };
+  let currentView = 'viewListings';
+
+  /* ── DATA FETCH ── */
+  async function loadListings() {
+    try {
+      const data = await sb.query('inzeraty',
+        'select=*&aktivny=eq.true&order=created_at.desc'
+      );
+      allListings = data;
+      document.getElementById('skeletonLoaders').style.display = 'none';
+      document.getElementById('listingsStack').style.display = '';
+      renderCards(data);
+    } catch(err) {
+      document.getElementById('skeletonLoaders').style.display = 'none';
+      document.getElementById('errorState').style.display = '';
+      document.getElementById('errorMsg').textContent = err.message;
+      console.error('Load error:', err);
+    }
+  }
+
+  /* ── RENDER CARDS ── */
+  function renderCards(listings) {
+    const stack = document.getElementById('listingsStack');
+    stack.innerHTML = '';
+
+    listings.forEach(item => {
+      const card = buildCard(item);
+      stack.appendChild(card);
+    });
+
+    applyFilters();
+  }
+
+  function buildCard(item) {
+    const fotoUrls = Array.isArray(item.foto_urls) ? item.foto_urls : [];
+    const thumbSrc = fotoUrls.length > 0
+      ? fotoUrls[0]
+      : (item.folder ? `https://cdn.jsdelivr.net/gh/not1draggy/mokrance.V2@main/${item.folder}/FD1.png?v=2` : null);
+
+    const card = document.createElement('a');
+    card.className = 'listing-card';
+    card.href = '#';
+    card.dataset.id   = item.id;
+    card.dataset.typ  = item.typ;
+    card.dataset.kraj = item.kraj;
+
+    const thumbHtml = thumbSrc
+      ? `<img src="${fmt.esc(thumbSrc)}" alt="${fmt.esc(item.nazov)}" loading="lazy" onerror="this.style.display='none'">`
+      : `<div class="card-thumb-placeholder">🏠</div>`;
+
+    card.innerHTML = `
+      <div class="card-thumb">
+        ${thumbHtml}
+        ${item.badge ? `<span class="card-badge">${fmt.esc(item.badge)}</span>` : ''}
+      </div>
+      <div class="card-body">
+        <div>
+          <div class="listing-title">${fmt.esc(item.nazov)}</div>
+          <div class="listing-snippet">${buildSnippet(item)}</div>
+        </div>
+        <div class="card-tags">${buildTags(item)}</div>
+      </div>
+      <div class="card-aside">
+        <div>
+          <div class="card-price">${fmt.price(item.cena)}</div>
+          <div class="card-price-note">Priamy predaj · bez provízií</div>
+        </div>
+        <div class="card-meta">
+          <div class="card-location">📍 ${fmt.esc(item.obec)}, ${krajLabels[item.kraj] || item.kraj}</div>
+          <div class="card-date">${fmt.date(item.created_at)}</div>
+        </div>
+        <div class="card-cta">Detail <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></div>
+      </div>
+    `;
+
+    card.addEventListener('click', e => { e.preventDefault(); goDetail(item); });
+    return card;
+  }
+
+  function buildSnippet(item) {
+    const parts = [];
+    if (item.pozemok)      parts.push(`Pozemok ${item.pozemok} m²`);
+    if (item.uzitk_plocha) parts.push(`Úžitková plocha ${item.uzitk_plocha} m²`);
+    if (item.energy_class) parts.push(`Trieda ${item.energy_class}`);
+    if (item.stav)         parts.push(item.stav);
+    return fmt.esc(parts.join(' · '));
+  }
+
+  function buildTags(item) {
+    const tags = [];
+    if (item.stav)         tags.push(item.stav.split(' ')[0]);
+    if (item.energy_class) tags.push(`Trieda ${item.energy_class}`);
+    if (item.dispozicia)   tags.push(item.dispozicia.split('+')[0] + ' spálne');
+    if (item.vlastnictvo)  tags.push(item.vlastnictvo);
+    return tags.slice(0,4).map(t => `<span class="tag">${fmt.esc(t)}</span>`).join('');
+  }
+
+  /* ── DETAIL VIEW ── */
+  function goDetail(item) {
+    // Použi preložený item ak existuje preklad
+    const currentData = _translatedListings || allListings;
+    const translatedItem = currentData.find(i => i.id === item.id) || item;
+
+    const detailEl = document.getElementById('viewDetail');
+    detailEl.innerHTML = buildDetailHTML(translatedItem);
+    document.getElementById('filterBar').classList.add('hidden');
+    switchView('viewDetail');
+    setTimeout(() => Gallery.load(translatedItem), 100);
+  }
+
+  function buildDetailHTML(item) {
+    const t = LangEngine.getUI();
+    const extraSpecs = Array.isArray(item.extra_specs) ? item.extra_specs : [];
+
+    const coreSpecs = [
+      { key: t.obec,            val: item.obec,          em: false },
+      { key: t.kraj,            val: krajLabels[item.kraj] || item.kraj, em: false },
+      { key: t.pozemok,         val: item.pozemok ? `${item.pozemok} m²` : null, em: true },
+      { key: t.zastavana,       val: item.zastav_plocha ? `${item.zastav_plocha} m²` : null, em: false },
+      { key: t.uzitkovaPlocha,  val: item.uzitk_plocha ? `${item.uzitk_plocha} m²` : null, em: true },
+      { key: t.prizemie,        val: item.prizemie || null, em: false },
+      { key: t.poschodie,       val: item.poschodie || null, em: false },
+      { key: t.dispozicia,      val: item.dispozicia || null, em: false },
+      { key: t.energTrieda,     val: item.energy_class || null, em: true },
+      { key: t.stav,            val: item.stav || null, em: false },
+      { key: t.vlastnictvo,     val: item.vlastnictvo || null, em: false },
+      { key: t.naKluc,          val: item.na_kluc ? t.naKlucAno : t.naKlucNie, em: false },
+      ...extraSpecs.map(s => ({ key: s.key, val: s.val, em: false })),
+    ].filter(s => s.val);
+
+    const specsHtml = coreSpecs.map(s =>
+      `<div class="spec-row">
+        <span class="spec-key">${fmt.esc(s.key)}</span>
+        <span class="spec-val${s.em ? ' em' : ''}">${fmt.esc(s.val)}</span>
+      </div>`
+    ).join('');
+
+    const descHtml = (item.popis || '').split('\n\n').map(p =>
+      `<p>${fmt.esc(p.trim())}</p>`
+    ).join('');
+
+    const typLabel = t.typLabels[item.typ] || item.typ;
+
+    return `
+      <div class="page-topbar">
+        <nav class="breadcrumb">
+          <a href="#" onclick="App.goListings();return false;">${t.allOffers}</a>
+          <span class="breadcrumb-sep">›</span>
+          <span>${fmt.esc(typLabel)}</span>
+          <span class="breadcrumb-sep">›</span>
+          <span>${fmt.esc(krajLabels[item.kraj] || item.kraj)}</span>
+          <span class="breadcrumb-sep">›</span>
+          <strong>${fmt.esc(item.nazov)}</strong>
+        </nav>
+      </div>
+      <div class="detail-grid">
+        <div class="detail-main">
+          <div class="detail-header-card">
+            <div class="detail-eyebrow">${fmt.esc(item.obec)} · ${fmt.esc(item.stav || '')} · ${item.energy_class || ''}</div>
+            <h1 class="detail-title">${fmt.esc(item.nazov)}</h1>
+            <div class="detail-price-row">
+              <span class="detail-price">${fmt.price(item.cena)}</span>
+              <span class="detail-price-note">${t.directSaleNote}</span>
+            </div>
+          </div>
+
+          <div class="section-card">
+            <div class="section-header">
+              <span class="section-title">${t.gallery}</span>
+              <span class="section-count" id="galleryCount">—</span>
+            </div>
+            <div id="galleryContainer">
+              <div class="gallery-loading" id="galleryLoading">
+                <div class="spinner"></div> ${t.loading}
+              </div>
+              <div class="gallery-grid" id="galleryGrid" style="display:none;"></div>
+              <div class="gallery-empty" id="galleryEmpty" style="display:none;">${t.noPhotos}</div>
+            </div>
+          </div>
+
+          <div class="section-card">
+            <div class="section-header"><span class="section-title">${t.params}</span></div>
+            <div class="specs-grid">${specsHtml}</div>
+          </div>
+
+          <div class="section-card">
+            <div class="section-header"><span class="section-title">${t.desc}</span></div>
+            <div class="desc-body">${descHtml}</div>
+          </div>
+        </div>
+
+        <div class="contact-sidebar">
+          <div class="contact-card">
+            <div class="contact-card-header">
+              <div class="contact-card-eyebrow">${t.directSaleBadge}</div>
+              <div class="contact-card-name">${fmt.esc(item.obec)} · ${fmt.esc(typLabel)}</div>
+            </div>
+            <div class="contact-card-body">
+              <div class="contact-price-block">
+                <div class="contact-price">${fmt.price(item.cena)}</div>
+                <div class="contact-price-sub">${item.pozemok ? `${t.pozemok} ${item.pozemok} m²` : fmt.esc(item.obec)}</div>
+              </div>
+              <div class="contact-pills-row">
+                ${item.uzitk_plocha ? `<div class="contact-pill-item"><span class="contact-pill-label">${t.uzitkovaPlocha}</span><span class="contact-pill-val">${item.uzitk_plocha} m²</span></div>` : ''}
+                ${item.energy_class ? `<div class="contact-pill-item"><span class="contact-pill-label">${t.energTrieda}</span><span class="contact-pill-val">${fmt.esc(item.energy_class)}</span></div>` : ''}
+                ${item.stav ? `<div class="contact-pill-item"><span class="contact-pill-label">${t.stav}</span><span class="contact-pill-val">${fmt.esc(item.stav.split(' ')[0])}</span></div>` : ''}
+                ${item.dispozicia ? `<div class="contact-pill-item"><span class="contact-pill-label">${t.dispozicia}</span><span class="contact-pill-val">${fmt.esc(item.dispozicia)}</span></div>` : ''}
+              </div>
+              <div class="contact-phones">
+                <div class="phone-block">
+                  <div class="phone-label">${t.phone1}</div>
+                  <a class="phone-number" href="tel:${CONFIG.TEL_1}">${CONFIG.TEL_1_FORMAT}</a>
+                </div>
+                <div class="phone-block">
+                  <div class="phone-label">${t.phone2}</div>
+                  <a class="phone-number" href="tel:${CONFIG.TEL_2}">${CONFIG.TEL_2_FORMAT}</a>
+                </div>
+              </div>
+              <a href="tel:${CONFIG.TEL_1}" class="btn btn-primary btn-lg">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.63 3.44 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6.11 6.11l.98-.98a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                ${t.callSeller}
+              </a>
+              <div class="no-agency">${t.directSale}</div>
+            </div>
+          </div>
+          <div class="seller-note">
+            <strong>${t.privateSale}</strong>
+            ${t.privateDesc}
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  /* ── ROUTER ── */
+  function switchView(toId) {
+    const prev = document.getElementById(currentView);
+    const next = document.getElementById(toId);
+    if (!next || toId === currentView) return;
+    prev.classList.remove('active');
+    setTimeout(() => {
+      prev.style.display = 'none';
+      next.style.display = 'block';
+      void next.offsetWidth;
+      next.classList.add('active');
+    }, 150);
+    currentView = toId;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function goListings() {
+    document.getElementById('filterBar').classList.remove('hidden');
+    switchView('viewListings');
+  }
+
+  function toggleFilterBar() {
+    document.getElementById('filterBar').classList.toggle('hidden');
+  }
+
+  function hideFilterBar() {
+    document.getElementById('filterBar').classList.add('hidden');
+  }
+
+  /* ── FILTERS ── */
+  function setFilter(group, val) {
+    filters[group] = val;
+    const containerId = group === 'typ' ? 'filterTyp' : 'filterKraj';
+    document.getElementById(containerId).querySelectorAll('.pill').forEach(p => {
+      p.classList.toggle('active', p.dataset.val === val);
+    });
+    applyFilters();
+  }
+
+  function resetFilters() { setFilter('typ','vsetky'); setFilter('kraj','vsetky'); }
+
+  function applyFilters() {
+    const cards = document.querySelectorAll('#listingsStack .listing-card');
+    let visible = 0;
+    cards.forEach(card => {
+      const show = (filters.typ  === 'vsetky' || card.dataset.typ  === filters.typ) &&
+                   (filters.kraj === 'vsetky' || card.dataset.kraj === filters.kraj);
+      card.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    const lbl = document.getElementById('resultsLabel');
+    if (lbl) lbl.textContent = fmt.plural(visible);
+    document.getElementById('noResults').classList.toggle('show', visible === 0 && allListings.length > 0);
+    const ct = document.getElementById('crumbTyp');
+    const ck = document.getElementById('crumbKraj');
+    if (ct) ct.textContent = typLabels[filters.typ]  || 'Všetky typy';
+    if (ck) ck.textContent = krajLabels[filters.kraj] || 'Všetky kraje';
+  }
+
+  /* ── INIT ── */
+  function init() {
+    // Wire up config
+    document.getElementById('headerTel').href = `tel:${CONFIG.TEL_1}`;
+    document.getElementById('footerTel').href  = `tel:${CONFIG.TEL_1}`;
+
+    // Filter pills
+    document.querySelectorAll('#filterTyp .pill').forEach(p =>
+      p.addEventListener('click', () => setFilter('typ', p.dataset.val)));
+    document.querySelectorAll('#filterKraj .pill').forEach(p =>
+      p.addEventListener('click', () => setFilter('kraj', p.dataset.val)));
+
+    // "Zrušiť" tlačidlo zatvorí filter bar (nielen vymaže filtre)
+    document.getElementById('btnReset').addEventListener('click', () => {
+      resetFilters();
+      hideFilterBar();
+    });
+
+    // Toggle filter bar z headeru
+    document.getElementById('btnFilterToggle').addEventListener('click', toggleFilterBar);
+
+    document.getElementById('logoLink').addEventListener('click', e => { e.preventDefault(); goListings(); });
+    document.getElementById('btnBack').addEventListener('click',  e => { e.preventDefault(); goListings(); });
+
+    // First view active
+    const first = document.getElementById('viewListings');
+    first.style.display = 'block';
+    first.classList.add('active');
+
+    // Init language engine
+    LangEngine.init();
+
+    // Init complete
+    loadListings();
+  }
+
+  function getListings() { return allListings; }
+
+  function setTranslatedListings(data) { _translatedListings = data; }
+
+  function rerender() {
+    _translatedListings = null;
+    renderCards(allListings);
+  }
+
+  function renderWithData(data) {
+    const stack = document.getElementById('listingsStack');
+    stack.innerHTML = '';
+    data.forEach(item => {
+      const card = buildCard(item);
+      stack.appendChild(card);
+    });
+    applyFilters();
+  }
+
+  document.addEventListener('DOMContentLoaded', init);
+  return { goListings, setFilter, resetFilters, getListings, rerender, renderWithData, setTranslatedListings };
+})();
+
+/* ══════════════════════════════════════════════════════════════
+   GALLERY ENGINE
+══════════════════════════════════════════════════════════════ */
+const Gallery = (() => {
+  const CDN = 'https://cdn.jsdelivr.net/gh/not1draggy/mokrance.V2@main/';
+  const EXTS = ['png','jpg','jpeg','webp'];  // png first — hlavné fotky sú png
+  const MAX  = 40;
+
+  async function tryLoad(src) {
+    return new Promise(resolve => {
+      const img = new Image();
+      img.onload = () => resolve(src);
+      img.onerror = () => resolve(null);
+      img.src = src;
+    });
+  }
+
+  async function probeFolder(folder) {
+    const found = [];
+    for (let i = 1; i <= MAX; i++) {
+      let src = null;
+      for (const ext of EXTS) {
+        const url = `${CDN}${folder}/FD${i}.${ext}`;
+        const ok = await tryLoad(url);
+        if (ok) { src = ok; break; }
+      }
+      if (src) found.push({ src, name: `Fotografia ${i}` });
+      else break;
+    }
+    return found;
+  }
+
+  function chooseLayout(n) {
+    if (n === 1) return 'layout-1';
+    if (n === 2) return 'layout-2';
+    if (n === 3) return 'layout-3';
+    if (n <= 6)  return 'layout-mid';
+    return 'layout-dense';
+  }
+
+  async function load(item) {
+    const loadingEl = document.getElementById('galleryLoading');
+    const gridEl    = document.getElementById('galleryGrid');
+    const emptyEl   = document.getElementById('galleryEmpty');
+    const countEl   = document.getElementById('galleryCount');
+    if (!gridEl) return;
+
+    let images = [];
+
+    // 1. Try Supabase Storage URLs first
+    if (Array.isArray(item.foto_urls) && item.foto_urls.length > 0) {
+      images = item.foto_urls.map((url, i) => ({ src: url, name: `Fotografia ${i+1}` }));
+    }
+    // 2. Fallback: probe CDN by folder name
+    else if (item.folder) {
+      images = await probeFolder(item.folder);
+    }
+
+    if (loadingEl) loadingEl.style.display = 'none';
+
+    if (images.length === 0) {
+      if (emptyEl) emptyEl.style.display = '';
+      if (countEl) countEl.textContent = '0 fotografií';
+      return;
+    }
+
+    // Render
+    gridEl.className = 'gallery-grid ' + chooseLayout(images.length);
+    images.forEach((img, idx) => {
+      const div = document.createElement('div');
+      div.className = 'gi';
+      div.innerHTML = `
+        <img src="${img.src}" alt="${img.name}" loading="lazy">
+        <div class="gi-overlay"><span class="gi-icon">⊕</span></div>
+      `;
+      div.addEventListener('click', () => Lightbox.open(images, idx));
+      gridEl.appendChild(div);
+    });
+    gridEl.style.display = '';
+
+    const n = images.length;
+    if (countEl) countEl.textContent = n === 1 ? '1 fotografia' : n < 5 ? `${n} fotografie` : `${n} fotografií`;
+  }
+
+  return { load };
+})();
+
+/* ══════════════════════════════════════════════════════════════
+   LIGHTBOX
+══════════════════════════════════════════════════════════════ */
+const Lightbox = (() => {
+  let images = [], idx = 0, startX = 0;
+  const el = document.getElementById('lightbox');
+  const imgEl = document.getElementById('lbImg');
+  const counterEl = document.getElementById('lbCounter');
+  const captionEl = document.getElementById('lbCaption');
+
+  function open(imgs, i) { images = imgs; show(i); el.classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function close() { el.classList.remove('open'); document.body.style.overflow = ''; }
+  function show(i) {
+    idx = (i + images.length) % images.length;
+    imgEl.src = images[idx].src;
+    imgEl.alt = images[idx].name;
+    counterEl.textContent = `${idx+1} / ${images.length}`;
+    captionEl.textContent = images[idx].name;
+  }
+  function prev() { show(idx - 1); }
+  function next() { show(idx + 1); }
+
+  document.getElementById('lbClose').addEventListener('click', close);
+  document.getElementById('lbPrev').addEventListener('click', prev);
+  document.getElementById('lbNext').addEventListener('click', next);
+  el.addEventListener('click', e => { if (e.target === el) close(); });
+  document.addEventListener('keydown', e => {
+    if (!el.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') prev();
+    if (e.key === 'ArrowRight') next();
+  });
+  el.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+  el.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - startX;
+    if (Math.abs(dx) > 50) dx < 0 ? next() : prev();
+  });
+
+  return { open, close };
+})();
+</script>
+</body>
+</html>
