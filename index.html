@@ -567,9 +567,8 @@ const LangEngine = (() => {
     const listings = App.getListings();
     if (!listings.length) return;
 
-    // Zbierieme všetky texty na preklad
     const allTexts = [];
-    const mapping = []; // {listingIdx, field, textIdx}
+    const mapping = [];
 
     listings.forEach((item, li) => {
       TRANSLATE_FIELDS.forEach(field => {
@@ -584,13 +583,14 @@ const LangEngine = (() => {
 
     const translated = await translateText(allTexts, lang.deepl);
 
-    // Aplikujeme preklady
     const translatedListings = listings.map(item => ({...item}));
     mapping.forEach(({ li, field, ti }) => {
       translatedListings[li][field] = translated[ti];
     });
 
+    // Uložíme preložené dáta do App aj pre detail view
     App.renderWithData(translatedListings);
+    App.setTranslatedListings(translatedListings);
   }
 
   function showBar(msg) {
@@ -654,6 +654,7 @@ const krajLabels = {
 ══════════════════════════════════════════════════════════════ */
 const App = (() => {
   let allListings = [];
+  let _translatedListings = null;
   let filters = { typ: 'vsetky', kraj: 'vsetky' };
   let currentView = 'viewListings';
 
@@ -754,13 +755,15 @@ const App = (() => {
 
   /* ── DETAIL VIEW ── */
   function goDetail(item) {
+    // Použi preložený item ak existuje preklad
+    const currentData = _translatedListings || allListings;
+    const translatedItem = currentData.find(i => i.id === item.id) || item;
+
     const detailEl = document.getElementById('viewDetail');
-    detailEl.innerHTML = buildDetailHTML(item);
+    detailEl.innerHTML = buildDetailHTML(translatedItem);
     document.getElementById('filterBar').classList.add('hidden');
     switchView('viewDetail');
-
-    // Load gallery after render
-    setTimeout(() => Gallery.load(item), 100);
+    setTimeout(() => Gallery.load(translatedItem), 100);
   }
 
   function buildDetailHTML(item) {
@@ -980,7 +983,12 @@ const App = (() => {
 
   function getListings() { return allListings; }
 
-  function rerender() { renderCards(allListings); }
+  function setTranslatedListings(data) { _translatedListings = data; }
+
+  function rerender() {
+    _translatedListings = null;
+    renderCards(allListings);
+  }
 
   function renderWithData(data) {
     const stack = document.getElementById('listingsStack');
@@ -993,7 +1001,7 @@ const App = (() => {
   }
 
   document.addEventListener('DOMContentLoaded', init);
-  return { goListings, setFilter, resetFilters, getListings, rerender, renderWithData };
+  return { goListings, setFilter, resetFilters, getListings, rerender, renderWithData, setTranslatedListings };
 })();
 
 /* ══════════════════════════════════════════════════════════════
