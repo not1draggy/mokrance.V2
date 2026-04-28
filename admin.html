@@ -138,8 +138,10 @@ button{font-family:var(--font);cursor:pointer}
 .toast.green{background:var(--green)}
 .toast.red{background:var(--red)}
 
-/* Responsive */
-@media(max-width:860px){.admin-body{grid-template-columns:1fr}.form-panel{position:static}}
+/* ── NOTIFY BUTTON ── */
+.btn-report{position:fixed;bottom:24px;right:24px;background:var(--green);color:white;border:none;border-radius:24px;padding:11px 20px;font-size:13px;font-weight:600;font-family:var(--font);cursor:pointer;display:flex;align-items:center;gap:8px;box-shadow:0 4px 16px rgba(26,107,60,0.3);z-index:500;transition:all .2s}
+.btn-report:hover{background:var(--green-dark);transform:translateY(-1px)}
+.btn-report svg{width:15px;height:15px}
 </style>
 </head>
 <body>
@@ -336,6 +338,12 @@ button{font-family:var(--font);cursor:pointer}
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
+<!-- NAHLÁSIŤ PROBLÉM -->
+<button class="btn-report" id="btnReport" onclick="Notify.reportProblem()" style="display:none;">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+  Nahlásiť problém
+</button>
+
 <script src="config.js"></script>
 <script>
 /* ══════════════════════════════════════════════════════════════
@@ -431,10 +439,11 @@ const Auth = (() => {
         body: JSON.stringify({ email, password: pass }),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error_description || 'Chyba prihlásenia');
+      if (!res.ok) throw new Error('Nesprávny email alebo heslo. Skúste znova.');
 
       _token = data.access_token;
       localStorage.setItem('admin_token_484', _token);
+      Notify.onLogin();
       showAdmin();
     } catch(err) {
       errEl.textContent = err.message;
@@ -457,6 +466,7 @@ const Auth = (() => {
   function showAdmin() {
     document.getElementById('loginWrap').style.display = 'none';
     document.getElementById('adminWrap').classList.add('show');
+    document.getElementById('btnReport').style.display = 'flex';
     Listings.load();
   }
 
@@ -500,8 +510,8 @@ const Listings = (() => {
         <td><span class="tbl-badge ${item.aktivny ? 'badge-active' : 'badge-inactive'}">${item.aktivny ? 'Aktívny' : 'Skrytý'}</span></td>
         <td>
           <div class="tbl-actions">
-            <button class="btn-sm btn-ghost" onclick="Form.openEdit(${item.id})">✏️ Edit</button>
-            <button class="btn-sm btn-danger" onclick="Listings.confirmDelete(${item.id})">🗑</button>
+            <button class="btn-sm btn-ghost" onclick="Form.openEdit(${item.id})">Upraviť</button>
+            <button class="btn-sm btn-danger" onclick="Listings.confirmDelete(${item.id})">Vymazať</button>
           </div>
         </td>
       </tr>
@@ -511,7 +521,9 @@ const Listings = (() => {
   async function confirmDelete(id) {
     if (!confirm('Naozaj vymazať tento inzerát? Akcia je nevratná.')) return;
     try {
+      const item = Listings.get(id);
       await sb.delete('inzeraty', id);
+      Notify.onInzeratDeleted(item?.nazov || `ID ${id}`);
       toast('Inzerát vymazaný', 'green');
       load();
     } catch(err) {
@@ -672,12 +684,45 @@ const Form = (() => {
     const btn   = document.getElementById('btnSave');
     const label = document.getElementById('btnSaveLabel');
     btn.disabled = true;
-    label.textContent = 'Ukladám…';
+    label.textContent = 'Ukladám...';
 
     try {
+      // Auto-preklad cez DeepL
+      label.textContent = 'Prekladám...';
+      const langs = [
+        { code: 'en', deepl: 'EN-GB' },
+        { code: 'de', deepl: 'DE'    },
+        { code: 'ru', deepl: 'RU'    },
+        { code: 'uk', deepl: 'UK'    },
+      ];
+
+      for (const lang of langs) {
+        try {
+          const res = await fetch(CONFIG.DEEPL_URL, {
+            method: 'POST',
+            headers: {
+              'Authorization': `DeepL-Auth-Key ${CONFIG.DEEPL_KEY}`,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              text: [body.nazov, body.popis],
+              source_lang: 'SK',
+              target_lang: lang.deepl,
+            })
+          });
+          if (res.ok) {
+            const data = await res.json();
+            body[`nazov_${lang.code}`] = data.translations[0].text;
+            body[`popis_${lang.code}`] = data.translations[1].text;
+          }
+        } catch(e) {
+          console.warn(`Preklad ${lang.code} zlyhal:`, e);
+        }
+      }
+
+      label.textContent = 'Ukladám do databázy...';
       let savedId = editId;
 
-      // Save to DB first
       if (editId) {
         await sb.patch('inzeraty', editId, body);
       } else {
@@ -718,6 +763,7 @@ const Form = (() => {
       }
 
       toast(editId ? 'Inzerát aktualizovaný ✓' : 'Inzerát pridaný ✓', 'green');
+      Notify.onInzeratSaved(body.nazov, !editId);
       cancel();
       Listings.load();
     } catch(err) {
@@ -749,6 +795,53 @@ function toast(msg, type = '') {
   clearTimeout(toast._t);
   toast._t = setTimeout(() => el.classList.remove('show'), 3500);
 }
+
+/* ══════════════════════════════════════════════════════════════
+   NOTIFY ENGINE — Telegram cez CallMeBot
+══════════════════════════════════════════════════════════════ */
+const Notify = (() => {
+
+  async function send(msg) {
+    try {
+      const encoded = encodeURIComponent(msg);
+      await fetch(
+        `https://api.callmebot.com/text.php?user=@${CONFIG.TELEGRAM_USER}&text=${encoded}`,
+        { mode: 'no-cors' }
+      );
+    } catch(e) {
+      console.warn('Notify error:', e);
+    }
+  }
+
+  function now() {
+    return new Date().toLocaleString('sk-SK', {
+      day:'2-digit', month:'2-digit', year:'numeric',
+      hour:'2-digit', minute:'2-digit'
+    });
+  }
+
+  function onInzeratSaved(nazov, isNew) {
+    const akcia = isNew ? 'pridaný' : 'upravený';
+    send(`484.sk Admin ✅\nInzerát ${akcia}: "${nazov}"\n${now()}`);
+  }
+
+  function onInzeratDeleted(nazov) {
+    send(`484.sk Admin 🗑\nInzerát vymazaný: "${nazov}"\n${now()}`);
+  }
+
+  function onLogin() {
+    send(`484.sk Admin 🔐\nPrihlásenie do admin panelu\n${now()}`);
+  }
+
+  async function reportProblem() {
+    const popis = prompt('Opíšte problém (alebo nechajte prázdne):') ?? 'Bez popisu';
+    const url = window.location.href;
+    await send(`484.sk ⚠️ PROBLÉM\nOd: Ujo\nPopis: ${popis}\nURL: ${url}\n${now()}`);
+    toast('Problém nahlásený Danielovi ✓', 'green');
+  }
+
+  return { send, onInzeratSaved, onInzeratDeleted, onLogin, reportProblem };
+})();
 
 /* ── DRAG & DROP ── */
 document.addEventListener('DOMContentLoaded', () => {
