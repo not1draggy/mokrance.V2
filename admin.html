@@ -804,10 +804,14 @@ const Notify = (() => {
   async function send(msg) {
     try {
       const encoded = encodeURIComponent(msg);
-      await fetch(
-        `https://api.callmebot.com/text.php?user=@${CONFIG.TELEGRAM_USER}&text=${encoded}`,
-        { mode: 'no-cors' }
-      );
+      const url = `https://api.callmebot.com/text.php?user=@${CONFIG.TELEGRAM_USER}&text=${encoded}`;
+      // Image ping — obchádza CORS bez servera
+      return new Promise(resolve => {
+        const img = new Image();
+        img.onload = img.onerror = () => resolve();
+        img.src = url;
+        setTimeout(resolve, 3000); // fallback timeout
+      });
     } catch(e) {
       console.warn('Notify error:', e);
     }
@@ -821,22 +825,29 @@ const Notify = (() => {
   }
 
   function onInzeratSaved(nazov, isNew) {
-    const akcia = isNew ? 'pridaný' : 'upravený';
-    send(`484.sk Admin ✅\nInzerát ${akcia}: "${nazov}"\n${now()}`);
+    const akcia = isNew ? 'pridaný ✅' : 'upravený ✏️';
+    send(`484.sk Admin%0AInzerát ${akcia}%0A"${nazov}"%0A${now()}`);
   }
 
   function onInzeratDeleted(nazov) {
-    send(`484.sk Admin 🗑\nInzerát vymazaný: "${nazov}"\n${now()}`);
+    send(`484.sk Admin 🗑%0AInzerát vymazaný%0A"${nazov}"%0A${now()}`);
   }
 
   function onLogin() {
-    send(`484.sk Admin 🔐\nPrihlásenie do admin panelu\n${now()}`);
+    send(`484.sk Admin 🔐%0APrihlásenie do admin panelu%0A${now()}`);
   }
 
   async function reportProblem() {
-    const popis = prompt('Opíšte problém (alebo nechajte prázdne):') ?? 'Bez popisu';
-    const url = window.location.href;
-    await send(`484.sk ⚠️ PROBLÉM\nOd: Ujo\nPopis: ${popis}\nURL: ${url}\n${now()}`);
+    const popis = prompt('Opíšte problém (môžete nechať prázdne):') ?? '';
+    const info = [
+      `484.sk ⚠️ PROBLÉM NAHLÁSENÝ`,
+      `Čas: ${now()}`,
+      `Popis: ${popis || 'Bez popisu'}`,
+      `URL: ${window.location.href}`,
+      `Zariadenie: ${navigator.userAgent.includes('Mobile') ? 'Mobil' : 'Desktop'}`,
+      `Prehliadač: ${navigator.userAgent.split(') ')[0].split('(')[1] || 'Neznámy'}`,
+    ].join('%0A');
+    await send(info);
     toast('Problém nahlásený Danielovi ✓', 'green');
   }
 
