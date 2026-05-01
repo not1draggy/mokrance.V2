@@ -104,32 +104,89 @@ button{font-family:var(--font);cursor:pointer}
 .btn-primary:hover{background:var(--green-dark);border-color:var(--green-dark);box-shadow:0 3px 10px rgba(26,107,60,0.35);transform:translateY(-1px)}
 .btn-lg{padding:13px 24px;font-size:14px;width:100%;border-radius:var(--radius);letter-spacing:0.02em}
 
-/* ── FILTER BAR ── */
-.filter-bar{background:white;border-bottom:1px solid var(--border);position:sticky;top:var(--header-h);z-index:100}
-.filter-bar.hidden{display:none}
-.filter-inner{max-width:1160px;margin:0 auto;padding:10px 20px;display:flex;flex-wrap:wrap;gap:16px;align-items:center}
-.filter-group{display:flex;flex-direction:column;gap:4px}
-.filter-label{font-family:var(--mono);font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-xsoft)}
+/* ── LAYOUT (rail + main) ── */
+.layout-with-rail{display:grid;grid-template-columns:1fr;gap:20px;align-items:start}
+@media(min-width:900px){
+  .layout-with-rail{grid-template-columns:280px 1fr;gap:24px}
+}
+.layout-with-rail.rail-off{grid-template-columns:1fr}
+.layout-with-rail.rail-off .filter-rail{display:none}
+
+/* ── FILTER RAIL ── */
+.filter-rail{background:white;border:1px solid var(--border);border-radius:var(--radius);padding:18px 16px;display:flex;flex-direction:column;gap:18px}
+@media(min-width:900px){
+  .filter-rail{position:sticky;top:calc(var(--header-h) + 16px);max-height:calc(100vh - var(--header-h) - 32px);overflow-y:auto}
+}
+.filter-rail .pill{display:inline-block}
+.filter-group{display:flex;flex-direction:column;gap:8px}
+.filter-label{font-family:var(--mono);font-size:9.5px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-xsoft)}
 .filter-pills{display:flex;gap:4px;flex-wrap:wrap}
-.pill{padding:4px 11px;border-radius:20px;font-size:12.5px;font-weight:500;border:1.5px solid var(--border-mid);color:var(--text-mid);background:white;cursor:pointer;transition:all var(--transition);user-select:none;white-space:nowrap}
+.pill{padding:5px 12px;border-radius:20px;font-size:12.5px;font-weight:500;border:1.5px solid var(--border-mid);color:var(--text-mid);background:white;cursor:pointer;transition:all var(--transition);user-select:none;white-space:nowrap}
 .pill:hover{border-color:var(--green);color:var(--green)}
 .pill.active{background:var(--green);border-color:var(--green);color:white}
-.filter-sep{width:1px;height:32px;background:var(--border);flex-shrink:0;align-self:flex-end;margin-bottom:1px}
-.filter-meta{margin-left:auto;display:flex;align-items:center;gap:10px;align-self:flex-end;padding-bottom:1px}
+.filter-meta{display:flex;align-items:center;justify-content:space-between;gap:8px;padding-top:14px;border-top:1px solid var(--border)}
 .results-label{font-family:var(--mono);font-size:12px;color:var(--text-xsoft)}
-.btn-reset{font-size:11.5px;color:var(--text-soft);background:none;border:none;cursor:pointer;padding:3px 6px;border-radius:3px;transition:color var(--transition);font-family:var(--font)}
-.btn-reset:hover{color:var(--green)}
+.btn-reset{font-size:12px;color:var(--text-soft);background:none;border:none;cursor:pointer;padding:5px 8px;border-radius:4px;transition:all var(--transition);font-family:var(--font)}
+.btn-reset:hover{color:var(--green);background:var(--green-light)}
 
-/* ── MOBILE FILTER SCROLL ── */
-@media(max-width:680px){
-  .filter-inner{flex-direction:column;gap:0;padding:0}
-  .filter-group{width:100%;padding:8px 16px 0}
-  .filter-group:last-of-type{padding-bottom:8px}
-  .filter-pills{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px}
-  .filter-pills::-webkit-scrollbar{display:none}
-  .filter-sep{display:none}
-  .filter-meta{width:100%;padding:6px 16px 8px;border-top:1px solid var(--border);margin-left:0;justify-content:space-between}
+/* ── SEARCH BOX ── */
+.search-box{position:relative}
+.search-box input{width:100%;padding:10px 36px 10px 36px;border:1.5px solid var(--border-mid);border-radius:var(--radius-sm);font-size:13.5px;font-family:var(--font);color:var(--text);outline:none;transition:border-color var(--transition),box-shadow var(--transition);background:white}
+.search-box input::placeholder{color:var(--text-xsoft)}
+.search-box input:focus{border-color:var(--green);box-shadow:0 0 0 3px var(--green-glow)}
+.search-box .search-icon{position:absolute;left:11px;top:50%;transform:translateY(-50%);width:14px;height:14px;color:var(--text-xsoft);pointer-events:none}
+.search-box .clear-btn{position:absolute;right:6px;top:50%;transform:translateY(-50%);background:transparent;border:none;cursor:pointer;padding:5px;color:var(--text-soft);border-radius:50%;display:none;line-height:0}
+.search-box.has-value .clear-btn{display:inline-flex}
+.search-box .clear-btn:hover{background:var(--surface-2);color:var(--text)}
+
+/* ── ADD LISTING CTA ── */
+.btn-add-listing{display:inline-flex;align-items:center;justify-content:center;gap:6px;background:var(--green);color:white;padding:10px 14px;border-radius:var(--radius-sm);border:none;cursor:pointer;font-weight:600;font-size:13px;font-family:var(--font);transition:all var(--transition);box-shadow:0 1px 3px rgba(26,107,60,0.3)}
+.btn-add-listing:hover{background:var(--green-dark);box-shadow:0 3px 10px rgba(26,107,60,0.35);transform:translateY(-1px)}
+.add-listing-note{font-size:11.5px;color:var(--text-xsoft);font-family:var(--mono);text-align:center;line-height:1.4}
+
+/* ── MOBILE DRAWER ── */
+.filter-backdrop{display:none;position:fixed;inset:0;background:rgba(10,12,10,0.55);backdrop-filter:blur(3px);z-index:150}
+.filter-backdrop.open{display:block}
+@media(max-width:899px){
+  .filter-rail{position:fixed;inset:0 auto 0 0;width:min(85vw,320px);z-index:160;transform:translateX(-100%);transition:transform var(--transition-lg);border-radius:0;border:none;border-right:1px solid var(--border);box-shadow:var(--shadow-lg);padding:16px;overflow-y:auto}
+  .filter-rail.open{transform:translateX(0)}
 }
+
+/* ── SUBMIT LISTING MODAL ── */
+#submitModal{border:none;border-radius:var(--radius-lg);padding:0;width:min(640px,94vw);max-height:92vh;background:white;box-shadow:var(--shadow-lg)}
+#submitModal::backdrop{background:rgba(10,12,10,0.6);backdrop-filter:blur(8px)}
+#submitModal form{padding:0;display:flex;flex-direction:column;max-height:92vh}
+.sm-header{padding:18px 22px 14px;border-bottom:1px solid var(--border);background:var(--green);color:white;border-radius:var(--radius-lg) var(--radius-lg) 0 0}
+.sm-title{font-size:16px;font-weight:700;margin-bottom:2px}
+.sm-sub{font-family:var(--mono);font-size:11.5px;color:rgba(255,255,255,0.7)}
+.sm-body{padding:18px 22px;overflow-y:auto;flex:1;display:flex;flex-direction:column;gap:18px}
+.sm-section{display:flex;flex-direction:column;gap:10px}
+.sm-section-title{font-family:var(--mono);font-size:9.5px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-xsoft)}
+.sm-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:520px){.sm-row{grid-template-columns:1fr}}
+.sm-field{display:flex;flex-direction:column;gap:4px}
+.sm-field label{font-size:12px;font-weight:600;color:var(--text-soft)}
+.sm-field input,.sm-field select,.sm-field textarea{border:1.5px solid var(--border-mid);border-radius:var(--radius-sm);padding:10px 12px;font-size:14px;font-family:var(--font);color:var(--text);outline:none;transition:border-color var(--transition),box-shadow var(--transition);width:100%;-webkit-appearance:none}
+.sm-field input:focus,.sm-field select:focus,.sm-field textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px var(--green-glow)}
+.sm-field textarea{resize:vertical;min-height:90px;line-height:1.5}
+.sm-honeypot{position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none}
+.sm-photo-zone{border:2px dashed var(--border-mid);border-radius:var(--radius-sm);padding:20px;text-align:center;cursor:pointer;transition:all var(--transition);position:relative}
+.sm-photo-zone:hover{border-color:var(--green);background:var(--green-light)}
+.sm-photo-zone input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.sm-photo-zone-text{font-size:13px;color:var(--text-mid)}
+.sm-photo-zone-sub{font-size:11.5px;color:var(--text-xsoft);font-family:var(--mono);margin-top:3px}
+.sm-photo-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:8px}
+.sm-photo-thumb{position:relative;aspect-ratio:1;border-radius:4px;overflow:hidden;border:1px solid var(--border)}
+.sm-photo-thumb img{width:100%;height:100%;object-fit:cover}
+.sm-photo-thumb .rm{position:absolute;top:3px;right:3px;background:rgba(0,0,0,0.65);color:white;border:none;border-radius:50%;width:22px;height:22px;font-size:13px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.sm-footer{padding:14px 22px;border-top:1px solid var(--border);display:flex;gap:10px;background:var(--surface);border-radius:0 0 var(--radius-lg) var(--radius-lg)}
+.sm-footer button{flex:1;padding:12px;font-size:14px;font-weight:700;border-radius:var(--radius-sm);border:none;cursor:pointer;font-family:var(--font);transition:all var(--transition)}
+.sm-cancel{background:var(--surface-2);color:var(--text-soft);border:1.5px solid var(--border-mid)!important}
+.sm-cancel:hover{border-color:var(--text-soft)!important}
+.sm-submit{background:var(--green);color:white}
+.sm-submit:hover{background:var(--green-dark)}
+.sm-submit:disabled{opacity:0.5;cursor:wait}
+.sm-disclaimer{font-size:11.5px;color:var(--text-xsoft);line-height:1.5;text-align:center}
 
 /* ── PAGE ── */
 .page-wrap{max-width:1160px;margin:0 auto;padding:20px 20px 60px}
@@ -315,9 +372,6 @@ button{font-family:var(--font);cursor:pointer}
   .card-price{font-size:19px}
   .gallery-grid.layout-dense{grid-template-columns:repeat(2,1fr)}
   .gallery-grid.layout-dense .gi:first-child{grid-column:span 2;grid-row:1}
-  .filter-inner{gap:10px}
-  .filter-sep{display:none}
-  .filter-meta{width:100%;justify-content:space-between}
   .btn-ghost{display:none}
   .page-wrap{padding:14px 14px 48px}
 }
@@ -361,80 +415,187 @@ button{font-family:var(--font);cursor:pointer}
   </div>
 </header>
 
-<!-- FILTER BAR -->
-<div class="filter-bar" id="filterBar">
-  <div class="filter-inner">
-    <div class="filter-group">
-      <div class="filter-label" id="filterTypLabel">Typ nehnuteľnosti</div>
-      <div class="filter-pills" id="filterTyp">
-        <span class="pill active" data-val="vsetky">Všetky</span>
-        <span class="pill" data-val="dom">Rodinný dom</span>
-        <span class="pill" data-val="byt">Byt</span>
-        <span class="pill" data-val="pozemok">Pozemok</span>
-        <span class="pill" data-val="kancelaria">Kancelária</span>
-      </div>
-    </div>
-    <div class="filter-sep"></div>
-    <div class="filter-group">
-      <div class="filter-label" id="filterKrajLabel">Kraj</div>
-      <div class="filter-pills" id="filterKraj">
-        <span class="pill active" data-val="vsetky">Všetky</span>
-        <span class="pill" data-val="kosicky">Košický</span>
-        <span class="pill" data-val="bratislavsky">Bratislavský</span>
-        <span class="pill" data-val="presovsky">Prešovský</span>
-        <span class="pill" data-val="banskobystricky">Banskobystrický</span>
-        <span class="pill" data-val="nitriansky">Nitriansky</span>
-        <span class="pill" data-val="zilinsky">Žilinský</span>
-        <span class="pill" data-val="trnavsky">Trnavský</span>
-        <span class="pill" data-val="trenciansky">Trenčiansky</span>
-      </div>
-    </div>
-    <div class="filter-meta">
-      <span class="results-label" id="resultsLabel">Načítavam…</span>
-      <button class="btn-reset" id="btnReset">✕ Zrušiť</button>
-    </div>
-  </div>
-</div>
+<!-- MOBILE FILTER BACKDROP -->
+<div class="filter-backdrop" id="filterBackdrop"></div>
 
 <!-- MAIN -->
 <main>
-  <div class="page-wrap">
+  <div class="page-wrap layout-with-rail" id="pageLayout">
 
-    <!-- LISTINGS VIEW -->
-    <div class="view active" id="viewListings">
-      <div class="page-topbar">
-        <nav class="breadcrumb">
-          <span>Nehnuteľnosti</span>
-          <span class="breadcrumb-sep">›</span>
-          <span id="crumbTyp">Všetky typy</span>
-          <span class="breadcrumb-sep">›</span>
-          <span id="crumbKraj">Všetky kraje</span>
-        </nav>
+    <!-- LEFT FILTER RAIL -->
+    <aside class="filter-rail" id="filterRail">
+      <!-- Search -->
+      <div class="search-box" id="searchBox">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input type="text" id="searchInput" placeholder="Hľadať..." aria-label="Hľadať" autocomplete="off">
+        <button type="button" class="clear-btn" id="searchClear" aria-label="Vymazať">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M18 6 6 18M6 6l12 12"/>
+          </svg>
+        </button>
       </div>
-      <!-- Skeleton loaders -->
-      <div id="skeletonLoaders">
-        <div class="skeleton skeleton-card"></div>
-        <div class="skeleton skeleton-card"></div>
+
+      <!-- Type filter -->
+      <div class="filter-group">
+        <div class="filter-label" id="filterTypLabel">Typ nehnuteľnosti</div>
+        <div class="filter-pills" id="filterTyp">
+          <span class="pill active" data-val="vsetky">Všetky</span>
+          <span class="pill" data-val="dom">Rodinný dom</span>
+          <span class="pill" data-val="byt">Byt</span>
+          <span class="pill" data-val="pozemok">Pozemok</span>
+          <span class="pill" data-val="kancelaria">Kancelária</span>
+        </div>
       </div>
-      <div class="listings-stack" id="listingsStack" style="display:none;"></div>
-      <div class="no-results" id="noResults">
-        <div class="no-results-icon">🔍</div>
-        <h3>Žiadne výsledky</h3>
-        <p>Pre zvolené filtre momentálne nemáme žiadne ponuky.</p>
-        <button class="btn btn-primary" onclick="App.resetFilters()">Zobraziť všetky ponuky</button>
+
+      <!-- Region filter -->
+      <div class="filter-group">
+        <div class="filter-label" id="filterKrajLabel">Kraj</div>
+        <div class="filter-pills" id="filterKraj">
+          <span class="pill active" data-val="vsetky">Všetky</span>
+          <span class="pill" data-val="kosicky">Košický</span>
+          <span class="pill" data-val="bratislavsky">Bratislavský</span>
+          <span class="pill" data-val="presovsky">Prešovský</span>
+          <span class="pill" data-val="banskobystricky">Banskobystrický</span>
+          <span class="pill" data-val="nitriansky">Nitriansky</span>
+          <span class="pill" data-val="zilinsky">Žilinský</span>
+          <span class="pill" data-val="trnavsky">Trnavský</span>
+          <span class="pill" data-val="trenciansky">Trenčiansky</span>
+        </div>
       </div>
-      <div class="error-state" id="errorState" style="display:none;">
-        <div class="error-state-icon">⚠️</div>
-        <h3>Chyba pri načítaní</h3>
-        <p id="errorMsg">Nepodarilo sa načítať inzeráty. Skúste obnoviť stránku.</p>
+
+      <!-- Meta -->
+      <div class="filter-meta">
+        <span class="results-label" id="resultsLabel">Načítavam…</span>
+        <button class="btn-reset" id="btnReset">✕ Zrušiť</button>
       </div>
+
+      <!-- Add listing CTA -->
+      <button type="button" class="btn-add-listing" id="btnOpenSubmit">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M12 5v14M5 12h14"/>
+        </svg>
+        <span id="btnAddListingText">Pridať inzerát</span>
+      </button>
+      <div class="add-listing-note" id="addListingNote">Zobrazí sa po schválení.</div>
+    </aside>
+
+    <!-- CONTENT AREA -->
+    <div class="content-area">
+      <!-- LISTINGS VIEW -->
+      <div class="view active" id="viewListings">
+        <div class="page-topbar">
+          <nav class="breadcrumb">
+            <span>Nehnuteľnosti</span>
+            <span class="breadcrumb-sep">›</span>
+            <span id="crumbTyp">Všetky typy</span>
+            <span class="breadcrumb-sep">›</span>
+            <span id="crumbKraj">Všetky kraje</span>
+          </nav>
+        </div>
+        <!-- Skeleton loaders -->
+        <div id="skeletonLoaders">
+          <div class="skeleton skeleton-card"></div>
+          <div class="skeleton skeleton-card"></div>
+        </div>
+        <div class="listings-stack" id="listingsStack" style="display:none;"></div>
+        <div class="no-results" id="noResults">
+          <div class="no-results-icon">🔍</div>
+          <h3>Žiadne výsledky</h3>
+          <p>Pre zvolené filtre momentálne nemáme žiadne ponuky.</p>
+          <button class="btn btn-primary" onclick="App.resetFilters()">Zobraziť všetky ponuky</button>
+        </div>
+        <div class="error-state" id="errorState" style="display:none;">
+          <div class="error-state-icon">⚠️</div>
+          <h3>Chyba pri načítaní</h3>
+          <p id="errorMsg">Nepodarilo sa načítať inzeráty. Skúste obnoviť stránku.</p>
+        </div>
+      </div>
+
+      <!-- DETAIL VIEW (dynamicky generovaný) -->
+      <div class="view" id="viewDetail"></div>
     </div>
-
-    <!-- DETAIL VIEW (dynamicky generovaný) -->
-    <div class="view" id="viewDetail"></div>
 
   </div>
 </main>
+
+<!-- SUBMIT LISTING MODAL -->
+<dialog id="submitModal" aria-labelledby="submitModalTitle">
+  <form id="submitForm" novalidate>
+    <div class="sm-header">
+      <div class="sm-title" id="submitModalTitle">Pridať inzerát</div>
+      <div class="sm-sub" id="submitModalSub">Po odoslaní bude inzerát skontrolovaný a zverejnený.</div>
+    </div>
+    <div class="sm-body">
+      <!-- Honeypot — bots fill it, humans don't see it -->
+      <input class="sm-honeypot" type="text" name="honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+      <div class="sm-section">
+        <div class="sm-section-title" id="smContactTitle">Kontakt na vás</div>
+        <div class="sm-row">
+          <div class="sm-field"><label id="smNameLabel">Meno *</label><input name="submitter_name" required autocomplete="name"></div>
+          <div class="sm-field"><label id="smEmailLabel">Email *</label><input name="submitter_email" type="email" required autocomplete="email"></div>
+        </div>
+        <div class="sm-field"><label id="smPhoneLabel">Telefón (voliteľné)</label><input name="submitter_phone" type="tel" autocomplete="tel"></div>
+      </div>
+
+      <div class="sm-section">
+        <div class="sm-section-title" id="smListingTitle">Inzerát</div>
+        <div class="sm-field"><label id="smTitleLabel">Názov *</label><input name="nazov" required maxlength="200"></div>
+        <div class="sm-field"><label id="smDescLabel">Popis *</label><textarea name="popis" required maxlength="3000"></textarea></div>
+        <div class="sm-row">
+          <div class="sm-field"><label id="smPriceLabel">Cena (€) *</label><input name="cena" type="number" min="0" required></div>
+          <div class="sm-field"><label id="smTypeLabel">Typ *</label>
+            <select name="typ" required>
+              <option value="">—</option>
+              <option value="dom">Rodinný dom</option>
+              <option value="byt">Byt</option>
+              <option value="pozemok">Pozemok</option>
+              <option value="kancelaria">Kancelária</option>
+            </select>
+          </div>
+        </div>
+        <div class="sm-row">
+          <div class="sm-field"><label id="smCityLabel">Obec *</label><input name="obec" required></div>
+          <div class="sm-field"><label id="smRegionLabel">Kraj *</label>
+            <select name="kraj" required>
+              <option value="">—</option>
+              <option value="kosicky">Košický</option>
+              <option value="bratislavsky">Bratislavský</option>
+              <option value="presovsky">Prešovský</option>
+              <option value="banskobystricky">Banskobystrický</option>
+              <option value="nitriansky">Nitriansky</option>
+              <option value="zilinsky">Žilinský</option>
+              <option value="trnavsky">Trnavský</option>
+              <option value="trenciansky">Trenčiansky</option>
+            </select>
+          </div>
+        </div>
+        <div class="sm-row">
+          <div class="sm-field"><label id="smAreaLabel">Úžitková plocha (m²)</label><input name="uzitk_plocha" type="number" min="0"></div>
+          <div class="sm-field"><label id="smLayoutLabel">Dispozícia</label><input name="dispozicia" placeholder="3+1, 4-izbový..."></div>
+        </div>
+      </div>
+
+      <div class="sm-section">
+        <div class="sm-section-title" id="smPhotosTitle">Fotografie (max 8, do 5 MB každá)</div>
+        <label class="sm-photo-zone">
+          <input type="file" name="photos" accept="image/*" multiple>
+          <div class="sm-photo-zone-text" id="smPhotoText">📷 Kliknite alebo pretiahnite fotky</div>
+          <div class="sm-photo-zone-sub">JPG · PNG · WEBP</div>
+        </label>
+        <div class="sm-photo-grid" id="smPhotoGrid"></div>
+      </div>
+
+      <div class="sm-disclaimer" id="smDisclaimer">Odoslaním súhlasíte so spracovaním údajov za účelom schválenia a zverejnenia inzerátu.</div>
+    </div>
+    <div class="sm-footer">
+      <button type="button" class="sm-cancel" id="btnCancelSubmit">Zrušiť</button>
+      <button type="submit" class="sm-submit" id="btnSubmitListing">Odoslať na schválenie</button>
+    </div>
+  </form>
+</dialog>
 
 <!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox">
@@ -480,6 +641,8 @@ const LangEngine = (() => {
   const UI = {
     sk: {
       allOffers:'Všetky ponuky', filter:'Filter', call:'Volať',
+      searchPlaceholder:'Hľadať...', addListing:'Pridať inzerát',
+      addListingNote:'Zobrazí sa po schválení.',
       typLabel:'TYP NEHNUTEĽNOSTI', krajLabel:'KRAJ',
       allTypes:'Všetky', dom:'Rodinný dom', byt:'Byt', pozemok:'Pozemok', kancelaria:'Kancelária',
       allKraje:'Všetky', results:'ponuky', cancel:'✕ Zrušiť',
@@ -499,6 +662,8 @@ const LangEngine = (() => {
     },
     en: {
       allOffers:'All listings', filter:'Filter', call:'Call',
+      searchPlaceholder:'Search...', addListing:'Add listing',
+      addListingNote:'Visible after approval.',
       typLabel:'PROPERTY TYPE', krajLabel:'REGION',
       allTypes:'All', dom:'House', byt:'Apartment', pozemok:'Land', kancelaria:'Office',
       allKraje:'All', results:'listings', cancel:'✕ Clear',
@@ -518,6 +683,8 @@ const LangEngine = (() => {
     },
     de: {
       allOffers:'Alle Angebote', filter:'Filter', call:'Anrufen',
+      searchPlaceholder:'Suchen...', addListing:'Inserat aufgeben',
+      addListingNote:'Sichtbar nach Freigabe.',
       typLabel:'IMMOBILIENTYP', krajLabel:'REGION',
       allTypes:'Alle', dom:'Haus', byt:'Wohnung', pozemok:'Grundstück', kancelaria:'Büro',
       allKraje:'Alle', results:'Angebote', cancel:'✕ Löschen',
@@ -537,6 +704,8 @@ const LangEngine = (() => {
     },
     ru: {
       allOffers:'Все объявления', filter:'Фильтр', call:'Позвонить',
+      searchPlaceholder:'Поиск...', addListing:'Подать объявление',
+      addListingNote:'Появится после одобрения.',
       typLabel:'ТИП НЕДВИЖИМОСТИ', krajLabel:'РЕГИОН',
       allTypes:'Все', dom:'Дом', byt:'Квартира', pozemok:'Участок', kancelaria:'Офис',
       allKraje:'Все', results:'объявления', cancel:'✕ Сбросить',
@@ -556,6 +725,8 @@ const LangEngine = (() => {
     },
     uk: {
       allOffers:'Всі оголошення', filter:'Фільтр', call:'Зателефонувати',
+      searchPlaceholder:'Пошук...', addListing:'Подати оголошення',
+      addListingNote:'З\'явиться після схвалення.',
       typLabel:'ТИП НЕРУХОМОСТІ', krajLabel:'РЕГІОН',
       allTypes:'Всі', dom:'Будинок', byt:'Квартира', pozemok:'Ділянка', kancelaria:'Офіс',
       allKraje:'Всі', results:'оголошення', cancel:'✕ Скинути',
@@ -705,6 +876,10 @@ const LangEngine = (() => {
     s('filterTypLabel', t.typLabel);
     s('filterKrajLabel', t.krajLabel);
     s('btnReset', t.cancel);
+    s('btnAddListingText', t.addListing);
+    s('addListingNote', t.addListingNote);
+    const sInput = document.getElementById('searchInput');
+    if (sInput && t.searchPlaceholder) sInput.placeholder = t.searchPlaceholder;
     document.querySelectorAll('#filterTyp .pill').forEach(p => {
       const map = { vsetky:t.allTypes, dom:t.dom, byt:t.byt, pozemok:t.pozemok, kancelaria:t.kancelaria };
       if (map[p.dataset.val]) p.textContent = map[p.dataset.val];
@@ -762,7 +937,7 @@ const krajLabels = {
 const App = (() => {
   let allListings = [];
   let _translatedListings = null;
-  let filters = { typ: 'vsetky', kraj: 'vsetky' };
+  let filters = { typ: 'vsetky', kraj: 'vsetky', search: '' };
   let currentView = 'viewListings';
 
   /* ── DATA FETCH ── */
@@ -805,9 +980,14 @@ const App = (() => {
     const card = document.createElement('a');
     card.className = 'listing-card';
     card.href = '#';
-    card.dataset.id   = item.id;
-    card.dataset.typ  = item.typ;
-    card.dataset.kraj = item.kraj;
+    card.dataset.id     = item.id;
+    card.dataset.typ    = item.typ;
+    card.dataset.kraj   = item.kraj;
+    // Pre-compute searchable blob so applyFilters() doesn't recompute per keystroke.
+    card.dataset.search = [
+      item.nazov, item.popis, item.obec, item.kraj, item.typ,
+      item.dispozicia, item.stav, item.energy_class
+    ].filter(Boolean).join(' ').toLowerCase();
 
     const thumbHtml = thumbSrc
       ? `<img src="${fmt.esc(thumbSrc)}" alt="${fmt.esc(item.nazov)}" loading="lazy" onerror="this.style.display='none'">`
@@ -868,7 +1048,8 @@ const App = (() => {
 
     const detailEl = document.getElementById('viewDetail');
     detailEl.innerHTML = buildDetailHTML(translatedItem);
-    document.getElementById('filterBar').classList.add('hidden');
+    document.getElementById('pageLayout').classList.add('rail-off');
+    closeMobileRail();
     switchView('viewDetail');
     setTimeout(() => Gallery.load(translatedItem), 100);
   }
@@ -1014,16 +1195,24 @@ const App = (() => {
   }
 
   function goListings() {
-    document.getElementById('filterBar').classList.remove('hidden');
+    document.getElementById('pageLayout').classList.remove('rail-off');
     switchView('viewListings');
   }
 
-  function toggleFilterBar() {
-    document.getElementById('filterBar').classList.toggle('hidden');
+  /* ── MOBILE RAIL DRAWER ── */
+  function openMobileRail() {
+    document.getElementById('filterRail').classList.add('open');
+    document.getElementById('filterBackdrop').classList.add('open');
+    document.body.style.overflow = 'hidden';
   }
-
-  function hideFilterBar() {
-    document.getElementById('filterBar').classList.add('hidden');
+  function closeMobileRail() {
+    document.getElementById('filterRail').classList.remove('open');
+    document.getElementById('filterBackdrop').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function toggleMobileRail() {
+    const open = document.getElementById('filterRail').classList.contains('open');
+    if (open) closeMobileRail(); else openMobileRail();
   }
 
   /* ── FILTERS ── */
@@ -1036,14 +1225,29 @@ const App = (() => {
     applyFilters();
   }
 
-  function resetFilters() { setFilter('typ','vsetky'); setFilter('kraj','vsetky'); }
+  function resetFilters() {
+    setFilter('typ','vsetky');
+    setFilter('kraj','vsetky');
+    const inp = document.getElementById('searchInput');
+    if (inp) inp.value = '';
+    setSearch('');
+  }
+
+  function matchesSearch(card, term) {
+    if (!term) return true;
+    const haystack = card.dataset.search || '';
+    // Multi-token AND match (e.g., "mokrance dom" requires both)
+    return term.split(/\s+/).every(t => haystack.includes(t));
+  }
 
   function applyFilters() {
     const cards = document.querySelectorAll('#listingsStack .listing-card');
+    const term = (filters.search || '').toLowerCase().trim();
     let visible = 0;
     cards.forEach(card => {
       const show = (filters.typ  === 'vsetky' || card.dataset.typ  === filters.typ) &&
-                   (filters.kraj === 'vsetky' || card.dataset.kraj === filters.kraj);
+                   (filters.kraj === 'vsetky' || card.dataset.kraj === filters.kraj) &&
+                   matchesSearch(card, term);
       card.style.display = show ? '' : 'none';
       if (show) visible++;
     });
@@ -1054,6 +1258,13 @@ const App = (() => {
     const ck = document.getElementById('crumbKraj');
     if (ct) ct.textContent = typLabels[filters.typ]  || 'Všetky typy';
     if (ck) ck.textContent = krajLabels[filters.kraj] || 'Všetky kraje';
+  }
+
+  function setSearch(term) {
+    filters.search = term;
+    const box = document.getElementById('searchBox');
+    if (box) box.classList.toggle('has-value', !!term);
+    applyFilters();
   }
 
   /* ── INIT ── */
@@ -1068,17 +1279,36 @@ const App = (() => {
     document.querySelectorAll('#filterKraj .pill').forEach(p =>
       p.addEventListener('click', () => setFilter('kraj', p.dataset.val)));
 
-    // "Zrušiť" tlačidlo zatvorí filter bar (nielen vymaže filtre)
-    document.getElementById('btnReset').addEventListener('click', () => {
-      resetFilters();
-      hideFilterBar();
+    // Reset button (clears all filters incl. search)
+    document.getElementById('btnReset').addEventListener('click', resetFilters);
+
+    // Search input — debounced, multi-token AND match
+    const searchInput = document.getElementById('searchInput');
+    const searchClear = document.getElementById('searchClear');
+    let searchTimer;
+    searchInput.addEventListener('input', e => {
+      clearTimeout(searchTimer);
+      const v = e.target.value;
+      searchTimer = setTimeout(() => setSearch(v), 120);
+    });
+    searchClear.addEventListener('click', () => {
+      searchInput.value = '';
+      setSearch('');
+      searchInput.focus();
     });
 
-    // Toggle filter bar z headeru
-    document.getElementById('btnFilterToggle').addEventListener('click', toggleFilterBar);
+    // Header "Filter" button → mobile drawer toggle
+    document.getElementById('btnFilterToggle').addEventListener('click', toggleMobileRail);
 
+    // Backdrop tap → close drawer
+    document.getElementById('filterBackdrop').addEventListener('click', closeMobileRail);
+
+    // Logo & Back → return to listings
     document.getElementById('logoLink').addEventListener('click', e => { e.preventDefault(); goListings(); });
     document.getElementById('btnBack').addEventListener('click',  e => { e.preventDefault(); goListings(); });
+
+    // Submit-listing modal
+    document.getElementById('btnOpenSubmit').addEventListener('click', () => SubmitListing.open());
 
     // First view active
     const first = document.getElementById('viewListings');
@@ -1240,6 +1470,188 @@ const Lightbox = (() => {
     if (Math.abs(dx) > 50) dx < 0 ? next() : prev();
   });
 
+  return { open, close };
+})();
+
+/* ══════════════════════════════════════════════════════════════
+   SUBMIT LISTING — public submission flow
+   - Uploads photos to "submissions/" Storage bucket via anon key
+   - Inserts row into submitted_listings (RLS: anon INSERT only)
+   - Honeypot anti-spam (bots fill hidden field, humans don't)
+   - Telegram ping via CallMeBot (fire-and-forget)
+══════════════════════════════════════════════════════════════ */
+const SubmitListing = (() => {
+  const MAX_FILES       = 8;
+  const MAX_FILE_BYTES  = 5 * 1024 * 1024;
+  let selectedFiles     = [];
+
+  const modal = () => document.getElementById('submitModal');
+  const form  = () => document.getElementById('submitForm');
+
+  function open() {
+    selectedFiles = [];
+    form().reset();
+    document.getElementById('smPhotoGrid').innerHTML = '';
+    modal().showModal();
+  }
+
+  function close() {
+    modal().close();
+    selectedFiles = [];
+    document.getElementById('smPhotoGrid').innerHTML = '';
+  }
+
+  function addFiles(fileList) {
+    Array.from(fileList).forEach(file => {
+      if (selectedFiles.length >= MAX_FILES) return;
+      if (!file.type.startsWith('image/')) return;
+      if (file.size > MAX_FILE_BYTES) {
+        alert(`Fotka "${file.name}" je príliš veľká (max 5 MB).`);
+        return;
+      }
+      const idx = selectedFiles.length;
+      selectedFiles.push(file);
+      const url = URL.createObjectURL(file);
+      const div = document.createElement('div');
+      div.className = 'sm-photo-thumb';
+      div.dataset.idx = idx;
+      div.innerHTML = `<img src="${url}" alt=""><button type="button" class="rm" data-idx="${idx}" aria-label="Odstrániť">×</button>`;
+      document.getElementById('smPhotoGrid').appendChild(div);
+    });
+  }
+
+  function removeAt(idx) {
+    selectedFiles[idx] = null;
+    const el = document.querySelector(`.sm-photo-thumb[data-idx="${idx}"]`);
+    if (el) el.remove();
+  }
+
+  /* Storage upload via raw REST (anon key — RLS allows INSERT to submissions bucket). */
+  async function uploadPhoto(file) {
+    const safeName = file.name.replace(/[^a-zA-Z0-9.\-_]/g, '_');
+    const path = `${Date.now()}-${Math.random().toString(36).slice(2,8)}-${safeName}`;
+    const res = await fetch(`${CONFIG.SUPABASE_URL}/storage/v1/object/submissions/${path}`, {
+      method: 'POST',
+      headers: {
+        'apikey': CONFIG.SUPABASE_ANON,
+        'Authorization': `Bearer ${CONFIG.SUPABASE_ANON}`,
+        'Content-Type': file.type || 'application/octet-stream',
+        'x-upsert': 'true',
+      },
+      body: file,
+    });
+    if (!res.ok) throw new Error(`Photo upload: ${res.status} ${await res.text()}`);
+    return `${CONFIG.SUPABASE_URL}/storage/v1/object/public/submissions/${path}`;
+  }
+
+  async function insertRow(payload) {
+    const res = await fetch(`${CONFIG.SUPABASE_URL}/rest/v1/submitted_listings`, {
+      method: 'POST',
+      headers: {
+        'apikey': CONFIG.SUPABASE_ANON,
+        'Authorization': `Bearer ${CONFIG.SUPABASE_ANON}`,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal',
+      },
+      body: JSON.stringify(payload),
+    });
+    if (!res.ok) throw new Error(`Insert: ${res.status} ${await res.text()}`);
+  }
+
+  async function notifyTelegram(payload) {
+    // Fire-and-forget Telegram ping via CallMeBot. Mirrors admin.html Notify.send pattern.
+    const msg = [
+      '484.sk 🆕 Nový inzerát na schválenie',
+      `📍 ${payload.nazov} — ${payload.cena} EUR`,
+      `🏷 ${payload.typ} · ${payload.kraj} · ${payload.obec}`,
+      `👤 ${payload.submitter_name} <${payload.submitter_email}>`,
+      payload.submitter_phone ? `📞 ${payload.submitter_phone}` : '',
+      `🔗 https://484.sk/admin.html`,
+    ].filter(Boolean).join('\n');
+    const url = `https://api.callmebot.com/text.php?user=@${CONFIG.TELEGRAM_USER}&text=${encodeURIComponent(msg)}`;
+    return new Promise(resolve => {
+      const img = new Image();
+      img.onload = img.onerror = () => resolve();
+      img.src = url;
+      setTimeout(resolve, 3000);
+    });
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(form()));
+
+    // Honeypot — silently swallow if bot
+    if (data.honeypot) { close(); return; }
+
+    const submitBtn = document.getElementById('btnSubmitListing');
+    submitBtn.disabled = true;
+    const origLabel = submitBtn.textContent;
+    submitBtn.textContent = 'Odosielam...';
+
+    try {
+      // 1) Upload photos
+      const files = selectedFiles.filter(Boolean);
+      const photoUrls = [];
+      for (let i = 0; i < files.length; i++) {
+        submitBtn.textContent = `Nahrávam fotku ${i+1}/${files.length}...`;
+        photoUrls.push(await uploadPhoto(files[i]));
+      }
+
+      // 2) Insert row
+      submitBtn.textContent = 'Ukladám...';
+      const payload = {
+        submitter_name:  data.submitter_name?.trim(),
+        submitter_email: data.submitter_email?.trim(),
+        submitter_phone: data.submitter_phone?.trim() || null,
+        nazov:           data.nazov?.trim(),
+        popis:           data.popis?.trim(),
+        cena:            data.cena ? Number(data.cena) : null,
+        typ:             data.typ,
+        kraj:            data.kraj,
+        obec:            data.obec?.trim(),
+        uzitk_plocha:    data.uzitk_plocha ? Number(data.uzitk_plocha) : null,
+        dispozicia:      data.dispozicia?.trim() || null,
+        foto_urls:       photoUrls,
+        honeypot:        '',
+      };
+      await insertRow(payload);
+
+      // 3) Telegram ping (fire-and-forget, don't block UX)
+      notifyTelegram(payload).catch(err => console.warn('Telegram:', err));
+
+      alert('Ďakujeme! Inzerát bol odoslaný. Po schválení administrátorom sa zobrazí na webe.');
+      close();
+    } catch (err) {
+      console.error('Submit listing failed:', err);
+      alert('Chyba pri odoslaní: ' + (err.message || err));
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = origLabel;
+    }
+  }
+
+  function init() {
+    const m = modal();
+    if (!m) return;
+
+    form().addEventListener('submit', handleSubmit);
+    document.getElementById('btnCancelSubmit').addEventListener('click', close);
+
+    // Click outside modal closes it
+    m.addEventListener('click', e => { if (e.target === m) close(); });
+
+    // Photo input
+    form().photos.addEventListener('change', e => addFiles(e.target.files));
+
+    // Photo remove (event delegation)
+    document.getElementById('smPhotoGrid').addEventListener('click', e => {
+      const btn = e.target.closest('button.rm');
+      if (btn) removeAt(parseInt(btn.dataset.idx, 10));
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', init);
   return { open, close };
 })();
 </script>

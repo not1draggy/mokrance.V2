@@ -71,6 +71,38 @@ button{font-family:var(--font);cursor:pointer}
 .panel-title{font-family:var(--mono);font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-xsoft)}
 .panel-count{font-family:var(--mono);font-size:11px;color:var(--text-xsoft);background:var(--surface);padding:2px 8px;border-radius:10px}
 
+/* TABS */
+.tabs{display:flex;gap:2px;border-bottom:2px solid var(--border);margin-bottom:14px;background:white;border-radius:var(--radius) var(--radius) 0 0;padding:0 4px}
+.tab-btn{background:transparent;border:none;padding:12px 16px;cursor:pointer;font-weight:600;font-size:14px;font-family:var(--font);color:var(--text-soft);border-bottom:3px solid transparent;margin-bottom:-2px;display:flex;align-items:center;gap:7px;min-height:var(--tap)}
+.tab-btn:hover{color:var(--green)}
+.tab-btn.active{border-bottom-color:var(--green);color:var(--green)}
+.tab-badge{background:var(--red);color:white;font-size:11px;font-weight:700;padding:2px 7px;border-radius:10px;min-width:20px;text-align:center;font-family:var(--mono)}
+.tab-badge[data-count="0"]{display:none}
+
+/* PENDING LIST */
+.pending-list{display:flex;flex-direction:column;gap:12px}
+.pending-empty{text-align:center;padding:48px 24px;color:var(--text-soft);font-size:13px;font-family:var(--mono)}
+.pending-card{background:white;border:1px solid var(--border);border-radius:var(--radius);padding:16px;display:flex;flex-direction:column;gap:10px}
+.pc-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.pc-title{font-size:15px;font-weight:700;color:var(--text);line-height:1.35;flex:1;min-width:180px}
+.pc-price{font-family:var(--mono);font-weight:700;color:var(--green);font-size:15px;white-space:nowrap}
+.pc-meta{font-size:12.5px;color:var(--text-soft);font-family:var(--mono);display:flex;flex-wrap:wrap;gap:10px}
+.pc-meta b{color:var(--text-mid);font-weight:600}
+.pc-submitter{background:var(--surface);padding:10px 12px;border-radius:var(--radius-sm);font-size:13px;color:var(--text-mid);line-height:1.5}
+.pc-submitter a{color:var(--green);font-weight:600}
+.pc-desc{font-size:13px;color:var(--text-mid);line-height:1.55;white-space:pre-wrap;max-height:100px;overflow-y:auto;padding:0 2px}
+.pc-photos{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:6px}
+.pc-photo{aspect-ratio:1;border-radius:4px;overflow:hidden;border:1px solid var(--border);cursor:pointer;background:var(--surface-2)}
+.pc-photo img{width:100%;height:100%;object-fit:cover;display:block}
+.pc-empty-photos{font-size:12px;color:var(--text-xsoft);font-style:italic;font-family:var(--mono)}
+.pc-actions{display:flex;gap:8px;margin-top:4px}
+.pc-actions button{flex:1;padding:11px 14px;border-radius:var(--radius-sm);border:none;cursor:pointer;font-weight:700;font-size:14px;font-family:var(--font);min-height:var(--tap);transition:all .2s}
+.pc-actions .approve{background:var(--green);color:white}
+.pc-actions .approve:hover{background:var(--green-dark)}
+.pc-actions .reject{background:transparent;color:var(--red);border:1.5px solid #e8a29a!important}
+.pc-actions .reject:hover{background:var(--red-light)}
+.pc-actions button:disabled{opacity:0.5;cursor:wait}
+
 /* Mobile listing cards */
 .listings-cards{display:flex;flex-direction:column}
 .listing-row{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px}
@@ -199,20 +231,41 @@ button{font-family:var(--font);cursor:pointer}
 
   <div class="admin-body">
     <div>
-      <div class="panel">
-        <div class="panel-header">
-          <span class="panel-title">Inzeráty</span>
-          <span class="panel-count" id="listingCount">—</span>
+      <!-- Tabs -->
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="active" onclick="Tabs.switch('active')">
+          Aktívne inzeráty
+        </button>
+        <button class="tab-btn" data-tab="pending" onclick="Tabs.switch('pending')">
+          Čakajúce
+          <span class="tab-badge" id="pendingBadge" data-count="0">0</span>
+        </button>
+      </div>
+
+      <!-- ACTIVE LISTINGS TAB -->
+      <div id="tabActive">
+        <div class="panel">
+          <div class="panel-header">
+            <span class="panel-title">Inzeráty</span>
+            <span class="panel-count" id="listingCount">—</span>
+          </div>
+          <!-- Mobile -->
+          <div class="listings-cards" id="listingCards">
+            <div class="tbl-empty">Načítavam...</div>
+          </div>
+          <!-- Desktop -->
+          <table class="listings-table">
+            <thead><tr><th>Názov</th><th>Cena</th><th>Obec</th><th>Stav</th><th>Akcie</th></tr></thead>
+            <tbody id="listingsBody"><tr><td colspan="5" class="tbl-empty">Načítavam...</td></tr></tbody>
+          </table>
         </div>
-        <!-- Mobile -->
-        <div class="listings-cards" id="listingCards">
-          <div class="tbl-empty">Načítavam...</div>
+      </div>
+
+      <!-- PENDING SUBMISSIONS TAB -->
+      <div id="tabPending" hidden>
+        <div class="pending-list" id="pendingList">
+          <div class="pending-empty">Načítavam čakajúce inzeráty...</div>
         </div>
-        <!-- Desktop -->
-        <table class="listings-table">
-          <thead><tr><th>Názov</th><th>Cena</th><th>Obec</th><th>Stav</th><th>Akcie</th></tr></thead>
-          <tbody id="listingsBody"><tr><td colspan="5" class="tbl-empty">Načítavam...</td></tr></tbody>
-        </table>
       </div>
     </div>
 
@@ -328,40 +381,189 @@ const sb = {
   headers(token) {
     return { 'apikey':this.key, 'Authorization':`Bearer ${token||this.key}`, 'Content-Type':'application/json', 'Prefer':'return=representation' };
   },
+  /** Auth-aware fetch: retries once on 401 after refreshing the JWT. */
+  async _fetch(buildReq, retried = false) {
+    const { url, opts } = buildReq();
+    const res = await fetch(url, opts);
+    if (res.status === 401 && !retried && typeof Auth !== 'undefined' && Auth.refresh) {
+      const ok = await Auth.refresh();
+      if (ok) return this._fetch(buildReq, true); // re-runs buildReq → fresh token in headers
+    }
+    return res;
+  },
   async get(table, params='') {
-    const res = await fetch(`${this.url}/rest/v1/${table}?${params}`, { headers:this.headers(Auth.token()) });
+    const res = await this._fetch(() => ({
+      url:  `${this.url}/rest/v1/${table}?${params}`,
+      opts: { headers: this.headers(Auth.token()) },
+    }));
     if (!res.ok) throw new Error(await res.text());
     return res.json();
   },
   async post(table, body) {
-    const res = await fetch(`${this.url}/rest/v1/${table}`, { method:'POST', headers:this.headers(Auth.token()), body:JSON.stringify(body) });
+    const res = await this._fetch(() => ({
+      url:  `${this.url}/rest/v1/${table}`,
+      opts: { method:'POST', headers: this.headers(Auth.token()), body: JSON.stringify(body) },
+    }));
     if (!res.ok) throw new Error(await res.text());
     return res.json();
   },
   async patch(table, id, body) {
-    const res = await fetch(`${this.url}/rest/v1/${table}?id=eq.${id}`, { method:'PATCH', headers:this.headers(Auth.token()), body:JSON.stringify(body) });
+    const res = await this._fetch(() => ({
+      url:  `${this.url}/rest/v1/${table}?id=eq.${id}`,
+      opts: { method:'PATCH', headers: this.headers(Auth.token()), body: JSON.stringify(body) },
+    }));
     if (!res.ok) throw new Error(await res.text());
     return res.json();
   },
   async delete(table, id) {
-    const res = await fetch(`${this.url}/rest/v1/${table}?id=eq.${id}`, { method:'DELETE', headers:this.headers(Auth.token()) });
+    const res = await this._fetch(() => ({
+      url:  `${this.url}/rest/v1/${table}?id=eq.${id}`,
+      opts: { method:'DELETE', headers: this.headers(Auth.token()) },
+    }));
     if (!res.ok) throw new Error(await res.text());
     return true;
   },
   async uploadPhoto(bucket, path, file) {
-    const res = await fetch(`${this.url}/storage/v1/object/${bucket}/${path}`, {
-      method:'POST',
-      headers:{ 'apikey':this.key, 'Authorization':`Bearer ${Auth.token()}`, 'Content-Type':file.type, 'x-upsert':'true' },
-      body:file
-    });
+    const res = await this._fetch(() => ({
+      url:  `${this.url}/storage/v1/object/${bucket}/${path}`,
+      opts: {
+        method:'POST',
+        headers:{ 'apikey':this.key, 'Authorization':`Bearer ${Auth.token()}`, 'Content-Type':file.type, 'x-upsert':'true' },
+        body: file,
+      },
+    }));
     if (!res.ok) throw new Error(await res.text());
     return `${this.url}/storage/v1/object/public/${bucket}/${path}`;
+  },
+  async rpc(fn, args = {}) {
+    const res = await this._fetch(() => ({
+      url:  `${this.url}/rest/v1/rpc/${fn}`,
+      opts: { method:'POST', headers: this.headers(Auth.token()), body: JSON.stringify(args) },
+    }));
+    if (!res.ok) throw new Error(await res.text());
+    return res.json();
+  },
+  async deleteStorageObject(bucket, path) {
+    const res = await this._fetch(() => ({
+      url:  `${this.url}/storage/v1/object/${bucket}/${path}`,
+      opts: { method:'DELETE', headers:{ 'apikey':this.key, 'Authorization':`Bearer ${Auth.token()}` } },
+    }));
+    return res.ok;
   }
 };
 
+/* ── Translation module (Edge Function — was broken: CONFIG.DEEPL_URL/KEY don't exist) ── */
+const Translate = (() => {
+  const TARGETS = [
+    { code:'en', deepl:'EN-GB' },
+    { code:'de', deepl:'DE'    },
+    { code:'ru', deepl:'RU'    },
+    { code:'uk', deepl:'UK'    },
+  ];
+
+  /** Translate a list of texts to one target language via Supabase Edge Function. */
+  async function batch(texts, deeplLang) {
+    const res = await fetch(CONFIG.TRANSLATE_FN, {
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'apikey': CONFIG.SUPABASE_ANON,
+        'Authorization': `Bearer ${CONFIG.SUPABASE_ANON}`,
+      },
+      body:JSON.stringify({ texts, target_lang: deeplLang }),
+    });
+    if (!res.ok) throw new Error(`Translate ${deeplLang}: ${res.status}`);
+    const data = await res.json();
+    return data.translations.map(t => t.text);
+  }
+
+  /** Translate {nazov, popis} on a listing row → returns patch body with nazov_xx/popis_xx. */
+  async function forNazovPopis(nazov, popis) {
+    const patch = {};
+    for (const { code, deepl } of TARGETS) {
+      try {
+        const [n, p] = await batch([nazov || '', popis || ''], deepl);
+        patch[`nazov_${code}`] = n;
+        patch[`popis_${code}`] = p;
+      } catch(e) {
+        console.warn(`Translate ${code} failed:`, e);
+      }
+    }
+    return patch;
+  }
+
+  /** Translate an existing inzeraty row by id (used by approve flow). */
+  async function forListing(listingId) {
+    const rows = await sb.get('inzeraty', `id=eq.${listingId}&select=nazov,popis`);
+    if (!rows.length) return;
+    const patch = await forNazovPopis(rows[0].nazov, rows[0].popis);
+    if (Object.keys(patch).length) await sb.patch('inzeraty', listingId, patch);
+  }
+
+  return { batch, forNazovPopis, forListing };
+})();
+
 const Auth = (() => {
+  const KEY_TOKEN   = 'admin_token_484';
+  const KEY_REFRESH = 'admin_refresh_484';
+  const KEY_EXPIRES = 'admin_expires_at_484';
+
   let _token = null;
-  function token() { return _token || localStorage.getItem('admin_token_484'); }
+  let _bgTimer = null;
+  let _refreshPromise = null; // dedupe concurrent refreshes (e.g. parallel 401s)
+
+  function token() { return _token || localStorage.getItem(KEY_TOKEN); }
+
+  function persistSession(data) {
+    _token = data.access_token;
+    localStorage.setItem(KEY_TOKEN, _token);
+    if (data.refresh_token) localStorage.setItem(KEY_REFRESH, data.refresh_token);
+    if (data.expires_in) {
+      localStorage.setItem(KEY_EXPIRES, String(Date.now() + data.expires_in * 1000));
+    }
+  }
+
+  function clearSession() {
+    _token = null;
+    localStorage.removeItem(KEY_TOKEN);
+    localStorage.removeItem(KEY_REFRESH);
+    localStorage.removeItem(KEY_EXPIRES);
+    if (_bgTimer) { clearInterval(_bgTimer); _bgTimer = null; }
+  }
+
+  /** Exchange refresh_token → new access_token. Deduped + safe under concurrency. */
+  async function refresh() {
+    if (_refreshPromise) return _refreshPromise;
+    const refreshToken = localStorage.getItem(KEY_REFRESH);
+    if (!refreshToken) { logout(); return false; }
+    _refreshPromise = (async () => {
+      try {
+        const res = await fetch(`${CONFIG.SUPABASE_URL}/auth/v1/token?grant_type=refresh_token`, {
+          method:'POST',
+          headers:{ 'apikey':CONFIG.SUPABASE_ANON, 'Content-Type':'application/json' },
+          body: JSON.stringify({ refresh_token: refreshToken }),
+        });
+        if (!res.ok) { logout(); return false; }
+        persistSession(await res.json());
+        return true;
+      } catch(e) {
+        console.warn('Token refresh failed:', e);
+        logout();
+        return false;
+      } finally {
+        _refreshPromise = null;
+      }
+    })();
+    return _refreshPromise;
+  }
+
+  /** If access_token expires within 60s, refresh now. Cheap to call frequently. */
+  async function ensureFresh() {
+    const expiresAt = parseInt(localStorage.getItem(KEY_EXPIRES) || '0', 10);
+    if (!expiresAt) return true; // legacy session — let lazy 401-retry handle it
+    if (Date.now() >= expiresAt - 60_000) return refresh();
+    return true;
+  }
 
   async function login() {
     const email = document.getElementById('loginEmail').value.trim();
@@ -378,8 +580,7 @@ const Auth = (() => {
       });
       const data = await res.json();
       if (!res.ok) throw new Error('Nesprávny email alebo heslo.');
-      _token = data.access_token;
-      localStorage.setItem('admin_token_484', _token);
+      persistSession(data);
       Notify.onLogin();
       showAdmin();
     } catch(err) {
@@ -409,15 +610,23 @@ const Auth = (() => {
   }
 
   function logout() {
-    _token = null; localStorage.removeItem('admin_token_484');
+    clearSession();
     document.getElementById('adminWrap').classList.remove('show');
     document.getElementById('loginWrap').style.display = '';
     document.getElementById('btnReport').style.display = 'none';
   }
 
-  function tryAutoLogin() {
-    const saved = localStorage.getItem('admin_token_484');
-    if (saved) { _token = saved; showAdmin(); }
+  async function tryAutoLogin() {
+    const saved = localStorage.getItem(KEY_TOKEN);
+    if (!saved) return;
+    _token = saved;
+    // If expired or expiring soon, refresh before showing admin.
+    const expiresAt = parseInt(localStorage.getItem(KEY_EXPIRES) || '0', 10);
+    if (expiresAt && Date.now() >= expiresAt - 60_000) {
+      const ok = await refresh();
+      if (!ok) return; // logout already invoked
+    }
+    showAdmin();
   }
 
   function showAdmin() {
@@ -425,13 +634,20 @@ const Auth = (() => {
     document.getElementById('adminWrap').classList.add('show');
     document.getElementById('btnReport').style.display = 'flex';
     Listings.load();
+    Pending.refreshBadge();
+    // Single background timer: keep token fresh + poll badge.
+    if (_bgTimer) clearInterval(_bgTimer);
+    _bgTimer = setInterval(() => {
+      ensureFresh();
+      Pending.refreshBadge();
+    }, 60_000);
   }
 
   document.addEventListener('keydown', e => {
     if (e.key === 'Enter' && document.getElementById('loginWrap').style.display !== 'none') login();
   });
 
-  return { login, logout, token, tryAutoLogin, resetPassword };
+  return { login, logout, token, tryAutoLogin, resetPassword, refresh, ensureFresh };
 })();
 
 const Listings = (() => {
@@ -499,6 +715,156 @@ const Listings = (() => {
 
   function get(id) { return all.find(i => i.id == id); }
   return { load, confirmDelete, get };
+})();
+
+/* ── Tabs (Active listings ↔ Pending submissions) ── */
+const Tabs = (() => {
+  function switchTo(name) {
+    document.querySelectorAll('.tab-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.tab === name);
+    });
+    document.getElementById('tabActive').hidden  = name !== 'active';
+    document.getElementById('tabPending').hidden = name !== 'pending';
+    if (name === 'pending') Pending.load();
+  }
+  return { switch: switchTo };
+})();
+
+/* ── Pending submissions (visitor-submitted listings) ── */
+const Pending = (() => {
+  let realtimeSocket = null;
+
+  function esc(s) {
+    return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+  }
+  function fmtDate(iso) {
+    try { return new Date(iso).toLocaleString('sk-SK', { day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit' }); }
+    catch { return iso || ''; }
+  }
+
+  async function refreshBadge() {
+    try {
+      const res = await sb._fetch(() => ({
+        url:  `${sb.url}/rest/v1/submitted_listings?select=id&status=eq.pending`,
+        opts: { headers:{ ...sb.headers(Auth.token()), 'Prefer':'count=exact', 'Range':'0-0' } },
+      }));
+      const range = res.headers.get('content-range') || '*/0';
+      const count = parseInt(range.split('/')[1] || '0', 10) || 0;
+      const badge = document.getElementById('pendingBadge');
+      badge.textContent = count;
+      badge.dataset.count = count;
+    } catch(e) {
+      console.warn('Pending badge refresh failed:', e);
+    }
+  }
+
+  async function load() {
+    const list = document.getElementById('pendingList');
+    list.innerHTML = '<div class="pending-empty">Načítavam čakajúce inzeráty...</div>';
+    try {
+      const data = await sb.get('submitted_listings', 'select=*&status=eq.pending&order=created_at.desc');
+      if (!data.length) {
+        list.innerHTML = '<div class="pending-empty">Žiadne čakajúce inzeráty.</div>';
+        return;
+      }
+      list.innerHTML = data.map(renderCard).join('');
+    } catch(err) {
+      list.innerHTML = `<div class="pending-empty" style="color:var(--red)">Chyba: ${esc(err.message)}</div>`;
+    }
+  }
+
+  function renderCard(s) {
+    const photos = Array.isArray(s.foto_urls) ? s.foto_urls : [];
+    const photosHTML = photos.length
+      ? `<div class="pc-photos">${photos.map(u =>
+          `<div class="pc-photo" onclick="window.open('${esc(u)}','_blank')"><img src="${esc(u)}" loading="lazy" alt=""></div>`
+        ).join('')}</div>`
+      : `<div class="pc-empty-photos">— bez fotografií —</div>`;
+
+    const phone = s.submitter_phone
+      ? ` · <a href="tel:${esc(s.submitter_phone)}">${esc(s.submitter_phone)}</a>`
+      : '';
+
+    const meta = [
+      s.typ        ? `<span><b>Typ:</b> ${esc(s.typ)}</span>`        : '',
+      s.kraj       ? `<span><b>Kraj:</b> ${esc(s.kraj)}</span>`      : '',
+      s.obec       ? `<span><b>Obec:</b> ${esc(s.obec)}</span>`      : '',
+      s.uzitk_plocha ? `<span><b>Plocha:</b> ${s.uzitk_plocha} m²</span>` : '',
+      s.dispozicia ? `<span><b>Dispozícia:</b> ${esc(s.dispozicia)}</span>` : '',
+    ].filter(Boolean).join('');
+
+    return `
+      <div class="pending-card" data-id="${s.id}">
+        <div class="pc-head">
+          <div class="pc-title">${esc(s.nazov || '— bez názvu —')}</div>
+          <div class="pc-price">${s.cena ? Number(s.cena).toLocaleString('sk') + ' €' : '—'}</div>
+        </div>
+        <div class="pc-meta">${meta}</div>
+        <div class="pc-submitter">
+          <strong>${esc(s.submitter_name || '—')}</strong>
+          · <a href="mailto:${esc(s.submitter_email)}">${esc(s.submitter_email)}</a>${phone}
+          <br><small style="color:var(--text-xsoft);font-family:var(--mono)">Odoslané: ${fmtDate(s.created_at)}</small>
+        </div>
+        ${s.popis ? `<div class="pc-desc">${esc(s.popis)}</div>` : ''}
+        ${photosHTML}
+        <div class="pc-actions">
+          <button class="approve" onclick="Pending.approve(${s.id})">✓ Schváliť & publikovať</button>
+          <button class="reject"  onclick="Pending.reject(${s.id})">✗ Zamietnuť</button>
+        </div>
+      </div>`;
+  }
+
+  async function approve(id) {
+    if (!confirm('Schváliť a publikovať tento inzerát? Spustí sa aj automatický preklad cez DeepL.')) return;
+    const card = document.querySelector(`.pending-card[data-id="${id}"]`);
+    card?.querySelectorAll('button').forEach(b => b.disabled = true);
+    try {
+      // Atomic promote: submitted_listings → inzeraty (returns new listing id)
+      const result = await sb.rpc('approve_submission', { submission_id: id });
+      const newListingId = Array.isArray(result) ? result[0] : result;
+
+      // Run DeepL translate on the freshly-created listing (non-blocking for UX, but we await for toast accuracy)
+      if (newListingId) {
+        try { await Translate.forListing(newListingId); }
+        catch(e) { console.warn('Auto-translate failed:', e); }
+      }
+
+      Notify.send(`484.sk Admin ✅\nInzerát schválený\nID: ${id} → ${newListingId}\n${new Date().toLocaleString('sk-SK')}`);
+      toast('Schválené & publikované ✓', 'green');
+      await load();
+      await refreshBadge();
+      await Listings.load();
+    } catch(err) {
+      console.error(err);
+      toast('Chyba: ' + err.message, 'red');
+      card?.querySelectorAll('button').forEach(b => b.disabled = false);
+    }
+  }
+
+  async function reject(id) {
+    const reason = prompt('Dôvod zamietnutia (voliteľné):');
+    if (reason === null) return; // cancelled
+    const card = document.querySelector(`.pending-card[data-id="${id}"]`);
+    card?.querySelectorAll('button').forEach(b => b.disabled = true);
+    try {
+      await sb.patch('submitted_listings', id, {
+        status: 'rejected',
+        admin_notes: reason || null,
+        reviewed_at: new Date().toISOString(),
+      });
+      Notify.send(`484.sk Admin ❌\nInzerát zamietnutý\nID: ${id}\nDôvod: ${reason || '—'}\n${new Date().toLocaleString('sk-SK')}`);
+      toast('Zamietnuté ✓', 'green');
+      await load();
+      await refreshBadge();
+    } catch(err) {
+      console.error(err);
+      toast('Chyba: ' + err.message, 'red');
+      card?.querySelectorAll('button').forEach(b => b.disabled = false);
+    }
+  }
+
+  return { load, approve, reject, refreshBadge };
 })();
 
 const Form = (() => {
@@ -624,20 +990,8 @@ const Form = (() => {
 
     try {
       lbl.textContent = 'Prekladám...';
-      for (const { code, deepl } of [{ code:'en',deepl:'EN-GB'},{ code:'de',deepl:'DE'},{ code:'ru',deepl:'RU'},{ code:'uk',deepl:'UK'}]) {
-        try {
-          const res = await fetch(CONFIG.DEEPL_URL, {
-            method:'POST',
-            headers:{ 'Authorization':`DeepL-Auth-Key ${CONFIG.DEEPL_KEY}`, 'Content-Type':'application/json' },
-            body:JSON.stringify({ text:[body.nazov,body.popis], source_lang:'SK', target_lang:deepl })
-          });
-          if (res.ok) {
-            const data = await res.json();
-            body[`nazov_${code}`] = data.translations[0].text;
-            body[`popis_${code}`] = data.translations[1].text;
-          }
-        } catch(e) { console.warn(`Preklad ${code}:`, e); }
-      }
+      const tx = await Translate.forNazovPopis(body.nazov, body.popis);
+      Object.assign(body, tx);
 
       lbl.textContent = 'Ukladám...';
       let savedId = editId;
