@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://484.sk/</loc>
+    <lastmod>2026-04-30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://484.sk/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://484.sk/?lang=en" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://484.sk/?lang=de" />
+    <xhtml:link rel="alternate" hreflang="uk" href="https://484.sk/?lang=uk" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://484.sk/" />
+  </url>
+</urlset>

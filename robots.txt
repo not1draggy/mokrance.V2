@@ -1,0 +1,19 @@
+# 484.sk — robots.txt
+# Direct property sales platform · Mokrance, Košický kraj
+
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /admin/
+
+# Block aggressive AI scrapers (opt-in only via API)
+User-agent: GPTBot
+Disallow: /
+User-agent: anthropic-ai
+Disallow: /
+User-agent: ClaudeBot
+Disallow: /
+User-agent: CCBot
+Disallow: /
+
+Sitemap: https://484.sk/sitemap.xml

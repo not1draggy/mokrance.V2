@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>484.sk — Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green:#1a6b3c;--green-dark:#145530;--green-light:#f0f7f3;--green-border:#c2ddd0;--green-glow:rgba(26,107,60,0.12);
+  --surface:#f5f6f5;--surface-2:#eff0ef;--border:#e0e2e0;--border-mid:#ccceca;
+  --text:#1a1c1a;--text-mid:#4a524d;--text-soft:#6e7870;--text-xsoft:#9da89f;
+  --red:#c0392b;--red-light:#fdf3f2;
+  --shadow-sm:0 2px 8px rgba(0,0,0,0.07);--shadow-md:0 8px 24px rgba(0,0,0,0.09);
+  --font:'DM Sans',-apple-system,sans-serif;--mono:'DM Mono','SF Mono',monospace;
+  --radius:8px;--radius-sm:6px;--tap:48px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:15px;-webkit-text-size-adjust:100%}
+body{font-family:var(--font);background:var(--surface);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font-family:var(--font);cursor:pointer}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-thumb{background:var(--green-border);border-radius:99px}
+
+/* LOGIN */
+.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:var(--surface)}
+.login-box{background:white;border:1px solid var(--border);border-radius:14px;padding:36px 28px;width:100%;max-width:400px;box-shadow:var(--shadow-md)}
+.login-logo{font-family:var(--mono);font-size:24px;font-weight:500;color:var(--green);text-align:center;margin-bottom:4px}
+.login-sub{text-align:center;font-size:13px;color:var(--text-soft);margin-bottom:28px}
+.login-error{background:#fdf3f2;border:1px solid #e8a29a;color:var(--red);padding:12px 14px;border-radius:var(--radius-sm);font-size:13px;margin-bottom:16px;display:none}
+.login-error.show{display:block}
+.login-success{background:var(--green-light);border:1px solid var(--green-border);color:var(--green);padding:12px 14px;border-radius:var(--radius-sm);font-size:13px;margin-bottom:16px;display:none;text-align:center}
+.login-success.show{display:block}
+.login-field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.login-field label{font-size:13px;font-weight:600;color:var(--text-soft)}
+.login-field input{border:1.5px solid var(--border-mid);border-radius:var(--radius-sm);padding:13px 14px;font-size:16px;font-family:var(--font);outline:none;transition:border-color .2s;min-height:var(--tap);-webkit-appearance:none}
+.login-field input:focus{border-color:var(--green);box-shadow:0 0 0 3px var(--green-glow)}
+.login-btn{width:100%;background:var(--green);color:white;border:none;border-radius:var(--radius-sm);padding:15px;font-size:16px;font-weight:700;cursor:pointer;transition:background .2s;margin-top:6px;min-height:var(--tap);font-family:var(--font)}
+.login-btn:hover{background:var(--green-dark)}
+.login-btn:disabled{opacity:.6;cursor:not-allowed}
+.login-forgot{text-align:center;margin-top:16px}
+.login-forgot button{background:none;border:none;color:var(--green);font-size:13.5px;cursor:pointer;font-family:var(--font);text-decoration:underline;padding:4px;min-height:var(--tap)}
+
+/* ADMIN */
+.admin-wrap{display:none}
+.admin-wrap.show{display:block}
+.admin-header{background:white;border-bottom:1px solid var(--border);padding:0 16px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;gap:8px}
+.admin-logo{font-family:var(--mono);font-size:15px;font-weight:500;color:var(--green);flex-shrink:0}
+.admin-logo span{color:var(--text-soft);font-size:12px;margin-left:6px}
+.admin-header-right{display:flex;align-items:center;gap:6px}
+.btn-sm{padding:0 14px;font-size:13px;font-weight:600;border-radius:var(--radius-sm);border:1.5px solid transparent;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:5px;height:var(--tap);font-family:var(--font);white-space:nowrap}
+.btn-primary{background:var(--green);color:white;border-color:var(--green)}
+.btn-primary:hover{background:var(--green-dark)}
+.btn-ghost{background:transparent;color:var(--text-mid);border-color:var(--border-mid)}
+.btn-ghost:hover{border-color:var(--green);color:var(--green)}
+.btn-danger{background:transparent;color:var(--red);border-color:#e8a29a}
+.btn-danger:hover{background:var(--red-light)}
+
+/* LAYOUT */
+.admin-body{max-width:1100px;margin:0 auto;padding:16px 14px 100px;display:grid;grid-template-columns:1fr;gap:14px}
+@media(min-width:900px){
+  .admin-body{grid-template-columns:1fr 400px;padding:24px 20px 60px;gap:20px}
+  .form-panel{position:sticky;top:76px}
+}
+
+/* PANEL */
+.panel{background:white;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.panel-header{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.panel-title{font-family:var(--mono);font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-xsoft)}
+.panel-count{font-family:var(--mono);font-size:11px;color:var(--text-xsoft);background:var(--surface);padding:2px 8px;border-radius:10px}
+
+/* TABS */
+.tabs{display:flex;gap:2px;border-bottom:2px solid var(--border);margin-bottom:14px;background:white;border-radius:var(--radius) var(--radius) 0 0;padding:0 4px}
+.tab-btn{background:transparent;border:none;padding:12px 16px;cursor:pointer;font-weight:600;font-size:14px;font-family:var(--font);color:var(--text-soft);border-bottom:3px solid transparent;margin-bottom:-2px;display:flex;align-items:center;gap:7px;min-height:var(--tap)}
+.tab-btn:hover{color:var(--green)}
+.tab-btn.active{border-bottom-color:var(--green);color:var(--green)}
+.tab-badge{background:var(--red);color:white;font-size:11px;font-weight:700;padding:2px 7px;border-radius:10px;min-width:20px;text-align:center;font-family:var(--mono)}
+.tab-badge[data-count="0"]{display:none}
+
+/* PENDING LIST */
+.pending-list{display:flex;flex-direction:column;gap:12px}
+.pending-empty{text-align:center;padding:48px 24px;color:var(--text-soft);font-size:13px;font-family:var(--mono)}
+.pending-card{background:white;border:1px solid var(--border);border-radius:var(--radius);padding:16px;display:flex;flex-direction:column;gap:10px}
+.pc-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.pc-title{font-size:15px;font-weight:700;color:var(--text);line-height:1.35;flex:1;min-width:180px}
+.pc-price{font-family:var(--mono);font-weight:700;color:var(--green);font-size:15px;white-space:nowrap}
+.pc-meta{font-size:12.5px;color:var(--text-soft);font-family:var(--mono);display:flex;flex-wrap:wrap;gap:10px}
+.pc-meta b{color:var(--text-mid);font-weight:600}
+.pc-submitter{background:var(--surface);padding:10px 12px;border-radius:var(--radius-sm);font-size:13px;color:var(--text-mid);line-height:1.5}
+.pc-submitter a{color:var(--green);font-weight:600}
+.pc-desc{font-size:13px;color:var(--text-mid);line-height:1.55;white-space:pre-wrap;max-height:100px;overflow-y:auto;padding:0 2px}
+.pc-photos{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:6px}
+.pc-photo{aspect-ratio:1;border-radius:4px;overflow:hidden;border:1px solid var(--border);cursor:pointer;background:var(--surface-2)}
+.pc-photo img{width:100%;height:100%;object-fit:cover;display:block}
+.pc-empty-photos{font-size:12px;color:var(--text-xsoft);font-style:italic;font-family:var(--mono)}
+.pc-actions{display:flex;gap:8px;margin-top:4px}
+.pc-actions button{flex:1;padding:11px 14px;border-radius:var(--radius-sm);border:none;cursor:pointer;font-weight:700;font-size:14px;font-family:var(--font);min-height:var(--tap);transition:all .2s}
+.pc-actions .approve{background:var(--green);color:white}
+.pc-actions .approve:hover{background:var(--green-dark)}
+.pc-actions .reject{background:transparent;color:var(--red);border:1.5px solid #e8a29a!important}
+.pc-actions .reject:hover{background:var(--red-light)}
+.pc-actions button:disabled{opacity:0.5;cursor:wait}
+
+/* Mobile listing cards */
+.listings-cards{display:flex;flex-direction:column}
+.listing-row{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px}
+.listing-row:last-child{border-bottom:none}
+.listing-row:active{background:var(--green-light)}
+.lr-info{flex:1;min-width:0}
+.lr-name{font-size:14px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:3px}
+.lr-meta{font-size:12px;color:var(--text-soft);display:flex;gap:8px;align-items:center}
+.lr-price{font-family:var(--mono);font-weight:700;color:var(--green)}
+.lr-badge{display:inline-block;padding:2px 7px;border-radius:2px;font-size:10px;font-weight:700;text-transform:uppercase}
+.badge-active{background:var(--green-light);color:var(--green);border:1px solid var(--green-border)}
+.badge-inactive{background:var(--surface-2);color:var(--text-xsoft);border:1px solid var(--border)}
+.lr-actions{display:flex;gap:6px;flex-shrink:0}
+.tbl-empty{text-align:center;padding:40px;color:var(--text-soft);font-size:13px;font-family:var(--mono)}
+
+/* Desktop table */
+.listings-table{width:100%;border-collapse:collapse;display:none}
+@media(min-width:700px){.listings-table{display:table}.listings-cards{display:none}}
+.listings-table th{font-family:var(--mono);font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-xsoft);padding:10px 14px;text-align:left;border-bottom:1px solid var(--border);background:var(--surface)}
+.listings-table td{padding:12px 14px;border-bottom:1px solid var(--border);font-size:13px;vertical-align:middle}
+.listings-table tr:last-child td{border-bottom:none}
+.listings-table tr:hover td{background:var(--green-light)}
+.tbl-name{font-weight:600;color:var(--text);max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tbl-price{font-family:var(--mono);font-weight:700;color:var(--green)}
+.tbl-actions{display:flex;gap:6px}
+
+/* FORM */
+.form-panel{background:white;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.form-panel-header{background:var(--green);padding:16px 18px}
+.form-panel-title{font-size:15px;font-weight:700;color:white}
+.form-panel-sub{font-size:11.5px;color:rgba(255,255,255,.65);font-family:var(--mono);margin-top:2px}
+.form-body{padding:18px;overflow-y:auto}
+@media(min-width:900px){.form-body{max-height:calc(100vh - 200px)}}
+.form-section{margin-bottom:22px;padding-bottom:22px;border-bottom:1px solid var(--border)}
+.form-section:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.form-section-title{font-family:var(--mono);font-size:9.5px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-xsoft);margin-bottom:12px}
+.field{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
+.field label{font-size:13px;font-weight:600;color:var(--text-soft)}
+.field input,.field select,.field textarea{border:1.5px solid var(--border-mid);border-radius:var(--radius-sm);padding:12px 13px;font-size:16px;font-family:var(--font);color:var(--text);outline:none;transition:border-color .2s,box-shadow .2s;width:100%;min-height:var(--tap);-webkit-appearance:none}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px var(--green-glow)}
+.field textarea{resize:vertical;min-height:110px;line-height:1.6}
+.field input[type=number]{font-family:var(--mono)}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.specs-builder{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+.spec-row-builder{display:grid;grid-template-columns:1fr 1fr 44px;gap:8px;align-items:center}
+.spec-row-builder input{border:1.5px solid var(--border-mid);border-radius:var(--radius-sm);padding:11px 12px;font-size:15px;font-family:var(--font);outline:none;width:100%;min-height:var(--tap);transition:border-color .2s;-webkit-appearance:none}
+.spec-row-builder input:focus{border-color:var(--green)}
+.btn-remove{background:none;border:none;color:var(--text-xsoft);width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:50%;font-size:20px;cursor:pointer;transition:color .2s}
+.btn-remove:hover{color:var(--red)}
+.btn-add-row{background:none;border:1.5px dashed var(--border-mid);color:var(--text-soft);font-size:14px;padding:12px 14px;border-radius:var(--radius-sm);cursor:pointer;font-family:var(--font);transition:all .2s;text-align:left;width:100%;min-height:var(--tap)}
+.btn-add-row:hover{border-color:var(--green);color:var(--green);background:var(--green-light)}
+.dropzone{border:2px dashed var(--border-mid);border-radius:var(--radius);padding:28px 16px;text-align:center;cursor:pointer;transition:all .2s;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:130px}
+.dropzone:hover,.dropzone.drag-over{border-color:var(--green);background:var(--green-light)}
+.dropzone input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.dropzone-icon{font-size:30px;margin-bottom:8px}
+.dropzone-text{font-size:14px;color:var(--text-mid);font-weight:500}
+.dropzone-sub{font-size:12px;color:var(--text-xsoft);font-family:var(--mono);margin-top:3px}
+.photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+@media(min-width:400px){.photo-grid{grid-template-columns:repeat(4,1fr)}}
+.photo-thumb{position:relative;aspect-ratio:1;border-radius:var(--radius-sm);overflow:hidden;border:1px solid var(--border)}
+.photo-thumb img{width:100%;height:100%;object-fit:cover}
+.photo-thumb .rm{position:absolute;top:4px;right:4px;background:rgba(0,0,0,0.65);color:white;border:none;border-radius:50%;width:26px;height:26px;font-size:14px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.upload-log{display:none;flex-direction:column;gap:4px;margin-top:10px;max-height:140px;overflow-y:auto}
+.upload-log.show{display:flex}
+.log-item{font-size:12px;font-family:var(--mono);color:var(--text-soft);padding:5px 8px;border-radius:4px}
+.log-ok{color:var(--green);background:var(--green-light)}
+.log-err{color:var(--red);background:var(--red-light)}
+.form-footer{padding:14px 18px;border-top:1px solid var(--border);display:flex;gap:8px;background:var(--surface)}
+.btn-full{flex:1;padding:14px;font-size:15px;font-weight:700;border-radius:var(--radius-sm);border:none;cursor:pointer;transition:all .2s;font-family:var(--font);min-height:var(--tap)}
+.btn-submit{background:var(--green);color:white}
+.btn-submit:hover{background:var(--green-dark)}
+.btn-submit:disabled{opacity:.5;cursor:not-allowed}
+.btn-cancel-form{background:var(--surface-2);color:var(--text-soft);border:1.5px solid var(--border-mid)}
+
+/* TOAST */
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--text);color:white;padding:12px 20px;border-radius:24px;font-size:14px;font-weight:500;box-shadow:var(--shadow-md);opacity:0;transition:all .3s;z-index:9999;white-space:nowrap}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+.toast.green{background:var(--green)}
+.toast.red{background:var(--red)}
+@media(min-width:600px){
+  .toast{bottom:24px;left:auto;right:24px;transform:translateY(80px);border-radius:8px}
+  .toast.show{transform:translateY(0)}
+}
+
+/* FAB */
+.btn-report{position:fixed;bottom:20px;right:16px;background:var(--green);color:white;border:none;border-radius:24px;padding:13px 18px;font-size:13px;font-weight:600;font-family:var(--font);cursor:pointer;display:none;align-items:center;gap:7px;box-shadow:0 4px 20px rgba(26,107,60,0.35);z-index:500;transition:all .2s;min-height:var(--tap)}
+.btn-report:hover{background:var(--green-dark);transform:translateY(-2px)}
+.btn-report svg{width:15px;height:15px;flex-shrink:0}
+@media(min-width:600px){.btn-report{right:24px;bottom:24px}}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="login-wrap" id="loginWrap">
+  <div class="login-box">
+    <div class="login-logo">484.sk</div>
+    <div class="login-sub">Admin panel</div>
+    <div class="login-error" id="loginError"></div>
+    <div class="login-success" id="loginSuccess"></div>
+    <div class="login-field">
+      <label>Email</label>
+      <input type="email" id="loginEmail" placeholder="admin@484.sk" autocomplete="email">
+    </div>
+    <div class="login-field">
+      <label>Heslo</label>
+      <input type="password" id="loginPass" placeholder="••••••••" autocomplete="current-password">
+    </div>
+    <button class="login-btn" id="loginBtn" onclick="Auth.login()">Prihlásiť sa</button>
+    <div class="login-forgot">
+      <button onclick="Auth.resetPassword()">Zabudol som heslo</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div class="admin-wrap" id="adminWrap">
+  <header class="admin-header">
+    <span class="admin-logo">484.sk <span>/ admin</span></span>
+    <div class="admin-header-right">
+      <a href="index.html" target="_blank" class="btn-sm btn-ghost">Web</a>
+      <button class="btn-sm btn-primary" onclick="Form.openNew()">+ Nový</button>
+      <button class="btn-sm btn-ghost" onclick="Auth.logout()">Odhlásiť</button>
+    </div>
+  </header>
+
+  <div class="admin-body">
+    <div>
+      <!-- Tabs -->
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="active" onclick="Tabs.switch('active')">
+          Aktívne inzeráty
+        </button>
+        <button class="tab-btn" data-tab="pending" onclick="Tabs.switch('pending')">
+          Čakajúce
+          <span class="tab-badge" id="pendingBadge" data-count="0">0</span>
+        </button>
+      </div>
+
+      <!-- ACTIVE LISTINGS TAB -->
+      <div id="tabActive">
+        <div class="panel">
+          <div class="panel-header">
+            <span class="panel-title">Inzeráty</span>
+            <span class="panel-count" id="listingCount">—</span>
+          </div>
+          <!-- Mobile -->
+          <div class="listings-cards" id="listingCards">
+            <div class="tbl-empty">Načítavam...</div>
+          </div>
+          <!-- Desktop -->
+          <table class="listings-table">
+            <thead><tr><th>Názov</th><th>Cena</th><th>Obec</th><th>Stav</th><th>Akcie</th></tr></thead>
+            <tbody id="listingsBody"><tr><td colspan="5" class="tbl-empty">Načítavam...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- PENDING SUBMISSIONS TAB -->
+      <div id="tabPending" hidden>
+        <div class="pending-list" id="pendingList">
+          <div class="pending-empty">Načítavam čakajúce inzeráty...</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-panel" id="formPanel">
+      <div class="form-panel-header">
+        <div class="form-panel-title" id="formPanelTitle">Nový inzerát</div>
+        <div class="form-panel-sub" id="formPanelSub">Vyplňte údaje a uložte</div>
+      </div>
+      <div class="form-body">
+
+        <div class="form-section">
+          <div class="form-section-title">Základné info</div>
+          <div class="field"><label>Názov *</label><input type="text" id="fNazov" placeholder="napr. 4-izbový rodinný dom Mokrance"></div>
+          <div class="field-row">
+            <div class="field"><label>Cena (€) *</label><input type="number" id="fCena" placeholder="287000"></div>
+            <div class="field"><label>Badge</label><input type="text" id="fBadge" value="NOVÝ"></div>
+          </div>
+          <div class="field-row">
+            <div class="field"><label>Typ</label>
+              <select id="fTyp">
+                <option value="dom">Rodinný dom</option>
+                <option value="byt">Byt</option>
+                <option value="pozemok">Pozemok</option>
+                <option value="kancelaria">Kancelária</option>
+              </select>
+            </div>
+            <div class="field"><label>Kraj</label>
+              <select id="fKraj">
+                <option value="kosicky">Košický</option>
+                <option value="bratislavsky">Bratislavský</option>
+                <option value="presovsky">Prešovský</option>
+                <option value="banskobystricky">Banskobystrický</option>
+                <option value="nitriansky">Nitriansky</option>
+                <option value="zilinsky">Žilinský</option>
+                <option value="trnavsky">Trnavský</option>
+                <option value="trenciansky">Trenčiansky</option>
+              </select>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field"><label>Obec *</label><input type="text" id="fObec" placeholder="Mokrance"></div>
+            <div class="field"><label>Aktívny</label>
+              <select id="fAktivny"><option value="true">Áno</option><option value="false">Skrytý</option></select>
+            </div>
+          </div>
+          <div class="field"><label>Popis *</label><textarea id="fPopis" rows="5" placeholder="Detailný popis nehnuteľnosti..."></textarea></div>
+        </div>
+
+        <div class="form-section">
+          <div class="form-section-title">Technické parametre</div>
+          <div class="field-row">
+            <div class="field"><label>Pozemok (m²)</label><input type="number" id="fPozemok"></div>
+            <div class="field"><label>Úžitková plocha (m²)</label><input type="number" id="fUzitk"></div>
+          </div>
+          <div class="field-row">
+            <div class="field"><label>Zastavaná plocha (m²)</label><input type="number" id="fZastav"></div>
+            <div class="field"><label>Dispozícia</label><input type="text" id="fDispozicia" placeholder="3+2"></div>
+          </div>
+          <div class="field-row">
+            <div class="field"><label>Energetická trieda</label><input type="text" id="fEnergia" placeholder="A0"></div>
+            <div class="field"><label>Stav</label><input type="text" id="fStav" placeholder="Novostavba"></div>
+          </div>
+          <div class="field-row">
+            <div class="field"><label>Prízemie</label><input type="text" id="fPrizemie" placeholder="65,63 m²"></div>
+            <div class="field"><label>Poschodie</label><input type="text" id="fPoschodie" placeholder="55,34 m²"></div>
+          </div>
+          <div class="field-row">
+            <div class="field"><label>Na kľúč</label>
+              <select id="fNaKluc"><option value="false">Na požiadanie</option><option value="true">Áno</option></select>
+            </div>
+            <div class="field"><label>Vlastníctvo</label><input type="text" id="fVlastnictvo" value="Osobné"></div>
+          </div>
+          <div class="form-section-title" style="margin-top:14px;">Ďalšie parametre</div>
+          <div class="specs-builder" id="extraSpecs"></div>
+          <button class="btn-add-row" onclick="Form.addSpec()">+ Pridať parameter</button>
+        </div>
+
+        <div class="form-section">
+          <div class="form-section-title">Fotografie</div>
+          <div class="field"><label>Priečinok (CDN fallback)</label><input type="text" id="fFolder" placeholder="dom1, dom2, dom3..."></div>
+          <div class="dropzone" id="dropzone">
+            <input type="file" accept="image/*" multiple onchange="Form.handleFiles(this.files)">
+            <div class="dropzone-icon">📷</div>
+            <div class="dropzone-text">Kliknite alebo pretiahnite fotky</div>
+            <div class="dropzone-sub">JPG, PNG, WEBP · Max 10 MB/fotka</div>
+          </div>
+          <div class="photo-grid" id="photoGrid"></div>
+          <div class="upload-log" id="uploadLog"></div>
+        </div>
+
+      </div>
+      <div class="form-footer">
+        <button class="btn-full btn-cancel-form" onclick="Form.cancel()">Zrušiť</button>
+        <button class="btn-full btn-submit" id="btnSave" onclick="Form.save()">
+          <span id="btnSaveLabel">Uložiť inzerát</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<button class="btn-report" id="btnReport" onclick="Notify.reportProblem()">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+  Nahlásiť problém
+</button>
+
+<script src="config.js"></script>
+<script>
+const sb = {
+  url: CONFIG.SUPABASE_URL,
+  key: CONFIG.SUPABASE_ANON,
+  headers(token) {
+    return { 'apikey':this.key, 'Authorization':`Bearer ${token||this.key}`, 'Content-Type':'application/json', 'Prefer':'return=representation' };
+  },
+  /** Auth-aware fetch: retries once on 401 after refreshing the JWT. */
+  async _fetch(buildReq, retried = false) {
+    const { url, opts } = buildReq();
+    const res = await fetch(url, opts);
+    if (res.status === 401 && !retried && typeof Auth !== 'undefined' && Auth.refresh) {
+      const ok = await Auth.refresh();
+      if (ok) return this._fetch(buildReq, true); // re-runs buildReq → fresh token in headers
+    }
+    return res;
+  },
+  async get(table, params='') {
+    const res = await this._fetch(() => ({
+      url:  `${this.url}/rest/v1/${table}?${params}`,
+      opts: { headers: this.headers(Auth.token()) },
+    }));
+    if (!res.ok) throw new Error(await res.text());
+    return res.json();
+  },
+  async post(table, body) {
+    const res = await this._fetch(() => ({
+      url:  `${this.url}/rest/v1/${table}`,
+      opts: { method:'POST', headers: this.headers(Auth.token()), body: JSON.stringify(body) },
+    }));
+    if (!res.ok) throw new Error(await res.text());
+    return res.json();
+  },
+  async patch(table, id, body) {
+    const res = await this._fetch(() => ({
+      url:  `${this.url}/rest/v1/${table}?id=eq.${id}`,
+      opts: { method:'PATCH', headers: this.headers(Auth.token()), body: JSON.stringify(body) },
+    }));
+    if (!res.ok) throw new Error(await res.text());
+    return res.json();
+  },
+  async delete(table, id) {
+    const res = await this._fetch(() => ({
+      url:  `${this.url}/rest/v1/${table}?id=eq.${id}`,
+      opts: { method:'DELETE', headers: this.headers(Auth.token()) },
+    }));
+    if (!res.ok) throw new Error(await res.text());
+    return true;
+  },
+  async uploadPhoto(bucket, path, file) {
+    const res = await this._fetch(() => ({
+      url:  `${this.url}/storage/v1/object/${bucket}/${path}`,
+      opts: {
+        method:'POST',
+        headers:{ 'apikey':this.key, 'Authorization':`Bearer ${Auth.token()}`, 'Content-Type':file.type, 'x-upsert':'true' },
+        body: file,
+      },
+    }));
+    if (!res.ok) throw new Error(await res.text());
+    return `${this.url}/storage/v1/object/public/${bucket}/${path}`;
+  },
+  async rpc(fn, args = {}) {
+    const res = await this._fetch(() => ({
+      url:  `${this.url}/rest/v1/rpc/${fn}`,
+      opts: { method:'POST', headers: this.headers(Auth.token()), body: JSON.stringify(args) },
+    }));
+    if (!res.ok) throw new Error(await res.text());
+    return res.json();
+  },
+  async deleteStorageObject(bucket, path) {
+    const res = await this._fetch(() => ({
+      url:  `${this.url}/storage/v1/object/${bucket}/${path}`,
+      opts: { method:'DELETE', headers:{ 'apikey':this.key, 'Authorization':`Bearer ${Auth.token()}` } },
+    }));
+    return res.ok;
+  }
+};
+
+/* ── Translation module (uses Supabase Edge Function — see CONFIG.TRANSLATE_FN) ── */
+const Translate = (() => {
+  const TARGETS = [
+    { code:'en', deepl:'EN-GB' },
+    { code:'de', deepl:'DE'    },
+    { code:'uk', deepl:'UK'    },
+  ];
+
+  /** Translate a list of texts to one target language via Supabase Edge Function. */
+  async function batch(texts, deeplLang) {
+    const res = await fetch(CONFIG.TRANSLATE_FN, {
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'apikey': CONFIG.SUPABASE_ANON,
+        'Authorization': `Bearer ${CONFIG.SUPABASE_ANON}`,
+      },
+      body:JSON.stringify({ texts, target_lang: deeplLang }),
+    });
+    if (!res.ok) throw new Error(`Translate ${deeplLang}: ${res.status}`);
+    const data = await res.json();
+    return data.translations.map(t => t.text);
+  }
+
+  /** Translate {nazov, popis} on a listing row → returns patch body with nazov_xx/popis_xx. */
+  async function forNazovPopis(nazov, popis) {
+    const patch = {};
+    for (const { code, deepl } of TARGETS) {
+      try {
+        const [n, p] = await batch([nazov || '', popis || ''], deepl);
+        patch[`nazov_${code}`] = n;
+        patch[`popis_${code}`] = p;
+      } catch(e) {
+        console.warn(`Translate ${code} failed:`, e);
+      }
+    }
+    return patch;
+  }
+
+  /** Translate an existing inzeraty row by id (used by approve flow). */
+  async function forListing(listingId) {
+    const rows = await sb.get('inzeraty', `id=eq.${listingId}&select=nazov,popis`);
+    if (!rows.length) return;
+    const patch = await forNazovPopis(rows[0].nazov, rows[0].popis);
+    if (Object.keys(patch).length) await sb.patch('inzeraty', listingId, patch);
+  }
+
+  return { batch, forNazovPopis, forListing };
+})();
+
+const Auth = (() => {
+  const KEY_TOKEN   = 'admin_token_484';
+  const KEY_REFRESH = 'admin_refresh_484';
+  const KEY_EXPIRES = 'admin_expires_at_484';
+
+  let _token = null;
+  let _bgTimer = null;
+  let _refreshPromise = null; // dedupe concurrent refreshes (e.g. parallel 401s)
+
+  function token() {
+    // Prefer localStorage (in case another tab refreshed the token); fall back to in-memory
+    const stored = localStorage.getItem(KEY_TOKEN);
+    if (stored) _token = stored;
+    return _token;
+  }
+
+  function persistSession(data) {
+    _token = data.access_token;
+    localStorage.setItem(KEY_TOKEN, _token);
+    if (data.refresh_token) localStorage.setItem(KEY_REFRESH, data.refresh_token);
+    if (data.expires_in) {
+      localStorage.setItem(KEY_EXPIRES, String(Date.now() + data.expires_in * 1000));
+    }
+  }
+
+  function clearSession() {
+    _token = null;
+    localStorage.removeItem(KEY_TOKEN);
+    localStorage.removeItem(KEY_REFRESH);
+    localStorage.removeItem(KEY_EXPIRES);
+    if (_bgTimer) { clearInterval(_bgTimer); _bgTimer = null; }
+  }
+
+  /** Exchange refresh_token → new access_token. Deduped + safe under concurrency. */
+  async function refresh() {
+    if (_refreshPromise) return _refreshPromise;
+    const refreshToken = localStorage.getItem(KEY_REFRESH);
+    if (!refreshToken) { logout(); return false; }
+    _refreshPromise = (async () => {
+      try {
+        const res = await fetch(`${CONFIG.SUPABASE_URL}/auth/v1/token?grant_type=refresh_token`, {
+          method:'POST',
+          headers:{ 'apikey':CONFIG.SUPABASE_ANON, 'Content-Type':'application/json' },
+          body: JSON.stringify({ refresh_token: refreshToken }),
+        });
+        if (!res.ok) { logout(); return false; }
+        persistSession(await res.json());
+        return true;
+      } catch(e) {
+        console.warn('Token refresh failed:', e);
+        logout();
+        return false;
+      } finally {
+        _refreshPromise = null;
+      }
+    })();
+    return _refreshPromise;
+  }
+
+  /** If access_token expires within 60s, refresh now. Cheap to call frequently. */
+  async function ensureFresh() {
+    const expiresAt = parseInt(localStorage.getItem(KEY_EXPIRES) || '0', 10);
+    if (!expiresAt) return true; // legacy session — let lazy 401-retry handle it
+    if (Date.now() >= expiresAt - 60_000) return refresh();
+    return true;
+  }
+
+  async function login() {
+    const email = document.getElementById('loginEmail').value.trim();
+    const pass  = document.getElementById('loginPass').value.trim();
+    const errEl = document.getElementById('loginError');
+    errEl.classList.remove('show');
+    if (!email || !pass) { errEl.textContent = 'Zadajte email aj heslo.'; errEl.classList.add('show'); return; }
+    const btn = document.getElementById('loginBtn');
+    btn.textContent = 'Prihlasovanie...'; btn.disabled = true;
+    try {
+      const res = await fetch(`${CONFIG.SUPABASE_URL}/auth/v1/token?grant_type=password`, {
+        method:'POST', headers:{ 'apikey':CONFIG.SUPABASE_ANON, 'Content-Type':'application/json' },
+        body:JSON.stringify({ email, password:pass }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error('Nesprávny email alebo heslo.');
+      persistSession(data);
+      Notify.onLogin();
+      showAdmin();
+    } catch(err) {
+      errEl.textContent = err.message; errEl.classList.add('show');
+    } finally {
+      btn.textContent = 'Prihlásiť sa'; btn.disabled = false;
+    }
+  }
+
+  async function resetPassword() {
+    const email = document.getElementById('loginEmail').value.trim();
+    const errEl = document.getElementById('loginError');
+    const sucEl = document.getElementById('loginSuccess');
+    errEl.classList.remove('show'); sucEl.classList.remove('show');
+    if (!email) { errEl.textContent = 'Najprv zadajte email do poľa vyššie.'; errEl.classList.add('show'); return; }
+    try {
+      const res = await fetch(`${CONFIG.SUPABASE_URL}/auth/v1/recover`, {
+        method:'POST', headers:{ 'apikey':CONFIG.SUPABASE_ANON, 'Content-Type':'application/json' },
+        body:JSON.stringify({ email }),
+      });
+      if (!res.ok) throw new Error();
+      sucEl.textContent = `Reset link odoslaný na ${email}. Skontrolujte email.`;
+      sucEl.classList.add('show');
+    } catch {
+      errEl.textContent = 'Nepodarilo sa odoslať reset link.'; errEl.classList.add('show');
+    }
+  }
+
+  function logout() {
+    // Best-effort server-side token revocation (fire-and-forget — don't block UX)
+    const tk = _token || localStorage.getItem(KEY_TOKEN);
+    if (tk) {
+      fetch(`${CONFIG.SUPABASE_URL}/auth/v1/logout`, {
+        method:'POST',
+        headers:{ 'apikey':CONFIG.SUPABASE_ANON, 'Authorization':`Bearer ${tk}` },
+      }).catch(() => { /* offline / network error — local clear still happens */ });
+    }
+    clearSession();
+    document.getElementById('adminWrap').classList.remove('show');
+    document.getElementById('loginWrap').style.display = '';
+    document.getElementById('btnReport').style.display = 'none';
+  }
+
+  async function tryAutoLogin() {
+    const saved = localStorage.getItem(KEY_TOKEN);
+    if (!saved) return;
+    _token = saved;
+    // If expired or expiring soon, refresh before showing admin.
+    const expiresAt = parseInt(localStorage.getItem(KEY_EXPIRES) || '0', 10);
+    if (expiresAt && Date.now() >= expiresAt - 60_000) {
+      const ok = await refresh();
+      if (!ok) return; // logout already invoked
+    }
+    showAdmin();
+  }
+
+  function showAdmin() {
+    document.getElementById('loginWrap').style.display = 'none';
+    document.getElementById('adminWrap').classList.add('show');
+    document.getElementById('btnReport').style.display = 'flex';
+    Listings.load();
+    Pending.refreshBadge();
+    // Single background timer: keep token fresh + poll badge.
+    if (_bgTimer) clearInterval(_bgTimer);
+    _bgTimer = setInterval(() => {
+      ensureFresh();
+      Pending.refreshBadge();
+    }, 60_000);
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && document.getElementById('loginWrap').style.display !== 'none') login();
+  });
+
+  return { login, logout, token, tryAutoLogin, resetPassword, refresh, ensureFresh };
+})();
+
+const Listings = (() => {
+  let all = [];
+
+  async function load() {
+    try {
+      all = await sb.get('inzeraty', 'select=*&order=created_at.desc');
+      render(all);
+    } catch(err) { toast('Chyba načítania: ' + err.message, 'red'); }
+  }
+
+  function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function fmt(n) { return Number(n).toLocaleString('sk') + ' €'; }
+
+  function render(data) {
+    document.getElementById('listingCount').textContent = `${data.length} inzerátov`;
+    const cards = document.getElementById('listingCards');
+    const tbody = document.getElementById('listingsBody');
+
+    if (!data.length) {
+      cards.innerHTML = '<div class="tbl-empty">Žiadne inzeráty</div>';
+      tbody.innerHTML = '<tr><td colspan="5" class="tbl-empty">Žiadne inzeráty</td></tr>';
+      return;
+    }
+
+    cards.innerHTML = data.map(item => `
+      <div class="listing-row">
+        <div class="lr-info">
+          <div class="lr-name">${esc(item.nazov)}</div>
+          <div class="lr-meta">
+            <span class="lr-price">${fmt(item.cena)}</span>
+            <span class="lr-badge ${item.aktivny ? 'badge-active' : 'badge-inactive'}">${item.aktivny ? 'Aktívny' : 'Skrytý'}</span>
+          </div>
+        </div>
+        <div class="lr-actions">
+          <button class="btn-sm btn-ghost" onclick="Form.openEdit(${item.id})">Upraviť</button>
+          <button class="btn-sm btn-danger" onclick="Listings.confirmDelete(${item.id})">Zmazať</button>
+        </div>
+      </div>`).join('');
+
+    tbody.innerHTML = data.map(item => `
+      <tr>
+        <td class="tbl-name" title="${esc(item.nazov)}">${esc(item.nazov)}</td>
+        <td class="tbl-price">${fmt(item.cena)}</td>
+        <td>${esc(item.obec)}</td>
+        <td><span class="lr-badge ${item.aktivny ? 'badge-active' : 'badge-inactive'}">${item.aktivny ? 'Aktívny' : 'Skrytý'}</span></td>
+        <td><div class="tbl-actions">
+          <button class="btn-sm btn-ghost" onclick="Form.openEdit(${item.id})">Upraviť</button>
+          <button class="btn-sm btn-danger" onclick="Listings.confirmDelete(${item.id})">Vymazať</button>
+        </div></td>
+      </tr>`).join('');
+  }
+
+  let _deleting = false;
+  async function confirmDelete(id) {
+    if (_deleting) return; // prevent double-click race
+    if (!confirm('Naozaj vymazať tento inzerát? Akcia je nevratná.')) return;
+    _deleting = true;
+    // Disable all delete buttons mid-flight so user can't fire two parallel deletes
+    document.querySelectorAll('.btn-danger').forEach(b => b.disabled = true);
+    try {
+      const item = all.find(i => i.id == id);
+      await sb.delete('inzeraty', id);
+      Notify.onInzeratDeleted(item?.nazov || `ID ${id}`);
+      toast('Inzerát vymazaný', 'green');
+      await load();
+    } catch(err) {
+      toast('Chyba: ' + err.message, 'red');
+      document.querySelectorAll('.btn-danger').forEach(b => b.disabled = false);
+    } finally {
+      _deleting = false;
+    }
+  }
+
+  function get(id) { return all.find(i => i.id == id); }
+  return { load, confirmDelete, get };
+})();
+
+/* ── Tabs (Active listings ↔ Pending submissions) ── */
+const Tabs = (() => {
+  function switchTo(name) {
+    document.querySelectorAll('.tab-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.tab === name);
+    });
+    document.getElementById('tabActive').hidden  = name !== 'active';
+    document.getElementById('tabPending').hidden = name !== 'pending';
+    if (name === 'pending') Pending.load();
+  }
+  return { switch: switchTo };
+})();
+
+/* ── Pending submissions (visitor-submitted listings) ── */
+const Pending = (() => {
+  function esc(s) {
+    return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+  }
+  function fmtDate(iso) {
+    try { return new Date(iso).toLocaleString('sk-SK', { day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit' }); }
+    catch { return iso || ''; }
+  }
+
+  async function refreshBadge() {
+    try {
+      const res = await sb._fetch(() => ({
+        url:  `${sb.url}/rest/v1/submitted_listings?select=id&status=eq.pending`,
+        opts: { headers:{ ...sb.headers(Auth.token()), 'Prefer':'count=exact', 'Range':'0-0' } },
+      }));
+      const range = res.headers.get('content-range') || '*/0';
+      const count = parseInt(range.split('/')[1] || '0', 10) || 0;
+      const badge = document.getElementById('pendingBadge');
+      badge.textContent = count;
+      badge.dataset.count = count;
+    } catch(e) {
+      console.warn('Pending badge refresh failed:', e);
+    }
+  }
+
+  async function load() {
+    const list = document.getElementById('pendingList');
+    list.innerHTML = '<div class="pending-empty">Načítavam čakajúce inzeráty...</div>';
+    try {
+      const data = await sb.get('submitted_listings', 'select=*&status=eq.pending&order=created_at.desc');
+      if (!data.length) {
+        list.innerHTML = '<div class="pending-empty">Žiadne čakajúce inzeráty.</div>';
+        return;
+      }
+      list.innerHTML = data.map(renderCard).join('');
+    } catch(err) {
+      list.innerHTML = `<div class="pending-empty" style="color:var(--red)">Chyba: ${esc(err.message)}</div>`;
+    }
+  }
+
+  function renderCard(s) {
+    const photos = Array.isArray(s.foto_urls) ? s.foto_urls : [];
+    const photosHTML = photos.length
+      ? `<div class="pc-photos">${photos.map(u =>
+          `<div class="pc-photo" onclick="window.open('${esc(u)}','_blank')"><img src="${esc(u)}" loading="lazy" alt=""></div>`
+        ).join('')}</div>`
+      : `<div class="pc-empty-photos">— bez fotografií —</div>`;
+
+    const phone = s.submitter_phone
+      ? ` · <a href="tel:${esc(s.submitter_phone)}">${esc(s.submitter_phone)}</a>`
+      : '';
+
+    const meta = [
+      s.typ        ? `<span><b>Typ:</b> ${esc(s.typ)}</span>`        : '',
+      s.kraj       ? `<span><b>Kraj:</b> ${esc(s.kraj)}</span>`      : '',
+      s.obec       ? `<span><b>Obec:</b> ${esc(s.obec)}</span>`      : '',
+      s.uzitk_plocha ? `<span><b>Plocha:</b> ${s.uzitk_plocha} m²</span>` : '',
+      s.dispozicia ? `<span><b>Dispozícia:</b> ${esc(s.dispozicia)}</span>` : '',
+    ].filter(Boolean).join('');
+
+    return `
+      <div class="pending-card" data-id="${s.id}">
+        <div class="pc-head">
+          <div class="pc-title">${esc(s.nazov || '— bez názvu —')}</div>
+          <div class="pc-price">${s.cena ? Number(s.cena).toLocaleString('sk') + ' €' : '—'}</div>
+        </div>
+        <div class="pc-meta">${meta}</div>
+        <div class="pc-submitter">
+          <strong>${esc(s.submitter_name || '—')}</strong>
+          · <a href="mailto:${esc(s.submitter_email)}">${esc(s.submitter_email)}</a>${phone}
+          <br><small style="color:var(--text-xsoft);font-family:var(--mono)">Odoslané: ${fmtDate(s.created_at)}</small>
+        </div>
+        ${s.popis ? `<div class="pc-desc">${esc(s.popis)}</div>` : ''}
+        ${photosHTML}
+        <div class="pc-actions">
+          <button class="approve" onclick="Pending.approve(${s.id})">✓ Schváliť & publikovať</button>
+          <button class="reject"  onclick="Pending.reject(${s.id})">✗ Zamietnuť</button>
+        </div>
+      </div>`;
+  }
+
+  async function approve(id) {
+    if (!confirm('Schváliť a publikovať tento inzerát? Spustí sa aj automatický preklad cez DeepL.')) return;
+    const card = document.querySelector(`.pending-card[data-id="${id}"]`);
+    card?.querySelectorAll('button').forEach(b => b.disabled = true);
+    try {
+      // Atomic promote: submitted_listings → inzeraty (returns new listing id)
+      const result = await sb.rpc('approve_submission', { submission_id: id });
+      const newListingId = Array.isArray(result) ? result[0] : result;
+
+      // Run DeepL translate on the freshly-created listing (non-blocking for UX, but we await for toast accuracy)
+      if (newListingId) {
+        try { await Translate.forListing(newListingId); }
+        catch(e) { console.warn('Auto-translate failed:', e); }
+      }
+
+      Notify.send(`484.sk Admin ✅\nInzerát schválený\nID: ${id} → ${newListingId}\n${new Date().toLocaleString('sk-SK')}`);
+      toast('Schválené & publikované ✓', 'green');
+      await load();
+      await refreshBadge();
+      await Listings.load();
+    } catch(err) {
+      console.error(err);
+      toast('Chyba: ' + err.message, 'red');
+      card?.querySelectorAll('button').forEach(b => b.disabled = false);
+    }
+  }
+
+  async function reject(id) {
+    const reason = prompt('Dôvod zamietnutia (voliteľné):');
+    if (reason === null) return; // cancelled
+    const card = document.querySelector(`.pending-card[data-id="${id}"]`);
+    card?.querySelectorAll('button').forEach(b => b.disabled = true);
+    try {
+      await sb.patch('submitted_listings', id, {
+        status: 'rejected',
+        admin_notes: reason || null,
+        reviewed_at: new Date().toISOString(),
+      });
+      Notify.send(`484.sk Admin ❌\nInzerát zamietnutý\nID: ${id}\nDôvod: ${reason || '—'}\n${new Date().toLocaleString('sk-SK')}`);
+      toast('Zamietnuté ✓', 'green');
+      await load();
+      await refreshBadge();
+    } catch(err) {
+      console.error(err);
+      toast('Chyba: ' + err.message, 'red');
+      card?.querySelectorAll('button').forEach(b => b.disabled = false);
+    }
+  }
+
+  return { load, approve, reject, refreshBadge };
+})();
+
+const Form = (() => {
+  let editId = null;
+  let selectedFiles = [];
+
+  function openNew() {
+    editId = null; selectedFiles = [];
+    document.getElementById('formPanelTitle').textContent = 'Nový inzerát';
+    document.getElementById('formPanelSub').textContent   = 'Vyplňte údaje a uložte';
+    clearForm();
+    document.getElementById('formPanel').scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+
+  function openEdit(id) {
+    const item = Listings.get(id);
+    if (!item) { toast('Inzerát sa nenašiel — skúste obnoviť stránku.', 'red'); return; }
+    editId = id; selectedFiles = [];
+    document.getElementById('formPanelTitle').textContent = 'Upraviť inzerát';
+    document.getElementById('formPanelSub').textContent   = `ID: ${id}`;
+    fillForm(item);
+    document.getElementById('formPanel').scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+
+  function cancel() { editId = null; selectedFiles = []; clearForm(); }
+
+  function clearForm() {
+    const defaults = { fBadge:'NOVÝ', fVlastnictvo:'Osobné', fAktivny:'true', fNaKluc:'false' };
+    ['fNazov','fCena','fBadge','fObec','fPopis','fPozemok','fUzitk','fZastav',
+     'fDispozicia','fEnergia','fStav','fPrizemie','fPoschodie','fFolder','fVlastnictvo','fAktivny','fNaKluc']
+    .forEach(id => { const el = document.getElementById(id); if (el) el.value = defaults[id] || ''; });
+    document.getElementById('extraSpecs').innerHTML = '';
+    document.getElementById('photoGrid').innerHTML  = '';
+    document.getElementById('uploadLog').innerHTML  = '';
+    document.getElementById('uploadLog').classList.remove('show');
+  }
+
+  function fillForm(item) {
+    clearForm();
+    const set = (id, val) => { const el = document.getElementById(id); if (el) el.value = val ?? ''; };
+    set('fNazov',item.nazov); set('fCena',item.cena); set('fBadge',item.badge);
+    set('fObec',item.obec); set('fPopis',item.popis); set('fPozemok',item.pozemok);
+    set('fUzitk',item.uzitk_plocha); set('fZastav',item.zastav_plocha);
+    set('fDispozicia',item.dispozicia); set('fEnergia',item.energy_class);
+    set('fStav',item.stav); set('fPrizemie',item.prizemie); set('fPoschodie',item.poschodie);
+    set('fFolder',item.folder); set('fVlastnictvo',item.vlastnictvo);
+    document.getElementById('fTyp').value    = item.typ;
+    document.getElementById('fKraj').value   = item.kraj;
+    document.getElementById('fAktivny').value= String(item.aktivny);
+    document.getElementById('fNaKluc').value = String(item.na_kluc);
+    (Array.isArray(item.extra_specs) ? item.extra_specs : []).forEach(s => addSpec(s.key, s.val));
+  }
+
+  function addSpec(key='', val='') {
+    const esc = s => String(s||'').replace(/"/g,'&quot;');
+    const row = document.createElement('div');
+    row.className = 'spec-row-builder';
+    row.innerHTML = `<input type="text" placeholder="Názov" value="${esc(key)}"><input type="text" placeholder="Hodnota" value="${esc(val)}"><button type="button" class="btn-remove" aria-label="Odstrániť parameter" onclick="this.closest('.spec-row-builder').remove()">×</button>`;
+    document.getElementById('extraSpecs').appendChild(row);
+  }
+
+  function handleFiles(fileList) {
+    Array.from(fileList).forEach(file => {
+      if (!file.type.startsWith('image/')) return;
+      if (file.size > 10*1024*1024) { toast(`${file.name} je príliš veľký`, 'red'); return; }
+      const idx = selectedFiles.length;
+      selectedFiles.push(file);
+      const url = URL.createObjectURL(file);
+      const div = document.createElement('div');
+      div.className = 'photo-thumb'; div.dataset.idx = idx;
+      div.innerHTML = `<img src="${url}" alt=""><button type="button" class="rm" aria-label="Odstrániť fotku" onclick="Form.removePhoto(${idx})">×</button>`;
+      document.getElementById('photoGrid').appendChild(div);
+    });
+  }
+
+  function removePhoto(idx) {
+    selectedFiles[idx] = null;
+    document.querySelector(`.photo-thumb[data-idx="${idx}"]`)?.remove();
+  }
+
+  function getExtraSpecs() {
+    return Array.from(document.querySelectorAll('#extraSpecs .spec-row-builder')).map(row => {
+      const inputs = row.querySelectorAll('input');
+      return { key:inputs[0].value.trim(), val:inputs[1].value.trim() };
+    }).filter(s => s.key);
+  }
+
+  function getBody() {
+    return {
+      nazov:        document.getElementById('fNazov').value.trim(),
+      cena:         Number(document.getElementById('fCena').value),
+      badge:        document.getElementById('fBadge').value.trim() || null,
+      typ:          document.getElementById('fTyp').value,
+      kraj:         document.getElementById('fKraj').value,
+      obec:         document.getElementById('fObec').value.trim(),
+      popis:        document.getElementById('fPopis').value.trim(),
+      pozemok:      Number(document.getElementById('fPozemok').value)  || null,
+      uzitk_plocha: Number(document.getElementById('fUzitk').value)    || null,
+      zastav_plocha:Number(document.getElementById('fZastav').value)   || null,
+      dispozicia:   document.getElementById('fDispozicia').value.trim()|| null,
+      energy_class: document.getElementById('fEnergia').value.trim()   || null,
+      stav:         document.getElementById('fStav').value.trim()      || null,
+      prizemie:     document.getElementById('fPrizemie').value.trim()  || null,
+      poschodie:    document.getElementById('fPoschodie').value.trim() || null,
+      na_kluc:      document.getElementById('fNaKluc').value === 'true',
+      vlastnictvo:  document.getElementById('fVlastnictvo').value.trim() || 'Osobné',
+      aktivny:      document.getElementById('fAktivny').value === 'true',
+      folder:       document.getElementById('fFolder').value.trim()    || null,
+      extra_specs:  getExtraSpecs(),
+    };
+  }
+
+  async function save() {
+    const body = getBody();
+    if (!body.nazov) { toast('Zadajte názov','red'); return; }
+    if (!body.cena)  { toast('Zadajte cenu', 'red'); return; }
+    if (!body.obec)  { toast('Zadajte obec', 'red'); return; }
+    if (!body.popis) { toast('Zadajte popis','red'); return; }
+
+    const btn = document.getElementById('btnSave');
+    const lbl = document.getElementById('btnSaveLabel');
+    btn.disabled = true;
+
+    try {
+      lbl.textContent = 'Prekladám...';
+      const tx = await Translate.forNazovPopis(body.nazov, body.popis);
+      Object.assign(body, tx);
+
+      lbl.textContent = 'Ukladám...';
+      let savedId = editId;
+      if (editId) {
+        await sb.patch('inzeraty', editId, body);
+      } else {
+        const result = await sb.post('inzeraty', body);
+        savedId = result[0]?.id;
+      }
+
+      const files = selectedFiles.filter(Boolean);
+      if (files.length && savedId) {
+        const logEl = document.getElementById('uploadLog');
+        logEl.innerHTML = ''; logEl.classList.add('show');
+        const uploadedUrls = [];
+        for (let i = 0; i < files.length; i++) {
+          const file = files[i];
+          // Derive extension defensively: only allow known image types, fall back to mime sniff
+          const rawExt = (file.name.match(/\.([a-zA-Z0-9]{2,5})$/) || [])[1];
+          const ext    = (rawExt || (file.type.split('/')[1] || 'jpg')).toLowerCase();
+          const path   = `inzeraty/${savedId}/FD${i+1}.${ext}`;
+          logItem(logEl, `Nahrávam FD${i+1}.${ext}...`, '');
+          try {
+            const url = await sb.uploadPhoto(CONFIG.BUCKET, path, file);
+            uploadedUrls.push(url);
+            logItem(logEl, `✓ FD${i+1}.${ext}`, 'ok');
+          } catch(err) { logItem(logEl, `✗ ${err.message}`, 'err'); }
+        }
+        if (uploadedUrls.length) {
+          const existing = Listings.get(savedId)?.foto_urls || [];
+          await sb.patch('inzeraty', savedId, {
+            foto_urls: [...(Array.isArray(existing) ? existing : []), ...uploadedUrls]
+          });
+        }
+      }
+
+      toast(editId ? 'Inzerát aktualizovaný ✓' : 'Inzerát pridaný ✓', 'green');
+      Notify.onInzeratSaved(body.nazov, !editId);
+      cancel(); Listings.load();
+    } catch(err) {
+      toast('Chyba: ' + err.message, 'red');
+    } finally {
+      btn.disabled = false; lbl.textContent = 'Uložiť inzerát';
+    }
+  }
+
+  function logItem(container, text, type) {
+    const div = document.createElement('div');
+    div.className = 'log-item' + (type==='ok' ? ' log-ok' : type==='err' ? ' log-err' : '');
+    div.textContent = text;
+    container.appendChild(div);
+    container.scrollTop = container.scrollHeight;
+  }
+
+  return { openNew, openEdit, cancel, save, addSpec, handleFiles, removePhoto };
+})();
+
+function toast(msg, type='') {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'toast show' + (type ? ' '+type : '');
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => el.classList.remove('show'), 3500);
+}
+
+const Notify = (() => {
+  async function send(msg) {
+    try {
+      const url = `https://api.callmebot.com/text.php?user=@${CONFIG.TELEGRAM_USER}&text=${encodeURIComponent(msg)}`;
+      return new Promise(resolve => {
+        const img = new Image();
+        img.onload = img.onerror = () => resolve();
+        img.src = url;
+        setTimeout(resolve, 3000);
+      });
+    } catch(e) { console.warn('Notify:', e); }
+  }
+
+  function now() {
+    return new Date().toLocaleString('sk-SK', { day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit' });
+  }
+
+  function onInzeratSaved(nazov, isNew) {
+    send(`484.sk Admin\nInzerát ${isNew ? 'pridaný ✅' : 'upravený ✏️'}\n"${nazov}"\n${now()}`);
+  }
+
+  function onInzeratDeleted(nazov) {
+    send(`484.sk Admin 🗑\nInzerát vymazaný\n"${nazov}"\n${now()}`);
+  }
+
+  function onLogin() {
+    send(`484.sk Admin 🔐\nPrihlásenie do admin panelu\n${now()}`);
+  }
+
+  async function reportProblem() {
+    const popis = prompt('Opíšte problém (môžete nechať prázdne):') ?? '';
+    await send([
+      '484.sk ⚠️ PROBLÉM',
+      `Čas: ${now()}`,
+      `Popis: ${popis || 'Bez popisu'}`,
+      `URL: ${window.location.href}`,
+      `Zariadenie: ${navigator.userAgent.includes('Mobile') ? 'Mobil' : 'Desktop'}`,
+    ].join('\n'));
+    toast('Problém nahlásený ✓', 'green');
+  }
+
+  return { send, onInzeratSaved, onInzeratDeleted, onLogin, reportProblem };
+})();
+
+document.addEventListener('DOMContentLoaded', () => {
+  const dz = document.getElementById('dropzone');
+  dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('drag-over'); });
+  dz.addEventListener('dragleave', () => dz.classList.remove('drag-over'));
+  dz.addEventListener('drop', e => { e.preventDefault(); dz.classList.remove('drag-over'); Form.handleFiles(e.dataTransfer.files); });
+  Auth.tryAutoLogin();
+});
+</script>
+</body>
+</html>
