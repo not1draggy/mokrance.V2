@@ -410,7 +410,7 @@ footer{background:white;border-top:1px solid var(--border);padding:20px;text-ali
 <div class="page-wrap">
 
   <!-- LISTINGS VIEW -->
-  <div id="viewListings" class="listing-layout" style="display:none">
+  <div id="viewListings" class="listing-layout">
 
     <!-- DESKTOP SIDEBAR -->
     <aside class="sidebar-filter" id="desktopSidebar">
@@ -991,8 +991,12 @@ const App = (() => {
     const next = document.getElementById(toId);
     if (!next || toId===currentView) return;
     prev.style.display='none'; prev.classList.remove('active');
-    // listing-layout potrebuje display:grid, detail display:block
-    next.style.display = toId==='viewListings' ? 'grid' : 'block';
+    if (toId==='viewListings') {
+      next.style.display=''; // nechaj CSS rozhodnúť cez grid
+      next.style.removeProperty('display');
+    } else {
+      next.style.display='block';
+    }
     void next.offsetWidth;
     next.classList.add('active');
     currentView = toId;
@@ -1118,7 +1122,8 @@ const App = (() => {
     document.getElementById('logoLink')?.addEventListener('click',e=>{e.preventDefault();goListings();});
     document.getElementById('btnBack')?.addEventListener('click',e=>{e.preventDefault();goListings();});
     // Init views
-    document.getElementById('viewListings').style.display='grid';
+    // Init views — nechaj CSS rozhodnúť o display type
+    document.getElementById('viewListings').style.removeProperty('display');
     document.getElementById('viewDetail').style.display='none';
     // Lang engine
     LangEngine.init();
