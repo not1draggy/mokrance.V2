@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="sk">
 <head>
 <meta charset="UTF-8">
@@ -42,30 +41,30 @@ img{max-width:100%;display:block}
 ::-webkit-scrollbar-thumb{background:var(--green-border);border-radius:99px}
 
 /* ── HEADER ── */
-.site-header{background:white;border-bottom:1px solid var(–border);position:sticky;top:0;z-index:200;height:var(–header-h)}
+.site-header{background:white;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;height:var(--header-h)}
 .header-inner{max-width:1400px;margin:0 auto;padding:0 20px;height:100%;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.logo-link{display:flex;align-items:center;gap:9px;font-family:var(–mono);font-size:16px;font-weight:500;color:var(–green)}
-.logo-icon{width:30px;height:30px;background:var(–green);border-radius:5px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.logo-link{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:16px;font-weight:500;color:var(--green)}
+.logo-icon{width:30px;height:30px;background:var(--green);border-radius:5px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .logo-icon svg{width:16px;height:16px}
 .header-nav{display:flex;align-items:center;gap:8px}
-.btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:var(–radius-sm);font-size:13px;font-weight:500;transition:all var(–transition);cursor:pointer;font-family:var(–font);border:1.5px solid transparent}
-.btn-ghost{background:transparent;color:var(–text-mid);border-color:var(–border-mid)}
-.btn-ghost:hover{border-color:var(–green);color:var(–green);background:var(–green-light)}
-.btn-primary{background:var(–green);color:white;border-color:var(–green)}
-.btn-primary:hover{background:var(–green-dark)}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:var(--radius-sm);font-size:13px;font-weight:500;transition:all var(--transition);cursor:pointer;font-family:var(--font);border:1.5px solid transparent}
+.btn-ghost{background:transparent;color:var(--text-mid);border-color:var(--border-mid)}
+.btn-ghost:hover{border-color:var(--green);color:var(--green);background:var(--green-light)}
+.btn-primary{background:var(--green);color:white;border-color:var(--green)}
+.btn-primary:hover{background:var(--green-dark)}
 .btn-sm{padding:5px 12px;font-size:12.5px}
-.btn-lg{padding:13px 20px;font-size:15px;font-weight:600;border-radius:var(–radius);justify-content:center;width:100%}
+.btn-lg{padding:13px 20px;font-size:15px;font-weight:600;border-radius:var(--radius);justify-content:center;width:100%}
 
 /* ── LANG SWITCHER ── */
 .lang-switcher{position:relative}
-.lang-btn{display:flex;align-items:center;gap:5px;padding:7px 10px;border-radius:var(–radius-sm);border:1.5px solid var(–border-mid);background:white;cursor:pointer;font-family:var(–font);font-size:12.5px;font-weight:600;color:var(–text-mid);transition:all var(–transition)}
-.lang-btn:hover{border-color:var(–green);color:var(–green)}
-.lang-dropdown{position:absolute;top:calc(100% + 6px);right:0;background:white;border:1px solid var(–border);border-radius:var(–radius);box-shadow:var(–shadow-md);z-index:300;min-width:160px;overflow:hidden;display:none}
+.lang-btn{display:flex;align-items:center;gap:5px;padding:7px 10px;border-radius:var(--radius-sm);border:1.5px solid var(--border-mid);background:white;cursor:pointer;font-family:var(--font);font-size:12.5px;font-weight:600;color:var(--text-mid);transition:all var(--transition)}
+.lang-btn:hover{border-color:var(--green);color:var(--green)}
+.lang-dropdown{position:absolute;top:calc(100% + 6px);right:0;background:white;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-md);z-index:300;min-width:160px;overflow:hidden;display:none}
 .lang-dropdown.open{display:block}
-.lang-option{display:flex;align-items:center;gap:10px;padding:9px 14px;font-size:13px;color:var(–text-mid);cursor:pointer;border:none;background:none;width:100%;text-align:left;font-family:var(–font);transition:background var(–transition)}
-.lang-option:hover{background:var(–green-light)}
-.lang-option.active{background:var(–green-light);color:var(–green);font-weight:600}
-.translating-bar{display:none;position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(–text);color:white;padding:10px 20px;border-radius:20px;font-size:13px;font-weight:500;z-index:9999;align-items:center;gap:8px;box-shadow:var(–shadow-md);white-space:nowrap}
+.lang-option{display:flex;align-items:center;gap:10px;padding:9px 14px;font-size:13px;color:var(--text-mid);cursor:pointer;border:none;background:none;width:100%;text-align:left;font-family:var(--font);transition:background var(--transition)}
+.lang-option:hover{background:var(--green-light)}
+.lang-option.active{background:var(--green-light);color:var(--green);font-weight:600}
+.translating-bar{display:none;position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--text);color:white;padding:10px 20px;border-radius:20px;font-size:13px;font-weight:500;z-index:9999;align-items:center;gap:8px;box-shadow:var(--shadow-md);white-space:nowrap}
 .translating-bar.show{display:flex}
 .spinner{width:14px;height:14px;border:2px solid rgba(255,255,255,0.3);border-top-color:white;border-radius:50%;animation:spin .6s linear infinite;flex-shrink:0}
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -76,80 +75,80 @@ img{max-width:100%;display:block}
 /* SIDEBAR LAYOUT — desktop */
 .listing-layout{display:grid;grid-template-columns:1fr;gap:16px;align-items:start}
 @media(min-width:900px){
-.listing-layout{grid-template-columns:268px 1fr}
-.sidebar-filter{display:flex}
-.mobile-filter-bar{display:none !important}
-.mob-fab{display:none !important}
+  .listing-layout{grid-template-columns:268px 1fr}
+  .sidebar-filter{display:flex}
+  .mobile-filter-bar{display:none !important}
+  .mob-fab{display:none !important}
 }
 @media(max-width:899px){
-.mobile-filter-bar{display:block}
-.mob-fab{display:flex}
+  .mobile-filter-bar{display:block}
+  .mob-fab{display:flex}
 }
 
 /* ── SIDEBAR ── */
-.sidebar-filter{display:none;flex-direction:column;background:white;border:1px solid var(–border);border-radius:var(–radius-lg);overflow:hidden;position:sticky;top:calc(var(–header-h) + 16px);max-height:calc(100vh - var(–header-h) - 32px)}
-.sf-head{padding:14px 18px;border-bottom:1px solid var(–border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-.sf-title{font-size:13px;font-weight:600;color:var(–text)}
-.sf-clear{font-size:12px;color:var(–green);cursor:pointer;font-weight:500}
+.sidebar-filter{display:none;flex-direction:column;background:white;border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;position:sticky;top:calc(var(--header-h) + 16px);max-height:calc(100vh - var(--header-h) - 32px)}
+.sf-head{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.sf-title{font-size:13px;font-weight:600;color:var(--text)}
+.sf-clear{font-size:12px;color:var(--green);cursor:pointer;font-weight:500}
 .sf-clear:hover{text-decoration:underline}
 .sf-body{overflow-y:auto;flex:1}
-.sf-section{padding:14px 18px;border-bottom:1px solid var(–border)}
+.sf-section{padding:14px 18px;border-bottom:1px solid var(--border)}
 .sf-section:last-child{border-bottom:none}
-.sf-label{font-family:var(–mono);font-size:9.5px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:var(–text-xsoft);margin-bottom:10px}
-.sf-opt{display:flex;align-items:center;gap:10px;padding:7px 8px;border-radius:6px;cursor:pointer;margin:0 -8px;transition:background var(–transition)}
-.sf-opt:hover{background:var(–surface)}
-.sf-opt.on{background:var(–green-light)}
-.sf-chk{width:16px;height:16px;border-radius:4px;border:1.5px solid var(–border-mid);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all var(–transition)}
-.sf-opt.on .sf-chk{background:var(–green);border-color:var(–green)}
+.sf-label{font-family:var(--mono);font-size:9.5px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-xsoft);margin-bottom:10px}
+.sf-opt{display:flex;align-items:center;gap:10px;padding:7px 8px;border-radius:6px;cursor:pointer;margin:0 -8px;transition:background var(--transition)}
+.sf-opt:hover{background:var(--surface)}
+.sf-opt.on{background:var(--green-light)}
+.sf-chk{width:16px;height:16px;border-radius:4px;border:1.5px solid var(--border-mid);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all var(--transition)}
+.sf-opt.on .sf-chk{background:var(--green);border-color:var(--green)}
 .sf-chk svg{width:9px;height:9px;display:none}
 .sf-opt.on .sf-chk svg{display:block}
-.sf-opt-lbl{font-size:13px;color:var(–text-mid);flex:1}
-.sf-opt.on .sf-opt-lbl{color:var(–green);font-weight:600}
-.sf-opt-ct{font-size:11px;color:var(–text-xsoft);background:var(–surface);padding:1px 7px;border-radius:10px;font-family:var(–mono)}
-.sf-opt.on .sf-opt-ct{background:white;color:var(–green)}
+.sf-opt-lbl{font-size:13px;color:var(--text-mid);flex:1}
+.sf-opt.on .sf-opt-lbl{color:var(--green);font-weight:600}
+.sf-opt-ct{font-size:11px;color:var(--text-xsoft);background:var(--surface);padding:1px 7px;border-radius:10px;font-family:var(--mono)}
+.sf-opt.on .sf-opt-ct{background:white;color:var(--green)}
 .price-inputs{display:flex;gap:8px;align-items:center;margin-top:4px}
-.price-input{flex:1;background:var(–surface);border:1.5px solid var(–border-mid);border-radius:var(–radius-sm);padding:8px 10px;font-size:12.5px;color:var(–text);font-family:var(–mono);outline:none;transition:border-color var(–transition);min-width:0}
-.price-input:focus{border-color:var(–green)}
-.price-sep{font-size:13px;color:var(–text-xsoft);flex-shrink:0}
+.price-input{flex:1;background:var(--surface);border:1.5px solid var(--border-mid);border-radius:var(--radius-sm);padding:8px 10px;font-size:12.5px;color:var(--text);font-family:var(--mono);outline:none;transition:border-color var(--transition);min-width:0}
+.price-input:focus{border-color:var(--green)}
+.price-sep{font-size:13px;color:var(--text-xsoft);flex-shrink:0}
 
 /* ── CONTENT AREA ── */
 .content-area{min-width:0}
-.content-head{background:white;border:1px solid var(–border);border-radius:var(–radius-lg);padding:12px 16px;margin-bottom:12px}
+.content-head{background:white;border:1px solid var(--border);border-radius:var(--radius-lg);padding:12px 16px;margin-bottom:12px}
 .active-pills{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
 .active-pills:empty{display:none}
-.apill{background:var(–green-light);color:var(–green);border:1px solid var(–green-border);font-size:11.5px;font-weight:500;padding:4px 10px;border-radius:20px;display:inline-flex;align-items:center;gap:5px;cursor:pointer;transition:background var(–transition)}
+.apill{background:var(--green-light);color:var(--green);border:1px solid var(--green-border);font-size:11.5px;font-weight:500;padding:4px 10px;border-radius:20px;display:inline-flex;align-items:center;gap:5px;cursor:pointer;transition:background var(--transition)}
 .apill:hover{background:#dceee4}
 .apill-x{opacity:0.6;font-size:13px;line-height:1}
 .toolbar{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.results-lbl{font-size:12.5px;color:var(–text-soft);font-family:var(–mono)}
-.sort-select{font-size:12.5px;color:var(–text-mid);background:var(–surface);border:1.5px solid var(–border-mid);border-radius:var(–radius-sm);padding:6px 10px;font-family:var(–font);cursor:pointer;outline:none;transition:border-color var(–transition)}
-.sort-select:hover,.sort-select:focus{border-color:var(–green)}
+.results-lbl{font-size:12.5px;color:var(--text-soft);font-family:var(--mono)}
+.sort-select{font-size:12.5px;color:var(--text-mid);background:var(--surface);border:1.5px solid var(--border-mid);border-radius:var(--radius-sm);padding:6px 10px;font-family:var(--font);cursor:pointer;outline:none;transition:border-color var(--transition)}
+.sort-select:hover,.sort-select:focus{border-color:var(--green)}
 
 /* ── LISTING CARDS ── */
 .listings-stack{display:flex;flex-direction:column;gap:10px}
-.listing-card{background:white;border:1px solid var(–border);border-radius:var(–radius-lg);display:flex;overflow:hidden;cursor:pointer;transition:border-color var(–transition),box-shadow var(–transition);text-decoration:none;color:inherit}
-.listing-card:hover{border-color:var(–green-border);box-shadow:var(–shadow-sm)}
-.card-thumb{width:200px;flex-shrink:0;background:var(–green-light);position:relative;overflow:hidden;min-height:160px}
+.listing-card{background:white;border:1px solid var(--border);border-radius:var(--radius-lg);display:flex;overflow:hidden;cursor:pointer;transition:border-color var(--transition),box-shadow var(--transition);text-decoration:none;color:inherit}
+.listing-card:hover{border-color:var(--green-border);box-shadow:var(--shadow-sm)}
+.card-thumb{width:200px;flex-shrink:0;background:var(--green-light);position:relative;overflow:hidden;min-height:160px}
 .card-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
 .listing-card:hover .card-thumb img{transform:scale(1.04)}
 .card-thumb-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:40px;opacity:0.3;min-height:160px}
-.card-badge{position:absolute;top:10px;left:10px;background:var(–green);color:white;font-size:9.5px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:3px 8px;border-radius:3px}
+.card-badge{position:absolute;top:10px;left:10px;background:var(--green);color:white;font-size:9.5px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:3px 8px;border-radius:3px}
 .card-body{flex:1;padding:16px 18px;display:flex;flex-direction:column;justify-content:space-between;min-width:0}
-.listing-title{font-size:14.5px;font-weight:600;color:var(–text);line-height:1.4;margin-bottom:5px}
-.listing-snippet{font-size:12px;color:var(–text-soft);line-height:1.55;margin-bottom:10px}
+.listing-title{font-size:14.5px;font-weight:600;color:var(--text);line-height:1.4;margin-bottom:5px}
+.listing-snippet{font-size:12px;color:var(--text-soft);line-height:1.55;margin-bottom:10px}
 .card-tags{display:flex;gap:4px;flex-wrap:wrap}
-.tag{background:var(–green-light);color:var(–green);border:1px solid var(–green-border);font-size:10.5px;font-weight:500;padding:3px 8px;border-radius:4px}
-.card-aside{padding:16px 18px;display:flex;flex-direction:column;align-items:flex-end;justify-content:space-between;flex-shrink:0;border-left:1px solid var(–border);min-width:140px}
-.card-price{font-size:20px;font-weight:600;color:var(–green);letter-spacing:-0.025em;line-height:1}
-.card-price-note{font-size:10.5px;color:var(–text-xsoft);margin-top:3px;text-align:right}
+.tag{background:var(--green-light);color:var(--green);border:1px solid var(--green-border);font-size:10.5px;font-weight:500;padding:3px 8px;border-radius:4px}
+.card-aside{padding:16px 18px;display:flex;flex-direction:column;align-items:flex-end;justify-content:space-between;flex-shrink:0;border-left:1px solid var(--border);min-width:140px}
+.card-price{font-size:20px;font-weight:600;color:var(--green);letter-spacing:-0.025em;line-height:1}
+.card-price-note{font-size:10.5px;color:var(--text-xsoft);margin-top:3px;text-align:right}
 .card-meta{text-align:right}
-.card-location{font-size:11.5px;color:var(–text-soft);margin-bottom:2px}
-.card-date{font-size:11px;color:var(–text-xsoft);font-family:var(–mono)}
-.card-cta{font-size:12px;font-weight:600;color:var(–green);display:flex;align-items:center;gap:3px}
+.card-location{font-size:11.5px;color:var(--text-soft);margin-bottom:2px}
+.card-date{font-size:11px;color:var(--text-xsoft);font-family:var(--mono)}
+.card-cta{font-size:12px;font-weight:600;color:var(--green);display:flex;align-items:center;gap:3px}
 
 /* Skeleton */
-.skeleton{background:var(–surface-2);border-radius:var(–radius-lg);overflow:hidden;position:relative}
-.skeleton::after{content:’’;position:absolute;inset:0;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,0.5) 50%,transparent 100%);animation:shimmer 1.5s infinite}
+.skeleton{background:var(--surface-2);border-radius:var(--radius-lg);overflow:hidden;position:relative}
+.skeleton::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,0.5) 50%,transparent 100%);animation:shimmer 1.5s infinite}
 @keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
 .skeleton-card{height:170px;margin-bottom:10px}
 
@@ -157,82 +156,90 @@ img{max-width:100%;display:block}
 .no-results{text-align:center;padding:60px 20px;display:none}
 .no-results.show{display:block}
 .no-results-icon{font-size:36px;margin-bottom:12px}
-.no-results h3{font-size:17px;font-weight:600;color:var(–text);margin-bottom:6px}
-.no-results p{font-size:13px;color:var(–text-soft);margin-bottom:20px}
+.no-results h3{font-size:17px;font-weight:600;color:var(--text);margin-bottom:6px}
+.no-results p{font-size:13px;color:var(--text-soft);margin-bottom:20px}
 .error-state{text-align:center;padding:60px 20px}
 .error-state-icon{font-size:36px;margin-bottom:12px}
 
 /* ── MOBILE FILTER BAR ── */
-.mobile-filter-bar{background:white;border-bottom:1px solid var(–border);padding:0}
+.mobile-filter-bar{background:white;border-bottom:1px solid var(--border);padding:0}
 .mobile-filter-bar.hidden{display:none}
 .mob-filter-inner{padding:8px 0 0}
 .filter-group{padding:0 14px 8px}
-.filter-label{font-family:var(–mono);font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:var(–text-xsoft);margin-bottom:5px}
+.filter-label{font-family:var(--mono);font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-xsoft);margin-bottom:5px}
 
 /* ── MOBILE FAB ── */
-.mob-fab{position:fixed;bottom:max(20px,env(safe-area-inset-bottom,20px));left:50%;transform:translateX(-50%);background:var(–green);color:white;border-radius:24px;padding:13px 24px;font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(26,107,60,0.35);z-index:100;white-space:nowrap;border:none;font-family:var(–font)}
-.mob-fab-badge{background:white;color:var(–green);border-radius:10px;font-size:11px;font-weight:700;padding:1px 7px}
+.mob-fab{position:fixed;bottom:max(20px,env(safe-area-inset-bottom,20px));left:50%;transform:translateX(-50%);background:var(--green);color:white;border-radius:24px;padding:13px 24px;font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(26,107,60,0.35);z-index:100;white-space:nowrap;border:none;font-family:var(--font)}
+.mob-fab-badge{background:white;color:var(--green);border-radius:10px;font-size:11px;font-weight:700;padding:1px 7px}
 .filter-pills{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
 .filter-pills::-webkit-scrollbar{display:none}
-.pill{padding:5px 12px;border-radius:20px;font-size:12.5px;font-weight:500;border:1.5px solid var(–border-mid);color:var(–text-mid);background:white;cursor:pointer;white-space:nowrap;transition:all var(–transition);flex-shrink:0}
-.pill:hover{border-color:var(–green);color:var(–green)}
-.pill.active{background:var(–green);border-color:var(–green);color:white}
-.filter-meta{padding:6px 16px 8px;border-top:1px solid var(–border);display:flex;align-items:center;justify-content:space-between}
-.btn-reset{font-size:12px;color:var(–text-soft);cursor:pointer;padding:4px 8px;border-radius:4px}
-.btn-reset:hover{color:var(–green)}
+.pill{padding:5px 12px;border-radius:20px;font-size:12.5px;font-weight:500;border:1.5px solid var(--border-mid) !important;color:var(--text-mid) !important;background:white !important;cursor:pointer;white-space:nowrap;transition:all var(--transition);flex-shrink:0}
+.pill:hover{border-color:var(--green) !important;color:var(--green) !important;background:var(--green-light) !important}
+.pill.active{background:var(--green) !important;border-color:var(--green) !important;color:white !important}
+
+/* ── MOBILE BOTTOM ACTIONS ── */
+.mob-actions{position:fixed;bottom:max(16px,env(safe-area-inset-bottom,16px));left:0;right:0;display:flex;justify-content:center;gap:10px;z-index:100;padding:0 16px;pointer-events:none}
+.mob-actions button,.mob-actions a{pointer-events:all}
+.mob-fab{background:var(--green);color:white;border-radius:24px;padding:13px 22px;font-size:13.5px;font-weight:600;display:flex;align-items:center;gap:7px;box-shadow:0 4px 20px rgba(26,107,60,0.35);white-space:nowrap;border:none;font-family:var(--font);cursor:pointer;text-decoration:none}
+.mob-fab-secondary{background:white;color:var(--green);border:2px solid var(--green);border-radius:24px;padding:13px 18px;font-size:13.5px;font-weight:600;display:flex;align-items:center;gap:7px;box-shadow:0 4px 16px rgba(0,0,0,0.12);white-space:nowrap;font-family:var(--font);cursor:pointer;text-decoration:none}
+.mob-fab-badge{background:white;color:var(--green);border-radius:10px;font-size:11px;font-weight:700;padding:1px 7px}
+.filter-meta{padding:6px 16px 8px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.btn-reset{font-size:12px;color:var(--text-soft);cursor:pointer;padding:4px 8px;border-radius:4px}
+.btn-reset:hover{color:var(--green)}
+@media(max-width:899px){.page-wrap{padding-bottom:90px}}
 
 /* ── BOTTOM SHEET ── */
 .bs-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:500;display:none;align-items:flex-end}
 .bs-overlay.open{display:flex}
 .bs{background:white;border-radius:16px 16px 0 0;width:100%;max-height:88vh;display:flex;flex-direction:column}
 .bs-handle{padding:12px 0 6px;display:flex;justify-content:center;flex-shrink:0}
-.bs-drag{width:36px;height:4px;background:var(–border-mid);border-radius:2px}
-.bs-head{padding:0 20px 12px;border-bottom:1px solid var(–border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-.bs-title{font-size:16px;font-weight:600;color:var(–text)}
-.bs-close{font-size:22px;color:var(–text-soft);line-height:1;padding:2px 6px}
+.bs-drag{width:36px;height:4px;background:var(--border-mid);border-radius:2px}
+.bs-head{padding:0 20px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.bs-title{font-size:16px;font-weight:600;color:var(--text)}
+.bs-close{font-size:22px;color:var(--text-soft);line-height:1;padding:2px 6px}
 .bs-body{overflow-y:auto;padding:8px 0 16px;flex:1}
-.bs-section{padding:14px 20px;border-bottom:1px solid var(–border)}
+.bs-section{padding:14px 20px;border-bottom:1px solid var(--border)}
 .bs-section:last-child{border-bottom:none}
-.bs-section-label{font-family:var(–mono);font-size:9.5px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:var(–text-xsoft);margin-bottom:10px}
+.bs-section-label{font-family:var(--mono);font-size:9.5px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-xsoft);margin-bottom:10px}
 .bs-opts{display:flex;flex-wrap:wrap;gap:8px}
-.bs-opt{padding:9px 18px;border-radius:20px;font-size:13.5px;font-weight:500;border:1.5px solid var(–border-mid);color:var(–text-mid);cursor:pointer;background:white;font-family:var(–font);transition:all var(–transition)}
-.bs-opt.on{background:var(–green);border-color:var(–green);color:white}
-.bs-footer{padding:14px 20px;border-top:1px solid var(–border);display:flex;gap:10px;flex-shrink:0}
-.bs-apply{flex:1;background:var(–green);color:white;border-radius:var(–radius);padding:14px;font-size:15px;font-weight:600;font-family:var(–font)}
-.bs-reset{background:transparent;color:var(–text-soft);border:1.5px solid var(–border-mid);border-radius:var(–radius);padding:14px 18px;font-size:13px;font-weight:500;font-family:var(–font)}
+.bs-opt{padding:9px 18px;border-radius:20px;font-size:13.5px;font-weight:500;border:1.5px solid var(--border-mid);color:var(--text-mid);cursor:pointer;background:white;font-family:var(--font);transition:all var(--transition)}
+.bs-opt.on{background:var(--green);border-color:var(--green);color:white}
+.bs-footer{padding:14px 20px;border-top:1px solid var(--border);display:flex;gap:10px;flex-shrink:0}
+.bs-apply{flex:1;background:var(--green);color:white;border-radius:var(--radius);padding:14px;font-size:15px;font-weight:600;font-family:var(--font)}
+.bs-reset{background:transparent;color:var(--text-soft);border:1.5px solid var(--border-mid);border-radius:var(--radius);padding:14px 18px;font-size:13px;font-weight:500;font-family:var(--font)}
 
 /* ── DETAIL VIEW ── */
 .detail-view{display:none}
 .detail-view.active{display:block}
 .page-topbar{padding:14px 0;margin-bottom:16px}
-.breadcrumb{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:13px;color:var(–text-soft)}
-.breadcrumb a{color:var(–green);font-weight:500}
+.breadcrumb{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:13px;color:var(--text-soft)}
+.breadcrumb a{color:var(--green);font-weight:500}
 .breadcrumb a:hover{text-decoration:underline}
-.breadcrumb-sep{color:var(–border-mid)}
-.breadcrumb strong{color:var(–text);font-weight:600}
+.breadcrumb-sep{color:var(--border-mid)}
+.breadcrumb strong{color:var(--text);font-weight:600}
 .detail-grid{display:grid;grid-template-columns:1fr;gap:16px}
 @media(min-width:860px){.detail-grid{grid-template-columns:1fr 340px}}
-.detail-header-card,.section-card{background:white;border:1px solid var(–border);border-radius:var(–radius-lg);overflow:hidden}
+.detail-header-card,.section-card{background:white;border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}
 .detail-header-card{padding:24px}
-.detail-eyebrow{font-family:var(–mono);font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:var(–green);margin-bottom:8px}
-.detail-title{font-size:22px;font-weight:700;color:var(–text);line-height:1.3;margin-bottom:14px}
+.detail-eyebrow{font-family:var(--mono);font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:var(--green);margin-bottom:8px}
+.detail-title{font-size:22px;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:14px}
 .detail-price-row{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
-.detail-price{font-size:30px;font-weight:700;color:var(–green);letter-spacing:-0.03em}
-.detail-price-note{font-size:12.5px;color:var(–text-soft)}
-.section-header{padding:16px 20px;border-bottom:1px solid var(–border);display:flex;align-items:center;justify-content:space-between}
-.section-title{font-family:var(–mono);font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:var(–text-xsoft)}
-.section-count{font-family:var(–mono);font-size:11px;color:var(–text-xsoft)}
+.detail-price{font-size:30px;font-weight:700;color:var(--green);letter-spacing:-0.03em}
+.detail-price-note{font-size:12.5px;color:var(--text-soft)}
+.section-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.section-title{font-family:var(--mono);font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-xsoft)}
+.section-count{font-family:var(--mono);font-size:11px;color:var(--text-xsoft)}
 .specs-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;padding:8px 0}
-.spec-row{display:flex;align-items:center;justify-content:space-between;padding:10px 20px;border-bottom:1px solid var(–border)}
+.spec-row{display:flex;align-items:center;justify-content:space-between;padding:10px 20px;border-bottom:1px solid var(--border)}
 .spec-row:nth-child(2n){border-left:none}
 .spec-row:last-child,.spec-row:nth-last-child(2):nth-child(odd){border-bottom:none}
-.spec-key{font-size:12.5px;color:var(–text-soft)}
-.spec-val{font-size:13px;font-weight:600;color:var(–text);text-align:right}
-.spec-val.em{color:var(–green)}
-.desc-body{padding:20px;font-size:14px;line-height:1.7;color:var(–text-mid)}
+.spec-key{font-size:12.5px;color:var(--text-soft)}
+.spec-val{font-size:13px;font-weight:600;color:var(--text);text-align:right}
+.spec-val.em{color:var(--green)}
+.desc-body{padding:20px;font-size:14px;line-height:1.7;color:var(--text-mid)}
 .desc-body p{margin-bottom:14px}
 .desc-body p:last-child{margin-bottom:0}
-.gallery-loading{padding:40px;text-align:center;display:flex;align-items:center;justify-content:center;gap:10px;font-size:13px;color:var(–text-soft)}
+.gallery-loading{padding:40px;text-align:center;display:flex;align-items:center;justify-content:center;gap:10px;font-size:13px;color:var(--text-soft)}
 .gallery-grid{display:grid;gap:3px;padding:3px}
 .layout-1{grid-template-columns:1fr}
 .layout-2{grid-template-columns:1fr 1fr}
@@ -240,43 +247,43 @@ img{max-width:100%;display:block}
 .layout-3 .gi:first-child{grid-row:1/3}
 .layout-mid{grid-template-columns:repeat(3,1fr)}
 .layout-dense{grid-template-columns:repeat(4,1fr)}
-.gi{position:relative;overflow:hidden;background:var(–surface);cursor:pointer}
+.gi{position:relative;overflow:hidden;background:var(--surface);cursor:pointer}
 .gi img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease}
 .gi:hover img{transform:scale(1.05)}
 .gi-overlay{position:absolute;inset:0;background:rgba(0,0,0,0);display:flex;align-items:center;justify-content:center;transition:background .2s}
 .gi:hover .gi-overlay{background:rgba(0,0,0,0.2)}
 .gi-icon{color:white;font-size:22px;opacity:0;transition:opacity .2s}
 .gi:hover .gi-icon{opacity:1}
-.gallery-empty{padding:30px;text-align:center;font-size:13px;color:var(–text-xsoft)}
+.gallery-empty{padding:30px;text-align:center;font-size:13px;color:var(--text-xsoft)}
 .contact-sidebar{display:flex;flex-direction:column;gap:12px}
-.contact-card{background:white;border:1px solid var(–border);border-radius:var(–radius-lg);overflow:hidden}
-.contact-card-header{background:var(–green);padding:16px 20px}
-.contact-card-eyebrow{font-family:var(–mono);font-size:9.5px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:rgba(255,255,255,0.65);margin-bottom:4px}
+.contact-card{background:white;border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}
+.contact-card-header{background:var(--green);padding:16px 20px}
+.contact-card-eyebrow{font-family:var(--mono);font-size:9.5px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:rgba(255,255,255,0.65);margin-bottom:4px}
 .contact-card-name{font-size:15px;font-weight:700;color:white}
 .contact-card-body{padding:18px 20px}
 .contact-price-block{margin-bottom:16px}
-.contact-price{font-size:26px;font-weight:700;color:var(–green);letter-spacing:-0.025em}
-.contact-price-sub{font-size:11.5px;color:var(–text-soft);margin-top:2px}
+.contact-price{font-size:26px;font-weight:700;color:var(--green);letter-spacing:-0.025em}
+.contact-price-sub{font-size:11.5px;color:var(--text-soft);margin-top:2px}
 .contact-pills-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
-.contact-pill-item{background:var(–surface);border-radius:var(–radius-sm);padding:8px 10px}
-.contact-pill-label{font-size:10px;color:var(–text-xsoft);font-family:var(–mono);display:block;margin-bottom:2px}
-.contact-pill-val{font-size:13px;font-weight:600;color:var(–text)}
+.contact-pill-item{background:var(--surface);border-radius:var(--radius-sm);padding:8px 10px}
+.contact-pill-label{font-size:10px;color:var(--text-xsoft);font-family:var(--mono);display:block;margin-bottom:2px}
+.contact-pill-val{font-size:13px;font-weight:600;color:var(--text)}
 .contact-phones{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
-.phone-block{background:var(–surface);border-radius:var(–radius-sm);padding:10px 12px}
-.phone-label{font-size:10px;color:var(–text-xsoft);font-family:var(–mono);margin-bottom:3px}
-.phone-number{font-size:15px;font-weight:700;color:var(–text);display:block}
-.phone-number:hover{color:var(–green)}
-.no-agency{font-size:12px;color:var(–green);text-align:center;margin-top:10px;font-weight:500}
-.seller-note{background:white;border:1px solid var(–border);border-radius:var(–radius-lg);padding:16px 18px;font-size:13px;color:var(–text-soft);line-height:1.6}
-.seller-note strong{color:var(–text);display:block;margin-bottom:4px}
+.phone-block{background:var(--surface);border-radius:var(--radius-sm);padding:10px 12px}
+.phone-label{font-size:10px;color:var(--text-xsoft);font-family:var(--mono);margin-bottom:3px}
+.phone-number{font-size:15px;font-weight:700;color:var(--text);display:block}
+.phone-number:hover{color:var(--green)}
+.no-agency{font-size:12px;color:var(--green);text-align:center;margin-top:10px;font-weight:500}
+.seller-note{background:white;border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px 18px;font-size:13px;color:var(--text-soft);line-height:1.6}
+.seller-note strong{color:var(--text);display:block;margin-bottom:4px}
 
 /* ── FOOTER ── */
-footer{background:white;border-top:1px solid var(–border);padding:20px;text-align:center;margin-top:40px}
+footer{background:white;border-top:1px solid var(--border);padding:20px;text-align:center;margin-top:40px}
 .footer-inner{max-width:1400px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
-.footer-copy{font-size:12.5px;color:var(–text-xsoft)}
+.footer-copy{font-size:12.5px;color:var(--text-xsoft)}
 .footer-links{display:flex;gap:16px}
-.footer-links a{font-size:12.5px;color:var(–text-soft)}
-.footer-links a:hover{color:var(–green)}
+.footer-links a{font-size:12.5px;color:var(--text-soft)}
+.footer-links a:hover{color:var(--green)}
 
 /* ── LIGHTBOX ── */
 .lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:1000;display:none;align-items:center;justify-content:center;flex-direction:column}
@@ -289,26 +296,25 @@ footer{background:white;border-top:1px solid var(–border);padding:20px;text-al
 #lbNext{right:16px}
 .lb-close{position:absolute;top:16px;right:16px;background:rgba(255,255,255,0.15);border:none;color:white;font-size:20px;width:40px;height:40px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center}
 .lb-footer{color:rgba(255,255,255,0.7);font-size:13px;margin-top:12px;text-align:center}
-#lbCounter{font-family:var(–mono)}
+#lbCounter{font-family:var(--mono)}
 
 /* ── RESPONSIVE TWEAKS ── */
 @media(max-width:700px){
-.card-thumb{width:130px;min-height:120px}
-.card-aside{min-width:110px;padding:12px}
-.card-price{font-size:16px}
-.listing-title{font-size:13px}
-.detail-title{font-size:18px}
-.detail-price{font-size:24px}
-.specs-grid{grid-template-columns:1fr}
-.spec-row{border-bottom:1px solid var(–border)}
-.spec-row:last-child{border-bottom:none}
+  .card-thumb{width:130px;min-height:120px}
+  .card-aside{min-width:110px;padding:12px}
+  .card-price{font-size:16px}
+  .listing-title{font-size:13px}
+  .detail-title{font-size:18px}
+  .detail-price{font-size:24px}
+  .specs-grid{grid-template-columns:1fr}
+  .spec-row{border-bottom:1px solid var(--border)}
+  .spec-row:last-child{border-bottom:none}
 }
 @media(max-width:500px){
-.card-aside{display:none}
-.card-body{padding:12px}
+  .card-aside{display:none}
+  .card-body{padding:12px}
 }
 </style>
-
 </head>
 <body>
 
@@ -345,7 +351,6 @@ footer{background:white;border-top:1px solid var(–border);padding:20px;text-al
 </header>
 
 <!-- MOBILE FILTER BAR -->
-
 <div class="mobile-filter-bar" id="filterBar">
   <div class="mob-filter-inner">
     <div class="filter-group">
@@ -382,102 +387,101 @@ footer{background:white;border-top:1px solid var(–border);padding:20px;text-al
 <div class="page-wrap">
 
   <!-- LISTINGS VIEW -->
-
   <div id="viewListings" class="listing-layout" style="display:none">
 
-```
-<!-- DESKTOP SIDEBAR -->
-<aside class="sidebar-filter" id="desktopSidebar">
-  <div class="sf-head">
-    <span class="sf-title" id="sfTitle">Filtre</span>
-    <button class="sf-clear" id="sfClear">Zrušiť všetky</button>
-  </div>
-  <div class="sf-body">
-    <div class="sf-section">
-      <div class="sf-label" id="sfTypLabel">Typ nehnuteľnosti</div>
-      <div id="sfTyp">
-        <div class="sf-opt on" data-group="typ" data-val="vsetky"><div class="sf-chk"><svg viewBox="0 0 9 9" fill="none"><polyline points="1,4.5 3.5,7 8,2" stroke="white" stroke-width="1.5"/></svg></div><span class="sf-opt-lbl">Všetky</span><span class="sf-opt-ct" id="ct-typ-vsetky">—</span></div>
-        <div class="sf-opt" data-group="typ" data-val="dom"><div class="sf-chk"><svg viewBox="0 0 9 9" fill="none"><polyline points="1,4.5 3.5,7 8,2" stroke="white" stroke-width="1.5"/></svg></div><span class="sf-opt-lbl">Rodinný dom</span><span class="sf-opt-ct" id="ct-typ-dom">0</span></div>
-        <div class="sf-opt" data-group="typ" data-val="byt"><div class="sf-chk"><svg viewBox="0 0 9 9" fill="none"><polyline points="1,4.5 3.5,7 8,2" stroke="white" stroke-width="1.5"/></svg></div><span class="sf-opt-lbl">Byt</span><span class="sf-opt-ct" id="ct-typ-byt">0</span></div>
-        <div class="sf-opt" data-group="typ" data-val="pozemok"><div class="sf-chk"><svg viewBox="0 0 9 9" fill="none"><polyline points="1,4.5 3.5,7 8,2" stroke="white" stroke-width="1.5"/></svg></div><span class="sf-opt-lbl">Pozemok</span><span class="sf-opt-ct" id="ct-typ-pozemok">0</span></div>
-        <div class="sf-opt" data-group="typ" data-val="kancelaria"><div class="sf-chk"><svg viewBox="0 0 9 9" fill="none"><polyline points="1,4.5 3.5,7 8,2" stroke="white" stroke-width="1.5"/></svg></div><span class="sf-opt-lbl">Kancelária</span><span class="sf-opt-ct" id="ct-typ-kancelaria">0</span></div>
+    <!-- DESKTOP SIDEBAR -->
+    <aside class="sidebar-filter" id="desktopSidebar">
+      <div class="sf-head">
+        <span class="sf-title" id="sfTitle">Filtre</span>
+        <button class="sf-clear" id="sfClear">Zrušiť všetky</button>
       </div>
-    </div>
-    <div class="sf-section">
-      <div class="sf-label" id="sfKrajLabel">Kraj</div>
-      <div id="sfKraj">
-        <div class="sf-opt on" data-group="kraj" data-val="vsetky"><div class="sf-chk"><svg viewBox="0 0 9 9" fill="none"><polyline points="1,4.5 3.5,7 8,2" stroke="white" stroke-width="1.5"/></svg></div><span class="sf-opt-lbl">Všetky</span><span class="sf-opt-ct">—</span></div>
-        <div class="sf-opt" data-group="kraj" data-val="kosicky"><div class="sf-chk"><svg viewBox="0 0 9 9" fill="none"><polyline points="1,4.5 3.5,7 8,2" stroke="white" stroke-width="1.5"/></svg></div><span class="sf-opt-lbl">Košický</span><span class="sf-opt-ct" id="ct-kraj-kosicky">0</span></div>
-        <div class="sf-opt" data-group="kraj" data-val="bratislavsky"><div class="sf-chk"><svg viewBox="0 0 9 9" fill="none"><polyline points="1,4.5 3.5,7 8,2" stroke="white" stroke-width="1.5"/></svg></div><span class="sf-opt-lbl">Bratislavský</span><span class="sf-opt-ct">0</span></div>
-        <div class="sf-opt" data-group="kraj" data-val="presovsky"><div class="sf-chk"><svg viewBox="0 0 9 9" fill="none"><polyline points="1,4.5 3.5,7 8,2" stroke="white" stroke-width="1.5"/></svg></div><span class="sf-opt-lbl">Prešovský</span><span class="sf-opt-ct">0</span></div>
-        <div class="sf-opt" data-group="kraj" data-val="banskobystricky"><div class="sf-chk"><svg viewBox="0 0 9 9" fill="none"><polyline points="1,4.5 3.5,7 8,2" stroke="white" stroke-width="1.5"/></svg></div><span class="sf-opt-lbl">Banskobystrický</span><span class="sf-opt-ct">0</span></div>
-        <div class="sf-opt" data-group="kraj" data-val="nitriansky"><div class="sf-chk"><svg viewBox="0 0 9 9" fill="none"><polyline points="1,4.5 3.5,7 8,2" stroke="white" stroke-width="1.5"/></svg></div><span class="sf-opt-lbl">Nitriansky</span><span class="sf-opt-ct">0</span></div>
-        <div class="sf-opt" data-group="kraj" data-val="zilinsky"><div class="sf-chk"><svg viewBox="0 0 9 9" fill="none"><polyline points="1,4.5 3.5,7 8,2" stroke="white" stroke-width="1.5"/></svg></div><span class="sf-opt-lbl">Žilinský</span><span class="sf-opt-ct">0</span></div>
-        <div class="sf-opt" data-group="kraj" data-val="trnavsky"><div class="sf-chk"><svg viewBox="0 0 9 9" fill="none"><polyline points="1,4.5 3.5,7 8,2" stroke="white" stroke-width="1.5"/></svg></div><span class="sf-opt-lbl">Trnavský</span><span class="sf-opt-ct">0</span></div>
-        <div class="sf-opt" data-group="kraj" data-val="trenciansky"><div class="sf-chk"><svg viewBox="0 0 9 9" fill="none"><polyline points="1,4.5 3.5,7 8,2" stroke="white" stroke-width="1.5"/></svg></div><span class="sf-opt-lbl">Trenčiansky</span><span class="sf-opt-ct">0</span></div>
+      <div class="sf-body">
+        <div class="sf-section">
+          <div class="sf-label" id="sfTypLabel">Typ nehnuteľnosti</div>
+          <div id="sfTyp">
+            <div class="sf-opt on" data-group="typ" data-val="vsetky"><div class="sf-chk"><svg viewBox="0 0 9 9" fill="none"><polyline points="1,4.5 3.5,7 8,2" stroke="white" stroke-width="1.5"/></svg></div><span class="sf-opt-lbl">Všetky</span><span class="sf-opt-ct" id="ct-typ-vsetky">—</span></div>
+            <div class="sf-opt" data-group="typ" data-val="dom"><div class="sf-chk"><svg viewBox="0 0 9 9" fill="none"><polyline points="1,4.5 3.5,7 8,2" stroke="white" stroke-width="1.5"/></svg></div><span class="sf-opt-lbl">Rodinný dom</span><span class="sf-opt-ct" id="ct-typ-dom">0</span></div>
+            <div class="sf-opt" data-group="typ" data-val="byt"><div class="sf-chk"><svg viewBox="0 0 9 9" fill="none"><polyline points="1,4.5 3.5,7 8,2" stroke="white" stroke-width="1.5"/></svg></div><span class="sf-opt-lbl">Byt</span><span class="sf-opt-ct" id="ct-typ-byt">0</span></div>
+            <div class="sf-opt" data-group="typ" data-val="pozemok"><div class="sf-chk"><svg viewBox="0 0 9 9" fill="none"><polyline points="1,4.5 3.5,7 8,2" stroke="white" stroke-width="1.5"/></svg></div><span class="sf-opt-lbl">Pozemok</span><span class="sf-opt-ct" id="ct-typ-pozemok">0</span></div>
+            <div class="sf-opt" data-group="typ" data-val="kancelaria"><div class="sf-chk"><svg viewBox="0 0 9 9" fill="none"><polyline points="1,4.5 3.5,7 8,2" stroke="white" stroke-width="1.5"/></svg></div><span class="sf-opt-lbl">Kancelária</span><span class="sf-opt-ct" id="ct-typ-kancelaria">0</span></div>
+          </div>
+        </div>
+        <div class="sf-section">
+          <div class="sf-label" id="sfKrajLabel">Kraj</div>
+          <div id="sfKraj">
+            <div class="sf-opt on" data-group="kraj" data-val="vsetky"><div class="sf-chk"><svg viewBox="0 0 9 9" fill="none"><polyline points="1,4.5 3.5,7 8,2" stroke="white" stroke-width="1.5"/></svg></div><span class="sf-opt-lbl">Všetky</span><span class="sf-opt-ct">—</span></div>
+            <div class="sf-opt" data-group="kraj" data-val="kosicky"><div class="sf-chk"><svg viewBox="0 0 9 9" fill="none"><polyline points="1,4.5 3.5,7 8,2" stroke="white" stroke-width="1.5"/></svg></div><span class="sf-opt-lbl">Košický</span><span class="sf-opt-ct" id="ct-kraj-kosicky">0</span></div>
+            <div class="sf-opt" data-group="kraj" data-val="bratislavsky"><div class="sf-chk"><svg viewBox="0 0 9 9" fill="none"><polyline points="1,4.5 3.5,7 8,2" stroke="white" stroke-width="1.5"/></svg></div><span class="sf-opt-lbl">Bratislavský</span><span class="sf-opt-ct">0</span></div>
+            <div class="sf-opt" data-group="kraj" data-val="presovsky"><div class="sf-chk"><svg viewBox="0 0 9 9" fill="none"><polyline points="1,4.5 3.5,7 8,2" stroke="white" stroke-width="1.5"/></svg></div><span class="sf-opt-lbl">Prešovský</span><span class="sf-opt-ct">0</span></div>
+            <div class="sf-opt" data-group="kraj" data-val="banskobystricky"><div class="sf-chk"><svg viewBox="0 0 9 9" fill="none"><polyline points="1,4.5 3.5,7 8,2" stroke="white" stroke-width="1.5"/></svg></div><span class="sf-opt-lbl">Banskobystrický</span><span class="sf-opt-ct">0</span></div>
+            <div class="sf-opt" data-group="kraj" data-val="nitriansky"><div class="sf-chk"><svg viewBox="0 0 9 9" fill="none"><polyline points="1,4.5 3.5,7 8,2" stroke="white" stroke-width="1.5"/></svg></div><span class="sf-opt-lbl">Nitriansky</span><span class="sf-opt-ct">0</span></div>
+            <div class="sf-opt" data-group="kraj" data-val="zilinsky"><div class="sf-chk"><svg viewBox="0 0 9 9" fill="none"><polyline points="1,4.5 3.5,7 8,2" stroke="white" stroke-width="1.5"/></svg></div><span class="sf-opt-lbl">Žilinský</span><span class="sf-opt-ct">0</span></div>
+            <div class="sf-opt" data-group="kraj" data-val="trnavsky"><div class="sf-chk"><svg viewBox="0 0 9 9" fill="none"><polyline points="1,4.5 3.5,7 8,2" stroke="white" stroke-width="1.5"/></svg></div><span class="sf-opt-lbl">Trnavský</span><span class="sf-opt-ct">0</span></div>
+            <div class="sf-opt" data-group="kraj" data-val="trenciansky"><div class="sf-chk"><svg viewBox="0 0 9 9" fill="none"><polyline points="1,4.5 3.5,7 8,2" stroke="white" stroke-width="1.5"/></svg></div><span class="sf-opt-lbl">Trenčiansky</span><span class="sf-opt-ct">0</span></div>
+          </div>
+        </div>
+        <div class="sf-section">
+          <div class="sf-label" id="sfPriceLabel">Cena</div>
+          <div class="price-inputs">
+            <input class="price-input" type="number" id="priceMin" placeholder="Od €" min="0" step="5000">
+            <span class="price-sep">—</span>
+            <input class="price-input" type="number" id="priceMax" placeholder="Do €" min="0" step="5000">
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="sf-section">
-      <div class="sf-label" id="sfPriceLabel">Cena</div>
-      <div class="price-inputs">
-        <input class="price-input" type="number" id="priceMin" placeholder="Od €" min="0" step="5000">
-        <span class="price-sep">—</span>
-        <input class="price-input" type="number" id="priceMax" placeholder="Do €" min="0" step="5000">
-      </div>
-    </div>
-  </div>
-</aside>
+    </aside>
 
-<!-- CONTENT -->
-<div class="content-area">
-  <div class="content-head">
-    <div class="active-pills" id="activePills"></div>
-    <div class="toolbar">
-      <span class="results-lbl" id="resultsLabelDesktop">—</span>
-      <select class="sort-select" id="sortSelect">
-        <option value="newest">Najnovšie</option>
-        <option value="price_asc">Cena: od najnižšej</option>
-        <option value="price_desc">Cena: od najvyššej</option>
-      </select>
+    <!-- CONTENT -->
+    <div class="content-area">
+      <div class="content-head">
+        <div class="active-pills" id="activePills"></div>
+        <div class="toolbar">
+          <span class="results-lbl" id="resultsLabelDesktop">—</span>
+          <select class="sort-select" id="sortSelect">
+            <option value="newest">Najnovšie</option>
+            <option value="price_asc">Cena: od najnižšej</option>
+            <option value="price_desc">Cena: od najvyššej</option>
+          </select>
+        </div>
+      </div>
+      <div id="skeletonLoaders">
+        <div class="skeleton skeleton-card"></div>
+        <div class="skeleton skeleton-card"></div>
+      </div>
+      <div class="listings-stack" id="listingsStack" style="display:none"></div>
+      <div class="no-results" id="noResults">
+        <div class="no-results-icon">🔍</div>
+        <h3 id="noResultsTitle">Žiadne výsledky</h3>
+        <p id="noResultsDesc">Pre zvolené filtre momentálne nemáme žiadne ponuky.</p>
+        <button class="btn btn-primary" onclick="App.resetFilters()">Zobraziť všetky ponuky</button>
+      </div>
+      <div class="error-state" id="errorState" style="display:none">
+        <div class="error-state-icon">⚠️</div>
+        <h3>Chyba pri načítaní</h3>
+        <p id="errorMsg"></p>
+      </div>
     </div>
-  </div>
-  <div id="skeletonLoaders">
-    <div class="skeleton skeleton-card"></div>
-    <div class="skeleton skeleton-card"></div>
-  </div>
-  <div class="listings-stack" id="listingsStack" style="display:none"></div>
-  <div class="no-results" id="noResults">
-    <div class="no-results-icon">🔍</div>
-    <h3 id="noResultsTitle">Žiadne výsledky</h3>
-    <p id="noResultsDesc">Pre zvolené filtre momentálne nemáme žiadne ponuky.</p>
-    <button class="btn btn-primary" onclick="App.resetFilters()">Zobraziť všetky ponuky</button>
-  </div>
-  <div class="error-state" id="errorState" style="display:none">
-    <div class="error-state-icon">⚠️</div>
-    <h3>Chyba pri načítaní</h3>
-    <p id="errorMsg"></p>
-  </div>
-</div>
-```
-
   </div>
 
   <!-- DETAIL VIEW -->
-
   <div id="viewDetail" class="detail-view"></div>
 
 </div>
 
-<!-- MOBILE FAB -->
-
-<button class="mob-fab" id="mobFab" onclick="BSFilter.open()">
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
-  <span id="fabText">Filtre</span>
-  <span class="mob-fab-badge" id="fabBadge" style="display:none">0</span>
-</button>
+<!-- MOBILE BOTTOM ACTIONS -->
+<div class="mob-actions" id="mobActions">
+  <a href="admin.html" class="mob-fab-secondary" id="mobBtnAdmin">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    Pridať
+  </a>
+  <button class="mob-fab" id="mobFab" onclick="BSFilter.open()">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+    <span id="fabText">Filtre</span>
+    <span class="mob-fab-badge" id="fabBadge" style="display:none">0</span>
+  </button>
+</div>
 
 <!-- BOTTOM SHEET FILTER -->
-
 <div class="bs-overlay" id="bsOverlay" onclick="BSFilter.closeIfBg(event)">
   <div class="bs">
     <div class="bs-handle"><div class="bs-drag"></div></div>
@@ -537,7 +541,6 @@ footer{background:white;border-top:1px solid var(–border);padding:20px;text-al
 </footer>
 
 <!-- LIGHTBOX -->
-
 <div class="lightbox" id="lightbox">
   <button class="lb-close" id="lbClose">×</button>
   <button class="lb-nav" id="lbPrev">‹</button>
@@ -552,7 +555,6 @@ footer{background:white;border-top:1px solid var(–border);padding:20px;text-al
 </div>
 
 <script src="config.js"></script>
-
 <script>
 /* ══════════════════════════════════════════════════════════════
    LANGUAGE ENGINE
@@ -804,7 +806,7 @@ const App = (() => {
     const tItem = currentData.find(i=>i.id===item.id) || item;
     document.getElementById('viewDetail').innerHTML = buildDetailHTML(tItem);
     document.getElementById('filterBar').classList.add('hidden');
-    document.getElementById('mobFab').style.display = 'none';
+    document.getElementById('mobActions').style.display = 'none';
     document.getElementById('btnBack').style.display = 'flex';
     switchView('viewDetail');
     setTimeout(() => Gallery.load(tItem), 100);
@@ -899,7 +901,7 @@ const App = (() => {
 
   function goListings() {
     document.getElementById('filterBar').classList.remove('hidden');
-    document.getElementById('mobFab').style.display = '';
+    document.getElementById('mobActions').style.display = '';
     document.getElementById('btnBack').style.display = 'none';
     switchView('viewListings');
   }
@@ -1136,6 +1138,5 @@ const Lightbox=(() => {
   return {open,close};
 })();
 </script>
-
 </body>
 </html>
