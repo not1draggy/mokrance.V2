@@ -571,6 +571,16 @@ footer{background:white;border-top:1px solid var(--border);padding:20px;text-ali
       <button class="modal-close" onclick="SubmitForm.close()">×</button>
     </div>
     <div class="modal-body" id="submitFormBody">
+      <div class="modal-field">
+        <label>Fotografie (voliteľné)</label>
+        <div class="dropzone" id="sfDropzone" style="border:2px dashed var(--border-mid);border-radius:8px;padding:20px;text-align:center;cursor:pointer;position:relative;background:var(--surface)">
+          <input type="file" accept="image/*" multiple onchange="SubmitForm.handleFiles(this.files)" style="position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%">
+          <div style="font-size:24px;margin-bottom:6px">📷</div>
+          <div style="font-size:13px;color:var(--text-mid);font-weight:500">Kliknite alebo pretiahnite fotky</div>
+          <div style="font-size:11px;color:var(--text-xsoft);margin-top:3px">Max 5 fotiek · JPG, PNG</div>
+        </div>
+        <div id="sfPhotoGrid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:8px"></div>
+      </div>
       <div class="modal-note">
         ℹ️ Váš inzerát bude zverejnený po schválení správcom. Zvyčajne do 24 hodín.
       </div>
@@ -1182,10 +1192,16 @@ document.querySelectorAll('#bsKraj .bs-opt').forEach(b=>b.addEventListener('clic
    SUBMIT FORM — verejný formulár pre návštevníkov
 ══════════════════════════════════════════════════════════════ */
 const SubmitForm = (() => {
+  let selectedFiles = [];
+
   function open() {
+    selectedFiles = [];
+    document.getElementById('sfPhotoGrid').innerHTML = '';
     document.getElementById('submitSuccess').classList.remove('show');
     document.getElementById('submitFormBody').style.display = '';
     document.getElementById('submitFoot').style.display = '';
+    document.getElementById('submitBtn').disabled = false;
+    document.getElementById('submitBtn').textContent = 'Odoslať na schválenie';
     document.getElementById('submitModal').classList.add('open');
   }
 
@@ -1195,6 +1211,41 @@ const SubmitForm = (() => {
 
   function closeIfBg(e) {
     if (e.target === document.getElementById('submitModal')) close();
+  }
+
+  function handleFiles(fileList) {
+    Array.from(fileList).slice(0, 5).forEach(file => {
+      if (!file.type.startsWith('image/')) return;
+      const idx = selectedFiles.length;
+      selectedFiles.push(file);
+      const url = URL.createObjectURL(file);
+      const div = document.createElement('div');
+      div.style.cssText = 'position:relative;aspect-ratio:1;border-radius:6px;overflow:hidden;border:1px solid var(--border)';
+      div.innerHTML = `<img src="${url}" style="width:100%;height:100%;object-fit:cover"><button onclick="SubmitForm.removePhoto(${idx},this.parentElement)" style="position:absolute;top:2px;right:2px;background:rgba(0,0,0,0.6);color:white;border:none;border-radius:50%;width:20px;height:20px;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center">×</button>`;
+      document.getElementById('sfPhotoGrid').appendChild(div);
+    });
+  }
+
+  function removePhoto(idx, el) {
+    selectedFiles[idx] = null;
+    el.remove();
+  }
+
+  async function uploadPhoto(file, inzeratId, idx) {
+    const ext  = file.name.split('.').pop();
+    const path = `inzeraty/${inzeratId}/FD${idx+1}.${ext}`;
+    const res  = await fetch(`${CONFIG.SUPABASE_URL}/storage/v1/object/${CONFIG.BUCKET}/${path}`, {
+      method: 'POST',
+      headers: {
+        'apikey': CONFIG.SUPABASE_ANON,
+        'Authorization': `Bearer ${CONFIG.SUPABASE_ANON}`,
+        'Content-Type': file.type,
+        'x-upsert': 'true',
+      },
+      body: file,
+    });
+    if (!res.ok) throw new Error('Upload failed');
+    return `${CONFIG.SUPABASE_URL}/storage/v1/object/public/${CONFIG.BUCKET}/${path}`;
   }
 
   async function submit() {
@@ -1217,7 +1268,7 @@ const SubmitForm = (() => {
     btn.textContent = 'Odosielam...';
 
     try {
-      // Ulož do Supabase s aktivny=false (čaká na schválenie)
+      // Ulož do Supabase s aktivny=false
       const res = await fetch(`${CONFIG.SUPABASE_URL}/rest/v1/inzeraty`, {
         method: 'POST',
         headers: {
@@ -1237,7 +1288,37 @@ const SubmitForm = (() => {
         }),
       });
 
-      if (!res.ok) throw new Error(await res.text());
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.message || JSON.stringify(err));
+      }
+
+      const data = await res.json();
+      const inzeratId = data[0]?.id;
+
+      // Upload fotiek ak existujú
+      const files = selectedFiles.filter(Boolean);
+      if (files.length && inzeratId) {
+        btn.textContent = 'Nahrávam fotky...';
+        const urls = [];
+        for (let i = 0; i < files.length; i++) {
+          try {
+            const url = await uploadPhoto(files[i], inzeratId, i);
+            urls.push(url);
+          } catch(e) { console.warn('Photo upload failed:', e); }
+        }
+        if (urls.length) {
+          await fetch(`${CONFIG.SUPABASE_URL}/rest/v1/inzeraty?id=eq.${inzeratId}`, {
+            method: 'PATCH',
+            headers: {
+              'apikey': CONFIG.SUPABASE_ANON,
+              'Authorization': `Bearer ${CONFIG.SUPABASE_ANON}`,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ foto_urls: urls }),
+          });
+        }
+      }
 
       // Telegram notifikácia
       const msg = [
@@ -1247,13 +1328,13 @@ const SubmitForm = (() => {
         `Obec: ${obec}`,
         `Kontakt: ${kontakt}`,
         meno ? `Meno: ${meno}` : '',
-        'Schváliť v admin paneli: https://484.sk/admin.html',
+        `Fotky: ${files.length}`,
+        'Schváliť: https://484.sk/admin.html',
       ].filter(Boolean).join('\n');
 
-      const encoded = encodeURIComponent(msg);
-      new Image().src = `https://api.callmebot.com/text.php?user=@${CONFIG.TELEGRAM_USER}&text=${encoded}`;
+      new Image().src = `https://api.callmebot.com/text.php?user=@${CONFIG.TELEGRAM_USER}&text=${encodeURIComponent(msg)}`;
 
-      // Zobraz success
+      // Success
       document.getElementById('submitFormBody').style.display = 'none';
       document.getElementById('submitFoot').style.display = 'none';
       document.getElementById('submitSuccess').classList.add('show');
@@ -1265,7 +1346,7 @@ const SubmitForm = (() => {
     }
   }
 
-  return { open, close, closeIfBg, submit };
+  return { open, close, closeIfBg, submit, handleFiles, removePhoto };
 })();
 
 const Gallery = (() => {
