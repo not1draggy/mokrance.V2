@@ -595,7 +595,7 @@ footer{background:white;border-top:1px solid var(--border);padding:20px;text-ali
         </div>
         <div class="modal-field">
           <label>Typ *</label>
-          <select id="sfTyp">
+          <select id="submitTyp">
             <option value="dom">Rodinný dom</option>
             <option value="byt">Byt</option>
             <option value="pozemok">Pozemok</option>
@@ -610,7 +610,7 @@ footer{background:white;border-top:1px solid var(--border);padding:20px;text-ali
         </div>
         <div class="modal-field">
           <label>Kraj *</label>
-          <select id="sfKraj">
+          <select id="submitKraj">
             <option value="kosicky">Košický</option>
             <option value="bratislavsky">Bratislavský</option>
             <option value="presovsky">Prešovský</option>
@@ -1251,9 +1251,9 @@ const SubmitForm = (() => {
   async function submit() {
     const nazov   = document.getElementById('sfNazov').value.trim();
     const cena    = Number(document.getElementById('sfCena').value);
-    const typ     = document.getElementById('sfTyp').value;
+    const typ     = document.getElementById('submitTyp').value;
     const obec    = document.getElementById('sfObec').value.trim();
-    const kraj    = document.getElementById('sfKraj').value;
+    const kraj    = document.getElementById('submitKraj').value;
     const popis   = document.getElementById('sfPopis').value.trim();
     const kontakt = document.getElementById('sfKontakt').value.trim();
     const meno    = document.getElementById('sfMeno').value.trim();
