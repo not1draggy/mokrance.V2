@@ -991,7 +991,8 @@ const App = (() => {
     const next = document.getElementById(toId);
     if (!next || toId===currentView) return;
     prev.style.display='none'; prev.classList.remove('active');
-    next.style.display='block';
+    // listing-layout potrebuje display:grid, detail display:block
+    next.style.display = toId==='viewListings' ? 'grid' : 'block';
     void next.offsetWidth;
     next.classList.add('active');
     currentView = toId;
