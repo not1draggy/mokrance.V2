@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="Predaj moderných novostavieb priamo od majiteľa v Mokranciach, 20 minút od Košíc. Rodinné domy triedy A0, bez realitnej kancelárie, bez provízií. Aktuálne ponuky na webe.">
+<meta name="keywords" content="predaj domu Mokrance, rodinný dom Košice, novostavba Košický kraj, predaj nehnuteľnosti bez realitky, dom trieda A0">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://484.sk/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://484.sk/">
+<meta property="og:title" content="484.sk — Predaj rodinných domov Mokrance">
+<meta property="og:description" content="Moderné novostavby triedy A0 v Mokranciach, 20 minút od Košíc. Priamy predaj od majiteľa — bez provízií.">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/not1draggy/mokrance.V2@main/dom1/FD1.png">
+<meta property="og:locale" content="sk_SK">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="484.sk — Predaj rodinných domov Mokrance">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/not1draggy/mokrance.V2@main/dom1/FD1.png">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"RealEstateAgent","name":"484.sk","url":"https://484.sk","description":"Predaj rodinných domov priamo od majiteľa v Mokranciach, Košický kraj.","areaServed":"Košický kraj, Slovensko"}</script>
+<title>484.sk — Predaj rodinných domov Mokrance | Košický kraj</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green:#1a6b3c;--green-dark:#145530;--green-light:#f0f7f3;--green-border:#c2ddd0;--green-glow:rgba(26,107,60,0.12);
+  --surface:#f5f6f5;--surface-2:#eff0ef;--border:#e0e2e0;--border-mid:#ccceca;
+  --text:#1a1c1a;--text-mid:#4a524d;--text-soft:#6e7870;--text-xsoft:#9da89f;
+  --red:#c0392b;--red-light:#fdf3f2;--orange:#d97706;
+  --shadow-sm:0 2px 8px rgba(0,0,0,0.06);--shadow-md:0 8px 24px rgba(0,0,0,0.09);--shadow-lg:0 16px 48px rgba(0,0,0,0.13);
+  --font:'DM Sans',-apple-system,sans-serif;--mono:'DM Mono','SF Mono',monospace;
+  --radius:8px;--radius-sm:5px;--radius-lg:12px;
+  --header-h:56px;--transition:.18s ease;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:15px;-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--surface);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font-family:var(--font);cursor:pointer;border:none;background:none}
+img{max-width:100%;display:block}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-thumb{background:var(--green-border);border-radius:99px}
+
+/* ── HEADER ── */
+.site-header{background:white;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;height:var(--header-h)}
+.header-inner{max-width:1400px;margin:0 auto;padding:0 20px;height:100%;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo-link{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:16px;font-weight:500;color:var(--green)}
+.logo-icon{width:30px;height:30px;background:var(--green);border-radius:5px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.logo-icon svg{width:16px;height:16px}
+.header-nav{display:flex;align-items:center;gap:8px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:var(--radius-sm);font-size:13px;font-weight:500;transition:all var(--transition);cursor:pointer;font-family:var(--font);border:1.5px solid transparent}
+.btn-ghost{background:transparent;color:var(--text-mid);border-color:var(--border-mid)}
+.btn-ghost:hover{border-color:var(--green);color:var(--green);background:var(--green-light)}
+.btn-primary{background:var(--green);color:white;border-color:var(--green)}
+.btn-primary:hover{background:var(--green-dark)}
+.btn-sm{padding:5px 12px;font-size:12.5px}
+.btn-lg{padding:13px 20px;font-size:15px;font-weight:600;border-radius:var(--radius);justify-content:center;width:100%}
+
+/* ── LANG SWITCHER ── */
+.lang-switcher{position:relative}
+.lang-btn{display:flex;align-items:center;gap:5px;padding:7px 10px;border-radius:var(--radius-sm);border:1.5px solid var(--border-mid);background:white;cursor:pointer;font-family:var(--font);font-size:12.5px;font-weight:600;color:var(--text-mid);transition:all var(--transition)}
+.lang-btn:hover{border-color:var(--green);color:var(--green)}
+.lang-dropdown{position:absolute;top:calc(100% + 6px);right:0;background:white;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-md);z-index:300;min-width:160px;overflow:hidden;display:none}
+.lang-dropdown.open{display:block}
+.lang-option{display:flex;align-items:center;gap:10px;padding:9px 14px;font-size:13px;color:var(--text-mid);cursor:pointer;border:none;background:none;width:100%;text-align:left;font-family:var(--font);transition:background var(--transition)}
+.lang-option:hover{background:var(--green-light)}
+.lang-option.active{background:var(--green-light);color:var(--green);font-weight:600}
+.translating-bar{display:none;position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--text);color:white;padding:10px 20px;border-radius:20px;font-size:13px;font-weight:500;z-index:9999;align-items:center;gap:8px;box-shadow:var(--shadow-md);white-space:nowrap}
+.translating-bar.show{display:flex}
+.spinner{width:14px;height:14px;border:2px solid rgba(255,255,255,0.3);border-top-color:white;border-radius:50%;animation:spin .6s linear infinite;flex-shrink:0}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── MAIN LAYOUT ── */
+.page-wrap{max-width:1400px;margin:0 auto;padding:20px 16px 60px}
+
+/* ── SIDEBAR ── */
+.sidebar-filter{display:none;flex-direction:column;background:white;border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;position:sticky;top:calc(var(--header-h) + 16px);max-height:calc(100vh - var(--header-h) - 32px)}
+
+/* LAYOUT BREAKPOINTS — po sidebar definícii aby neboli overridnuté */
+.listing-layout{display:grid;grid-template-columns:1fr;gap:16px;align-items:start}
+.mobile-filter-bar{display:block}
+.mob-actions{display:flex}
+
+@media(min-width:900px){
+  .listing-layout{grid-template-columns:268px 1fr}
+  .sidebar-filter{display:flex !important}
+  .mobile-filter-bar{display:none !important}
+  .mob-actions{display:none !important}
+}
+
+.sf-head{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.sf-title{font-size:13px;font-weight:600;color:var(--text)}
+.sf-clear{font-size:12px;color:var(--green);cursor:pointer;font-weight:500}
+.sf-clear:hover{text-decoration:underline}
+.sf-body{overflow-y:auto;flex:1}
+.sf-section{padding:14px 18px;border-bottom:1px solid var(--border)}
+.sf-section:last-child{border-bottom:none}
+.sf-label{font-family:var(--mono);font-size:9.5px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-xsoft);margin-bottom:10px}
+.sf-opt{display:flex;align-items:center;gap:10px;padding:7px 8px;border-radius:6px;cursor:pointer;margin:0 -8px;transition:background var(--transition)}
+.sf-opt:hover{background:var(--surface)}
+.sf-opt.on{background:var(--green-light)}
+.sf-chk{width:16px;height:16px;border-radius:4px;border:1.5px solid var(--border-mid);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all var(--transition)}
+.sf-opt.on .sf-chk{background:var(--green);border-color:var(--green)}
+.sf-chk svg{width:9px;height:9px;display:none}
+.sf-opt.on .sf-chk svg{display:block}
+.sf-opt-lbl{font-size:13px;color:var(--text-mid);flex:1}
+.sf-opt.on .sf-opt-lbl{color:var(--green);font-weight:600}
+.sf-opt-ct{font-size:11px;color:var(--text-xsoft);background:var(--surface);padding:1px 7px;border-radius:10px;font-family:var(--mono)}
+.sf-opt.on .sf-opt-ct{background:white;color:var(--green)}
+.price-inputs{display:flex;gap:8px;align-items:center;margin-top:4px}
+.price-input{flex:1;background:var(--surface);border:1.5px solid var(--border-mid);border-radius:var(--radius-sm);padding:8px 10px;font-size:12.5px;color:var(--text);font-family:var(--mono);outline:none;transition:border-color var(--transition);min-width:0}
+.price-input:focus{border-color:var(--green)}
+.price-sep{font-size:13px;color:var(--text-xsoft);flex-shrink:0}
+
+/* ── CONTENT AREA ── */
+.content-area{min-width:0}
+.content-head{background:white;border:1px solid var(--border);border-radius:var(--radius-lg);padding:12px 16px;margin-bottom:12px}
+.active-pills{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.active-pills:empty{display:none}
+.apill{background:var(--green-light);color:var(--green);border:1px solid var(--green-border);font-size:11.5px;font-weight:500;padding:4px 10px;border-radius:20px;display:inline-flex;align-items:center;gap:5px;cursor:pointer;transition:background var(--transition)}
+.apill:hover{background:#dceee4}
+.apill-x{opacity:0.6;font-size:13px;line-height:1}
+.toolbar{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.results-lbl{font-size:12.5px;color:var(--text-soft);font-family:var(--mono)}
+.sort-select{font-size:12.5px;color:var(--text-mid);background:var(--surface);border:1.5px solid var(--border-mid);border-radius:var(--radius-sm);padding:6px 10px;font-family:var(--font);cursor:pointer;outline:none;transition:border-color var(--transition)}
+.sort-select:hover,.sort-select:focus{border-color:var(--green)}
+
+/* ── LISTING CARDS ── */
+.listings-stack{display:flex;flex-direction:column;gap:10px}
+.listing-card{background:white;border:1px solid var(--border);border-radius:var(--radius-lg);display:flex;overflow:hidden;cursor:pointer;transition:border-color var(--transition),box-shadow var(--transition);text-decoration:none;color:inherit}
+.listing-card:hover{border-color:var(--green-border);box-shadow:var(--shadow-sm)}
+.card-thumb{width:200px;flex-shrink:0;background:var(--green-light);position:relative;overflow:hidden;min-height:160px}
+.card-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
+.listing-card:hover .card-thumb img{transform:scale(1.04)}
+.card-thumb-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:40px;opacity:0.3;min-height:160px}
+.card-badge{position:absolute;top:10px;left:10px;background:var(--green);color:white;font-size:9.5px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:3px 8px;border-radius:3px}
+.card-body{flex:1;padding:16px 18px;display:flex;flex-direction:column;justify-content:space-between;min-width:0}
+.listing-title{font-size:14.5px;font-weight:600;color:var(--text);line-height:1.4;margin-bottom:5px}
+.listing-snippet{font-size:12px;color:var(--text-soft);line-height:1.55;margin-bottom:10px}
+.card-tags{display:flex;gap:4px;flex-wrap:wrap}
+.tag{background:var(--green-light);color:var(--green);border:1px solid var(--green-border);font-size:10.5px;font-weight:500;padding:3px 8px;border-radius:4px}
+.card-aside{padding:16px 18px;display:flex;flex-direction:column;align-items:flex-end;justify-content:space-between;flex-shrink:0;border-left:1px solid var(--border);min-width:140px}
+.card-price{font-size:20px;font-weight:600;color:var(--green);letter-spacing:-0.025em;line-height:1}
+.card-price-note{font-size:10.5px;color:var(--text-xsoft);margin-top:3px;text-align:right}
+.card-meta{text-align:right}
+.card-location{font-size:11.5px;color:var(--text-soft);margin-bottom:2px}
+.card-date{font-size:11px;color:var(--text-xsoft);font-family:var(--mono)}
+.card-cta{font-size:12px;font-weight:600;color:var(--green);display:flex;align-items:center;gap:3px}
+
+/* Skeleton */
+.skeleton{background:var(--surface-2);border-radius:var(--radius-lg);overflow:hidden;position:relative}
+.skeleton::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,0.5) 50%,transparent 100%);animation:shimmer 1.5s infinite}
+@keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+.skeleton-card{height:170px;margin-bottom:10px}
+
+/* No results */
+.no-results{text-align:center;padding:60px 20px;display:none}
+.no-results.show{display:block}
+.no-results-icon{font-size:36px;margin-bottom:12px}
+.no-results h3{font-size:17px;font-weight:600;color:var(--text);margin-bottom:6px}
+.no-results p{font-size:13px;color:var(--text-soft);margin-bottom:20px}
+.error-state{text-align:center;padding:60px 20px}
+.error-state-icon{font-size:36px;margin-bottom:12px}
+
+/* ── MOBILE FILTER BAR ── */
+.mobile-filter-bar{background:white;border-bottom:1px solid var(--border);padding:0}
+.mobile-filter-bar.hidden{display:none}
+.mob-filter-inner{padding:8px 0 0}
+.filter-group{padding:0 14px 8px}
+.filter-label{font-family:var(--mono);font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-xsoft);margin-bottom:5px}
+.filter-pills{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.filter-pills::-webkit-scrollbar{display:none}
+.pill{padding:5px 12px;border-radius:20px;font-size:12.5px;font-weight:500;border:1.5px solid var(--border-mid);color:var(--text-mid);background:white;cursor:pointer;white-space:nowrap;transition:all var(--transition);flex-shrink:0}
+.pill:hover{border-color:var(--green);color:var(--green);background:var(--green-light)}
+.pill.active{background:var(--green);border-color:var(--green);color:white}
+.filter-meta{padding:6px 16px 8px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.btn-reset{font-size:12px;color:var(--text-soft);cursor:pointer;padding:4px 8px;border-radius:4px}
+.btn-reset:hover{color:var(--green)}
+
+/* ── MOBILE BOTTOM ACTIONS ── */
+.mob-actions{position:fixed;bottom:max(16px,env(safe-area-inset-bottom,16px));left:0;right:0;justify-content:center;gap:10px;z-index:100;padding:0 16px;pointer-events:none}
+.mob-actions button,.mob-actions a{pointer-events:all}
+.mob-fab{background:var(--green);color:white;border-radius:24px;padding:13px 22px;font-size:13.5px;font-weight:600;display:flex;align-items:center;gap:7px;box-shadow:0 4px 20px rgba(26,107,60,0.35);white-space:nowrap;border:none;font-family:var(--font);cursor:pointer;text-decoration:none}
+.mob-fab-secondary{background:white;color:var(--green);border:2px solid var(--green);border-radius:24px;padding:13px 18px;font-size:13.5px;font-weight:600;display:flex;align-items:center;gap:7px;box-shadow:0 4px 16px rgba(0,0,0,0.12);white-space:nowrap;font-family:var(--font);cursor:pointer;text-decoration:none}
+.mob-fab-badge{background:white;color:var(--green);border-radius:10px;font-size:11px;font-weight:700;padding:1px 7px}
+@media(max-width:899px){.page-wrap{padding-bottom:90px}.admin-btn-text{display:none}}
+
+/* ── BOTTOM SHEET ── */
+.bs-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:500;display:none;align-items:flex-end}
+.bs-overlay.open{display:flex}
+.bs{background:white;border-radius:16px 16px 0 0;width:100%;max-height:88vh;display:flex;flex-direction:column}
+.bs-handle{padding:12px 0 6px;display:flex;justify-content:center;flex-shrink:0}
+.bs-drag{width:36px;height:4px;background:var(--border-mid);border-radius:2px}
+.bs-head{padding:0 20px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.bs-title{font-size:16px;font-weight:600;color:var(--text)}
+.bs-close{font-size:22px;color:var(--text-soft);line-height:1;padding:2px 6px}
+.bs-body{overflow-y:auto;padding:8px 0 16px;flex:1}
+.bs-section{padding:14px 20px;border-bottom:1px solid var(--border)}
+.bs-section:last-child{border-bottom:none}
+.bs-section-label{font-family:var(--mono);font-size:9.5px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-xsoft);margin-bottom:10px}
+.bs-opts{display:flex;flex-wrap:wrap;gap:8px}
+.bs-opt{padding:9px 18px;border-radius:20px;font-size:13.5px;font-weight:500;border:1.5px solid var(--border-mid);color:var(--text-mid);cursor:pointer;background:white;font-family:var(--font);transition:all var(--transition)}
+.bs-opt.on{background:var(--green);border-color:var(--green);color:white}
+.bs-footer{padding:14px 20px;border-top:1px solid var(--border);display:flex;gap:10px;flex-shrink:0}
+.bs-apply{flex:1;background:var(--green);color:white;border-radius:var(--radius);padding:14px;font-size:15px;font-weight:600;font-family:var(--font)}
+.bs-reset{background:transparent;color:var(--text-soft);border:1.5px solid var(--border-mid);border-radius:var(--radius);padding:14px 18px;font-size:13px;font-weight:500;font-family:var(--font)}
+
+/* ── DETAIL VIEW ── */
+.detail-view{display:none}
+.detail-view.active{display:block}
+.page-topbar{padding:14px 0;margin-bottom:16px}
+.breadcrumb{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:13px;color:var(--text-soft)}
+.breadcrumb a{color:var(--green);font-weight:500}
+.breadcrumb a:hover{text-decoration:underline}
+.breadcrumb-sep{color:var(--border-mid)}
+.breadcrumb strong{color:var(--text);font-weight:600}
+.detail-grid{display:grid;grid-template-columns:1fr;gap:16px}
+@media(min-width:860px){.detail-grid{grid-template-columns:1fr 340px}}
+.detail-header-card,.section-card{background:white;border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}
+.detail-header-card{padding:24px}
+.detail-eyebrow{font-family:var(--mono);font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:var(--green);margin-bottom:8px}
+.detail-title{font-size:22px;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:14px}
+.detail-price-row{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.detail-price{font-size:30px;font-weight:700;color:var(--green);letter-spacing:-0.03em}
+.detail-price-note{font-size:12.5px;color:var(--text-soft)}
+.section-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.section-title{font-family:var(--mono);font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-xsoft)}
+.section-count{font-family:var(--mono);font-size:11px;color:var(--text-xsoft)}
+.specs-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;padding:8px 0}
+.spec-row{display:flex;align-items:center;justify-content:space-between;padding:10px 20px;border-bottom:1px solid var(--border)}
+.spec-row:nth-child(2n){border-left:none}
+.spec-row:last-child,.spec-row:nth-last-child(2):nth-child(odd){border-bottom:none}
+.spec-key{font-size:12.5px;color:var(--text-soft)}
+.spec-val{font-size:13px;font-weight:600;color:var(--text);text-align:right}
+.spec-val.em{color:var(--green)}
+.desc-body{padding:20px;font-size:14px;line-height:1.7;color:var(--text-mid)}
+.desc-body p{margin-bottom:14px}
+.desc-body p:last-child{margin-bottom:0}
+.gallery-loading{padding:40px;text-align:center;display:flex;align-items:center;justify-content:center;gap:10px;font-size:13px;color:var(--text-soft)}
+.gallery-grid{display:grid;gap:3px;padding:3px}
+.layout-1{grid-template-columns:1fr}
+.layout-2{grid-template-columns:1fr 1fr}
+.layout-3{grid-template-columns:2fr 1fr;grid-template-rows:1fr 1fr}
+.layout-3 .gi:first-child{grid-row:1/3}
+.layout-mid{grid-template-columns:repeat(3,1fr)}
+.layout-dense{grid-template-columns:repeat(4,1fr)}
+.gi{position:relative;overflow:hidden;background:var(--surface);cursor:pointer}
+.gi img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease}
+.gi:hover img{transform:scale(1.05)}
+.gi-overlay{position:absolute;inset:0;background:rgba(0,0,0,0);display:flex;align-items:center;justify-content:center;transition:background .2s}
+.gi:hover .gi-overlay{background:rgba(0,0,0,0.2)}
+.gi-icon{color:white;font-size:22px;opacity:0;transition:opacity .2s}
+.gi:hover .gi-icon{opacity:1}
+.gallery-empty{padding:30px;text-align:center;font-size:13px;color:var(--text-xsoft)}
+.contact-sidebar{display:flex;flex-direction:column;gap:12px}
+.contact-card{background:white;border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}
+.contact-card-header{background:var(--green);padding:16px 20px}
+.contact-card-eyebrow{font-family:var(--mono);font-size:9.5px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:rgba(255,255,255,0.65);margin-bottom:4px}
+.contact-card-name{font-size:15px;font-weight:700;color:white}
+.contact-card-body{padding:18px 20px}
+.contact-price-block{margin-bottom:16px}
+.contact-price{font-size:26px;font-weight:700;color:var(--green);letter-spacing:-0.025em}
+.contact-price-sub{font-size:11.5px;color:var(--text-soft);margin-top:2px}
+.contact-pills-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
+.contact-pill-item{background:var(--surface);border-radius:var(--radius-sm);padding:8px 10px}
+.contact-pill-label{font-size:10px;color:var(--text-xsoft);font-family:var(--mono);display:block;margin-bottom:2px}
+.contact-pill-val{font-size:13px;font-weight:600;color:var(--text)}
+.contact-phones{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
+.phone-block{background:var(--surface);border-radius:var(--radius-sm);padding:10px 12px}
+.phone-label{font-size:10px;color:var(--text-xsoft);font-family:var(--mono);margin-bottom:3px}
+.phone-number{font-size:15px;font-weight:700;color:var(--text);display:block}
+.phone-number:hover{color:var(--green)}
+.no-agency{font-size:12px;color:var(--green);text-align:center;margin-top:10px;font-weight:500}
+.seller-note{background:white;border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px 18px;font-size:13px;color:var(--text-soft);line-height:1.6}
+.seller-note strong{color:var(--text);display:block;margin-bottom:4px}
+
+/* ── FOOTER ── */
+footer{background:white;border-top:1px solid var(--border);padding:20px;text-align:center;margin-top:40px}
+.footer-inner{max-width:1400px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.footer-copy{font-size:12.5px;color:var(--text-xsoft)}
+.footer-links{display:flex;gap:16px}
+.footer-links a{font-size:12.5px;color:var(--text-soft)}
+.footer-links a:hover{color:var(--green)}
+
+/* ── SUBMIT MODAL ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:600;display:none;align-items:center;justify-content:center;padding:16px}
+.modal-overlay.open{display:flex}
+.modal{background:white;border-radius:var(--radius-lg);width:100%;max-width:520px;max-height:90vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:var(--shadow-lg)}
+.modal-head{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.modal-title{font-size:17px;font-weight:700;color:var(--text)}
+.modal-close{font-size:22px;color:var(--text-soft);background:none;border:none;cursor:pointer;padding:2px 8px;line-height:1}
+.modal-body{padding:20px 24px;overflow-y:auto;flex:1;display:flex;flex-direction:column;gap:12px}
+.modal-field{display:flex;flex-direction:column;gap:5px}
+.modal-field label{font-size:13px;font-weight:600;color:var(--text-soft)}
+.modal-field input,.modal-field select,.modal-field textarea{border:1.5px solid var(--border-mid);border-radius:var(--radius-sm);padding:11px 13px;font-size:15px;font-family:var(--font);outline:none;transition:border-color .2s;width:100%}
+.modal-field input:focus,.modal-field select:focus,.modal-field textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px var(--green-glow)}
+.modal-field textarea{resize:vertical;min-height:80px;line-height:1.6}
+.modal-field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.modal-note{font-size:12px;color:var(--text-xsoft);background:var(--green-light);border:1px solid var(--green-border);border-radius:var(--radius-sm);padding:10px 14px;line-height:1.5}
+.modal-foot{padding:16px 24px;border-top:1px solid var(--border);display:flex;gap:10px;flex-shrink:0}
+.modal-submit{flex:1;background:var(--green);color:white;border:none;border-radius:var(--radius-sm);padding:13px;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--font)}
+.modal-submit:hover{background:var(--green-dark)}
+.modal-submit:disabled{opacity:.5;cursor:not-allowed}
+.modal-cancel{background:transparent;color:var(--text-soft);border:1.5px solid var(--border-mid);border-radius:var(--radius-sm);padding:13px 18px;font-size:14px;font-weight:500;cursor:pointer;font-family:var(--font)}
+.modal-success{text-align:center;padding:40px 24px;display:none}
+.modal-success.show{display:block}
+.modal-success-icon{font-size:48px;margin-bottom:16px}
+.modal-success h3{font-size:20px;font-weight:700;color:var(--text);margin-bottom:8px}
+.modal-success p{font-size:14px;color:var(--text-soft);line-height:1.6}
+
+/* ── LIGHTBOX ── */
+.lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:1000;display:none;align-items:center;justify-content:center;flex-direction:column}
+.lightbox.open{display:flex}
+.lb-img-wrap{max-width:90vw;max-height:80vh;display:flex;align-items:center;justify-content:center}
+.lb-img-wrap img{max-width:100%;max-height:80vh;object-fit:contain;border-radius:4px}
+.lb-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.15);border:none;color:white;font-size:24px;width:48px;height:48px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.lb-nav:hover{background:rgba(255,255,255,0.25)}
+#lbPrev{left:16px}
+#lbNext{right:16px}
+.lb-close{position:absolute;top:16px;right:16px;background:rgba(255,255,255,0.15);border:none;color:white;font-size:20px;width:40px;height:40px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.lb-footer{color:rgba(255,255,255,0.7);font-size:13px;margin-top:12px;text-align:center}
+#lbCounter{font-family:var(--mono)}
+
+/* ── RESPONSIVE TWEAKS ── */
+@media(max-width:700px){
+  .card-thumb{width:130px;min-height:120px}
+  .card-aside{min-width:110px;padding:12px}
+  .card-price{font-size:16px}
+  .listing-title{font-size:13px}
+  .detail-title{font-size:18px}
+  .detail-price{font-size:24px}
+  .specs-grid{grid-template-columns:1fr}
+  .spec-row{border-bottom:1px solid var(--border)}
+  .spec-row:last-child{border-bottom:none}
+}
+@media(max-width:500px){
+  .card-aside{display:none}
+  .card-body{padding:12px}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="#" class="logo-link" id="logoLink">
+      <div class="logo-icon">
+        <svg viewBox="0 0 16 16" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M2 7L8 2l6 5v7h-4V9H6v5H2V7z"/></svg>
+      </div>
+      484.sk
+    </a>
+    <nav class="header-nav">
+      <button class="btn btn-ghost btn-sm" id="btnBack" style="display:none">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+        <span id="btnBackText">Všetky ponuky</span>
+      </button>
+      <div class="lang-switcher">
+        <button class="lang-btn" id="langBtn" onclick="LangEngine.toggle()">
+          <span id="langFlag">🇸🇰</span>
+          <span id="langCode">SK</span>
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="lang-dropdown" id="langDropdown"></div>
+      </div>
+      <button class="btn btn-ghost btn-sm" id="btnAdmin" onclick="SubmitForm.open()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        <span class="admin-btn-text">Pridať inzerát</span>
+      </button>
+      <a href="tel:0905323484" class="btn btn-primary btn-sm" id="headerTel">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.63 3.44 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6.11 6.11l.98-.98a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        <span id="btnCallText">Volať</span>
+      </a>
+    </nav>
+  </div>
+</header>
+
+<!-- MOBILE FILTER BAR -->
+<div class="mobile-filter-bar" id="filterBar">
+  <div class="mob-filter-inner">
+    <div class="filter-group">
+      <div class="filter-label" id="filterTypLabel">Typ nehnuteľnosti</div>
+      <div class="filter-pills" id="filterTyp">
+        <button class="pill active" data-val="vsetky">Všetky</button>
+        <button class="pill" data-val="dom">Rodinný dom</button>
+        <button class="pill" data-val="byt">Byt</button>
+        <button class="pill" data-val="pozemok">Pozemok</button>
+        <button class="pill" data-val="kancelaria">Kancelária</button>
+      </div>
+    </div>
+    <div class="filter-group">
+      <div class="filter-label" id="filterKrajLabel">Kraj</div>
+      <div class="filter-pills" id="filterKraj">
+        <button class="pill active" data-val="vsetky">Všetky</button>
+        <button class="pill" data-val="kosicky">Košický</button>
+        <button class="pill" data-val="bratislavsky">Bratislavský</button>
+        <button class="pill" data-val="presovsky">Prešovský</button>
+        <button class="pill" data-val="banskobystricky">Banskobystrický</button>
+        <button class="pill" data-val="nitriansky">Nitriansky</button>
+        <button class="pill" data-val="zilinsky">Žilinský</button>
+        <button class="pill" data-val="trnavsky">Trnavský</button>
+        <button class="pill" data-val="trenciansky">Trenčiansky</button>
+      </div>
+    </div>
+    <div class="filter-meta">
+      <span class="results-lbl" id="resultsLabel">—</span>
+      <button class="btn-reset" id="btnReset">✕ Zrušiť</button>
+    </div>
+  </div>
+</div>
+
+<div class="page-wrap">
+
+  <!-- LISTINGS VIEW -->
+  <div id="viewListings" class="listing-layout" style="display:none">
+
+    <!-- DESKTOP SIDEBAR -->
+    <aside class="sidebar-filter" id="desktopSidebar">
+      <div class="sf-head">
+        <span class="sf-title" id="sfTitle">Filtre</span>
+        <button class="sf-clear" id="sfClear">Zrušiť všetky</button>
+      </div>
+      <div class="sf-body">
+        <div class="sf-section">
+          <div class="sf-label" id="sfTypLabel">Typ nehnuteľnosti</div>
+          <div id="sfTyp">
+            <div class="sf-opt on" data-group="typ" data-val="vsetky"><div class="sf-chk"><svg viewBox="0 0 9 9" fill="none"><polyline points="1,4.5 3.5,7 8,2" stroke="white" stroke-width="1.5"/></svg></div><span class="sf-opt-lbl">Všetky</span><span class="sf-opt-ct" id="ct-typ-vsetky">—</span></div>
+            <div class="sf-opt" data-group="typ" data-val="dom"><div class="sf-chk"><svg viewBox="0 0 9 9" fill="none"><polyline points="1,4.5 3.5,7 8,2" stroke="white" stroke-width="1.5"/></svg></div><span class="sf-opt-lbl">Rodinný dom</span><span class="sf-opt-ct" id="ct-typ-dom">0</span></div>
+            <div class="sf-opt" data-group="typ" data-val="byt"><div class="sf-chk"><svg viewBox="0 0 9 9" fill="none"><polyline points="1,4.5 3.5,7 8,2" stroke="white" stroke-width="1.5"/></svg></div><span class="sf-opt-lbl">Byt</span><span class="sf-opt-ct" id="ct-typ-byt">0</span></div>
+            <div class="sf-opt" data-group="typ" data-val="pozemok"><div class="sf-chk"><svg viewBox="0 0 9 9" fill="none"><polyline points="1,4.5 3.5,7 8,2" stroke="white" stroke-width="1.5"/></svg></div><span class="sf-opt-lbl">Pozemok</span><span class="sf-opt-ct" id="ct-typ-pozemok">0</span></div>
+            <div class="sf-opt" data-group="typ" data-val="kancelaria"><div class="sf-chk"><svg viewBox="0 0 9 9" fill="none"><polyline points="1,4.5 3.5,7 8,2" stroke="white" stroke-width="1.5"/></svg></div><span class="sf-opt-lbl">Kancelária</span><span class="sf-opt-ct" id="ct-typ-kancelaria">0</span></div>
+          </div>
+        </div>
+        <div class="sf-section">
+          <div class="sf-label" id="sfKrajLabel">Kraj</div>
+          <div id="sfKraj">
+            <div class="sf-opt on" data-group="kraj" data-val="vsetky"><div class="sf-chk"><svg viewBox="0 0 9 9" fill="none"><polyline points="1,4.5 3.5,7 8,2" stroke="white" stroke-width="1.5"/></svg></div><span class="sf-opt-lbl">Všetky</span><span class="sf-opt-ct">—</span></div>
+            <div class="sf-opt" data-group="kraj" data-val="kosicky"><div class="sf-chk"><svg viewBox="0 0 9 9" fill="none"><polyline points="1,4.5 3.5,7 8,2" stroke="white" stroke-width="1.5"/></svg></div><span class="sf-opt-lbl">Košický</span><span class="sf-opt-ct" id="ct-kraj-kosicky">0</span></div>
+            <div class="sf-opt" data-group="kraj" data-val="bratislavsky"><div class="sf-chk"><svg viewBox="0 0 9 9" fill="none"><polyline points="1,4.5 3.5,7 8,2" stroke="white" stroke-width="1.5"/></svg></div><span class="sf-opt-lbl">Bratislavský</span><span class="sf-opt-ct">0</span></div>
+            <div class="sf-opt" data-group="kraj" data-val="presovsky"><div class="sf-chk"><svg viewBox="0 0 9 9" fill="none"><polyline points="1,4.5 3.5,7 8,2" stroke="white" stroke-width="1.5"/></svg></div><span class="sf-opt-lbl">Prešovský</span><span class="sf-opt-ct">0</span></div>
+            <div class="sf-opt" data-group="kraj" data-val="banskobystricky"><div class="sf-chk"><svg viewBox="0 0 9 9" fill="none"><polyline points="1,4.5 3.5,7 8,2" stroke="white" stroke-width="1.5"/></svg></div><span class="sf-opt-lbl">Banskobystrický</span><span class="sf-opt-ct">0</span></div>
+            <div class="sf-opt" data-group="kraj" data-val="nitriansky"><div class="sf-chk"><svg viewBox="0 0 9 9" fill="none"><polyline points="1,4.5 3.5,7 8,2" stroke="white" stroke-width="1.5"/></svg></div><span class="sf-opt-lbl">Nitriansky</span><span class="sf-opt-ct">0</span></div>
+            <div class="sf-opt" data-group="kraj" data-val="zilinsky"><div class="sf-chk"><svg viewBox="0 0 9 9" fill="none"><polyline points="1,4.5 3.5,7 8,2" stroke="white" stroke-width="1.5"/></svg></div><span class="sf-opt-lbl">Žilinský</span><span class="sf-opt-ct">0</span></div>
+            <div class="sf-opt" data-group="kraj" data-val="trnavsky"><div class="sf-chk"><svg viewBox="0 0 9 9" fill="none"><polyline points="1,4.5 3.5,7 8,2" stroke="white" stroke-width="1.5"/></svg></div><span class="sf-opt-lbl">Trnavský</span><span class="sf-opt-ct">0</span></div>
+            <div class="sf-opt" data-group="kraj" data-val="trenciansky"><div class="sf-chk"><svg viewBox="0 0 9 9" fill="none"><polyline points="1,4.5 3.5,7 8,2" stroke="white" stroke-width="1.5"/></svg></div><span class="sf-opt-lbl">Trenčiansky</span><span class="sf-opt-ct">0</span></div>
+          </div>
+        </div>
+        <div class="sf-section">
+          <div class="sf-label" id="sfPriceLabel">Cena</div>
+          <div class="price-inputs">
+            <input class="price-input" type="number" id="priceMin" placeholder="Od €" min="0" step="5000">
+            <span class="price-sep">—</span>
+            <input class="price-input" type="number" id="priceMax" placeholder="Do €" min="0" step="5000">
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- CONTENT -->
+    <div class="content-area">
+      <div class="content-head">
+        <div class="active-pills" id="activePills"></div>
+        <div class="toolbar">
+          <span class="results-lbl" id="resultsLabelDesktop">—</span>
+          <select class="sort-select" id="sortSelect">
+            <option value="newest">Najnovšie</option>
+            <option value="price_asc">Cena: od najnižšej</option>
+            <option value="price_desc">Cena: od najvyššej</option>
+          </select>
+        </div>
+      </div>
+      <div id="skeletonLoaders">
+        <div class="skeleton skeleton-card"></div>
+        <div class="skeleton skeleton-card"></div>
+      </div>
+      <div class="listings-stack" id="listingsStack" style="display:none"></div>
+      <div class="no-results" id="noResults">
+        <div class="no-results-icon">🔍</div>
+        <h3 id="noResultsTitle">Žiadne výsledky</h3>
+        <p id="noResultsDesc">Pre zvolené filtre momentálne nemáme žiadne ponuky.</p>
+        <button class="btn btn-primary" onclick="App.resetFilters()">Zobraziť všetky ponuky</button>
+      </div>
+      <div class="error-state" id="errorState" style="display:none">
+        <div class="error-state-icon">⚠️</div>
+        <h3>Chyba pri načítaní</h3>
+        <p id="errorMsg"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- DETAIL VIEW -->
+  <div id="viewDetail" class="detail-view"></div>
+
+</div>
+
+<!-- MOBILE BOTTOM ACTIONS -->
+<div class="mob-actions" id="mobActions">
+  <button class="mob-fab-secondary" id="mobBtnAdmin" onclick="SubmitForm.open()">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    Pridať
+  </button>
+  <button class="mob-fab" id="mobFab" onclick="BSFilter.open()">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+    <span id="fabText">Filtre</span>
+    <span class="mob-fab-badge" id="fabBadge" style="display:none">0</span>
+  </button>
+</div>
+
+<!-- BOTTOM SHEET FILTER -->
+<div class="bs-overlay" id="bsOverlay" onclick="BSFilter.closeIfBg(event)">
+  <div class="bs">
+    <div class="bs-handle"><div class="bs-drag"></div></div>
+    <div class="bs-head">
+      <span class="bs-title" id="bsTitle">Filtre</span>
+      <button class="bs-close" onclick="BSFilter.close()">×</button>
+    </div>
+    <div class="bs-body">
+      <div class="bs-section">
+        <div class="bs-section-label" id="bsTypLabel">Typ nehnuteľnosti</div>
+        <div class="bs-opts" id="bsTyp">
+          <button class="bs-opt on" data-val="vsetky">Všetky</button>
+          <button class="bs-opt" data-val="dom">Rodinný dom</button>
+          <button class="bs-opt" data-val="byt">Byt</button>
+          <button class="bs-opt" data-val="pozemok">Pozemok</button>
+          <button class="bs-opt" data-val="kancelaria">Kancelária</button>
+        </div>
+      </div>
+      <div class="bs-section">
+        <div class="bs-section-label" id="bsKrajLabel">Kraj</div>
+        <div class="bs-opts" id="bsKraj">
+          <button class="bs-opt on" data-val="vsetky">Všetky</button>
+          <button class="bs-opt" data-val="kosicky">Košický</button>
+          <button class="bs-opt" data-val="bratislavsky">Bratislavský</button>
+          <button class="bs-opt" data-val="presovsky">Prešovský</button>
+          <button class="bs-opt" data-val="banskobystricky">Banskobystrický</button>
+          <button class="bs-opt" data-val="nitriansky">Nitriansky</button>
+          <button class="bs-opt" data-val="zilinsky">Žilinský</button>
+          <button class="bs-opt" data-val="trnavsky">Trnavský</button>
+          <button class="bs-opt" data-val="trenciansky">Trenčiansky</button>
+        </div>
+      </div>
+      <div class="bs-section">
+        <div class="bs-section-label">Cena</div>
+        <div class="price-inputs">
+          <input class="price-input" type="number" id="bsPriceMin" placeholder="Od €">
+          <span class="price-sep">—</span>
+          <input class="price-input" type="number" id="bsPriceMax" placeholder="Do €">
+        </div>
+      </div>
+    </div>
+    <div class="bs-footer">
+      <button class="bs-reset" onclick="BSFilter.reset()">Zrušiť</button>
+      <button class="bs-apply" id="bsApply" onclick="BSFilter.apply()">Zobraziť ponuky</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <span class="footer-copy">© 2026 484.sk · Všetky práva vyhradené</span>
+    <div class="footer-links">
+      <a href="#">Nehnuteľnosti</a>
+      <a href="tel:0905323484" id="footerTel">Kontakt</a>
+    </div>
+  </div>
+</footer>
+
+<!-- SUBMIT MODAL — verejný formulár -->
+<div class="modal-overlay" id="submitModal" onclick="SubmitForm.closeIfBg(event)">
+  <div class="modal">
+    <div class="modal-head">
+      <span class="modal-title">Pridať nehnuteľnosť</span>
+      <button class="modal-close" onclick="SubmitForm.close()">×</button>
+    </div>
+    <div class="modal-body" id="submitFormBody">
+      <div class="modal-note">
+        ℹ️ Váš inzerát bude zverejnený po schválení správcom. Zvyčajne do 24 hodín.
+      </div>
+      <div class="modal-field">
+        <label>Názov nehnuteľnosti *</label>
+        <input type="text" id="sfNazov" placeholder="napr. 4-izbový rodinný dom Košice">
+      </div>
+      <div class="modal-field-row">
+        <div class="modal-field">
+          <label>Cena (€) *</label>
+          <input type="number" id="sfCena" placeholder="250000">
+        </div>
+        <div class="modal-field">
+          <label>Typ *</label>
+          <select id="sfTyp">
+            <option value="dom">Rodinný dom</option>
+            <option value="byt">Byt</option>
+            <option value="pozemok">Pozemok</option>
+            <option value="kancelaria">Kancelária</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-field-row">
+        <div class="modal-field">
+          <label>Obec *</label>
+          <input type="text" id="sfObec" placeholder="napr. Košice">
+        </div>
+        <div class="modal-field">
+          <label>Kraj *</label>
+          <select id="sfKraj">
+            <option value="kosicky">Košický</option>
+            <option value="bratislavsky">Bratislavský</option>
+            <option value="presovsky">Prešovský</option>
+            <option value="banskobystricky">Banskobystrický</option>
+            <option value="nitriansky">Nitriansky</option>
+            <option value="zilinsky">Žilinský</option>
+            <option value="trnavsky">Trnavský</option>
+            <option value="trenciansky">Trenčiansky</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-field">
+        <label>Popis *</label>
+        <textarea id="sfPopis" placeholder="Opíšte nehnuteľnosť — poloha, stav, výhody..."></textarea>
+      </div>
+      <div class="modal-field-row">
+        <div class="modal-field">
+          <label>Váš kontakt (tel/email) *</label>
+          <input type="text" id="sfKontakt" placeholder="+421 900 000 000">
+        </div>
+        <div class="modal-field">
+          <label>Vaše meno</label>
+          <input type="text" id="sfMeno" placeholder="Ján Novák">
+        </div>
+      </div>
+    </div>
+    <div class="modal-success" id="submitSuccess">
+      <div class="modal-success-icon">✅</div>
+      <h3>Odoslané!</h3>
+      <p>Váš inzerát bol prijatý a čaká na schválenie.<br>Správca vás bude kontaktovať.</p>
+    </div>
+    <div class="modal-foot" id="submitFoot">
+      <button class="modal-cancel" onclick="SubmitForm.close()">Zrušiť</button>
+      <button class="modal-submit" id="submitBtn" onclick="SubmitForm.submit()">Odoslať na schválenie</button>
+    </div>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lb-close" id="lbClose">×</button>
+  <button class="lb-nav" id="lbPrev">‹</button>
+  <div class="lb-img-wrap"><img id="lbImg" src="" alt=""></div>
+  <button class="lb-nav" id="lbNext">›</button>
+  <div class="lb-footer"><span id="lbCounter"></span> — <span id="lbCaption"></span></div>
+</div>
+
+<div class="translating-bar" id="translatingBar">
+  <div class="spinner"></div>
+  <span id="translatingMsg">Prekladám...</span>
+</div>
+
+<script src="config.js"></script>
+<script>
+/* ══════════════════════════════════════════════════════════════
+   LANGUAGE ENGINE
+══════════════════════════════════════════════════════════════ */
+const LangEngine = (() => {
+  let currentLang = 'sk';
+  let cache = {};
+  const FIELDS = ['nazov','popis','stav','dispozicia'];
+
+  const UI = {
+    sk:{allOffers:'Všetky ponuky',filter:'Filter',call:'Volať',typLabel:'TYP NEHNUTEĽNOSTI',krajLabel:'KRAJ',allTypes:'Všetky',dom:'Rodinný dom',byt:'Byt',pozemok:'Pozemok',kancelaria:'Kancelária',results:'ponuky',cancel:'✕ Zrušiť',gallery:'Fotogaléria',params:'Technické parametre',desc:'Popis nehnuteľnosti',callSeller:'Zavolať predajcovi',directSale:'✓ Priamy predaj od majiteľa · bez provízií',directSaleBadge:'Priamy predaj · bez RK',directSaleNote:'priamy predaj od majiteľa · bez RK · bez provízií',privateSale:'Súkromný predaj',privateDesc:'Predáva priamo majiteľ.<br>Obhliadka na dohodnutie.',noResults:'Žiadne výsledky',noResultsDesc:'Pre zvolené filtre momentálne nemáme žiadne ponuky.',showAll:'Zobraziť všetky ponuky',loading:'Načítavam...',noPhotos:'Fotografie budú čoskoro doplnené.',phone1:'Telefón 1',phone2:'Telefón 2',obec:'Obec',kraj:'Kraj',pozemok:'Pozemok',zastavana:'Zastavaná plocha',uzitkovaPlocha:'Úžitková plocha',prizemie:'Prízemie',poschodie:'Poschodie',dispozicia:'Dispozícia',energTrieda:'Energetická trieda',stav:'Stav',vlastnictvo:'Vlastníctvo',naKluc:'Na kľúč',naKlucAno:'Na požiadanie',naKlucNie:'Nie',sortNewest:'Najnovšie',sortPriceAsc:'Cena: od najnižšej',sortPriceDesc:'Cena: od najvyššej',filtre:'Filtre',cena:'Cena',typLabels:{dom:'Rodinný dom',byt:'Byt',pozemok:'Pozemok',kancelaria:'Kancelária'}},
+    en:{allOffers:'All listings',filter:'Filter',call:'Call',typLabel:'PROPERTY TYPE',krajLabel:'REGION',allTypes:'All',dom:'House',byt:'Apartment',pozemok:'Land',kancelaria:'Office',results:'listings',cancel:'✕ Clear',gallery:'Photo gallery',params:'Technical parameters',desc:'Property description',callSeller:'Call seller',directSale:'✓ Direct sale · no agency fees',directSaleBadge:'Direct sale · no agency',directSaleNote:'direct sale from owner · no fees',privateSale:'Private sale',privateDesc:'Sold directly by owner.<br>Viewing by appointment.',noResults:'No results',noResultsDesc:'No listings match your filters.',showAll:'Show all listings',loading:'Loading...',noPhotos:'Photos coming soon.',phone1:'Phone 1',phone2:'Phone 2',obec:'Village',kraj:'Region',pozemok:'Land',zastavana:'Built-up area',uzitkovaPlocha:'Usable area',prizemie:'Ground floor',poschodie:'Upper floor',dispozicia:'Layout',energTrieda:'Energy class',stav:'Condition',vlastnictvo:'Ownership',naKluc:'Turnkey',naKlucAno:'On request',naKlucNie:'No',sortNewest:'Newest',sortPriceAsc:'Price: lowest first',sortPriceDesc:'Price: highest first',filtre:'Filters',cena:'Price',typLabels:{dom:'House',byt:'Apartment',pozemok:'Land',kancelaria:'Office'}},
+    de:{allOffers:'Alle Angebote',filter:'Filter',call:'Anrufen',typLabel:'IMMOBILIENTYP',krajLabel:'REGION',allTypes:'Alle',dom:'Haus',byt:'Wohnung',pozemok:'Grundstück',kancelaria:'Büro',results:'Angebote',cancel:'✕ Löschen',gallery:'Fotogalerie',params:'Technische Parameter',desc:'Objektbeschreibung',callSeller:'Verkäufer anrufen',directSale:'✓ Direktverkauf · keine Maklergebühren',directSaleBadge:'Direktverkauf · ohne Makler',directSaleNote:'Direktverkauf vom Eigentümer · ohne Gebühren',privateSale:'Privatverkauf',privateDesc:'Direkt vom Eigentümer.<br>Besichtigung nach Vereinbarung.',noResults:'Keine Ergebnisse',noResultsDesc:'Keine Angebote entsprechen Ihren Filtern.',showAll:'Alle Angebote anzeigen',loading:'Laden...',noPhotos:'Fotos folgen in Kürze.',phone1:'Telefon 1',phone2:'Telefon 2',obec:'Gemeinde',kraj:'Region',pozemok:'Grundstück',zastavana:'Bebaute Fläche',uzitkovaPlocha:'Nutzfläche',prizemie:'Erdgeschoss',poschodie:'Obergeschoss',dispozicia:'Raumaufteilung',energTrieda:'Energieklasse',stav:'Zustand',vlastnictvo:'Eigentumsform',naKluc:'Schlüsselfertig',naKlucAno:'Auf Anfrage',naKlucNie:'Nein',sortNewest:'Neueste',sortPriceAsc:'Preis: günstigste zuerst',sortPriceDesc:'Preis: teuerste zuerst',filtre:'Filter',cena:'Preis',typLabels:{dom:'Haus',byt:'Wohnung',pozemok:'Grundstück',kancelaria:'Büro'}},
+    ru:{allOffers:'Все объявления',filter:'Фильтр',call:'Позвонить',typLabel:'ТИП НЕДВИЖИМОСТИ',krajLabel:'РЕГИОН',allTypes:'Все',dom:'Дом',byt:'Квартира',pozemok:'Участок',kancelaria:'Офис',results:'объявления',cancel:'✕ Сбросить',gallery:'Фотогалерея',params:'Технические параметры',desc:'Описание объекта',callSeller:'Позвонить продавцу',directSale:'✓ Прямая продажа · без комиссий',directSaleBadge:'Прямая продажа · без агентства',directSaleNote:'прямая продажа от владельца · без комиссий',privateSale:'Частная продажа',privateDesc:'Продаёт напрямую владелец.<br>Просмотр по договорённости.',noResults:'Нет результатов',noResultsDesc:'Нет объявлений по вашим фильтрам.',showAll:'Показать все объявления',loading:'Загрузка...',noPhotos:'Фотографии появятся в ближайшее время.',phone1:'Телефон 1',phone2:'Телефон 2',obec:'Населённый пункт',kraj:'Регион',pozemok:'Участок',zastavana:'Застроенная площадь',uzitkovaPlocha:'Полезная площадь',prizemie:'Первый этаж',poschodie:'Второй этаж',dispozicia:'Планировка',energTrieda:'Энергетический класс',stav:'Состояние',vlastnictvo:'Форма собственности',naKluc:'Под ключ',naKlucAno:'По запросу',naKlucNie:'Нет',sortNewest:'Новейшие',sortPriceAsc:'Цена: сначала дешевле',sortPriceDesc:'Цена: сначала дороже',filtre:'Фильтры',cena:'Цена',typLabels:{dom:'Дом',byt:'Квартира',pozemok:'Участок',kancelaria:'Офис'}},
+    uk:{allOffers:'Всі оголошення',filter:'Фільтр',call:'Зателефонувати',typLabel:'ТИП НЕРУХОМОСТІ',krajLabel:'РЕГІОН',allTypes:'Всі',dom:'Будинок',byt:'Квартира',pozemok:'Ділянка',kancelaria:'Офіс',results:'оголошення',cancel:'✕ Скинути',gallery:'Фотогалерея',params:'Технічні параметри',desc:'Опис об\'єкта',callSeller:'Зателефонувати продавцю',directSale:'✓ Прямий продаж · без комісій',directSaleBadge:'Прямий продаж · без агентства',directSaleNote:'прямий продаж від власника · без комісій',privateSale:'Приватний продаж',privateDesc:'Продає безпосередньо власник.<br>Огляд за домовленістю.',noResults:'Немає результатів',noResultsDesc:'Немає оголошень за вашими фільтрами.',showAll:'Показати всі оголошення',loading:'Завантаження...',noPhotos:'Фотографії з\'являться найближчим часом.',phone1:'Телефон 1',phone2:'Телефон 2',obec:'Населений пункт',kraj:'Регіон',pozemok:'Ділянка',zastavana:'Забудована площа',uzitkovaPlocha:'Корисна площа',prizemie:'Перший поверх',poschodie:'Другий поверх',dispozicia:'Планування',energTrieda:'Енергетичний клас',stav:'Стан',vlastnictvo:'Форма власності',naKluc:'Під ключ',naKlucAno:'За запитом',naKlucNie:'Ні',sortNewest:'Найновіші',sortPriceAsc:'Ціна: спочатку дешевші',sortPriceDesc:'Ціна: спочатку дорожчі',filtre:'Фільтри',cena:'Ціна',typLabels:{dom:'Будинок',byt:'Квартира',pozemok:'Ділянка',kancelaria:'Офіс'}},
+  };
+
+  const LANGS = [
+    {code:'sk',label:'SK',flag:'🇸🇰',deepl:null,name:'Slovenčina'},
+    {code:'en',label:'EN',flag:'🇬🇧',deepl:'EN-GB',name:'English'},
+    {code:'de',label:'DE',flag:'🇩🇪',deepl:'DE',name:'Deutsch'},
+    {code:'ru',label:'RU',flag:'🇷🇺',deepl:'RU',name:'Русский'},
+    {code:'uk',label:'UK',flag:'🇺🇦',deepl:'UK',name:'Українська'},
+  ];
+
+  function getUI() { return UI[currentLang] || UI.sk; }
+
+  function init() {
+    const dd = document.getElementById('langDropdown');
+    LANGS.forEach(lang => {
+      const btn = document.createElement('button');
+      btn.className = 'lang-option' + (lang.code==='sk' ? ' active' : '');
+      btn.innerHTML = `<span style="font-size:15px">${lang.flag}</span><span>${lang.name}</span>`;
+      btn.addEventListener('click', () => switchLang(lang));
+      dd.appendChild(btn);
+    });
+    document.addEventListener('click', e => {
+      if (!document.getElementById('langBtn').closest('.lang-switcher').contains(e.target))
+        dd.classList.remove('open');
+    });
+  }
+
+  function toggle() { document.getElementById('langDropdown').classList.toggle('open'); }
+
+  async function switchLang(lang) {
+    document.getElementById('langDropdown').classList.remove('open');
+    if (lang.code === currentLang) return;
+    currentLang = lang.code;
+    document.getElementById('langFlag').textContent = lang.flag;
+    document.getElementById('langCode').textContent = lang.label;
+    document.documentElement.lang = lang.code;
+    document.querySelectorAll('.lang-option').forEach((b,i) => b.classList.toggle('active', LANGS[i].code===lang.code));
+    applyUI();
+    if (lang.code === 'sk') { App.rerender(); return; }
+    showBar(`${lang.name}...`);
+    try { await translateAll(lang); } catch(e) { console.error('Preklad zlyhal:', e); }
+    hideBar();
+  }
+
+  function applyUI() {
+    const t = getUI();
+    const s = (id, val) => { const el=document.getElementById(id); if(el) el.textContent=val; };
+    s('btnBackText', t.allOffers);
+    s('btnCallText', t.call);
+    s('filterTypLabel', t.typLabel);
+    s('filterKrajLabel', t.krajLabel);
+    s('sfTitle', t.filtre);
+    s('sfTypLabel', t.typLabel);
+    s('sfKrajLabel', t.krajLabel);
+    s('sfPriceLabel', t.cena);
+    s('bsTitle', t.filtre);
+    s('bsTypLabel', t.typLabel);
+    s('bsKrajLabel', t.krajLabel);
+    s('fabText', t.filtre);
+    s('noResultsTitle', t.noResults);
+    s('noResultsDesc', t.noResultsDesc);
+    const sr = document.getElementById('sortSelect');
+    if (sr) { sr.options[0].text=t.sortNewest; sr.options[1].text=t.sortPriceAsc; sr.options[2].text=t.sortPriceDesc; }
+    // Mobile pills
+    document.querySelectorAll('#filterTyp .pill').forEach(p => {
+      const m={vsetky:t.allTypes,dom:t.dom,byt:t.byt,pozemok:t.pozemok,kancelaria:t.kancelaria};
+      if(m[p.dataset.val]) p.textContent=m[p.dataset.val];
+    });
+    // BS opts
+    document.querySelectorAll('#bsTyp .bs-opt').forEach(b => {
+      const m={vsetky:t.allTypes,dom:t.dom,byt:t.byt,pozemok:t.pozemok,kancelaria:t.kancelaria};
+      if(m[b.dataset.val]) b.textContent=m[b.dataset.val];
+    });
+    // Sidebar opts
+    document.querySelectorAll('#sfTyp .sf-opt').forEach(o => {
+      const m={vsetky:t.allTypes,dom:t.dom,byt:t.byt,pozemok:t.pozemok,kancelaria:t.kancelaria};
+      const lbl=o.querySelector('.sf-opt-lbl');
+      if(lbl && m[o.dataset.val]) lbl.textContent=m[o.dataset.val];
+    });
+  }
+
+  async function translateAll(lang) {
+    const listings = App.getListings();
+    if (!listings.length) return;
+    const allTexts=[], mapping=[];
+    listings.forEach((item,li) => {
+      FIELDS.forEach(field => {
+        if(item[field]) { mapping.push({li,field,ti:allTexts.length}); allTexts.push(item[field]); }
+      });
+      if(Array.isArray(item.extra_specs)) {
+        item.extra_specs.forEach((spec,si) => {
+          if(spec.key) { mapping.push({li,field:`ek_${si}`,ti:allTexts.length}); allTexts.push(spec.key); }
+          if(spec.val) { mapping.push({li,field:`ev_${si}`,ti:allTexts.length}); allTexts.push(spec.val); }
+        });
+      }
+    });
+    if (!allTexts.length) return;
+    const ck = `${lang.deepl}:${allTexts.join('|')}`;
+    let translated;
+    if (cache[ck]) { translated = cache[ck]; }
+    else {
+      const res = await fetch(CONFIG.TRANSLATE_FN, {
+        method:'POST',
+        headers:{'Content-Type':'application/json','apikey':CONFIG.SUPABASE_ANON,'Authorization':`Bearer ${CONFIG.SUPABASE_ANON}`},
+        body:JSON.stringify({texts:allTexts,target_lang:lang.deepl}),
+      });
+      if (!res.ok) throw new Error(`${res.status}`);
+      const data = await res.json();
+      translated = data.translations.map(t=>t.text);
+      cache[ck] = translated;
+    }
+    const result = listings.map(item=>({...item,extra_specs:Array.isArray(item.extra_specs)?item.extra_specs.map(s=>({...s})):[]}));
+    mapping.forEach(({li,field,ti}) => {
+      if(field.startsWith('ek_')) { const si=+field.slice(3); if(result[li].extra_specs[si]) result[li].extra_specs[si].key=translated[ti]; }
+      else if(field.startsWith('ev_')) { const si=+field.slice(3); if(result[li].extra_specs[si]) result[li].extra_specs[si].val=translated[ti]; }
+      else result[li][field]=translated[ti];
+    });
+    App.renderWithData(result);
+    App.setTranslatedListings(result);
+  }
+
+  function showBar(msg) { document.getElementById('translatingMsg').textContent=msg; document.getElementById('translatingBar').classList.add('show'); }
+  function hideBar() { document.getElementById('translatingBar').classList.remove('show'); }
+
+  return { init, toggle, getUI, getCurrentLang:()=>currentLang };
+})();
+
+/* ══════════════════════════════════════════════════════════════
+   SUPABASE
+══════════════════════════════════════════════════════════════ */
+const sb = {
+  url: CONFIG.SUPABASE_URL, key: CONFIG.SUPABASE_ANON,
+  async query(table, params='') {
+    const res = await fetch(`${this.url}/rest/v1/${table}?${params}`, {
+      headers:{'apikey':this.key,'Authorization':`Bearer ${this.key}`,'Content-Type':'application/json'}
+    });
+    if (!res.ok) throw new Error(`Supabase error: ${res.status}`);
+    return res.json();
+  }
+};
+
+/* ══════════════════════════════════════════════════════════════
+   UTILS
+══════════════════════════════════════════════════════════════ */
+const fmt = {
+  price: n => Number(n).toLocaleString('sk') + ' €',
+  date:  d => new Date(d).toLocaleDateString('sk-SK',{day:'2-digit',month:'2-digit',year:'numeric'}),
+  esc:   s => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'),
+  plural: n => n===1?'1 ponuka':n>=2&&n<=4?`${n} ponuky`:`${n} ponúk`,
+};
+const krajLabels = {vsetky:'Všetky kraje',kosicky:'Košický kraj',bratislavsky:'Bratislavský kraj',presovsky:'Prešovský kraj',banskobystricky:'Banskobystrický kraj',nitriansky:'Nitriansky kraj',zilinsky:'Žilinský kraj',trnavsky:'Trnavský kraj',trenciansky:'Trenčiansky kraj'};
+
+/* ══════════════════════════════════════════════════════════════
+   APP
+══════════════════════════════════════════════════════════════ */
+const App = (() => {
+  let allListings = [];
+  let _translated = null;
+  let filters = { typ:'vsetky', kraj:'vsetky' };
+  let currentView = 'viewListings';
+
+  async function loadListings() {
+    try {
+      const data = await sb.query('inzeraty','select=*&aktivny=eq.true&order=created_at.desc');
+      allListings = data;
+      document.getElementById('skeletonLoaders').style.display = 'none';
+      document.getElementById('listingsStack').style.display = '';
+      renderCards(data);
+      updateSidebarCounts(data);
+    } catch(err) {
+      document.getElementById('skeletonLoaders').style.display = 'none';
+      document.getElementById('errorState').style.display = '';
+      document.getElementById('errorMsg').textContent = err.message;
+    }
+  }
+
+  function updateSidebarCounts(data) {
+    const typs = ['dom','byt','pozemok','kancelaria'];
+    const krajs = ['kosicky','bratislavsky','presovsky','banskobystricky','nitriansky','zilinsky','trnavsky','trenciansky'];
+    document.getElementById('ct-typ-vsetky').textContent = data.length;
+    typs.forEach(t => { const el=document.getElementById(`ct-typ-${t}`); if(el) el.textContent=data.filter(i=>i.typ===t).length; });
+    krajs.forEach(k => { const el=document.getElementById(`ct-kraj-${k}`); if(el) el.textContent=data.filter(i=>i.kraj===k).length; });
+  }
+
+  function renderCards(listings) {
+    const stack = document.getElementById('listingsStack');
+    stack.innerHTML = '';
+    listings.forEach(item => stack.appendChild(buildCard(item)));
+    applyFilters();
+  }
+
+  function buildCard(item) {
+    const fotoUrls = Array.isArray(item.foto_urls) ? item.foto_urls : [];
+    const thumbSrc = fotoUrls.length > 0 ? fotoUrls[0]
+      : (item.folder ? `https://cdn.jsdelivr.net/gh/not1draggy/mokrance.V2@main/${item.folder}/FD1.png?v=2` : null);
+    const card = document.createElement('a');
+    card.className = 'listing-card';
+    card.href = '#';
+    card.dataset.id = item.id; card.dataset.typ = item.typ; card.dataset.kraj = item.kraj;
+    card.dataset.cena = item.cena; card.dataset.created = item.created_at;
+    const thumbHtml = thumbSrc
+      ? `<img src="${fmt.esc(thumbSrc)}" alt="${fmt.esc(item.nazov)}" loading="lazy" onerror="this.style.display='none'">`
+      : `<div class="card-thumb-placeholder">🏠</div>`;
+    const parts=[];
+    if(item.pozemok) parts.push(`${LangEngine.getUI().pozemok} ${item.pozemok} m²`);
+    if(item.uzitk_plocha) parts.push(`${LangEngine.getUI().uzitkovaPlocha} ${item.uzitk_plocha} m²`);
+    if(item.energy_class) parts.push(`${LangEngine.getUI().energTrieda} ${item.energy_class}`);
+    if(item.stav) parts.push(item.stav);
+    const tags=[];
+    if(item.stav) tags.push(item.stav.split(' ')[0]);
+    if(item.energy_class) tags.push(`${item.energy_class}`);
+    if(item.dispozicia) tags.push(item.dispozicia);
+    if(item.vlastnictvo) tags.push(item.vlastnictvo);
+    card.innerHTML = `
+      <div class="card-thumb">${thumbHtml}${item.badge?`<span class="card-badge">${fmt.esc(item.badge)}</span>`:''}</div>
+      <div class="card-body">
+        <div>
+          <div class="listing-title">${fmt.esc(item.nazov)}</div>
+          <div class="listing-snippet">${fmt.esc(parts.join(' · '))}</div>
+        </div>
+        <div class="card-tags">${tags.slice(0,4).map(t=>`<span class="tag">${fmt.esc(t)}</span>`).join('')}</div>
+      </div>
+      <div class="card-aside">
+        <div><div class="card-price">${fmt.price(item.cena)}</div><div class="card-price-note">${LangEngine.getUI().directSaleNote}</div></div>
+        <div class="card-meta"><div class="card-location">📍 ${fmt.esc(item.obec)}, ${krajLabels[item.kraj]||item.kraj}</div><div class="card-date">${fmt.date(item.created_at)}</div></div>
+        <div class="card-cta">Detail <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></div>
+      </div>`;
+    card.addEventListener('click', e => { e.preventDefault(); goDetail(item); });
+    return card;
+  }
+
+  function goDetail(item) {
+    const currentData = _translated || allListings;
+    const tItem = currentData.find(i=>i.id===item.id) || item;
+    document.getElementById('viewDetail').innerHTML = buildDetailHTML(tItem);
+    document.getElementById('filterBar').classList.add('hidden');
+    document.getElementById('mobActions').style.display = 'none';
+    document.getElementById('btnBack').style.display = 'flex';
+    switchView('viewDetail');
+    setTimeout(() => Gallery.load(tItem), 100);
+  }
+
+  function buildDetailHTML(item) {
+    const t = LangEngine.getUI();
+    const extra = Array.isArray(item.extra_specs) ? item.extra_specs : [];
+    const specs = [
+      {key:t.obec, val:item.obec, em:false},
+      {key:t.kraj, val:krajLabels[item.kraj]||item.kraj, em:false},
+      {key:t.pozemok, val:item.pozemok?`${item.pozemok} m²`:null, em:true},
+      {key:t.zastavana, val:item.zastav_plocha?`${item.zastav_plocha} m²`:null, em:false},
+      {key:t.uzitkovaPlocha, val:item.uzitk_plocha?`${item.uzitk_plocha} m²`:null, em:true},
+      {key:t.prizemie, val:item.prizemie||null, em:false},
+      {key:t.poschodie, val:item.poschodie||null, em:false},
+      {key:t.dispozicia, val:item.dispozicia||null, em:false},
+      {key:t.energTrieda, val:item.energy_class||null, em:true},
+      {key:t.stav, val:item.stav||null, em:false},
+      {key:t.vlastnictvo, val:item.vlastnictvo||null, em:false},
+      {key:t.naKluc, val:item.na_kluc?t.naKlucAno:t.naKlucNie, em:false},
+      ...extra.map(s=>({key:s.key,val:s.val,em:false})),
+    ].filter(s=>s.val);
+    const specsHtml = specs.map(s=>`<div class="spec-row"><span class="spec-key">${fmt.esc(s.key)}</span><span class="spec-val${s.em?' em':''}">${fmt.esc(s.val)}</span></div>`).join('');
+    const descHtml = (item.popis||'').split('\n\n').map(p=>`<p>${fmt.esc(p.trim())}</p>`).join('');
+    const typLabel = t.typLabels[item.typ] || item.typ;
+    return `
+      <div class="page-topbar">
+        <nav class="breadcrumb">
+          <a href="#" onclick="App.goListings();return false;">${t.allOffers}</a>
+          <span class="breadcrumb-sep">›</span>
+          <span>${fmt.esc(typLabel)}</span>
+          <span class="breadcrumb-sep">›</span>
+          <span>${fmt.esc(krajLabels[item.kraj]||item.kraj)}</span>
+          <span class="breadcrumb-sep">›</span>
+          <strong>${fmt.esc(item.nazov)}</strong>
+        </nav>
+      </div>
+      <div class="detail-grid">
+        <div class="detail-main">
+          <div class="detail-header-card">
+            <div class="detail-eyebrow">${fmt.esc(item.obec)} · ${fmt.esc(item.stav||'')} · ${item.energy_class||''}</div>
+            <h1 class="detail-title">${fmt.esc(item.nazov)}</h1>
+            <div class="detail-price-row"><span class="detail-price">${fmt.price(item.cena)}</span><span class="detail-price-note">${t.directSaleNote}</span></div>
+          </div>
+          <div class="section-card">
+            <div class="section-header"><span class="section-title">${t.gallery}</span><span class="section-count" id="galleryCount">—</span></div>
+            <div id="galleryContainer">
+              <div class="gallery-loading" id="galleryLoading"><div class="spinner" style="border-color:rgba(0,0,0,0.1);border-top-color:var(--green)"></div>${t.loading}</div>
+              <div class="gallery-grid" id="galleryGrid" style="display:none"></div>
+              <div class="gallery-empty" id="galleryEmpty" style="display:none">${t.noPhotos}</div>
+            </div>
+          </div>
+          <div class="section-card"><div class="section-header"><span class="section-title">${t.params}</span></div><div class="specs-grid">${specsHtml}</div></div>
+          <div class="section-card"><div class="section-header"><span class="section-title">${t.desc}</span></div><div class="desc-body">${descHtml}</div></div>
+        </div>
+        <div class="contact-sidebar">
+          <div class="contact-card">
+            <div class="contact-card-header"><div class="contact-card-eyebrow">${t.directSaleBadge}</div><div class="contact-card-name">${fmt.esc(item.obec)} · ${fmt.esc(typLabel)}</div></div>
+            <div class="contact-card-body">
+              <div class="contact-price-block"><div class="contact-price">${fmt.price(item.cena)}</div><div class="contact-price-sub">${item.pozemok?`${t.pozemok} ${item.pozemok} m²`:fmt.esc(item.obec)}</div></div>
+              <div class="contact-pills-row">
+                ${item.uzitk_plocha?`<div class="contact-pill-item"><span class="contact-pill-label">${t.uzitkovaPlocha}</span><span class="contact-pill-val">${item.uzitk_plocha} m²</span></div>`:''}
+                ${item.energy_class?`<div class="contact-pill-item"><span class="contact-pill-label">${t.energTrieda}</span><span class="contact-pill-val">${fmt.esc(item.energy_class)}</span></div>`:''}
+                ${item.stav?`<div class="contact-pill-item"><span class="contact-pill-label">${t.stav}</span><span class="contact-pill-val">${fmt.esc(item.stav.split(' ')[0])}</span></div>`:''}
+                ${item.dispozicia?`<div class="contact-pill-item"><span class="contact-pill-label">${t.dispozicia}</span><span class="contact-pill-val">${fmt.esc(item.dispozicia)}</span></div>`:''}
+              </div>
+              <div class="contact-phones">
+                <div class="phone-block"><div class="phone-label">${t.phone1}</div><a class="phone-number" href="tel:${CONFIG.TEL_1}">${CONFIG.TEL_1_FORMAT}</a></div>
+                <div class="phone-block"><div class="phone-label">${t.phone2}</div><a class="phone-number" href="tel:${CONFIG.TEL_2}">${CONFIG.TEL_2_FORMAT}</a></div>
+              </div>
+              <a href="tel:${CONFIG.TEL_1}" class="btn btn-primary btn-lg">${t.callSeller}</a>
+              <div class="no-agency">${t.directSale}</div>
+            </div>
+          </div>
+          <div class="seller-note"><strong>${t.privateSale}</strong>${t.privateDesc}</div>
+        </div>
+      </div>`;
+  }
+
+  function switchView(toId) {
+    const prev = document.getElementById(currentView);
+    const next = document.getElementById(toId);
+    if (!next || toId===currentView) return;
+    prev.style.display='none'; prev.classList.remove('active');
+    next.style.display='block';
+    void next.offsetWidth;
+    next.classList.add('active');
+    currentView = toId;
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  function goListings() {
+    document.getElementById('filterBar').classList.remove('hidden');
+    document.getElementById('mobActions').style.display = '';
+    document.getElementById('btnBack').style.display = 'none';
+    switchView('viewListings');
+  }
+
+  function setFilter(group, val) {
+    filters[group] = val;
+    // Mobile pills
+    const containerId = group==='typ'?'filterTyp':'filterKraj';
+    document.getElementById(containerId)?.querySelectorAll('.pill').forEach(p=>p.classList.toggle('active',p.dataset.val===val));
+    // Desktop sidebar
+    const sfId = group==='typ'?'sfTyp':'sfKraj';
+    document.getElementById(sfId)?.querySelectorAll('.sf-opt').forEach(o=>o.classList.toggle('on',o.dataset.val===val));
+    // BS filter
+    const bsId = group==='typ'?'bsTyp':'bsKraj';
+    document.getElementById(bsId)?.querySelectorAll('.bs-opt').forEach(b=>b.classList.toggle('on',b.dataset.val===val));
+    applyFilters();
+  }
+
+  function resetFilters() {
+    filters = {typ:'vsetky',kraj:'vsetky'};
+    setFilter('typ','vsetky'); setFilter('kraj','vsetky');
+    document.getElementById('priceMin').value='';
+    document.getElementById('priceMax').value='';
+    document.getElementById('bsPriceMin').value='';
+    document.getElementById('bsPriceMax').value='';
+    const sortSel=document.getElementById('sortSelect'); if(sortSel) sortSel.value='newest';
+    applyFilters();
+  }
+
+  function applyFilters() {
+    const pMin = parseFloat(document.getElementById('priceMin')?.value||document.getElementById('bsPriceMin')?.value) || 0;
+    const pMax = parseFloat(document.getElementById('priceMax')?.value||document.getElementById('bsPriceMax')?.value) || Infinity;
+    const sortMode = document.getElementById('sortSelect')?.value || 'newest';
+    const stack = document.getElementById('listingsStack');
+    if (!stack) return;
+    const cards = Array.from(stack.querySelectorAll('.listing-card'));
+    let visible = 0;
+    const visibleCards = [];
+    cards.forEach(card => {
+      const cena = parseFloat(card.dataset.cena)||0;
+      const show = (filters.typ==='vsetky'||card.dataset.typ===filters.typ) &&
+                   (filters.kraj==='vsetky'||card.dataset.kraj===filters.kraj) &&
+                   cena>=pMin && cena<=pMax;
+      card.style.display = show ? '' : 'none';
+      if (show) { visible++; visibleCards.push(card); }
+    });
+    // Sort
+    visibleCards.sort((a,b)=>{
+      const ca=parseFloat(a.dataset.cena)||0, cb=parseFloat(b.dataset.cena)||0;
+      const da=a.dataset.created||'', db=b.dataset.created||'';
+      if(sortMode==='price_asc') return ca-cb;
+      if(sortMode==='price_desc') return cb-ca;
+      return db.localeCompare(da);
+    });
+    visibleCards.forEach(c=>stack.appendChild(c));
+    // Update counts
+    const lbl = fmt.plural(visible);
+    const rl = document.getElementById('resultsLabel'); if(rl) rl.textContent=lbl;
+    const rld = document.getElementById('resultsLabelDesktop'); if(rld) rld.textContent=lbl;
+    document.getElementById('noResults')?.classList.toggle('show', visible===0 && allListings.length>0);
+    // Active pills
+    renderActivePills();
+    // FAB badge
+    const activeCount = (filters.typ!=='vsetky'?1:0)+(filters.kraj!=='vsetky'?1:0)+(pMin>0||pMax<Infinity?1:0);
+    const badge=document.getElementById('fabBadge');
+    if(badge){ badge.textContent=activeCount; badge.style.display=activeCount>0?'':'none'; }
+    // BS apply button
+    const bsApply=document.getElementById('bsApply');
+    if(bsApply) bsApply.textContent=`${LangEngine.getUI().showAll.split(' ')[0]} ${lbl}`;
+  }
+
+  function renderActivePills() {
+    const t = LangEngine.getUI();
+    const bar = document.getElementById('activePills');
+    if (!bar) return;
+    const pills = [];
+    if (filters.typ!=='vsetky') pills.push({label:t.typLabels[filters.typ]||filters.typ,group:'typ'});
+    if (filters.kraj!=='vsetky') pills.push({label:krajLabels[filters.kraj]||filters.kraj,group:'kraj'});
+    const pMin=parseFloat(document.getElementById('priceMin')?.value)||0;
+    const pMax=parseFloat(document.getElementById('priceMax')?.value)||Infinity;
+    if(pMin>0||pMax<Infinity) pills.push({label:`${pMin>0?fmt.price(pMin):'0'} – ${pMax<Infinity?fmt.price(pMax):'∞'}`,group:'price'});
+    bar.innerHTML='';
+    pills.forEach(p=>{
+      const el=document.createElement('span');
+      el.className='apill';
+      el.innerHTML=`${fmt.esc(p.label)} <span class="apill-x">×</span>`;
+      el.addEventListener('click',()=>{
+        if(p.group==='price'){document.getElementById('priceMin').value='';document.getElementById('priceMax').value='';applyFilters();}
+        else setFilter(p.group,'vsetky');
+      });
+      bar.appendChild(el);
+    });
+  }
+
+  function init() {
+    document.getElementById('headerTel').href=`tel:${CONFIG.TEL_1}`;
+    document.getElementById('footerTel').href=`tel:${CONFIG.TEL_1}`;
+    // Mobile pills
+    document.querySelectorAll('#filterTyp .pill').forEach(p=>p.addEventListener('click',()=>setFilter('typ',p.dataset.val)));
+    document.querySelectorAll('#filterKraj .pill').forEach(p=>p.addEventListener('click',()=>setFilter('kraj',p.dataset.val)));
+    document.getElementById('btnReset')?.addEventListener('click',()=>{resetFilters();document.getElementById('filterBar').classList.add('hidden');});
+    // Desktop sidebar
+    document.querySelectorAll('#sfTyp .sf-opt').forEach(o=>o.addEventListener('click',()=>setFilter('typ',o.dataset.val)));
+    document.querySelectorAll('#sfKraj .sf-opt').forEach(o=>o.addEventListener('click',()=>setFilter('kraj',o.dataset.val)));
+    document.getElementById('sfClear')?.addEventListener('click',resetFilters);
+    // Price inputs with debounce
+    let pt;
+    ['priceMin','priceMax'].forEach(id=>{
+      document.getElementById(id)?.addEventListener('input',()=>{clearTimeout(pt);pt=setTimeout(applyFilters,400);});
+    });
+    // Sort
+    document.getElementById('sortSelect')?.addEventListener('change',applyFilters);
+    // Logo and back
+    document.getElementById('logoLink')?.addEventListener('click',e=>{e.preventDefault();goListings();});
+    document.getElementById('btnBack')?.addEventListener('click',e=>{e.preventDefault();goListings();});
+    // Init views
+    document.getElementById('viewListings').style.display='grid';
+    document.getElementById('viewDetail').style.display='none';
+    // Lang engine
+    LangEngine.init();
+    loadListings();
+  }
+
+  function getListings() { return allListings; }
+  function setTranslatedListings(data) { _translated = data; }
+  function rerender() { _translated=null; renderCards(allListings); }
+  function renderWithData(data) {
+    const stack=document.getElementById('listingsStack');
+    stack.innerHTML='';
+    data.forEach(item=>stack.appendChild(buildCard(item)));
+    applyFilters();
+  }
+
+  document.addEventListener('DOMContentLoaded', init);
+  return { goListings, setFilter, resetFilters, getListings, rerender, renderWithData, setTranslatedListings };
+})();
+
+/* ══════════════════════════════════════════════════════════════
+   BOTTOM SHEET FILTER
+══════════════════════════════════════════════════════════════ */
+const BSFilter = {
+  open() { document.getElementById('bsOverlay').classList.add('open'); },
+  close() { document.getElementById('bsOverlay').classList.remove('open'); },
+  closeIfBg(e) { if(e.target===document.getElementById('bsOverlay')) this.close(); },
+  reset() {
+    App.resetFilters();
+    document.querySelectorAll('#bsTyp .bs-opt').forEach(b=>b.classList.toggle('on',b.dataset.val==='vsetky'));
+    document.querySelectorAll('#bsKraj .bs-opt').forEach(b=>b.classList.toggle('on',b.dataset.val==='vsetky'));
+    document.getElementById('bsPriceMin').value='';
+    document.getElementById('bsPriceMax').value='';
+  },
+  apply() {
+    // Sync BS price to main
+    document.getElementById('priceMin').value=document.getElementById('bsPriceMin').value;
+    document.getElementById('priceMax').value=document.getElementById('bsPriceMax').value;
+    App.applyFilters?.();
+    this.close();
+  }
+};
+// BS opts toggle
+document.querySelectorAll('#bsTyp .bs-opt').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('#bsTyp .bs-opt').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on');
+  App.setFilter('typ',b.dataset.val);
+}));
+document.querySelectorAll('#bsKraj .bs-opt').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('#bsKraj .bs-opt').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on');
+  App.setFilter('kraj',b.dataset.val);
+}));
+
+/* ══════════════════════════════════════════════════════════════
+   SUBMIT FORM — verejný formulár pre návštevníkov
+══════════════════════════════════════════════════════════════ */
+const SubmitForm = (() => {
+  function open() {
+    document.getElementById('submitSuccess').classList.remove('show');
+    document.getElementById('submitFormBody').style.display = '';
+    document.getElementById('submitFoot').style.display = '';
+    document.getElementById('submitModal').classList.add('open');
+  }
+
+  function close() {
+    document.getElementById('submitModal').classList.remove('open');
+  }
+
+  function closeIfBg(e) {
+    if (e.target === document.getElementById('submitModal')) close();
+  }
+
+  async function submit() {
+    const nazov   = document.getElementById('sfNazov').value.trim();
+    const cena    = Number(document.getElementById('sfCena').value);
+    const typ     = document.getElementById('sfTyp').value;
+    const obec    = document.getElementById('sfObec').value.trim();
+    const kraj    = document.getElementById('sfKraj').value;
+    const popis   = document.getElementById('sfPopis').value.trim();
+    const kontakt = document.getElementById('sfKontakt').value.trim();
+    const meno    = document.getElementById('sfMeno').value.trim();
+
+    if (!nazov || !cena || !obec || !popis || !kontakt) {
+      alert('Vyplňte všetky povinné polia *');
+      return;
+    }
+
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = 'Odosielam...';
+
+    try {
+      // Ulož do Supabase s aktivny=false (čaká na schválenie)
+      const res = await fetch(`${CONFIG.SUPABASE_URL}/rest/v1/inzeraty`, {
+        method: 'POST',
+        headers: {
+          'apikey': CONFIG.SUPABASE_ANON,
+          'Authorization': `Bearer ${CONFIG.SUPABASE_ANON}`,
+          'Content-Type': 'application/json',
+          'Prefer': 'return=representation',
+        },
+        body: JSON.stringify({
+          nazov, cena, typ, obec, kraj, popis,
+          aktivny: false,
+          badge: 'NOVÝ',
+          extra_specs: [
+            { key: 'Kontakt', val: kontakt },
+            ...(meno ? [{ key: 'Meno', val: meno }] : []),
+          ],
+        }),
+      });
+
+      if (!res.ok) throw new Error(await res.text());
+
+      // Telegram notifikácia
+      const msg = [
+        '484.sk 🏠 NOVÝ NÁVRH INZERÁTU',
+        `Názov: ${nazov}`,
+        `Cena: ${Number(cena).toLocaleString('sk')} €`,
+        `Obec: ${obec}`,
+        `Kontakt: ${kontakt}`,
+        meno ? `Meno: ${meno}` : '',
+        'Schváliť v admin paneli: https://484.sk/admin.html',
+      ].filter(Boolean).join('\n');
+
+      const encoded = encodeURIComponent(msg);
+      new Image().src = `https://api.callmebot.com/text.php?user=@${CONFIG.TELEGRAM_USER}&text=${encoded}`;
+
+      // Zobraz success
+      document.getElementById('submitFormBody').style.display = 'none';
+      document.getElementById('submitFoot').style.display = 'none';
+      document.getElementById('submitSuccess').classList.add('show');
+
+    } catch(err) {
+      alert('Chyba pri odosielaní: ' + err.message);
+      btn.disabled = false;
+      btn.textContent = 'Odoslať na schválenie';
+    }
+  }
+
+  return { open, close, closeIfBg, submit };
+})();
+
+const Gallery = (() => {
+  const CDN='https://cdn.jsdelivr.net/gh/not1draggy/mokrance.V2@main/';
+  const EXTS=['png','jpg','jpeg','webp'];
+  async function tryLoad(src){return new Promise(r=>{const i=new Image();i.onload=()=>r(src);i.onerror=()=>r(null);i.src=src;});}
+  async function probeFolder(folder){
+    const found=[];
+    for(let i=1;i<=40;i++){
+      let src=null;
+      for(const ext of EXTS){const url=`${CDN}${folder}/FD${i}.${ext}`;const ok=await tryLoad(url);if(ok){src=ok;break;}}
+      if(src) found.push({src,name:`Fotografia ${i}`});
+      else break;
+    }
+    return found;
+  }
+  function layout(n){if(n===1)return 'layout-1';if(n===2)return 'layout-2';if(n===3)return 'layout-3';if(n<=6)return 'layout-mid';return 'layout-dense';}
+  async function load(item){
+    const loadEl=document.getElementById('galleryLoading');
+    const gridEl=document.getElementById('galleryGrid');
+    const emptyEl=document.getElementById('galleryEmpty');
+    const countEl=document.getElementById('galleryCount');
+    if(!gridEl) return;
+    let images=[];
+    if(Array.isArray(item.foto_urls)&&item.foto_urls.length>0) images=item.foto_urls.map((url,i)=>({src:url,name:`Fotografia ${i+1}`}));
+    else if(item.folder) images=await probeFolder(item.folder);
+    if(loadEl) loadEl.style.display='none';
+    if(!images.length){if(emptyEl)emptyEl.style.display='';if(countEl)countEl.textContent='0';return;}
+    gridEl.className='gallery-grid '+layout(images.length);
+    images.forEach((img,idx)=>{
+      const div=document.createElement('div');div.className='gi';
+      div.innerHTML=`<img src="${img.src}" alt="${img.name}" loading="lazy"><div class="gi-overlay"><span class="gi-icon">⊕</span></div>`;
+      div.addEventListener('click',()=>Lightbox.open(images,idx));
+      gridEl.appendChild(div);
+    });
+    gridEl.style.display='';
+    const n=images.length;
+    if(countEl) countEl.textContent=n===1?'1 fotografia':n<5?`${n} fotografie`:`${n} fotografií`;
+  }
+  return {load};
+})();
+
+/* ══════════════════════════════════════════════════════════════
+   LIGHTBOX
+══════════════════════════════════════════════════════════════ */
+const Lightbox=(() => {
+  let images=[],idx=0,startX=0;
+  const el=document.getElementById('lightbox');
+  const imgEl=document.getElementById('lbImg');
+  const cEl=document.getElementById('lbCounter');
+  const capEl=document.getElementById('lbCaption');
+  function show(i){idx=(i+images.length)%images.length;imgEl.src=images[idx].src;imgEl.alt=images[idx].name;cEl.textContent=`${idx+1} / ${images.length}`;capEl.textContent=images[idx].name;}
+  function open(imgs,i){images=imgs;show(i);el.classList.add('open');document.body.style.overflow='hidden';}
+  function close(){el.classList.remove('open');document.body.style.overflow='';}
+  document.getElementById('lbClose').addEventListener('click',close);
+  document.getElementById('lbPrev').addEventListener('click',()=>show(idx-1));
+  document.getElementById('lbNext').addEventListener('click',()=>show(idx+1));
+  el.addEventListener('click',e=>{if(e.target===el)close();});
+  document.addEventListener('keydown',e=>{if(!el.classList.contains('open'))return;if(e.key==='Escape')close();if(e.key==='ArrowLeft')show(idx-1);if(e.key==='ArrowRight')show(idx+1);});
+  el.addEventListener('touchstart',e=>{startX=e.touches[0].clientX;},{passive:true});
+  el.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-startX;if(Math.abs(dx)>50)dx<0?show(idx+1):show(idx-1);});
+  return {open,close};
+})();
+</script>
+</body>
+</html>
