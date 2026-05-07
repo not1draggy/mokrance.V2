@@ -205,7 +205,16 @@ button{font-family:var(--font);cursor:pointer}
 @media(max-width:899px){
   .filter-rail{position:fixed;inset:0 auto 0 0;width:min(85vw,320px);z-index:160;transform:translateX(-100%);transition:transform var(--transition-lg);border-radius:0;border:none;border-right:1px solid var(--border);box-shadow:var(--shadow-lg);padding:16px;overflow-y:auto}
   .filter-rail.open{transform:translateX(0)}
+  .mob-fab-bar{display:flex}
+  .page-wrap{padding-bottom:86px}
 }
+@media(min-width:900px){
+  .mob-fab-bar{display:none}
+}
+.mob-fab-bar{position:fixed;bottom:max(16px,env(safe-area-inset-bottom,16px));left:0;right:0;justify-content:center;gap:10px;z-index:150;padding:0 20px;pointer-events:none}
+.mob-fab-bar > *{pointer-events:all}
+.mob-fab{background:var(--green);color:white;border-radius:24px;padding:13px 22px;font-size:13.5px;font-weight:600;display:flex;align-items:center;gap:7px;box-shadow:0 4px 20px rgba(26,107,60,0.35);border:none;font-family:var(--font);cursor:pointer;white-space:nowrap}
+.mob-fab-outline{background:white;color:var(--green);border:2px solid var(--green);border-radius:24px;padding:12px 18px;font-size:13.5px;font-weight:600;display:flex;align-items:center;gap:7px;box-shadow:0 4px 16px rgba(0,0,0,0.12);font-family:var(--font);cursor:pointer;white-space:nowrap;text-decoration:none}
 
 /* ── SUBMIT LISTING MODAL ── */
 #submitModal{border:none;border-radius:var(--radius-lg);padding:0;width:min(640px,94vw);max-height:92vh;background:white;box-shadow:var(--shadow-lg)}
@@ -1692,15 +1701,15 @@ const SubmitListing = (() => {
         typ:          payload.typ,
         kraj:         payload.kraj,
         obec:         payload.obec,
-        uzitk_plocha: payload.uzitk_plocha,
-        dispozicia:   payload.dispozicia,
-        foto_urls:    payload.foto_urls,
+        uzitk_plocha: payload.uzitk_plocha || null,
+        dispozicia:   payload.dispozicia || null,
+        foto_urls:    payload.foto_urls || [],
         aktivny:      false,
         badge:        'NOVÝ',
         extra_specs: [
-          { key: 'Kontakt - meno', val: payload.submitter_name },
-          { key: 'Kontakt - email', val: payload.submitter_email },
-          ...(payload.submitter_phone ? [{ key: 'Kontakt - telefón', val: payload.submitter_phone }] : []),
+          { key: 'Meno', val: payload.submitter_name },
+          { key: 'Email', val: payload.submitter_email },
+          ...(payload.submitter_phone ? [{ key: 'Telefón', val: payload.submitter_phone }] : []),
         ],
       }),
     });
@@ -1826,5 +1835,17 @@ const SubmitListing = (() => {
   return { open, close };
 })();
 </script>
+<!-- MOBILE FAB BAR -->
+<div class="mob-fab-bar" id="mobFabBar">
+  <button class="mob-fab-outline" onclick="SubmitListing.open()">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+    Pridať
+  </button>
+  <button class="mob-fab" onclick="toggleMobileRail()">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+    Filter
+  </button>
+</div>
+
 </body>
 </html>
