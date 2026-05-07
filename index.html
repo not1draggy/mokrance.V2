@@ -166,6 +166,9 @@ button{font-family:var(--font);cursor:pointer}
 }
 .layout-with-rail.rail-off{grid-template-columns:1fr}
 .layout-with-rail.rail-off .filter-rail{display:none}
+/* Keď sme v detail view (rail-off), schovať aj mobile FAB */
+.layout-with-rail.rail-off ~ .mob-fab-bar,
+body:has(.layout-with-rail.rail-off) .mob-fab-bar{display:none !important}
 
 /* ── FILTER RAIL ── */
 .filter-rail{background:white;border:1px solid var(--border);border-radius:var(--radius);padding:18px 16px;display:flex;flex-direction:column;gap:18px}
@@ -882,7 +885,8 @@ const LangEngine = (() => {
 
     if (!allTexts.length) return;
 
-    const cacheKey = `${lang.deepl}:${allTexts.join('|')}`;
+    // \u001F (Unit Separator) je control char — bezpečný oddeľovač lebo sa nikdy nevyskytne v normálnom texte
+    const cacheKey = `${lang.deepl}:${allTexts.join('\u001F')}`;
     let translated;
     if (cache[cacheKey]) {
       translated = cache[cacheKey];
@@ -1110,6 +1114,9 @@ const App = (() => {
     const detailEl = document.getElementById('viewDetail');
     detailEl.innerHTML = buildDetailHTML(translatedItem);
     document.getElementById('pageLayout').classList.add('rail-off');
+    // JS fallback pre prehliadače bez :has() podpory
+    const fab = document.getElementById('mobFabBar');
+    if (fab) fab.style.display = 'none';
     closeMobileRail();
     switchView('viewDetail');
     // Update tab title + share-link metadata (improves SEO + browser history UX)
@@ -1305,7 +1312,8 @@ const App = (() => {
     prev.classList.remove('active');
     setTimeout(() => {
       prev.style.display = 'none';
-      next.style.display = 'block';
+      // Nech CSS rozhodne o display type (grid pre listings, block pre detail)
+      next.style.removeProperty('display');
       void next.offsetWidth;
       next.classList.add('active');
     }, 150);
@@ -1315,6 +1323,9 @@ const App = (() => {
 
   function goListings() {
     document.getElementById('pageLayout').classList.remove('rail-off');
+    // Ukáž FAB späť (CSS to rieši, ale JS fallback pre istotu)
+    const fab = document.getElementById('mobFabBar');
+    if (fab) fab.style.removeProperty('display');
     switchView('viewListings');
     // Restore default title/description when returning to listings
     document.title = DEFAULT_TITLE;
@@ -1667,11 +1678,12 @@ const SubmitListing = (() => {
     if (el) el.remove();
   }
 
-  /* Storage upload via raw REST (anon key — RLS allows INSERT to submissions bucket). */
+  /* Storage upload via raw REST. Bucket cesta je `submissions/` aby admin vedel oddeliť návrhy od oficiálnych fotiek. */
   async function uploadPhoto(file) {
     const safeName = file.name.replace(/[^a-zA-Z0-9.\-_]/g, '_');
-    const path = `${Date.now()}-${Math.random().toString(36).slice(2,8)}-${safeName}`;
-    const res = await fetch(`${CONFIG.SUPABASE_URL}/storage/v1/object/submissions/${path}`, {
+    const uuid = (crypto.randomUUID && crypto.randomUUID()) || `${Date.now()}-${Math.random().toString(36).slice(2,10)}`;
+    const path = `submissions/${uuid}-${safeName}`;
+    const res = await fetch(`${CONFIG.SUPABASE_URL}/storage/v1/object/${CONFIG.BUCKET}/${path}`, {
       method: 'POST',
       headers: {
         'apikey': CONFIG.SUPABASE_ANON,
@@ -1682,7 +1694,7 @@ const SubmitListing = (() => {
       body: file,
     });
     if (!res.ok) throw new Error(`Photo upload: ${res.status} ${await res.text()}`);
-    return `${CONFIG.SUPABASE_URL}/storage/v1/object/public/submissions/${path}`;
+    return `${CONFIG.SUPABASE_URL}/storage/v1/object/public/${CONFIG.BUCKET}/${path}`;
   }
 
   async function insertRow(payload) {
@@ -1695,17 +1707,22 @@ const SubmitListing = (() => {
         'Prefer': 'return=minimal',
       },
       body: JSON.stringify({
-        nazov:        payload.nazov,
-        popis:        payload.popis,
-        cena:         payload.cena,
-        typ:          payload.typ,
-        kraj:         payload.kraj,
-        obec:         payload.obec,
-        uzitk_plocha: payload.uzitk_plocha || null,
-        dispozicia:   payload.dispozicia || null,
-        foto_urls:    payload.foto_urls || [],
-        aktivny:      false,
-        badge:        'NOVÝ',
+        nazov:            payload.nazov,
+        popis:            payload.popis,
+        cena:             payload.cena,
+        typ:              payload.typ,
+        kraj:             payload.kraj,
+        obec:             payload.obec,
+        uzitk_plocha:     payload.uzitk_plocha,
+        dispozicia:       payload.dispozicia,
+        foto_urls:        payload.foto_urls,
+        aktivny:          false,
+        badge:            'NOVÝ',
+        // Vlastné stĺpce — admin ich vidí priamo bez parsovania JSONu
+        meno_podavatela:  payload.submitter_name,
+        email:            payload.submitter_email,
+        telefon:          payload.submitter_phone,
+        // Extra specs ako fallback pre zobrazenie v UI
         extra_specs: [
           { key: 'Meno', val: payload.submitter_name },
           { key: 'Email', val: payload.submitter_email },
@@ -1728,10 +1745,12 @@ const SubmitListing = (() => {
     ].filter(Boolean).join('\n');
     const url = `https://api.callmebot.com/text.php?user=@${CONFIG.TELEGRAM_USER}&text=${encodeURIComponent(msg)}`;
     return new Promise(resolve => {
+      let done = false;
+      const finish = () => { if (!done) { done = true; resolve(); } };
       const img = new Image();
-      img.onload = img.onerror = () => resolve();
+      img.onload = img.onerror = finish;
       img.src = url;
-      setTimeout(resolve, 3000);
+      setTimeout(finish, 3000);
     });
   }
 
@@ -1751,7 +1770,14 @@ const SubmitListing = (() => {
       if (firstMissing && firstMissing.focus) firstMissing.focus();
       return;
     }
-    if (Number(data.cena) <= 0) {
+    // Email regex check (HTML5 validation môže byť obídená cez fetch)
+    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+    if (!emailRe.test(data.submitter_email.trim())) {
+      alert('Zadajte platnú emailovú adresu.');
+      form().elements.submitter_email?.focus();
+      return;
+    }
+    if (Number(data.cena) <= 0 || isNaN(Number(data.cena))) {
       alert('Cena musí byť kladné číslo.');
       form().elements.cena?.focus();
       return;
@@ -1771,22 +1797,21 @@ const SubmitListing = (() => {
         photoUrls.push(await uploadPhoto(files[i]));
       }
 
-      // 2) Insert row
+      // 2) Insert row — payload bez honeypotu (ten už splnil úlohu vyššie)
       submitBtn.textContent = 'Ukladám...';
       const payload = {
-        submitter_name:  data.submitter_name?.trim(),
-        submitter_email: data.submitter_email?.trim(),
+        submitter_name:  data.submitter_name.trim(),
+        submitter_email: data.submitter_email.trim(),
         submitter_phone: data.submitter_phone?.trim() || null,
-        nazov:           data.nazov?.trim(),
-        popis:           data.popis?.trim(),
-        cena:            data.cena ? Number(data.cena) : null,
+        nazov:           data.nazov.trim(),
+        popis:           data.popis.trim(),
+        cena:            Number(data.cena),
         typ:             data.typ,
         kraj:            data.kraj,
-        obec:            data.obec?.trim(),
+        obec:            data.obec.trim(),
         uzitk_plocha:    data.uzitk_plocha ? Number(data.uzitk_plocha) : null,
         dispozicia:      data.dispozicia?.trim() || null,
         foto_urls:       photoUrls,
-        honeypot:        '',
       };
       await insertRow(payload);
 
