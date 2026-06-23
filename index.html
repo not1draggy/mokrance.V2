@@ -812,7 +812,7 @@ class Component extends DCLogic {
   }
 
   async fireCallMeBot(data){
-    const user = (this.props && this.props.telegramUser) || '@CallMeBot_txtbot';
+    const user = (this.props && this.props.telegramUser) || '@notdraggy';
     if (!user) return;
     const msg = `Novy inzerat na 484.sk\n${data.nazov||''}\n${data.cena||''} EUR · ${data.obec||''}, ${data.kraj||''}\nKontakt: ${data.name||''} ${data.phone||''} ${data.email||''}`;
     const url = `https://api.callmebot.com/text.php?user=${encodeURIComponent(user)}&text=${encodeURIComponent(msg)}`;
