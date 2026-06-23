@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  html { scroll-behavior: smooth; } body { margin: 0; }
+  @keyframes f484up { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes f484toast { from { opacity:0; transform:transl(-50%,12px); } to { opacity:1; transform:translateY(0); } }
+  @media (max-width: 720px) { .adm-row { flex-direction: column !important; align-items: stretch !important; } .adm-aside { border-left: none !important; border-top: 1px solid #eceeec !important; align-items: flex-start !important; } }
+</style>
+</helmet>
+
+<div data-screen-label="Admin" style="font-family:'DM Sans',-apple-system,sans-serif;background:#f5f6f5;color:#1a1c1a;-webkit-font-smoothing:antialiased;min-height:100vh">
+
+  <!-- HEADER -->
+  <header style="position:sticky;top:0;z-index:200;background:rgba(255,255,255,0.92);backdrop-filter:blur(18px) saturate(180%);border-bottom:1px solid #e8eae8">
+    <div style="max-width:1080px;margin:0 auto;padding:0 24px;height:60px;display:flex;align-items:center;justify-content:space-between;gap:14px">
+      <div style="display:flex;align-items:center;gap:9px;color:#1a6b3c">
+        <span style="width:30px;height:30px;background:#1a6b3c;border-radius:4px;display:flex;align-items:center;justify-content:center">
+          <svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" style="width:15px;height:15px"><path d="M2 6.5L7 2l5 4.5V12H9V9H5v3H2V6.5z"></path></svg>
+        </span>
+        <span style="font-family:'DM Mono',monospace;font-size:17px;font-weight:500;letter-spacing:-0.03em">484.sk</span>
+        <span style="font-family:'DM Mono',monospace;font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.1em;color:#6e7870;background:#eff0ef;border:1px solid #e0e2e0;padding:3px 8px;border-radius:5px;margin-left:4px">Admin</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <sc-if value="{{ authed }}" hint-placeholder-val="{{ false }}">
+          <button onClick="{{ signOut }}" style="display:inline-flex;align-items:center;gap:6px;background:none;font-size:13px;font-weight:600;color:#6e7870;border:1.5px solid #d8dcd9;padding:8px 14px;border-radius:7px;cursor:pointer;font-family:inherit" style-hover="background:#f3f4f3">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"></path></svg>
+            Odhlásiť
+          </button>
+        </sc-if>
+        <button onClick="{{ openFb }}" style="display:inline-flex;align-items:center;gap:6px;background:none;font-size:13px;font-weight:600;color:#1a6b3c;border:1.5px solid #c2ddd0;padding:8px 14px;border-radius:7px;cursor:pointer;font-family:inherit" style-hover="background:#f0f7f3">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+          Spätná väzba
+        </button>
+        <a href="index.html" style="display:inline-flex;align-items:center;gap:6px;text-decoration:none;font-size:13px;font-weight:500;color:#4a524d;border:1.5px solid #d8dcd9;padding:8px 14px;border-radius:7px">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M21 3l-9 9M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"></path></svg>
+          Zobraziť portál
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <sc-if value="{{ notAuthed }}" hint-placeholder-val="{{ true }}">
+    <div style="max-width:420px;margin:56px auto;padding:0 24px;animation:f484up 0.4s ease both">
+      <form ref="{{ setLoginForm }}" onSubmit="{{ doLogin }}" style="background:#fff;border:1px solid #e8eae8;border-radius:14px;padding:30px 28px;box-shadow:0 2px 14px rgba(20,40,28,0.07)">
+        <div style="width:42px;height:42px;border-radius:11px;background:#f0f7f3;border:1px solid #d6e9df;display:flex;align-items:center;justify-content:center;color:#1a6b3c;margin-bottom:16px">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+        </div>
+        <div style="font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:#1a6b3c;margin-bottom:7px">Admin prístup</div>
+        <h1 style="font-size:24px;font-weight:800;letter-spacing:-0.03em;margin:0 0 20px;color:#16181a">Prihlásenie</h1>
+        <label style="display:flex;flex-direction:column;gap:5px;margin-bottom:12px"><span style="font-size:12px;font-weight:600;color:#4a524d">Email</span><input name="email" type="email" required autocomplete="username" style="border:1.5px solid #d8dcd9;border-radius:8px;padding:11px 13px;font-size:14px;font-family:inherit;outline:none;width:100%;box-sizing:border-box" style-focus="border-color:#1a6b3c;box-shadow:0 0 0 3px rgba(26,107,60,0.12)"></label>
+        <label style="display:flex;flex-direction:column;gap:5px;margin-bottom:6px"><span style="font-size:12px;font-weight:600;color:#4a524d">Heslo</span><input name="password" type="password" required autocomplete="current-password" style="border:1.5px solid #d8dcd9;border-radius:8px;padding:11px 13px;font-size:14px;font-family:inherit;outline:none;width:100%;box-sizing:border-box" style-focus="border-color:#1a6b3c;box-shadow:0 0 0 3px rgba(26,107,60,0.12)"></label>
+        <sc-if value="{{ authError }}" hint-placeholder-val="{{ false }}">
+          <div style="font-size:12.5px;color:#b3261e;background:#fdecec;border:1px solid #f3b5b5;border-radius:8px;padding:9px 12px;margin:10px 0 2px;line-height:1.4">{{ authError }}</div>
+        </sc-if>
+        <button type="submit" style="margin-top:16px;width:100%;padding:13px;font-size:15px;font-weight:700;border-radius:9px;border:none;background:#1a6b3c;color:#fff;cursor:pointer;font-family:inherit">{{ loginLabel }}</button>
+        <p style="font-size:11.5px;color:#9da89f;line-height:1.5;margin:16px 0 0;text-align:center">Prihlásenie cez Supabase Auth. Účet vytvoríš v Supabase → Authentication → Add user.</p>
+      </form>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ authed }}" hint-placeholder-val="{{ false }}">
+  <main style="max-width:1080px;margin:0 auto;padding:28px 24px 60px;animation:f484up 0.4s ease both">
+
+    <!-- title + callmebot note -->
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:14px;margin-bottom:22px">
+      <div>
+        <div style="font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:#1a6b3c;margin-bottom:8px">Správa inzerátov</div>
+        <h1 style="font-size:clamp(24px,3vw,32px);font-weight:800;letter-spacing:-0.03em;margin:0;color:#16181a">Schvaľovanie</h1>
+      </div>
+      <div style="display:inline-flex;align-items:center;gap:8px;background:#f0f7f3;border:1px solid #d6e9df;border-radius:9px;padding:9px 13px;font-size:12px;color:#1a6b3c;line-height:1.4;max-width:24em">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.63 3.44 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6.11 6.11l.98-.98a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+        <span>Nové inzeráty ti chodia na Telegram cez CallMeBot.</span>
+      </div>
+    </div>
+
+    <!-- stats -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:22px">
+      <sc-for list="{{ statCards }}" as="s" hint-placeholder-count="4">
+        <div style="background:#fff;border:1px solid #e8eae8;border-radius:12px;padding:16px 18px">
+          <div style="font-size:28px;font-weight:800;letter-spacing:-0.03em;line-height:1;color:{{ s.color }}">{{ s.value }}</div>
+          <div style="font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:#6e7870;margin-top:8px">{{ s.label }}</div>
+        </div>
+      </sc-for>
+    </div>
+
+    <!-- tabs -->
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px">
+      <sc-for list="{{ tabs }}" as="tb" hint-placeholder-count="4">
+        <button onClick="{{ tb.onClick }}" style="{{ tb.style }}">{{ tb.label }} <span style="opacity:0.7">· {{ tb.count }}</span></button>
+      </sc-for>
+    </div>
+
+    <!-- list -->
+    <sc-if value="{{ hasRows }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <sc-for list="{{ rows }}" as="r" hint-placeholder-count="4">
+          <div style="background:#fff;border:1px solid #e8eae8;border-radius:12px;overflow:hidden">
+            <div class="adm-row" style="display:flex;align-items:stretch">
+              <div style="width:128px;min-width:128px;background:#eff0ef;overflow:hidden">
+                <img ref="{{ setImg }}" data-src="{{ r.img }}" alt="{{ r.nazov }}" style="width:100%;height:100%;object-fit:cover;display:block;min-height:118px">
+              </div>
+              <div style="flex:1;padding:14px 18px;display:flex;flex-direction:column;gap:8px;min-width:0">
+                <div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap">
+                  <span style="{{ r.badgeStyle }}">{{ r.statusLabel }}</span>
+                  <span style="font-family:'DM Mono',monospace;font-size:11px;color:#9da89f">{{ r.date }}</span>
+                </div>
+                <div style="font-size:15.5px;font-weight:700;letter-spacing:-0.01em;color:#16181a">{{ r.nazov }}</div>
+                <div style="display:flex;gap:6px;flex-wrap:wrap">
+                  <span style="font-family:'DM Mono',monospace;font-size:11px;color:#1a6b3c;background:#f0f7f3;border:1px solid #d6e9df;padding:2px 8px;border-radius:5px">{{ r.typeLabel }}</span>
+                  <span style="font-family:'DM Mono',monospace;font-size:11px;color:#4a524d;background:#f3f4f3;border:1px solid #e0e2e0;padding:2px 8px;border-radius:5px">{{ r.location }}</span>
+                  <span style="font-family:'DM Mono',monospace;font-size:11px;color:#4a524d;background:#f3f4f3;border:1px solid #e0e2e0;padding:2px 8px;border-radius:5px">{{ r.areaChip }}</span>
+                </div>
+                <div style="font-family:'DM Mono',monospace;font-size:11.5px;color:#6e7870;display:flex;gap:14px;flex-wrap:wrap">
+                  <span>👤 {{ r.name }}</span><span>✉ {{ r.email }}</span><span>☎ {{ r.phone }}</span>
+                </div>
+                <sc-if value="{{ r.expanded }}" hint-placeholder-val="{{ false }}">
+                  <p style="font-size:13px;line-height:1.6;color:#4a524d;margin:4px 0 0;background:#fafbfa;border:1px solid #eceeec;border-radius:8px;padding:10px 12px">{{ r.popis }}</p>
+                </sc-if>
+                <button onClick="{{ r.toggle }}" style="align-self:flex-start;background:none;border:none;cursor:pointer;font-family:'DM Mono',monospace;font-size:11.5px;color:#1a6b3c;padding:0;margin-top:2px">{{ r.toggleLabel }}</button>
+              </div>
+              <div class="adm-aside" style="padding:14px 18px;display:flex;flex-direction:column;align-items:flex-end;justify-content:space-between;gap:12px;border-left:1px solid #eceeec;min-width:184px">
+                <div style="text-align:right">
+                  <div style="font-size:21px;font-weight:800;color:#1a6b3c;letter-spacing:-0.03em;line-height:1">{{ r.price }}</div>
+                </div>
+                <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end">
+                  <sc-for list="{{ r.actions }}" as="a" hint-placeholder-count="2">
+                    <button onClick="{{ a.onClick }}" style="{{ a.style }}">{{ a.label }}</button>
+                  </sc-for>
+                </div>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+    <sc-if value="{{ empty }}" hint-placeholder-val="{{ false }}">
+      <div style="text-align:center;padding:64px 24px;background:#fff;border:1px solid #e8eae8;border-radius:12px">
+        <div style="font-size:32px;margin-bottom:12px">📭</div>
+        <div style="font-size:16px;font-weight:700;color:#16181a;margin-bottom:5px">Žiadne inzeráty</div>
+        <p style="font-size:13px;color:#6e7870;margin:0">V tejto kategórii momentálne nič nie je.</p>
+      </div>
+    </sc-if>
+  </main>
+  </sc-if>
+
+  <!-- EDIT MODAL -->
+  <sc-if value="{{ editOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;z-index:9000;background:rgba(10,16,12,0.55);backdrop-filter:blur(6px);display:flex;align-items:flex-start;justify-content:center;padding:24px 16px;overflow-y:auto">
+      <div onClick="{{ stop }}" style="width:min(580px,100%);background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,0.3);margin:auto">
+        <div style="padding:18px 22px;background:linear-gradient(135deg,#1a6b3c,#145530);color:#fff;display:flex;align-items:center;justify-content:space-between;gap:16px">
+          <div style="font-size:16px;font-weight:700">Upraviť inzerát</div>
+          <button onClick="{{ cancelEdit }}" style="background:rgba(255,255,255,0.15);border:none;color:#fff;width:30px;height:30px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18M6 6l12 12"></path></svg></button>
+        </div>
+        <form ref="{{ setEditForm }}" style="padding:20px 22px;display:flex;flex-direction:column;gap:13px;max-height:64vh;overflow-y:auto">
+          <label style="display:flex;flex-direction:column;gap:5px"><span style="font-size:12px;font-weight:600;color:#4a524d">Názov</span><input name="nazov" defaultValue="{{ edit.nazov }}" style="border:1.5px solid #d8dcd9;border-radius:7px;padding:9px 11px;font-size:14px;font-family:inherit;outline:none;width:100%;box-sizing:border-box" style-focus="border-color:#1a6b3c;box-shadow:0 0 0 3px rgba(26,107,60,0.12)"></label>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <label style="display:flex;flex-direction:column;gap:5px"><span style="font-size:12px;font-weight:600;color:#4a524d">Typ</span>
+              <select name="typ" defaultValue="{{ edit.typ }}" style="border:1.5px solid #d8dcd9;border-radius:7px;padding:9px 11px;font-size:14px;font-family:inherit;outline:none;width:100%;box-sizing:border-box;background:#fff" style-focus="border-color:#1a6b3c;box-shadow:0 0 0 3px rgba(26,107,60,0.12)">
+                <sc-for list="{{ editTypes }}" as="o" hint-placeholder-count="4"><option value="{{ o.value }}">{{ o.label }}</option></sc-for>
+              </select>
+            </label>
+            <label style="display:flex;flex-direction:column;gap:5px"><span style="font-size:12px;font-weight:600;color:#4a524d">Cena (€)</span><input type="number" min="0" name="price" defaultValue="{{ edit.price }}" style="border:1.5px solid #d8dcd9;border-radius:7px;padding:9px 11px;font-size:14px;font-family:inherit;outline:none;width:100%;box-sizing:border-box" style-focus="border-color:#1a6b3c;box-shadow:0 0 0 3px rgba(26,107,60,0.12)"></label>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <label style="display:flex;flex-direction:column;gap:5px"><span style="font-size:12px;font-weight:600;color:#4a524d">Obec</span><input name="obec" defaultValue="{{ edit.obec }}" style="border:1.5px solid #d8dcd9;border-radius:7px;padding:9px 11px;font-size:14px;font-family:inherit;outline:none;width:100%;box-sizing:border-box" style-focus="border-color:#1a6b3c;box-shadow:0 0 0 3px rgba(26,107,60,0.12)"></label>
+            <label style="display:flex;flex-direction:column;gap:5px"><span style="font-size:12px;font-weight:600;color:#4a524d">Kraj</span>
+              <select name="kraj" defaultValue="{{ edit.kraj }}" style="border:1.5px solid #d8dcd9;border-radius:7px;padding:9px 11px;font-size:14px;font-family:inherit;outline:none;width:100%;box-sizing:border-box;background:#fff" style-focus="border-color:#1a6b3c;box-shadow:0 0 0 3px rgba(26,107,60,0.12)">
+                <sc-for list="{{ editRegions }}" as="r" hint-placeholder-count="8"><option value="{{ r }}">{{ r }}</option></sc-for>
+              </select>
+            </label>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <label style="display:flex;flex-direction:column;gap:5px"><span style="font-size:12px;font-weight:600;color:#4a524d">Úžitková plocha (m²)</span><input type="number" min="0" name="area" defaultValue="{{ edit.area }}" style="border:1.5px solid #d8dcd9;border-radius:7px;padding:9px 11px;font-size:14px;font-family:inherit;outline:none;width:100%;box-sizing:border-box" style-focus="border-color:#1a6b3c;box-shadow:0 0 0 3px rgba(26,107,60,0.12)"></label>
+            <label style="display:flex;flex-direction:column;gap:5px"><span style="font-size:12px;font-weight:600;color:#4a524d">Počet izieb</span><input type="number" min="0" name="beds" defaultValue="{{ edit.beds }}" style="border:1.5px solid #d8dcd9;border-radius:7px;padding:9px 11px;font-size:14px;font-family:inherit;outline:none;width:100%;box-sizing:border-box" style-focus="border-color:#1a6b3c;box-shadow:0 0 0 3px rgba(26,107,60,0.12)"></label>
+          </div>
+          <label style="display:flex;flex-direction:column;gap:5px"><span style="font-size:12px;font-weight:600;color:#4a524d">Popis</span><textarea name="popis" defaultValue="{{ edit.popis }}" style="border:1.5px solid #d8dcd9;border-radius:7px;padding:9px 11px;font-size:14px;font-family:inherit;outline:none;width:100%;box-sizing:border-box;resize:vertical;min-height:88px;line-height:1.5" style-focus="border-color:#1a6b3c;box-shadow:0 0 0 3px rgba(26,107,60,0.12)"></textarea></label>
+        </form>
+        <div style="padding:14px 22px;border-top:1px solid #eceeec;background:#fafbfa;display:flex;gap:10px">
+          <button onClick="{{ cancelEdit }}" style="flex:1;padding:12px;font-size:14px;font-weight:700;border-radius:8px;border:1.5px solid #d8dcd9;background:#fff;color:#6e7870;cursor:pointer;font-family:inherit">Zrušiť</button>
+          <button onClick="{{ saveEdit }}" style="flex:1;padding:12px;font-size:14px;font-weight:700;border-radius:8px;border:none;background:#1a6b3c;color:#fff;cursor:pointer;font-family:inherit">Uložiť zmeny</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- FEEDBACK MODAL -->
+  <sc-if value="{{ fbOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeFb }}" style="position:fixed;inset:0;z-index:9100;background:rgba(10,16,12,0.55);backdrop-filter:blur(6px);display:flex;align-items:flex-start;justify-content:center;padding:24px 16px;overflow-y:auto">
+      <div onClick="{{ stop }}" style="width:min(500px,100%);background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,0.3);margin:auto">
+        <div style="padding:18px 22px;background:linear-gradient(135deg,#1a6b3c,#145530);color:#fff;display:flex;align-items:flex-start;justify-content:space-between;gap:16px">
+          <div>
+            <div style="font-size:16px;font-weight:700">Spätná väzba pre vývojára</div>
+            <div style="font-family:'DM Mono',monospace;font-size:11px;color:rgba(255,255,255,0.74);margin-top:3px">Odoslané priamo na Telegram (CallMeBot)</div>
+          </div>
+          <button onClick="{{ closeFb }}" style="background:rgba(255,255,255,0.15);border:none;color:#fff;width:30px;height:30px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18M6 6l12 12"></path></svg></button>
+        </div>
+        <form ref="{{ setFbForm }}" style="padding:20px 22px;display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;flex-direction:column;gap:7px">
+            <span style="font-family:'DM Mono',monospace;font-size:9.5px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:#9da89f">Typ správy</span>
+            <div style="display:flex;gap:8px">
+              <sc-for list="{{ fbKindButtons }}" as="k" hint-placeholder-count="2"><button type="button" onClick="{{ k.onClick }}" style="{{ k.style }}">{{ k.label }}</button></sc-for>
+            </div>
+          </div>
+          <label style="display:flex;flex-direction:column;gap:5px"><span style="font-size:12px;font-weight:600;color:#4a524d">Správa *</span><textarea name="sprava" required maxlength="2000" placeholder="Opíšte chybu alebo nápad na vylepšenie…" style="border:1.5px solid #d8dcd9;border-radius:7px;padding:10px 12px;font-size:14px;font-family:inherit;outline:none;width:100%;box-sizing:border-box;resize:vertical;min-height:110px;line-height:1.55" style-focus="border-color:#1a6b3c;box-shadow:0 0 0 3px rgba(26,107,60,0.12)"></textarea></label>
+        </form>
+        <div style="padding:14px 22px;border-top:1px solid #eceeec;background:#fafbfa;display:flex;gap:10px">
+          <button onClick="{{ closeFb }}" style="flex:1;padding:12px;font-size:14px;font-weight:700;border-radius:8px;border:1.5px solid #d8dcd9;background:#fff;color:#6e7870;cursor:pointer;font-family:inherit">Zrušiť</button>
+          <button onClick="{{ sendFb }}" style="flex:1;padding:12px;font-size:14px;font-weight:700;border-radius:8px;border:none;background:#1a6b3c;color:#fff;cursor:pointer;font-family:inherit">{{ fbSendLabel }}</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- toast -->
+  <sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:#16181a;color:#fff;padding:11px 20px;border-radius:22px;font-size:13.5px;font-weight:500;z-index:9999;box-shadow:0 8px 24px rgba(0,0,0,0.2);display:flex;align-items:center;gap:9px;animation:f484toast 0.25s ease both">
+      <span style="{{ toastDot }}"></span>{{ toast }}
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1080,&quot;height&quot;:1200},&quot;telegramUser&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;@CallMeBot_txtbot&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;supabaseUrl&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;https://vrzztcgwmmzegkiexgpl.supabase.co&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;supabaseAnonKey&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  state = { tab: 'pending', toast: null, expanded: {}, listings: null, edit: null, fbOpen: false, fbKind: 'bug', fbSending: false, authed: false, authError: null, authLoading: false };
+
+  SEED = [
+    { id:1, img:'dom1/FD1.png', typ:'dom', nazov:'Moderný rodinný dom', obec:'Košice', kraj:'Košický', area:112, beds:4, price:189000, popis:'Novostavba triedy A0 s priestrannou terasou a oploteným pozemkom. Garáž, tepelné čerpadlo, rekuperácia. Pripravené na okamžité nasťahovanie.', name:'Ján Novák', email:'jan.novak@email.sk', phone:'0905 111 222', date:'pred 12 min', status:'pending' },
+    { id:2, img:'dom2/FD2.png', typ:'dom', nazov:'Novostavba s terasou', obec:'Prešov', kraj:'Prešovský', area:128, beds:5, price:205000, popis:'Veľkometrážny 5-izbový dom s pergolou a vzrastlou záhradou. Podlahové kúrenie, fotovoltika 8 kWp.', name:'Mária Kováčová', email:'m.kovacova@email.sk', phone:'0918 333 444', date:'pred 1 h', status:'pending' },
+    { id:3, img:'dom1/FD3.png', typ:'byt', nazov:'3-izbový byt, centrum', obec:'Košice', kraj:'Košický', area:74, beds:3, price:132000, popis:'Kompletne zrekonštruovaný byt v tehlovom dome, 2. poschodie s výťahom. Nová kuchyňa, klimatizácia.', name:'Peter Horváth', email:'phorvath@email.sk', phone:'0903 555 666', date:'pred 3 h', status:'pending' },
+    { id:4, img:'dom1/FD1.png', typ:'pozemok', nazov:'Stavebný pozemok 850 m²', obec:'Trnava', kraj:'Trnavský', area:850, beds:null, price:89000, popis:'Rovinatý stavebný pozemok so všetkými IS na hranici. Vhodný na rodinný dom alebo dvojdom.', name:'Eva Tóthová', email:'eva.t@email.sk', phone:'0915 777 888', date:'pred 5 h', status:'pending' },
+    { id:5, img:'dom1/FD5.png', typ:'dom', nazov:'Rodinný dom so záhradou', obec:'Nitra', kraj:'Nitriansky', area:104, beds:4, price:178000, popis:'Útulný dom v tichej lokalite, pripravený na bývanie. Krb, zimná záhrada.', name:'Tomáš Baláž', email:'t.balaz@email.sk', phone:'0905 999 000', date:'včera', status:'approved' },
+    { id:6, img:'dom2/FD6.png', typ:'dom', nazov:'Veľký dom, Žilina', obec:'Žilina', kraj:'Žilinský', area:142, beds:5, price:232000, popis:'Reprezentatívna novostavba s dvojgarážou a bazénom.', name:'Lucia Mrázová', email:'l.mraz@email.sk', phone:'0918 222 111', date:'včera', status:'approved' },
+  ];
+
+  TYPES = { dom:'Rodinný dom', byt:'Byt', pozemok:'Pozemok', kancelaria:'Kancelária' };
+  REGIONS = ['Bratislavský','Trnavský','Trenčiansky','Nitriansky','Žilinský','Banskobystrický','Prešovský','Košický'];
+  STATUS = {
+    pending:  { label:'Čaká na schválenie', bg:'#fff7e6', bd:'#f5d98a', fg:'#9a6b00' },
+    approved: { label:'Zverejnené', bg:'#f0f7f3', bd:'#c2ddd0', fg:'#1a6b3c' },
+    rejected: { label:'Zamietnuté', bg:'#fdecec', bd:'#f3b5b5', fg:'#b3261e' },
+  };
+
+  get data(){ return this.state.listings || this.SEED; }
+  fmt(n){ return String(n).replace(/\B(?=(\d{3})+(?!\d))/g,' ') + ' €'; }
+
+  SB_URL = 'https://vrzztcgwmmzegkiexgpl.supabase.co';
+  SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZyenp0Y2d3bW16ZWdraWV4Z3BsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYyNTA5NjUsImV4cCI6MjA5MTgyNjk2NX0.tHAGNJdnjW1O7fH8jbHVzI52il9HFhOuDMxzVXj6TFE';
+  SUPA(){ return { url:(this.props&&this.props.supabaseUrl)||this.SB_URL, key:(this.props&&this.props.supabaseAnonKey)||this.SB_KEY }; }
+  bearer(){ return this.authToken || this.SUPA().key; }
+  hdr(){ return { apikey:this.SUPA().key, Authorization:'Bearer '+this.bearer() }; }
+  setLoginForm = (el) => { this.loginForm = el; };
+  doLogin = (e) => { if(e&&e.preventDefault) e.preventDefault(); const f=this.loginForm; if(!f) return; if(!f.checkValidity()){ f.reportValidity(); return; } const d={}; new FormData(f).forEach((v,k)=>{d[k]=v;}); this.signIn(d.email,d.password); };
+  async signIn(email,password){ const {url,key}=this.SUPA(); this.setState({authLoading:true,authError:null}); try{ const r=await fetch(`${url}/auth/v1/token?grant_type=password`,{method:'POST',headers:{apikey:key,'Content-Type':'application/json'},body:JSON.stringify({email,password})}); const j=await r.json(); if(j.access_token){ this.authToken=j.access_token; try{localStorage.setItem('admin484_token',j.access_token);}catch(e){} this.setState({authed:true,authLoading:false,authError:null}); this.loadAdmin(); } else { this.setState({authError:(j.error_description||j.msg||j.error||'Prihlásenie zlyhalo'),authLoading:false}); } }catch(e){ this.setState({authError:'Chyba pripojenia',authLoading:false}); } }
+  signOut = () => { this.authToken=null; try{localStorage.removeItem('admin484_token');}catch(e){} this.setState({authed:false, listings:null}); };
+  rel(ts){ if(!ts) return ''; try{ const d=new Date(ts); const diff=(Date.now()-d.getTime())/1000; if(diff<3600) return 'pred '+Math.max(1,Math.round(diff/60))+' min'; if(diff<86400) return 'pred '+Math.round(diff/3600)+' h'; return d.toLocaleDateString('sk-SK'); }catch(e){ return ''; } }
+  mapRow(x,i){ const imgs=['dom1/FD1.png','dom2/FD2.png','dom1/FD3.png','dom2/FD4.png','dom1/FD5.png','dom2/FD6.png']; const beds=x.dispozicia?(parseInt(x.dispozicia,10)||null):null; return { id:x.id, img:(x.photos&&x.photos.length?x.photos[0]:imgs[i%imgs.length]), typ:x.typ, nazov:x.nazov, obec:x.obec, kraj:x.kraj, area:(x.plocha!=null?Number(x.plocha):null), beds, price:Number(x.cena)||0, popis:x.popis, name:x.submitter_name||'—', email:x.submitter_email||'—', phone:x.submitter_phone||'—', date:this.rel(x.created_at), status:x.status||'pending', dispozicia:x.dispozicia }; }
+  async loadAdmin(){ const {url}=this.SUPA(); try{ const r=await fetch(`${url}/rest/v1/submitted_listings?order=created_at.desc`,{headers:this.hdr()}); if(r.status===401||r.status===403){ this.signOut(); this.flash('Prihlásenie vypršalo, prihláste sa znova','no'); return; } if(!r.ok) return; const rows=await r.json(); if(Array.isArray(rows)) this.setState({ listings: rows.map((x,i)=>this.mapRow(x,i)) }); }catch(e){} }
+  patch(id,fields){ const {url}=this.SUPA(); try{ fetch(`${url}/rest/v1/submitted_listings?id=eq.${encodeURIComponent(id)}`,{method:'PATCH',headers:{...this.hdr(),'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify(fields)}); }catch(e){} }
+  componentDidMount(){ try{ const tok=localStorage.getItem('admin484_token'); if(tok){ this.authToken=tok; this.setState({authed:true}); this.loadAdmin(); } }catch(e){} }
+
+  setTab = (t) => this.setState({ tab: t });
+  toggle = (id) => this.setState(s => ({ expanded: { ...s.expanded, [id]: !s.expanded[id] } }));
+  flash(msg, kind){ this.setState({ toast: msg, toastKind: kind }); clearTimeout(this._tt); this._tt = setTimeout(()=>this.setState({ toast:null }), 2600); }
+  setStatus(id, status, msg, kind){
+    const next = this.data.map(L => L.id===id ? { ...L, status } : L);
+    this.setState({ listings: next });
+    this.patch(id, { status });
+    this.flash(msg, kind);
+  }
+  approve = (id) => this.setStatus(id,'approved','Inzerát zverejnený','ok');
+  reject  = (id) => this.setStatus(id,'rejected','Inzerát zamietnutý','no');
+  restore = (id) => this.setStatus(id,'pending','Vrátené na schválenie','ok');
+  remove = (id) => { if(!window.confirm('Naozaj natrvalo vymazať tento inzerát?')) return; const next=this.data.filter(L=>L.id!==id); this.setState({ listings: next }); this.del(id); this.flash('Inzerát vymazaný','no'); };
+  del(id){ const {url}=this.SUPA(); try{ fetch(`${url}/rest/v1/submitted_listings?id=eq.${encodeURIComponent(id)}`,{method:'DELETE',headers:this.hdr()}); }catch(e){} }
+
+  openFb = () => this.setState({ fbOpen:true, fbKind:'bug' });
+  closeFb = () => this.setState({ fbOpen:false });
+  setFbKind = (k) => this.setState({ fbKind:k });
+  setFbForm = (el) => { this.fbForm = el; };
+  sendFb = async () => {
+    const f = this.fbForm; if (!f) return;
+    if (!f.checkValidity()) { f.reportValidity(); return; }
+    const d = {}; new FormData(f).forEach((v,k)=>{ d[k]=v; });
+    const tag = this.state.fbKind==='bug' ? 'CHYBA' : 'VYLEPSENIE';
+    const msg = `⚙ 484.sk admin · ${tag}\n${d.sprava||''}`;
+    const user = (this.props && this.props.telegramUser) || '@notdraggy';
+    this.setState({ fbSending:true });
+    try { await fetch(`https://api.callmebot.com/text.php?user=${encodeURIComponent(user)}&text=${encodeURIComponent(msg)}`, { mode:'no-cors' }); } catch(e){}
+    this.setState({ fbOpen:false, fbSending:false });
+    this.flash('Správa odoslaná vývojárovi','ok');
+  };
+
+  openEdit = (L) => this.setState({ edit: {
+    ...L,
+    price: L.price == null ? '' : String(L.price),
+    area: L.area == null ? '' : String(L.area),
+    beds: L.beds == null ? '' : String(L.beds),
+  } });
+  cancelEdit = () => this.setState({ edit: null });
+  setEditField = (k,v) => this.setState(s => ({ edit: { ...s.edit, [k]: v } }));
+  setEditForm = (el) => { this.editForm = el; };
+  saveEdit = () => {
+    const e = this.state.edit, f = this.editForm; if (!e || !f) return;
+    const d = {}; new FormData(f).forEach((v,k) => { d[k] = v; });
+    const next = this.data.map(L => L.id === e.id ? {
+      ...L, nazov:d.nazov, typ:d.typ, price:Number(d.price)||0, obec:d.obec, kraj:d.kraj,
+      area: (d.area===''||d.area==null) ? null : Number(d.area),
+      beds: (d.beds===''||d.beds==null) ? null : Number(d.beds),
+      popis: d.popis,
+    } : L);
+    this.patch(e.id, { nazov:d.nazov, typ:d.typ, cena:Number(d.price)||0, obec:d.obec, kraj:d.kraj, popis:d.popis });
+    if (d.area!=='' && d.area!=null) this.patch(e.id, { plocha:Number(d.area) });
+    this.setState({ listings: next, edit: null });
+    this.flash('Inzerát upravený','ok');
+  };
+
+  renderVals(){
+    const data = this.data;
+    const counts = {
+      pending: data.filter(L=>L.status==='pending').length,
+      approved: data.filter(L=>L.status==='approved').length,
+      rejected: data.filter(L=>L.status==='rejected').length,
+      all: data.length,
+    };
+    const statCards = [
+      { value:counts.pending, label:'Čakajúce', color:'#9a6b00' },
+      { value:counts.approved, label:'Zverejnené', color:'#1a6b3c' },
+      { value:counts.rejected, label:'Zamietnuté', color:'#b3261e' },
+      { value:counts.all, label:'Spolu', color:'#16181a' },
+    ];
+
+    const tabDefs = [
+      { key:'pending', label:'Čakajúce', count:counts.pending },
+      { key:'approved', label:'Zverejnené', count:counts.approved },
+      { key:'rejected', label:'Zamietnuté', count:counts.rejected },
+      { key:'all', label:'Všetky', count:counts.all },
+    ];
+    const tabBase = 'padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;border:1.5px solid #e0e2e0;background:#fff;color:#4a524d;';
+    const tabOn = 'padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;border:1.5px solid #1a6b3c;background:#1a6b3c;color:#fff;';
+    const tabs = tabDefs.map(t => ({ label:t.label, count:t.count, style: this.state.tab===t.key?tabOn:tabBase, onClick: () => this.setTab(t.key) }));
+
+    const filtered = this.state.tab==='all' ? data : data.filter(L=>L.status===this.state.tab);
+
+    const aBase = 'padding:9px 15px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;border:1.5px solid transparent;white-space:nowrap;';
+    const aApprove = aBase + 'background:#1a6b3c;color:#fff;';
+    const aReject  = aBase + 'background:#fff;color:#b3261e;border-color:#f3b5b5;';
+    const aRestore = aBase + 'background:#fff;color:#4a524d;border-color:#d8dcd9;';
+    const aEdit = aBase + 'background:#fff;color:#1a6b3c;border-color:#c2ddd0;';
+    const aDelete = aBase + 'background:#fff;color:#b3261e;border-color:#f0d4d4;';
+
+    const rows = filtered.map(L => {
+      const st = this.STATUS[L.status];
+      let actions = [];
+      if (L.status==='pending') actions = [
+        { label:'✓ Schváliť', style:aApprove, onClick:()=>this.approve(L.id) },
+        { label:'Zamietnuť', style:aReject, onClick:()=>this.reject(L.id) },
+      ];
+      else if (L.status==='approved') actions = [
+        { label:'Zamietnuť', style:aReject, onClick:()=>this.reject(L.id) },
+      ];
+      else actions = [
+        { label:'Obnoviť', style:aRestore, onClick:()=>this.restore(L.id) },
+        { label:'✓ Schváliť', style:aApprove, onClick:()=>this.approve(L.id) },
+      ];
+      actions = [{ label:'✎ Upraviť', style:aEdit, onClick:()=>this.openEdit(L) }, ...actions];
+      actions = [...actions, { label:'🗑 Vymazať', style:aDelete, onClick:()=>this.remove(L.id) }];
+      const expanded = !!this.state.expanded[L.id];
+      return {
+        ...L,
+        typeLabel: this.TYPES[L.typ] || L.typ,
+        location: L.obec + ', ' + L.kraj,
+        areaChip: [ L.area ? L.area+' m²' : null, L.beds ? L.beds+'-izb.' : (L.dispozicia||null) ].filter(Boolean).join(' · ') || '—',
+        price: this.fmt(L.price),
+        statusLabel: st.label,
+        badgeStyle: `font-family:'DM Mono',monospace;font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.06em;padding:3px 9px;border-radius:5px;background:${st.bg};border:1px solid ${st.bd};color:${st.fg};`,
+        actions, expanded,
+        toggle: () => this.toggle(L.id),
+        toggleLabel: expanded ? 'Skryť popis ▲' : 'Zobraziť popis ▼',
+      };
+    });
+
+    const ed = (k) => (e) => this.setEditField(k, e.target.value);
+    const fbBase = 'flex:1;padding:10px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;border:1.5px solid #e0e2e0;background:#fff;color:#4a524d;';
+    const fbOn = 'flex:1;padding:10px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;border:1.5px solid #1a6b3c;background:#f0f7f3;color:#1a6b3c;';
+    const fbKindButtons = [{ key:'bug', label:'🐞 Chyba' }, { key:'improve', label:'💡 Vylepšenie' }].map(k => ({ label:k.label, style: this.state.fbKind===k.key ? fbOn : fbBase, onClick: () => this.setFbKind(k.key) }));
+    return {
+      statCards, tabs, rows,
+      hasRows: rows.length > 0, empty: rows.length === 0,
+      setImg: (el)=>{ if(!el) return; const s=el.getAttribute('data-src'); if(s && s.indexOf('{{')===-1) el.setAttribute('src', s); },
+      editOpen: !!this.state.edit, edit: this.state.edit || {}, stop:(e)=>e.stopPropagation(),
+      onEdNazov:ed('nazov'), onEdTyp:ed('typ'), onEdCena:ed('price'), onEdObec:ed('obec'), onEdKraj:ed('kraj'), onEdArea:ed('area'), onEdBeds:ed('beds'), onEdPopis:ed('popis'),
+      editTypes: Object.keys(this.TYPES).map(v=>({ value:v, label:this.TYPES[v] })),
+      editRegions: this.REGIONS, saveEdit:this.saveEdit, cancelEdit:this.cancelEdit, setEditForm:this.setEditForm,
+      toast: this.state.toast,
+      fbOpen: this.state.fbOpen, openFb: this.openFb, closeFb: this.closeFb, setFbForm: this.setFbForm, sendFb: this.sendFb, fbKindButtons, fbSendLabel: this.state.fbSending ? 'Odosielam…' : 'Odoslať',
+      authed: this.state.authed, notAuthed: !this.state.authed, doLogin: this.doLogin, setLoginForm: this.setLoginForm, signOut: this.signOut, authError: this.state.authError, loginLabel: this.state.authLoading ? 'Prihlasujem…' : 'Prihlásiť sa',
+      toastDot: 'width:8px;height:8px;border-radius:50%;display:inline-block;background:' + (this.state.toastKind==='no' ? '#f3b5b5' : '#6fcf97') + ';',
+    };
+  }
+}
+</script>
+</body>
+</html>
