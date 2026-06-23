@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  html { scroll-behavior: smooth; }
+  body { margin: 0; }
+  @keyframes f484up { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes f484pop { from { opacity: 0; transform: translateY(18px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+  @keyframes f484spin { to { transform: rotate(360deg); } }
+  @keyframes f484blink { 0%,80%,100% { opacity: 0.2; } 40% { opacity: 1; } }
+  @media (max-width: 760px) { .nav484-links { display: none !important; } .sv484 { left: 12px !important; right: 12px !important; } }
+  @media (max-width: 880px) { .browse484-grid { grid-template-columns: 1fr !important; } .browse484-rail { position: static !important; max-height: none !important; } }
+  @media (max-width: 820px) { .detail484-grid { grid-template-columns: 1fr !important; } }
+</style>
+</helmet>
+
+<div data-screen-label="484 Portal" style="font-family:'DM Sans',-apple-system,sans-serif;background:#ffffff;color:#1a1c1a;-webkit-font-smoothing:antialiased;min-height:100vh;overflow-x:hidden;display:flex;flex-direction:column">
+
+  <!-- HEADER -->
+  <header style="position:sticky;top:0;z-index:200;background:rgba(255,255,255,0.86);backdrop-filter:blur(18px) saturate(180%);border-bottom:1px solid #e8eae8;flex-shrink:0">
+    <div style="max-width:1180px;margin:0 auto;padding:0 24px;height:62px;display:flex;align-items:center;justify-content:space-between;gap:14px">
+      <button onClick="{{ goLanding }}" style="display:flex;align-items:center;gap:9px;background:none;border:none;cursor:pointer;color:#1a6b3c;flex-shrink:0;padding:0">
+        <span style="width:30px;height:30px;background:#1a6b3c;border-radius:4px;display:flex;align-items:center;justify-content:center">
+          <svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" style="width:15px;height:15px"><path d="M2 6.5L7 2l5 4.5V12H9V9H5v3H2V6.5z"></path></svg>
+        </span>
+        <span style="font-family:'DM Mono',monospace;font-size:18px;font-weight:500;letter-spacing:-0.03em">484.sk</span>
+      </button>
+      <nav class="nav484-links" style="display:flex;align-items:center;gap:28px">
+        <button onClick="{{ goBrowse }}" style="background:none;border:none;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:500;color:#4a524d;padding:0">{{ t.navListings }}</button>
+        <button onClick="{{ goLanding }}" style="background:none;border:none;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:500;color:#4a524d;padding:0">{{ t.navHow }}</button>
+        <button onClick="{{ openModal }}" style="background:none;border:none;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:500;color:#4a524d;padding:0">{{ t.navSell }}</button>
+      </nav>
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="display:flex;border:1.5px solid #d8dcd9;border-radius:7px;overflow:hidden">
+          <sc-for list="{{ langButtons }}" as="lb" hint-placeholder-count="4">
+            <button onClick="{{ lb.onClick }}" title="{{ lb.name }}" style="{{ lb.style }}">{{ lb.label }}</button>
+          </sc-for>
+        </div>
+        <a href="tel:0905323484" style="display:inline-flex;align-items:center;gap:7px;background:#1a6b3c;color:#fff;text-decoration:none;padding:9px 16px;border-radius:6px;font-size:13.5px;font-weight:600;box-shadow:0 1px 3px rgba(26,107,60,0.3);flex-shrink:0">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.63 3.44 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6.11 6.11l.98-.98a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+          {{ t.call }}
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <div style="flex:1">
+
+  <!-- ══════════ LANDING ══════════ -->
+  <sc-if value="{{ isLanding }}" hint-placeholder-val="{{ true }}">
+  <div>
+    <!-- HERO -->
+    <section id="top" style="max-width:1180px;margin:0 auto;padding:clamp(40px,7vw,84px) 24px clamp(36px,5vw,64px)">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:clamp(32px,5vw,64px);align-items:center">
+        <div style="animation:f484up 0.6s ease both">
+          <div style="font-family:'DM Mono',monospace;font-size:11.5px;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:#1a6b3c;display:flex;align-items:center;gap:10px;margin-bottom:22px">
+            <span style="width:24px;height:1.5px;background:#1a6b3c;display:inline-block"></span>{{ t.heroEyebrow }}
+          </div>
+          <h1 style="font-size:clamp(38px,5.2vw,62px);font-weight:800;letter-spacing:-0.035em;line-height:1.04;margin:0 0 22px;color:#16181a">{{ t.heroTitle1 }}<br><span style="color:#1a6b3c">{{ t.heroTitle2 }}</span></h1>
+          <p style="font-size:clamp(15px,1.5vw,18px);line-height:1.6;color:#4a524d;max-width:31em;margin:0 0 32px">{{ t.heroSub }}</p>
+          <div style="display:flex;flex-wrap:wrap;gap:12px">
+            <button onClick="{{ goBrowse }}" style="display:inline-flex;align-items:center;gap:8px;background:#1a6b3c;color:#fff;padding:14px 26px;border-radius:7px;font-size:15px;font-weight:600;box-shadow:0 2px 10px rgba(26,107,60,0.28);border:none;cursor:pointer;font-family:inherit">
+              {{ t.ctaBrowse }}
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+            </button>
+            <button onClick="{{ openModal }}" style="display:inline-flex;align-items:center;gap:8px;background:#fff;color:#1a1c1a;padding:14px 26px;border-radius:7px;font-size:15px;font-weight:600;border:1.5px solid #d8dcd9;cursor:pointer;font-family:inherit">{{ t.ctaSell }}</button>
+          </div>
+        </div>
+        <div style="position:relative;animation:f484up 0.7s ease both">
+          <div style="position:relative;border-radius:16px;overflow:hidden;box-shadow:0 24px 60px rgba(20,40,28,0.18),0 4px 14px rgba(0,0,0,0.06);aspect-ratio:4/3.2">
+            <img ref="{{ setImg }}" data-src="{{ heroImg }}" alt="Nehnuteľnosť na portáli 484.sk" style="width:100%;height:100%;object-fit:cover;display:block">
+            <div style="position:absolute;top:16px;left:16px;background:rgba(26,107,60,0.95);color:#fff;font-family:'DM Mono',monospace;font-size:10.5px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;padding:6px 11px;border-radius:5px;backdrop-filter:blur(4px)">{{ t.heroBadge }}</div>
+          </div>
+          <sc-if value="{{ showSavings }}" hint-placeholder-val="{{ true }}">
+            <div class="sv484" style="position:absolute;bottom:-18px;left:-8px;background:#fff;border:1px solid #e8eae8;border-radius:12px;padding:15px 18px;box-shadow:0 16px 40px rgba(20,40,28,0.16);display:flex;align-items:center;gap:18px">
+              <div>
+                <div style="font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:0.1em;text-transform:uppercase;color:#9da89f;margin-bottom:3px">{{ t.savingsLabel1 }}</div>
+                <div style="font-size:17px;font-weight:700;color:#9da89f;text-decoration:line-through;letter-spacing:-0.02em">5 000 €+</div>
+              </div>
+              <div style="width:1px;height:34px;background:#e8eae8"></div>
+              <div>
+                <div style="font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:0.1em;text-transform:uppercase;color:#1a6b3c;margin-bottom:3px">{{ t.savingsLabel2 }}</div>
+                <div style="font-size:22px;font-weight:800;color:#1a6b3c;letter-spacing:-0.03em">0 €</div>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <section style="border-top:1px solid #eceeec;border-bottom:1px solid #eceeec;background:#fafbfa">
+      <div style="max-width:1180px;margin:0 auto;padding:clamp(26px,3vw,40px) 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:24px">
+        <sc-for list="{{ stats }}" as="s" hint-placeholder-count="4">
+          <div style="text-align:center;padding:4px 8px">
+            <div style="font-size:clamp(26px,3.2vw,38px);font-weight:800;letter-spacing:-0.04em;color:#1a6b3c;line-height:1">{{ s.value }}</div>
+            <div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#6e7870;margin-top:8px">{{ s.label }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <!-- FEATURED -->
+    <section style="max-width:1180px;margin:0 auto;padding:clamp(48px,6vw,80px) 24px 0">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:32px">
+        <div>
+          <div style="font-family:'DM Mono',monospace;font-size:11.5px;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:#1a6b3c;margin-bottom:12px">{{ t.featEyebrow }}</div>
+          <h2 style="font-size:clamp(28px,3.6vw,40px);font-weight:800;letter-spacing:-0.03em;margin:0;color:#16181a">{{ t.featTitle }}</h2>
+        </div>
+        <button onClick="{{ goBrowse }}" style="display:inline-flex;align-items:center;gap:7px;background:none;border:none;cursor:pointer;font-family:'DM Mono',monospace;font-size:12.5px;font-weight:500;color:#1a6b3c;letter-spacing:0.02em">{{ t.featAll }}
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+        </button>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:18px">
+        <sc-for list="{{ featured }}" as="L" hint-placeholder-count="3">
+          <div onClick="{{ L.onClick }}" style="display:flex;flex-direction:column;background:#fff;border:1px solid #e8eae8;border-radius:13px;overflow:hidden;cursor:pointer;transition:transform 0.22s cubic-bezier(0.4,0,0.2,1),box-shadow 0.22s,border-color 0.22s" style-hover="transform:translateY(-4px);box-shadow:0 18px 44px rgba(20,40,28,0.13);border-color:#c2ddd0">
+            <div style="position:relative;aspect-ratio:16/11;overflow:hidden;background:#eff0ef">
+              <img ref="{{ setImg }}" data-src="{{ L.img }}" alt="{{ L.title }}" style="width:100%;height:100%;object-fit:cover;display:block">
+              <div style="position:absolute;top:11px;left:11px;background:rgba(255,255,255,0.94);color:#1a6b3c;font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;padding:4px 9px;border-radius:4px;backdrop-filter:blur(4px)">{{ L.badge }}</div>
+            </div>
+            <div style="padding:17px 18px 19px;display:flex;flex-direction:column;gap:13px;flex:1">
+              <div>
+                <div style="font-size:16px;font-weight:700;letter-spacing:-0.01em;line-height:1.3;color:#16181a">{{ L.title }}</div>
+                <div style="font-family:'DM Mono',monospace;font-size:12px;color:#9da89f;margin-top:5px">{{ L.location }}</div>
+              </div>
+              <div style="display:flex;gap:6px;flex-wrap:wrap">
+                <sc-for list="{{ L.chips }}" as="c" hint-placeholder-count="3"><span style="font-family:'DM Mono',monospace;font-size:11px;color:#1a6b3c;background:#f0f7f3;border:1px solid #d6e9df;padding:3px 9px;border-radius:5px">{{ c }}</span></sc-for>
+              </div>
+              <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-top:auto;padding-top:6px">
+                <div style="font-size:23px;font-weight:800;color:#1a6b3c;letter-spacing:-0.03em;line-height:1">{{ L.price }}</div>
+                <span style="font-family:'DM Mono',monospace;font-size:11px;color:#9da89f">{{ L.priceNote }}</span>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <!-- HOW -->
+    <section id="how" style="max-width:1180px;margin:0 auto;padding:clamp(56px,7vw,90px) 24px">
+      <div style="text-align:center;max-width:34em;margin:0 auto 44px">
+        <div style="font-family:'DM Mono',monospace;font-size:11.5px;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:#1a6b3c;margin-bottom:12px">{{ t.howEyebrow }}</div>
+        <h2 style="font-size:clamp(28px,3.6vw,40px);font-weight:800;letter-spacing:-0.03em;margin:0 0 12px;color:#16181a">{{ t.howTitle }}</h2>
+        <p style="font-size:16px;line-height:1.6;color:#6e7870;margin:0">{{ t.howSub }}</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:#eceeec;border:1px solid #eceeec;border-radius:14px;overflow:hidden">
+        <sc-for list="{{ steps }}" as="st" hint-placeholder-count="3">
+          <div style="background:#fff;padding:32px 28px;display:flex;flex-direction:column;gap:14px">
+            <div style="font-family:'DM Mono',monospace;font-size:13px;font-weight:500;color:#1a6b3c;letter-spacing:0.05em">{{ st.num }}</div>
+            <div style="width:42px;height:42px;border-radius:10px;background:#f0f7f3;border:1px solid #d6e9df;display:flex;align-items:center;justify-content:center;color:#1a6b3c">{{ st.icon }}</div>
+            <div style="font-size:17px;font-weight:700;letter-spacing:-0.01em;color:#16181a;margin-top:4px">{{ st.title }}</div>
+            <div style="font-size:14px;line-height:1.6;color:#6e7870">{{ st.body }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <!-- SELL CTA -->
+    <section style="max-width:1180px;margin:0 auto;padding:0 24px clamp(56px,7vw,90px)">
+      <div style="position:relative;overflow:hidden;border-radius:20px;background:linear-gradient(135deg,#1a6b3c 0%,#145530 100%);padding:clamp(40px,6vw,68px) clamp(28px,5vw,64px);text-align:center">
+        <div style="position:absolute;inset:0;background:radial-gradient(circle at 78% 12%,rgba(255,255,255,0.10),transparent 42%);pointer-events:none"></div>
+        <div style="position:relative">
+          <div style="font-family:'DM Mono',monospace;font-size:11.5px;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.62);margin-bottom:16px">{{ t.sellEyebrow }}</div>
+          <h2 style="font-size:clamp(28px,4vw,46px);font-weight:800;letter-spacing:-0.03em;color:#fff;line-height:1.08;margin:0 auto 16px;max-width:16em">{{ t.sellTitle }}</h2>
+          <p style="font-size:clamp(15px,1.6vw,18px);line-height:1.6;color:rgba(255,255,255,0.82);max-width:32em;margin:0 auto 30px">{{ t.sellSub }}</p>
+          <button onClick="{{ openModal }}" style="display:inline-flex;align-items:center;gap:9px;background:#fff;color:#145530;padding:15px 30px;border-radius:8px;font-size:15.5px;font-weight:700;box-shadow:0 8px 24px rgba(0,0,0,0.18);border:none;cursor:pointer;font-family:inherit">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"></path></svg>
+            {{ t.sellBtn }}
+          </button>
+          <div style="font-family:'DM Mono',monospace;font-size:12px;color:rgba(255,255,255,0.6);margin-top:18px;letter-spacing:0.02em">{{ t.sellNote }}</div>
+        </div>
+      </div>
+    </section>
+  </div>
+  </sc-if>
+
+  <!-- ══════════ BROWSE ══════════ -->
+  <sc-if value="{{ isBrowse }}" hint-placeholder-val="{{ false }}">
+  <section style="max-width:1180px;margin:0 auto;padding:28px 24px clamp(48px,6vw,72px)">
+    <div style="margin-bottom:22px">
+      <div style="font-family:'DM Mono',monospace;font-size:11.5px;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:#1a6b3c;margin-bottom:8px">{{ t.featEyebrow }}</div>
+      <h1 style="font-size:clamp(26px,3.4vw,38px);font-weight:800;letter-spacing:-0.03em;margin:0;color:#16181a">{{ t.browseTitle }}</h1>
+    </div>
+    <div class="browse484-grid" style="display:grid;grid-template-columns:264px 1fr;gap:24px;align-items:start">
+      <!-- FILTER RAIL -->
+      <aside class="browse484-rail" style="position:sticky;top:78px;background:#fff;border:1px solid #e8eae8;border-radius:13px;padding:18px;display:flex;flex-direction:column;gap:18px">
+        <div style="position:relative">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#9da89f" stroke-width="2" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);width:15px;height:15px;pointer-events:none"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.35-4.35"></path></svg>
+          <input value="{{ q }}" onInput="{{ onSearch }}" placeholder="{{ t.searchPh }}" style="width:100%;box-sizing:border-box;padding:10px 12px 10px 36px;border:1.5px solid #d8dcd9;border-radius:8px;font-size:13.5px;font-family:inherit;outline:none" style-focus="border-color:#1a6b3c;box-shadow:0 0 0 3px rgba(26,107,60,0.12)">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:9px">
+          <div style="font-family:'DM Mono',monospace;font-size:9.5px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:#9da89f">{{ t.fType }}</div>
+          <div style="display:flex;gap:5px;flex-wrap:wrap">
+            <sc-for list="{{ typePills }}" as="p" hint-placeholder-count="5"><button onClick="{{ p.onClick }}" style="{{ p.style }}">{{ p.label }}</button></sc-for>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:9px">
+          <div style="font-family:'DM Mono',monospace;font-size:9.5px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:#9da89f">{{ t.fRegion }}</div>
+          <div style="display:flex;gap:5px;flex-wrap:wrap">
+            <sc-for list="{{ regionPills }}" as="p" hint-placeholder-count="9"><button onClick="{{ p.onClick }}" style="{{ p.style }}">{{ p.label }}</button></sc-for>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:9px">
+          <div style="font-family:'DM Mono',monospace;font-size:9.5px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:#9da89f">{{ t.priceLabel }}</div>
+          <div style="display:flex;gap:5px;flex-wrap:wrap">
+            <sc-for list="{{ pricePills }}" as="p" hint-placeholder-count="4"><button onClick="{{ p.onClick }}" style="{{ p.style }}">{{ p.label }}</button></sc-for>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding-top:14px;border-top:1px solid #eceeec">
+          <span style="font-family:'DM Mono',monospace;font-size:12px;color:#9da89f">{{ resultsLabel }}</span>
+          <button onClick="{{ resetFilters }}" style="background:none;border:none;cursor:pointer;font-family:inherit;font-size:12px;color:#6e7870;padding:5px 8px;border-radius:5px">✕ {{ t.filterReset }}</button>
+        </div>
+        <button onClick="{{ openModal }}" style="display:inline-flex;align-items:center;justify-content:center;gap:6px;background:#1a6b3c;color:#fff;padding:11px;border-radius:8px;border:none;cursor:pointer;font-weight:600;font-size:13.5px;font-family:inherit;box-shadow:0 1px 3px rgba(26,107,60,0.3)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"></path></svg>{{ t.sellBtn }}
+        </button>
+      </aside>
+
+      <!-- RESULTS -->
+      <div>
+        <sc-if value="{{ hasResults }}" hint-placeholder-val="{{ true }}">
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px">
+            <sc-for list="{{ filtered }}" as="L" hint-placeholder-count="6">
+              <div onClick="{{ L.onClick }}" style="display:flex;flex-direction:column;background:#fff;border:1px solid #e8eae8;border-radius:13px;overflow:hidden;cursor:pointer;transition:transform 0.22s cubic-bezier(0.4,0,0.2,1),box-shadow 0.22s,border-color 0.22s" style-hover="transform:translateY(-4px);box-shadow:0 18px 44px rgba(20,40,28,0.13);border-color:#c2ddd0">
+                <div style="position:relative;aspect-ratio:16/11;overflow:hidden;background:#eff0ef">
+                  <img ref="{{ setImg }}" data-src="{{ L.img }}" alt="{{ L.title }}" style="width:100%;height:100%;object-fit:cover;display:block">
+                  <div style="position:absolute;top:11px;left:11px;background:rgba(255,255,255,0.94);color:#1a6b3c;font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;padding:4px 9px;border-radius:4px;backdrop-filter:blur(4px)">{{ L.badge }}</div>
+                </div>
+                <div style="padding:16px 17px 18px;display:flex;flex-direction:column;gap:12px;flex:1">
+                  <div>
+                    <div style="font-size:15.5px;font-weight:700;letter-spacing:-0.01em;line-height:1.3;color:#16181a">{{ L.title }}</div>
+                    <div style="font-family:'DM Mono',monospace;font-size:12px;color:#9da89f;margin-top:5px">{{ L.location }}</div>
+                  </div>
+                  <div style="display:flex;gap:6px;flex-wrap:wrap">
+                    <sc-for list="{{ L.chips }}" as="c" hint-placeholder-count="3"><span style="font-family:'DM Mono',monospace;font-size:11px;color:#1a6b3c;background:#f0f7f3;border:1px solid #d6e9df;padding:3px 9px;border-radius:5px">{{ c }}</span></sc-for>
+                  </div>
+                  <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-top:auto;padding-top:4px">
+                    <div style="font-size:21px;font-weight:800;color:#1a6b3c;letter-spacing:-0.03em;line-height:1">{{ L.price }}</div>
+                    <span style="font-family:'DM Mono',monospace;font-size:11px;color:#9da89f">{{ L.priceNote }}</span>
+                  </div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+        <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
+          <div style="text-align:center;padding:72px 24px;background:#fff;border:1px solid #e8eae8;border-radius:13px">
+            <div style="font-size:34px;margin-bottom:14px">🔍</div>
+            <div style="font-size:17px;font-weight:700;color:#16181a;margin-bottom:6px">{{ t.noResultsT }}</div>
+            <p style="font-size:13.5px;color:#6e7870;margin:0 0 18px">{{ t.noResultsB }}</p>
+            <button onClick="{{ resetFilters }}" style="background:#1a6b3c;color:#fff;border:none;cursor:pointer;padding:11px 20px;border-radius:8px;font-weight:600;font-size:13.5px;font-family:inherit">{{ t.filterReset }}</button>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ══════════ DETAIL ══════════ -->
+  <sc-if value="{{ isDetail }}" hint-placeholder-val="{{ false }}">
+  <section style="max-width:1180px;margin:0 auto;padding:22px 24px clamp(48px,6vw,72px)">
+    <button onClick="{{ goBrowse }}" style="display:inline-flex;align-items:center;gap:7px;background:none;border:none;cursor:pointer;font-family:'DM Mono',monospace;font-size:12.5px;font-weight:500;color:#1a6b3c;margin-bottom:18px;padding:0">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>{{ t.backToList }}
+    </button>
+    <div class="detail484-grid" style="display:grid;grid-template-columns:1fr 320px;gap:24px;align-items:start">
+      <div>
+        <!-- header -->
+        <div style="margin-bottom:18px">
+          <div style="font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#1a6b3c;margin-bottom:8px">{{ d.eyebrow }}</div>
+          <h1 style="font-size:clamp(23px,3vw,32px);font-weight:800;letter-spacing:-0.03em;line-height:1.2;margin:0 0 12px;color:#16181a">{{ d.title }}</h1>
+          <div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap">
+            <div style="font-size:clamp(26px,3.4vw,34px);font-weight:800;color:#1a6b3c;letter-spacing:-0.03em">{{ d.price }}</div>
+            <div style="font-family:'DM Mono',monospace;font-size:13px;color:#9da89f">{{ d.priceNote }}</div>
+          </div>
+        </div>
+        <!-- gallery -->
+        <div onClick="{{ onMainClick }}" style="position:relative;border-radius:14px;overflow:hidden;background:#eff0ef;aspect-ratio:16/9;margin-bottom:8px;cursor:zoom-in">
+          <img ref="{{ setMainImg }}" data-src="{{ detailMain }}" alt="{{ d.title }}" style="width:100%;height:100%;object-fit:cover;display:block">
+          <div style="position:absolute;bottom:12px;right:12px;background:rgba(22,24,26,0.7);color:#fff;font-family:'DM Mono',monospace;font-size:11px;padding:5px 10px;border-radius:6px;display:flex;align-items:center;gap:6px;backdrop-filter:blur(4px)"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"></path></svg>{{ lbCounter }}</div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:24px">
+          <sc-for list="{{ gallery }}" as="g" hint-placeholder-count="5">
+            <div onClick="{{ g.onClick }}" style="{{ g.style }}"><img ref="{{ setImg }}" data-src="{{ g.src }}" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+          </sc-for>
+        </div>
+        <!-- specs -->
+        <div style="background:#fff;border:1px solid #e8eae8;border-radius:13px;padding:20px 22px;margin-bottom:14px">
+          <div style="font-family:'DM Mono',monospace;font-size:10.5px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:#9da89f;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid #eceeec">{{ t.specsTitle }}</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 32px">
+            <sc-for list="{{ specs }}" as="sp" hint-placeholder-count="8">
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 2px;border-bottom:1px solid #f0f1f0;gap:16px">
+                <span style="font-size:13px;color:#6e7870">{{ sp.k }}</span>
+                <span style="font-family:'DM Mono',monospace;font-size:13px;font-weight:500;color:#16181a;text-align:right">{{ sp.v }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <!-- description -->
+        <div style="background:#fff;border:1px solid #e8eae8;border-radius:13px;padding:20px 22px">
+          <div style="font-family:'DM Mono',monospace;font-size:10.5px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:#9da89f;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid #eceeec">{{ t.descTitle }}</div>
+          <p style="font-size:14.5px;line-height:1.75;color:#4a524d;margin:0">{{ d.desc }}</p>
+        </div>
+        <!-- location -->
+        <div style="background:#fff;border:1px solid #e8eae8;border-radius:13px;padding:20px 22px;margin-top:14px">
+          <div style="font-family:'DM Mono',monospace;font-size:10.5px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:#9da89f;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid #eceeec">{{ locTitle }}</div>
+          <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+            <div style="position:relative;flex:1;min-width:200px;height:148px;border-radius:11px;overflow:hidden;border:1px solid #e8eae8;background-color:#f1f6f3;background-image:repeating-linear-gradient(0deg,transparent,transparent 23px,rgba(26,107,60,0.07) 24px),repeating-linear-gradient(90deg,transparent,transparent 23px,rgba(26,107,60,0.07) 24px);display:flex;align-items:center;justify-content:center">
+              <span style="position:absolute;width:54px;height:54px;border-radius:50%;background:rgba(26,107,60,0.14)"></span>
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="#1a6b3c" style="position:relative;filter:drop-shadow(0 3px 5px rgba(20,40,28,0.3))"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"></path></svg>
+            </div>
+            <div style="min-width:140px">
+              <div style="font-size:17px;font-weight:700;letter-spacing:-0.01em;color:#16181a">{{ d.city }}</div>
+              <div style="font-family:'DM Mono',monospace;font-size:12.5px;color:#9da89f;margin-top:3px">{{ d.region }}</div>
+              <div style="font-size:12.5px;color:#6e7870;line-height:1.5;margin-top:10px;max-width:18em">{{ locNote }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- contact sidebar -->
+      <aside style="position:sticky;top:78px;background:#fff;border:1.5px solid #c2ddd0;border-radius:13px;overflow:hidden;box-shadow:0 2px 12px rgba(20,40,28,0.06)">
+        <div style="background:linear-gradient(135deg,#1a6b3c,#145530);padding:16px 18px">
+          <div style="font-family:'DM Mono',monospace;font-size:9.5px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:rgba(255,255,255,0.65);margin-bottom:3px">{{ t.contactEyebrow }}</div>
+          <div style="font-size:15.5px;font-weight:700;color:#fff">{{ t.contactName }}</div>
+        </div>
+        <div style="padding:18px">
+          <div style="text-align:center;padding:6px 0 16px;border-bottom:1px solid #eceeec;margin-bottom:16px">
+            <div style="font-size:30px;font-weight:800;color:#1a6b3c;letter-spacing:-0.04em;line-height:1">{{ d.price }}</div>
+            <div style="font-family:'DM Mono',monospace;font-size:11px;color:#9da89f;margin-top:4px">{{ d.priceNote }}</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:14px">
+            <a href="tel:0905323484" style="text-decoration:none">
+              <div style="font-family:'DM Mono',monospace;font-size:9.5px;font-weight:500;text-transform:uppercase;letter-spacing:0.1em;color:#9da89f;margin-bottom:2px">{{ t.phone1 }}</div>
+              <div style="font-size:19px;font-weight:700;color:#16181a;letter-spacing:-0.02em">0905 323 484</div>
+            </a>
+            <a href="tel:0919067725" style="text-decoration:none">
+              <div style="font-family:'DM Mono',monospace;font-size:9.5px;font-weight:500;text-transform:uppercase;letter-spacing:0.1em;color:#9da89f;margin-bottom:2px">{{ t.phone2 }}</div>
+              <div style="font-size:19px;font-weight:700;color:#16181a;letter-spacing:-0.02em">0919 067 725</div>
+            </a>
+          </div>
+          <a href="tel:0905323484" style="display:flex;align-items:center;justify-content:center;gap:8px;background:#1a6b3c;color:#fff;text-decoration:none;padding:13px;border-radius:9px;font-size:14.5px;font-weight:700;box-shadow:0 2px 8px rgba(26,107,60,0.3)">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.63 3.44 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6.11 6.11l.98-.98a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            {{ t.callSeller }}
+          </a>
+          <div style="margin-top:12px;padding:10px 12px;background:#f0f7f3;border:1px solid #d6e9df;border-radius:8px;font-size:12px;color:#1a6b3c;font-weight:500;text-align:center;line-height:1.4">{{ t.noAgency }}</div>
+        </div>
+      </aside>
+    </div>
+  </section>
+  </sc-if>
+
+  </div>
+
+  <!-- FOOTER (shared) -->
+  <footer style="border-top:1px solid #eceeec;background:#fafbfa;flex-shrink:0">
+    <div style="max-width:1180px;margin:0 auto;padding:26px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px">
+      <span style="font-family:'DM Mono',monospace;font-size:14px;font-weight:500;color:#1a6b3c">484.sk</span>
+      <span style="font-family:'DM Mono',monospace;font-size:12px;color:#9da89f">{{ t.footerCopy }}</span>
+      <div style="display:flex;gap:22px">
+        <a href="tel:0905323484" style="font-family:'DM Mono',monospace;font-size:13px;color:#4a524d;text-decoration:none">0905 323 484</a>
+        <a href="tel:0919067725" style="font-family:'DM Mono',monospace;font-size:13px;color:#4a524d;text-decoration:none">0919 067 725</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- LIGHTBOX -->
+  <sc-if value="{{ lbOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeLb }}" style="position:fixed;inset:0;z-index:9500;background:rgba(8,12,9,0.92);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:24px">
+      <button onClick="{{ closeLb }}" style="position:fixed;top:18px;right:18px;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);color:#fff;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center">×</button>
+      <button onClick="{{ lbPrev }}" style="position:fixed;left:16px;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);color:#fff;font-size:24px;cursor:pointer;display:flex;align-items:center;justify-content:center">‹</button>
+      <img ref="{{ setLbImg }}" onClick="{{ stop }}" alt="" style="max-width:92vw;max-height:86vh;object-fit:contain;border-radius:6px;box-shadow:0 20px 60px rgba(0,0,0,0.5)">
+      <button onClick="{{ lbNext }}" style="position:fixed;right:16px;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);color:#fff;font-size:24px;cursor:pointer;display:flex;align-items:center;justify-content:center">›</button>
+      <div style="position:fixed;bottom:20px;left:50%;transform:translateX(-50%);font-family:'DM Mono',monospace;font-size:12px;color:rgba(255,255,255,0.6);letter-spacing:0.06em">{{ lbCounter }}</div>
+    </div>
+  </sc-if>
+
+  <!-- ADD LISTING MODAL -->
+  <sc-if value="{{ modalOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;z-index:9000;background:rgba(10,16,12,0.55);backdrop-filter:blur(6px);display:flex;align-items:flex-start;justify-content:center;padding:24px 16px;overflow-y:auto">
+      <div onClick="{{ stop }}" style="width:min(620px,100%);background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,0.3);animation:f484pop 0.3s cubic-bezier(0.4,0,0.2,1) both;margin:auto">
+        <sc-if value="{{ isForm }}" hint-placeholder-val="{{ true }}">
+          <form ref="{{ setFormRef }}" onSubmit="{{ submitForm }}">
+            <div style="padding:20px 24px 16px;background:linear-gradient(135deg,#1a6b3c,#145530);color:#fff;display:flex;align-items:flex-start;justify-content:space-between;gap:16px">
+              <div>
+                <div style="font-size:17px;font-weight:700;margin-bottom:3px">{{ t.modalTitle }}</div>
+                <div style="font-family:'DM Mono',monospace;font-size:11.5px;color:rgba(255,255,255,0.72)">{{ t.modalSub }}</div>
+              </div>
+              <button type="button" onClick="{{ closeModal }}" style="background:rgba(255,255,255,0.15);border:none;color:#fff;width:30px;height:30px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18M6 6l12 12"></path></svg>
+              </button>
+            </div>
+            <div style="padding:20px 24px;display:flex;flex-direction:column;gap:20px;max-height:62vh;overflow-y:auto">
+              <div style="display:flex;flex-direction:column;gap:11px">
+                <div style="font-family:'DM Mono',monospace;font-size:9.5px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:#9da89f">{{ t.secContact }}</div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+                  <label style="display:flex;flex-direction:column;gap:5px"><span style="font-size:12px;font-weight:600;color:#4a524d">{{ t.fName }} *</span><input name="name" required autocomplete="name" style="border:1.5px solid #d8dcd9;border-radius:7px;padding:10px 12px;font-size:14px;font-family:inherit;outline:none" style-focus="border-color:#1a6b3c;box-shadow:0 0 0 3px rgba(26,107,60,0.12)"></label>
+                  <label style="display:flex;flex-direction:column;gap:5px"><span style="font-size:12px;font-weight:600;color:#4a524d">{{ t.fEmail }} *</span><input name="email" type="email" required autocomplete="email" style="border:1.5px solid #d8dcd9;border-radius:7px;padding:10px 12px;font-size:14px;font-family:inherit;outline:none" style-focus="border-color:#1a6b3c;box-shadow:0 0 0 3px rgba(26,107,60,0.12)"></label>
+                </div>
+                <label style="display:flex;flex-direction:column;gap:5px"><span style="font-size:12px;font-weight:600;color:#4a524d">{{ t.fPhoneOpt }}</span><input name="phone" type="tel" autocomplete="tel" style="border:1.5px solid #d8dcd9;border-radius:7px;padding:10px 12px;font-size:14px;font-family:inherit;outline:none" style-focus="border-color:#1a6b3c;box-shadow:0 0 0 3px rgba(26,107,60,0.12)"></label>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:11px">
+                <div style="font-family:'DM Mono',monospace;font-size:9.5px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:#9da89f">{{ t.secListing }}</div>
+                <label style="display:flex;flex-direction:column;gap:5px"><span style="font-size:12px;font-weight:600;color:#4a524d">{{ t.fTitle }} *</span><input name="nazov" required maxlength="200" style="border:1.5px solid #d8dcd9;border-radius:7px;padding:10px 12px;font-size:14px;font-family:inherit;outline:none" style-focus="border-color:#1a6b3c;box-shadow:0 0 0 3px rgba(26,107,60,0.12)"></label>
+                <label style="display:flex;flex-direction:column;gap:5px"><span style="font-size:12px;font-weight:600;color:#4a524d">{{ t.fDesc }} *</span><textarea name="popis" required maxlength="3000" style="border:1.5px solid #d8dcd9;border-radius:7px;padding:10px 12px;font-size:14px;font-family:inherit;outline:none;resize:vertical;min-height:84px;line-height:1.5" style-focus="border-color:#1a6b3c;box-shadow:0 0 0 3px rgba(26,107,60,0.12)"></textarea></label>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+                  <label style="display:flex;flex-direction:column;gap:5px"><span style="font-size:12px;font-weight:600;color:#4a524d">{{ t.fPrice }} *</span><input name="cena" type="number" min="0" required style="border:1.5px solid #d8dcd9;border-radius:7px;padding:10px 12px;font-size:14px;font-family:inherit;outline:none" style-focus="border-color:#1a6b3c;box-shadow:0 0 0 3px rgba(26,107,60,0.12)"></label>
+                  <label style="display:flex;flex-direction:column;gap:5px"><span style="font-size:12px;font-weight:600;color:#4a524d">{{ t.fType }} *</span>
+                    <select name="typ" required style="border:1.5px solid #d8dcd9;border-radius:7px;padding:10px 12px;font-size:14px;font-family:inherit;outline:none;background:#fff" style-focus="border-color:#1a6b3c;box-shadow:0 0 0 3px rgba(26,107,60,0.12)">
+                      <option value="">—</option>
+                      <sc-for list="{{ types }}" as="o" hint-placeholder-count="4"><option value="{{ o.value }}">{{ o.label }}</option></sc-for>
+                    </select>
+                  </label>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+                  <label style="display:flex;flex-direction:column;gap:5px"><span style="font-size:12px;font-weight:600;color:#4a524d">{{ t.fCity }} *</span><input name="obec" required style="border:1.5px solid #d8dcd9;border-radius:7px;padding:10px 12px;font-size:14px;font-family:inherit;outline:none" style-focus="border-color:#1a6b3c;box-shadow:0 0 0 3px rgba(26,107,60,0.12)"></label>
+                  <label style="display:flex;flex-direction:column;gap:5px"><span style="font-size:12px;font-weight:600;color:#4a524d">{{ t.fRegion }} *</span>
+                    <select name="kraj" required style="border:1.5px solid #d8dcd9;border-radius:7px;padding:10px 12px;font-size:14px;font-family:inherit;outline:none;background:#fff" style-focus="border-color:#1a6b3c;box-shadow:0 0 0 3px rgba(26,107,60,0.12)">
+                      <option value="">—</option>
+                      <sc-for list="{{ regions }}" as="r" hint-placeholder-count="8"><option value="{{ r }}">{{ r }}</option></sc-for>
+                    </select>
+                  </label>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+                  <label style="display:flex;flex-direction:column;gap:5px"><span style="font-size:12px;font-weight:600;color:#4a524d">{{ t.fArea }}</span><input name="plocha" type="number" min="0" style="border:1.5px solid #d8dcd9;border-radius:7px;padding:10px 12px;font-size:14px;font-family:inherit;outline:none" style-focus="border-color:#1a6b3c;box-shadow:0 0 0 3px rgba(26,107,60,0.12)"></label>
+                  <label style="display:flex;flex-direction:column;gap:5px"><span style="font-size:12px;font-weight:600;color:#4a524d">{{ t.fLayout }}</span><input name="dispozicia" placeholder="3+1, 4i…" style="border:1.5px solid #d8dcd9;border-radius:7px;padding:10px 12px;font-size:14px;font-family:inherit;outline:none" style-focus="border-color:#1a6b3c;box-shadow:0 0 0 3px rgba(26,107,60,0.12)"></label>
+                </div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:9px">
+                <div style="font-family:'DM Mono',monospace;font-size:9.5px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:#9da89f">{{ t.secPhotos }}</div>
+                <label style="border:2px dashed #d8dcd9;border-radius:9px;padding:18px;text-align:center;cursor:pointer;display:block" style-hover="border-color:#1a6b3c;background:#f0f7f3">
+                  <input type="file" accept="image/*" multiple onChange="{{ onPhotoChange }}" style="display:none">
+                  <div style="font-size:13px;color:#4a524d">{{ photoText }}</div>
+                  <div style="font-size:11.5px;color:#9da89f;font-family:'DM Mono',monospace;margin-top:3px">JPG · PNG · WEBP</div>
+                </label>
+              </div>
+              <div style="font-size:11.5px;color:#9da89f;line-height:1.5;text-align:center">{{ t.disclaimer }}</div>
+            </div>
+            <div style="padding:14px 24px;border-top:1px solid #eceeec;background:#fafbfa;display:flex;gap:10px">
+              <button type="button" onClick="{{ closeModal }}" style="flex:1;padding:13px;font-size:14px;font-weight:700;border-radius:8px;border:1.5px solid #d8dcd9;background:#fff;color:#6e7870;cursor:pointer;font-family:inherit">{{ t.btnCancel }}</button>
+              <button type="submit" style="{{ submitBtnStyle }}">
+                <sc-if value="{{ isSubmitting }}" hint-placeholder-val="{{ false }}"><span style="width:15px;height:15px;border:2px solid rgba(255,255,255,0.4);border-top-color:#fff;border-radius:50%;display:inline-block;animation:f484spin 0.7s linear infinite;margin-right:8px;vertical-align:-2px"></span></sc-if>
+                {{ submitLabel }}
+              </button>
+            </div>
+          </form>
+        </sc-if>
+        <sc-if value="{{ isSuccess }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:40px 32px 32px;text-align:center">
+            <div style="width:60px;height:60px;border-radius:50%;background:#f0f7f3;border:1px solid #c2ddd0;display:flex;align-items:center;justify-content:center;margin:0 auto 20px">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1a6b3c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>
+            </div>
+            <div style="font-size:20px;font-weight:800;letter-spacing:-0.02em;color:#16181a;margin-bottom:10px">{{ t.successTitle }}</div>
+            <p style="font-size:14.5px;line-height:1.6;color:#6e7870;max-width:30em;margin:0 auto 18px">{{ t.successBody }}</p>
+            <div style="display:inline-flex;align-items:center;gap:9px;background:#f0f7f3;border:1px solid #d6e9df;border-radius:9px;padding:11px 16px;font-size:12.5px;color:#1a6b3c;text-align:left;line-height:1.45;max-width:30em;margin-bottom:24px">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.63 3.44 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6.11 6.11l.98-.98a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              <span>{{ t.successNote }}</span>
+            </div>
+            <button onClick="{{ closeModal }}" style="display:block;width:100%;padding:14px;font-size:15px;font-weight:700;border-radius:9px;border:none;background:#1a6b3c;color:#fff;cursor:pointer;font-family:inherit">{{ t.btnDone }}</button>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ══════════ AI CHAT ASSISTANT ══════════ -->
+  <sc-if value="{{ chatClosed }}" hint-placeholder-val="{{ true }}">
+    <button onClick="{{ toggleChat }}" style="position:fixed;bottom:22px;right:22px;z-index:8200;display:flex;align-items:center;gap:9px;background:#1a6b3c;color:#fff;border:none;cursor:pointer;padding:13px 19px 13px 15px;border-radius:30px;box-shadow:0 8px 26px rgba(26,107,60,0.42);font-family:inherit;font-size:14px;font-weight:600" style-hover="background:#145530">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path><path d="M9 10h.01M13 10h.01M17 10h.01"></path></svg>
+      {{ t.chat.launch }}
+    </button>
+  </sc-if>
+  <sc-if value="{{ chatOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;bottom:22px;right:22px;z-index:8200;width:min(384px,calc(100vw-28px));height:min(580px,calc(100vh-90px));display:flex;flex-direction:column;background:#fff;border:1px solid #e2e6e3;border-radius:18px;overflow:hidden;box-shadow:0 24px 64px rgba(20,40,28,0.28);animation:f484pop 0.28s cubic-bezier(0.4,0,0.2,1) both;font-family:inherit">
+      <div style="background:linear-gradient(135deg,#1a6b3c,#145530);color:#fff;padding:13px 15px;display:flex;align-items:center;gap:11px;flex-shrink:0">
+        <div style="width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,0.16);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="#fff"><path d="M12 2l1.6 4.4L18 8l-4.4 1.6L12 14l-1.6-4.4L6 8l4.4-1.6L12 2zM6 14l.9 2.5L9.4 17l-2.5.9L6 20l-.9-2.1L2.6 17l2.5-.5L6 14zM18 13l1 2.7 2.7 1-2.7 1L18 21l-1-3.3-2.7-1 2.7-1L18 13z"></path></svg>
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:14.5px;font-weight:700;line-height:1.2">{{ t.chat.title }}</div>
+          <div style="font-family:'DM Mono',monospace;font-size:10.5px;color:rgba(255,255,255,0.74);margin-top:2px">{{ t.chat.sub }}</div>
+        </div>
+        <button onClick="{{ toggleChat }}" style="background:rgba(255,255,255,0.14);border:none;color:#fff;width:30px;height:30px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18M6 6l12 12"></path></svg>
+        </button>
+      </div>
+      <div ref="{{ setChatBody }}" style="flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:14px;background:#fafbfa">
+        <sc-if value="{{ chatEmpty }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;flex-direction:column;gap:10px;align-items:flex-start">
+            <div style="max-width:90%;background:#f1f4f2;color:#1a1c1a;padding:10px 13px;border-radius:13px 13px 13px 3px;font-size:13.5px;line-height:1.55">{{ t.chat.greeting }}</div>
+            <div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:2px">
+              <sc-for list="{{ chatSuggestions }}" as="s" hint-placeholder-count="3">
+                <button onClick="{{ s.onClick }}" style="background:#fff;border:1.5px solid #d6e9df;color:#1a6b3c;font-size:12px;font-weight:500;padding:7px 12px;border-radius:18px;cursor:pointer;font-family:inherit" style-hover="background:#f0f7f3">{{ s.label }}</button>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+        <sc-for list="{{ chatRender }}" as="m" hint-placeholder-count="0">
+          <div style="{{ m.rowStyle }}">
+            <sc-if value="{{ m.hasText }}" hint-placeholder-val="{{ true }}"><div style="{{ m.bubbleStyle }}">{{ m.text }}</div></sc-if>
+            <sc-if value="{{ m.showMatches }}" hint-placeholder-val="{{ false }}"><div style="font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:0.08em;text-transform:uppercase;color:#9da89f;margin-top:2px">{{ chatMatchesLabel }}</div></sc-if>
+            <sc-for list="{{ m.cards }}" as="c" hint-placeholder-count="0">
+              <div onClick="{{ c.onClick }}" style="display:flex;gap:10px;width:92%;background:#fff;border:1px solid #e8eae8;border-radius:11px;overflow:hidden;cursor:pointer;transition:border-color 0.18s,box-shadow 0.18s" style-hover="border-color:#c2ddd0;box-shadow:0 6px 18px rgba(20,40,28,0.1)">
+                <div style="width:66px;height:66px;flex-shrink:0;background:#eff0ef"><img ref="{{ setImg }}" data-src="{{ c.img }}" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+                <div style="padding:8px 10px 8px 2px;display:flex;flex-direction:column;justify-content:center;min-width:0;gap:1px">
+                  <div style="font-size:12.5px;font-weight:700;color:#16181a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ c.title }}</div>
+                  <div style="font-family:'DM Mono',monospace;font-size:10.5px;color:#9da89f;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ c.location }} · {{ c.layout }}</div>
+                  <div style="font-size:13.5px;font-weight:800;color:#1a6b3c;margin-top:1px">{{ c.price }}</div>
+                </div>
+              </div>
+            </sc-for>
+            <sc-if value="{{ m.showViewAll }}" hint-placeholder-val="{{ false }}">
+              <button onClick="{{ m.viewAll }}" style="align-self:flex-start;display:inline-flex;align-items:center;gap:6px;background:none;border:none;cursor:pointer;font-family:'DM Mono',monospace;font-size:11.5px;font-weight:500;color:#1a6b3c;padding:2px 0;letter-spacing:0.02em">{{ chatViewAllLabel }} →</button>
+            </sc-if>
+          </div>
+        </sc-for>
+        <sc-if value="{{ chatLoading }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;align-items:center;gap:9px;align-self:flex-start;background:#f1f4f2;padding:11px 14px;border-radius:13px 13px 13px 3px">
+            <span style="display:flex;gap:4px">
+              <span style="width:6px;height:6px;border-radius:50%;background:#1a6b3c;display:inline-block;animation:f484blink 1.2s infinite"></span>
+              <span style="width:6px;height:6px;border-radius:50%;background:#1a6b3c;display:inline-block;animation:f484blink 1.2s infinite;animation-delay:0.2s"></span>
+              <span style="width:6px;height:6px;border-radius:50%;background:#1a6b3c;display:inline-block;animation:f484blink 1.2s infinite;animation-delay:0.4s"></span>
+            </span>
+            <span style="font-size:12.5px;color:#6e7870">{{ t.chat.thinking }}</span>
+          </div>
+        </sc-if>
+      </div>
+      <form onSubmit="{{ sendChat }}" style="display:flex;align-items:center;gap:8px;padding:12px;border-top:1px solid #eceeec;background:#fff;flex-shrink:0">
+        <input value="{{ chatInput }}" onInput="{{ onChatInput }}" placeholder="{{ t.chat.ph }}" style="flex:1;min-width:0;box-sizing:border-box;padding:11px 14px;border:1.5px solid #d8dcd9;border-radius:22px;font-size:13.5px;font-family:inherit;outline:none" style-focus="border-color:#1a6b3c;box-shadow:0 0 0 3px rgba(26,107,60,0.12)">
+        <button type="submit" style="width:40px;height:40px;flex-shrink:0;border-radius:50%;background:#1a6b3c;color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center" style-hover="background:#145530">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"></path></svg>
+        </button>
+      </form>
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1180,&quot;height&quot;:2400},&quot;lang&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;sk&quot;,&quot;en&quot;,&quot;ua&quot;,&quot;de&quot;],&quot;default&quot;:&quot;sk&quot;,&quot;tsType&quot;:&quot;'sk'|'en'|'ua'|'de'&quot;},&quot;heroImage&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;dom1/FD1.png&quot;,&quot;dom2/FD2.png&quot;,&quot;dom1/FD3.png&quot;,&quot;dom2/FD4.png&quot;,&quot;dom1/FD5.png&quot;,&quot;dom2/FD6.png&quot;],&quot;default&quot;:&quot;dom1/FD1.png&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;showSavingsCard&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;telegramUser&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;@CallMeBot_txtbot&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;supabaseUrl&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;https://vrzztcgwmmzegkiexgpl.supabase.co&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;supabaseAnonKey&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  state = {
+    lang: (this.props && this.props.lang) || 'sk',
+    view: 'landing',           // landing | browse | detail
+    modal: null,               // null | form | submitting | success
+    photoCount: 0,
+    fType: 'all', fRegion: 'all', fPrice: 'all', q: '',
+    detail: null, detailMain: null, lbOpen: false, lbIndex: 0,
+    chatOpen: false, chatMsgs: [], chatInput: '', chatLoading: false,
+    remoteListings: null,
+  };
+
+  RAW = [
+    { img:'dom1/FD1.png', typeKey:'dom', region:'Košický', city:'Košice', price:189000, area:112, beds:4, descr:'new' },
+    { img:'dom2/FD2.png', typeKey:'dom', region:'Prešovský', city:'Prešov', price:205000, area:128, beds:5, descr:'terrace' },
+    { img:'dom1/FD5.png', typeKey:'dom', region:'Nitriansky', city:'Nitra', price:178000, area:104, beds:4, descr:'garden' },
+    { img:'dom2/FD4.png', typeKey:'byt', region:'Bratislavský', city:'Bratislava', price:165000, area:68, beds:3, descr:'renovated' },
+    { img:'dom1/FD3.png', typeKey:'byt', region:'Košický', city:'Košice', price:132000, area:74, beds:3, descr:'center' },
+    { img:'dom2/FD6.png', typeKey:'dom', region:'Žilinský', city:'Žilina', price:232000, area:142, beds:5, descr:'new' },
+    { img:'dom1/FD1.png', typeKey:'pozemok', region:'Trnavský', city:'Trnava', price:89000, area:850, beds:null, descr:'land' },
+    { img:'dom2/FD2.png', typeKey:'kancelaria', region:'Bratislavský', city:'Bratislava', price:215000, area:96, beds:null, descr:'office' },
+    { img:'dom1/FD5.png', typeKey:'dom', region:'Banskobystrický', city:'Banská Bystrica', price:168000, area:110, beds:4, descr:'quiet' },
+  ];
+
+  REGIONS = ['Bratislavský','Trnavský','Trenčiansky','Nitriansky','Žilinský','Banskobystrický','Prešovský','Košický'];
+
+  dict() {
+    const D = {
+      sk: {
+        navListings:'Inzeráty', navHow:'Ako to funguje', navSell:'Pridať inzerát', call:'Volať',
+        heroEyebrow:'Realitný portál bez provízií', heroTitle1:'Nehnuteľnosti priamo', heroTitle2:'od majiteľa.',
+        heroSub:'Inzertný portál pre predaj a prenájom nehnuteľností po celom Slovensku — priamo medzi ľuďmi. Bez realitky, bez provízií, pridanie inzerátu zadarmo.',
+        ctaBrowse:'Prezrieť inzeráty', ctaSell:'Pridať inzerát',
+        heroBadge:'Rodinný dom', savingsLabel1:'Ø provízia RK', savingsLabel2:'Vy platíte',
+        featEyebrow:'Najnovšie inzeráty', featTitle:'Inzeráty z celého Slovenska', featAll:'Všetky inzeráty',
+        howEyebrow:'Ako to funguje', howTitle:'Tri kroky k predaju', howSub:'Jednoducho a priamo. Vy predávate, my len spojíme kupujúceho s vami.',
+        sellEyebrow:'Pre predávajúcich', sellTitle:'Predávate nehnuteľnosť?', sellSub:'Pridajte inzerát zadarmo a oslovte kupujúcich priamo — bez sprostredkovateľa a bez poplatkov.',
+        sellBtn:'Pridať inzerát', sellNote:'Zverejnené do 24 h · bez poplatkov', footerCopy:'© 2026 484.sk · Všetky práva vyhradené',
+        stats:[{value:'0 €',label:'Provízia'},{value:'8 krajov',label:'Celé Slovensko'},{value:'Zadarmo',label:'Pridať inzerát'},{value:'24 h',label:'Schválenie'}],
+        steps:[{num:'01',title:'Pridajte inzerát',body:'Vyplňte krátky formulár a nahrajte fotky. Úplne zadarmo.'},{num:'02',title:'Schválenie',body:'Inzerát skontrolujeme a zverejníme spravidla do 24 hodín.'},{num:'03',title:'Predaj priamo',body:'Záujemcovia volajú priamo vám. Bez sprostredkovateľa, bez provízie.'}],
+        browseTitle:'Inzeráty', searchPh:'Hľadať obec, typ…', priceLabel:'Cena',
+        allTypes:'Všetky', allRegions:'Všetky', priceAll:'Všetky', priceLt:'do 100 000 €', priceMid:'100–200 000 €', priceGt:'nad 200 000 €',
+        resultsWord:'inzerátov', filterReset:'Zrušiť filtre', noResultsT:'Žiadne výsledky', noResultsB:'Pre zvolené filtre nemáme žiadne ponuky.',
+        priceNote:'od majiteľa', roomAbbr:'-izb.',
+        descr:{new:'Novostavba',terrace:'S terasou',garden:'So záhradou',renovated:'Po rekonštrukcii',center:'Centrum',quiet:'Tichá lokalita',land:'Pozemok',office:'Kancelária'},
+        types:[{value:'dom',label:'Rodinný dom'},{value:'byt',label:'Byt'},{value:'pozemok',label:'Pozemok'},{value:'kancelaria',label:'Kancelária'}],
+        backToList:'Späť na inzeráty', specsTitle:'Technické parametre', descTitle:'Popis nehnuteľnosti',
+        contactEyebrow:'Kontakt', contactName:'Súkromný predajca', callSeller:'Zavolať predajcovi', noAgency:'✓ Priamy predaj · bez RK · bez provízie',
+        phone1:'Telefón 1', phone2:'Telefón 2', ownership:'Osobné',
+        specTyp:'Typ', specKraj:'Kraj', specObec:'Obec', specPlocha:'Úžitková plocha', specDispozicia:'Dispozícia', specEnergia:'Energetická trieda', specVlastnictvo:'Vlastníctvo', specStav:'Stav',
+        detailDesc:'Ponúkame na predaj nehnuteľnosť v lokalite {city}. Úžitková plocha {area} m², energetická trieda A0. Predaj prebieha priamo od majiteľa — bez realitnej kancelárie a bez provízie. Obhliadku je možné dohodnúť telefonicky.',
+        modalTitle:'Pridať inzerát', modalSub:'Po odoslaní bude inzerát skontrolovaný a zverejnený.',
+        secContact:'Kontakt na vás', fName:'Meno', fEmail:'Email', fPhoneOpt:'Telefón (voliteľné)',
+        secListing:'Inzerát', fTitle:'Názov', fDesc:'Popis', fPrice:'Cena (€)', fType:'Typ', fCity:'Obec', fRegion:'Kraj', fArea:'Úžitková plocha (m²)', fLayout:'Dispozícia',
+        secPhotos:'Fotografie (max. 8)', photoHint:'📷 Kliknite alebo pretiahnite fotky', photoMany:'fotiek vybraných',
+        disclaimer:'Odoslaním súhlasíte so spracovaním údajov za účelom schválenia a zverejnenia inzerátu.',
+        btnCancel:'Zrušiť', btnSubmit:'Odoslať na schválenie', submitting:'Odosielam…',
+        successTitle:'Inzerát odoslaný!', successBody:'Ďakujeme. Inzerát skontrolujeme a zverejníme do 24 hodín.', successNote:'Upozornenie bolo odoslané správcovi do mobilu (Telegram cez CallMeBot).', btnDone:'Hotovo',
+        chat:{ launch:'Spýtať sa AI', title:'AI asistent', sub:'Nájdem vám najvhodnejšie ponuky', greeting:'Dobrý deň! Napíšte mi, čo hľadáte — typ, lokalitu, rozpočet — a vyberiem najvhodnejšie inzeráty.', ph:'Napíšte, čo hľadáte…', send:'Odoslať', thinking:'Vyberám ponuky…', error:'Prepáčte, momentálne sa nedá odpovedať. Skúste to znova.', matches:'Vybrané ponuky', viewAll:'Zobraziť v inzerátoch', foundReply:'Tu sú ponuky, ktoré najlepšie sedia na vaše požiadavky:', noneReply:'Zatiaľ nemám presne takúto ponuku. Skúste upraviť rozpočet alebo lokalitu.', suggest:['Dom do 200 000 € na východe','Byt v Bratislave','Pozemok so záhradou'] },
+      },
+      en: {
+        navListings:'Listings', navHow:'How it works', navSell:'Add listing', call:'Call',
+        heroEyebrow:'Property marketplace, no commission', heroTitle1:'Property listings', heroTitle2:'direct from the owner.',
+        heroSub:'A classifieds portal for selling and renting property across Slovakia — directly between people. No agency, no commission, free to list.',
+        ctaBrowse:'Browse listings', ctaSell:'Add listing',
+        heroBadge:'House', savingsLabel1:'Avg. agency fee', savingsLabel2:'You pay',
+        featEyebrow:'Latest listings', featTitle:'Listings from across Slovakia', featAll:'All listings',
+        howEyebrow:'How it works', howTitle:'Three steps to a sale', howSub:'Simple and direct. You sell — we just connect the buyer to you.',
+        sellEyebrow:'For sellers', sellTitle:'Selling a property?', sellSub:'Add your listing for free and reach buyers directly — no middleman, no fees.',
+        sellBtn:'Add listing', sellNote:'Published within 24h · no fees', footerCopy:'© 2026 484.sk · All rights reserved',
+        stats:[{value:'0 €',label:'Commission'},{value:'8 regions',label:'All of Slovakia'},{value:'Free',label:'Add a listing'},{value:'24 h',label:'Approval'}],
+        steps:[{num:'01',title:'Add your listing',body:'Fill a short form and upload photos. Completely free.'},{num:'02',title:'Approval',body:'We review and publish your listing, usually within 24 hours.'},{num:'03',title:'Sell directly',body:'Buyers call you directly. No middleman, no commission.'}],
+        browseTitle:'Listings', searchPh:'Search town, type…', priceLabel:'Price',
+        allTypes:'All', allRegions:'All', priceAll:'All', priceLt:'under €100k', priceMid:'€100–200k', priceGt:'over €200k',
+        resultsWord:'listings', filterReset:'Reset filters', noResultsT:'No results', noResultsB:'No listings match the selected filters.',
+        priceNote:'from owner', roomAbbr:'-room',
+        descr:{new:'New build',terrace:'With terrace',garden:'With garden',renovated:'Renovated',center:'City centre',quiet:'Quiet area',land:'Land',office:'Office'},
+        types:[{value:'dom',label:'House'},{value:'byt',label:'Apartment'},{value:'pozemok',label:'Land'},{value:'kancelaria',label:'Office'}],
+        backToList:'Back to listings', specsTitle:'Technical details', descTitle:'Property description',
+        contactEyebrow:'Contact', contactName:'Private seller', callSeller:'Call the seller', noAgency:'✓ Direct sale · no agency · no commission',
+        phone1:'Phone 1', phone2:'Phone 2', ownership:'Freehold',
+        specTyp:'Type', specKraj:'Region', specObec:'Town', specPlocha:'Floor area', specDispozicia:'Layout', specEnergia:'Energy class', specVlastnictvo:'Ownership', specStav:'Condition',
+        detailDesc:'Property for sale in {city}. Floor area {area} m², energy class A0. Sold directly by the owner — no agency and no commission. Viewings can be arranged by phone.',
+        modalTitle:'Add listing', modalSub:'After submitting, the listing will be reviewed and published.',
+        secContact:'Your contact details', fName:'Name', fEmail:'Email', fPhoneOpt:'Phone (optional)',
+        secListing:'Listing', fTitle:'Title', fDesc:'Description', fPrice:'Price (€)', fType:'Type', fCity:'Town/city', fRegion:'Region', fArea:'Floor area (m²)', fLayout:'Layout',
+        secPhotos:'Photos (max. 8)', photoHint:'📷 Click or drag photos here', photoMany:'photos selected',
+        disclaimer:'By submitting you agree to data processing for approval and publication of the listing.',
+        btnCancel:'Cancel', btnSubmit:'Submit for approval', submitting:'Sending…',
+        successTitle:'Listing submitted!', successBody:'Thank you. We will review your listing and publish it within 24 hours.', successNote:'A notification was sent to the administrator’s phone (Telegram via CallMeBot).', btnDone:'Done',
+        chat:{ launch:'Ask AI', title:'AI assistant', sub:'I’ll find the best listings for you', greeting:'Hi! Tell me what you’re looking for — type, location, budget — and I’ll pick the best listings.', ph:'Describe what you want…', send:'Send', thinking:'Finding listings…', error:'Sorry, I can’t reply right now. Please try again.', matches:'Selected listings', viewAll:'View in listings', foundReply:'Here are the listings that best match your needs:', noneReply:'I don’t have an exact match yet. Try adjusting the budget or location.', suggest:['House under €200k in the east','Apartment in Bratislava','Land with a garden'] },
+      },
+      ua: {
+        navListings:'Оголошення', navHow:'Як це працює', navSell:'Додати оголошення', call:'Дзвонити',
+        heroEyebrow:'Портал нерухомості без комісії', heroTitle1:'Нерухомість напряму', heroTitle2:'від власника.',
+        heroSub:'Портал оголошень про продаж та оренду нерухомості по всій Словаччині — напряму між людьми. Без агентств, без комісій, додавання оголошення безкоштовне.',
+        ctaBrowse:'Переглянути оголошення', ctaSell:'Додати оголошення',
+        heroBadge:'Будинок', savingsLabel1:'Сер. комісія агентства', savingsLabel2:'Ви платите',
+        featEyebrow:'Найновіші оголошення', featTitle:'Оголошення з усієї Словаччини', featAll:'Усі оголошення',
+        howEyebrow:'Як це працює', howTitle:'Три кроки до продажу', howSub:'Просто і напряму. Ви продаєте — ми лише з’єднуємо покупця з вами.',
+        sellEyebrow:'Для продавців', sellTitle:'Продаєте нерухомість?', sellSub:'Додайте оголошення безкоштовно та звертайтеся до покупців напряму — без посередників і без комісій.',
+        sellBtn:'Додати оголошення', sellNote:'Публікація протягом 24 год · без оплати', footerCopy:'© 2026 484.sk · Усі права захищені',
+        stats:[{value:'0 €',label:'Комісія'},{value:'8 регіонів',label:'Уся Словаччина'},{value:'Безкоштовно',label:'Додати оголошення'},{value:'24 год',label:'Схвалення'}],
+        steps:[{num:'01',title:'Додайте оголошення',body:'Заповніть коротку форму та завантажте фото. Повністю безкоштовно.'},{num:'02',title:'Схвалення',body:'Ми перевіряємо та публікуємо оголошення, зазвичай протягом 24 годин.'},{num:'03',title:'Продаж напряму',body:'Покупці телефонують вам напряму. Без посередників, без комісії.'}],
+        browseTitle:'Оголошення', searchPh:'Пошук міста, типу…', priceLabel:'Ціна',
+        allTypes:'Усі', allRegions:'Усі', priceAll:'Усі', priceLt:'до 100 000 €', priceMid:'100–200 000 €', priceGt:'понад 200 000 €',
+        resultsWord:'оголошень', filterReset:'Скинути фільтри', noResultsT:'Немає результатів', noResultsB:'За обраними фільтрами немає оголошень.',
+        priceNote:'від власника', roomAbbr:'-кімн.',
+        descr:{new:'Новобудова',terrace:'З терасою',garden:'Із садом',renovated:'Після ремонту',center:'Центр',quiet:'Тиха локація',land:'Земельна ділянка',office:'Офіс'},
+        types:[{value:'dom',label:'Будинок'},{value:'byt',label:'Квартира'},{value:'pozemok',label:'Земельна ділянка'},{value:'kancelaria',label:'Офіс'}],
+        backToList:'Назад до оголошень', specsTitle:'Технічні параметри', descTitle:'Опис нерухомості',
+        contactEyebrow:'Контакт', contactName:'Приватний продавець', callSeller:'Зателефонувати продавцю', noAgency:'✓ Прямий продаж · без агентства · без комісії',
+        phone1:'Телефон 1', phone2:'Телефон 2', ownership:'Приватна',
+        specTyp:'Тип', specKraj:'Край', specObec:'Місто', specPlocha:'Корисна площа', specDispozicia:'Планування', specEnergia:'Енергоклас', specVlastnictvo:'Власність', specStav:'Стан',
+        detailDesc:'Продається нерухомість у локації {city}. Корисна площа {area} m², енергоклас A0. Продаж напряму від власника — без агентства та без комісії. Огляд можна домовити по телефону.',
+        modalTitle:'Додати оголошення', modalSub:'Після надсилання оголошення буде перевірено та опубліковано.',
+        secContact:'Ваші контакти', fName:'Ім’я', fEmail:'Email', fPhoneOpt:'Телефон (необов’язково)',
+        secListing:'Оголошення', fTitle:'Назва', fDesc:'Опис', fPrice:'Ціна (€)', fType:'Тип', fCity:'Місто / село', fRegion:'Край', fArea:'Корисна площа (m²)', fLayout:'Планування',
+        secPhotos:'Фотографії (макс. 8)', photoHint:'📷 Натисніть або перетягніть фото', photoMany:'фото вибрано',
+        disclaimer:'Надсилаючи, ви погоджуєтесь на обробку даних для схвалення та публікації оголошення.',
+        btnCancel:'Скасувати', btnSubmit:'Надіслати на схвалення', submitting:'Надсилання…',
+        successTitle:'Оголошення надіслано!', successBody:'Дякуємо. Ми перевіримо ваше оголошення та опублікуємо протягом 24 годин.', successNote:'Сповіщення надіслано адміністратору в мобільний (Telegram через CallMeBot).', btnDone:'Готово',
+        chat:{ launch:'Запитати AI', title:'AI асистент', sub:'Підберу найкращі пропозиції', greeting:'Вітаю! Напишіть, що шукаєте — тип, локацію, бюджет — і я підберу найкращі оголошення.', ph:'Опишіть, що шукаєте…', send:'Надіслати', thinking:'Підбираю…', error:'Вибачте, зараз не вдається відповісти. Спробуйте ще раз.', matches:'Підібрані пропозиції', viewAll:'Переглянути в оголошеннях', foundReply:'Ось оголошення, що найкраще відповідають вашим вимогам:', noneReply:'Поки що немає точного збігу. Спробуйте змінити бюджет або локацію.', suggest:['Будинок до 200 000 € на сході','Квартира в Братиславі','Ділянка із садом'] },
+      },
+      de: {
+        navListings:'Anzeigen', navHow:'So funktioniert’s', navSell:'Anzeige aufgeben', call:'Anrufen',
+        heroEyebrow:'Immobilienportal ohne Provision', heroTitle1:'Immobilien direkt', heroTitle2:'vom Eigentümer.',
+        heroSub:'Kleinanzeigen-Portal für Verkauf und Vermietung von Immobilien in der ganzen Slowakei — direkt zwischen Menschen. Keine Makler, keine Provision, Anzeige kostenlos.',
+        ctaBrowse:'Anzeigen ansehen', ctaSell:'Anzeige aufgeben',
+        heroBadge:'Haus', savingsLabel1:'Ø Maklerprovision', savingsLabel2:'Sie zahlen',
+        featEyebrow:'Neueste Anzeigen', featTitle:'Anzeigen aus der ganzen Slowakei', featAll:'Alle Anzeigen',
+        howEyebrow:'So funktioniert’s', howTitle:'Drei Schritte zum Verkauf', howSub:'Einfach und direkt. Sie verkaufen — wir verbinden nur den Käufer mit Ihnen.',
+        sellEyebrow:'Für Verkäufer', sellTitle:'Verkaufen Sie eine Immobilie?', sellSub:'Geben Sie kostenlos eine Anzeige auf und erreichen Sie Käufer direkt — ohne Vermittler, ohne Gebühren.',
+        sellBtn:'Anzeige aufgeben', sellNote:'Veröffentlicht in 24 Std · kostenlos', footerCopy:'© 2026 484.sk · Alle Rechte vorbehalten',
+        stats:[{value:'0 €',label:'Provision'},{value:'8 Regionen',label:'Ganze Slowakei'},{value:'Kostenlos',label:'Anzeige aufgeben'},{value:'24 Std',label:'Freigabe'}],
+        steps:[{num:'01',title:'Anzeige aufgeben',body:'Füllen Sie ein kurzes Formular aus und laden Sie Fotos hoch. Völlig kostenlos.'},{num:'02',title:'Freigabe',body:'Wir prüfen und veröffentlichen Ihre Anzeige, meist innerhalb von 24 Stunden.'},{num:'03',title:'Direkt verkaufen',body:'Käufer rufen Sie direkt an. Kein Vermittler, keine Provision.'}],
+        browseTitle:'Anzeigen', searchPh:'Ort, Typ suchen…', priceLabel:'Preis',
+        allTypes:'Alle', allRegions:'Alle', priceAll:'Alle', priceLt:'bis 100 000 €', priceMid:'100–200 000 €', priceGt:'über 200 000 €',
+        resultsWord:'Anzeigen', filterReset:'Filter zurücksetzen', noResultsT:'Keine Ergebnisse', noResultsB:'Keine Anzeigen für die gewählten Filter.',
+        priceNote:'vom Eigentümer', roomAbbr:'-Zi.',
+        descr:{new:'Neubau',terrace:'Mit Terrasse',garden:'Mit Garten',renovated:'Renoviert',center:'Zentrum',quiet:'Ruhige Lage',land:'Grundstück',office:'Büro'},
+        types:[{value:'dom',label:'Haus'},{value:'byt',label:'Wohnung'},{value:'pozemok',label:'Grundstück'},{value:'kancelaria',label:'Büro'}],
+        backToList:'Zurück zu Anzeigen', specsTitle:'Technische Details', descTitle:'Objektbeschreibung',
+        contactEyebrow:'Kontakt', contactName:'Privatverkäufer', callSeller:'Verkäufer anrufen', noAgency:'✓ Direktverkauf · ohne Makler · ohne Provision',
+        phone1:'Telefon 1', phone2:'Telefon 2', ownership:'Eigentum',
+        specTyp:'Typ', specKraj:'Region', specObec:'Ort', specPlocha:'Wohnfläche', specDispozicia:'Aufteilung', specEnergia:'Energieklasse', specVlastnictvo:'Eigentum', specStav:'Zustand',
+        detailDesc:'Immobilie zum Verkauf in {city}. Wohnfläche {area} m², Energieklasse A0. Verkauf direkt vom Eigentümer — ohne Makler und ohne Provision. Besichtigung telefonisch möglich.',
+        modalTitle:'Anzeige aufgeben', modalSub:'Nach dem Absenden wird die Anzeige geprüft und veröffentlicht.',
+        secContact:'Ihre Kontaktdaten', fName:'Name', fEmail:'E-Mail', fPhoneOpt:'Telefon (optional)',
+        secListing:'Anzeige', fTitle:'Titel', fDesc:'Beschreibung', fPrice:'Preis (€)', fType:'Typ', fCity:'Ort', fRegion:'Region', fArea:'Wohnfläche (m²)', fLayout:'Aufteilung',
+        secPhotos:'Fotos (max. 8)', photoHint:'📷 Klicken oder Fotos hierher ziehen', photoMany:'Fotos ausgewählt',
+        disclaimer:'Mit dem Absenden stimmen Sie der Datenverarbeitung zur Prüfung und Veröffentlichung der Anzeige zu.',
+        btnCancel:'Abbrechen', btnSubmit:'Zur Freigabe senden', submitting:'Wird gesendet…',
+        successTitle:'Anzeige gesendet!', successBody:'Danke. Wir prüfen Ihre Anzeige und veröffentlichen sie innerhalb von 24 Stunden.', successNote:'Benachrichtigung an den Administrator aufs Handy gesendet (Telegram über CallMeBot).', btnDone:'Fertig',
+        chat:{ launch:'KI fragen', title:'KI-Assistent', sub:'Ich finde die besten Anzeigen für Sie', greeting:'Hallo! Sagen Sie mir, was Sie suchen — Typ, Lage, Budget — und ich wähle die besten Anzeigen.', ph:'Beschreiben Sie, was Sie suchen…', send:'Senden', thinking:'Suche Anzeigen…', error:'Entschuldigung, momentan keine Antwort möglich. Bitte erneut versuchen.', matches:'Ausgewählte Anzeigen', viewAll:'In Anzeigen ansehen', foundReply:'Hier sind die Anzeigen, die am besten passen:', noneReply:'Noch keine genaue Übereinstimmung. Passen Sie Budget oder Lage an.', suggest:['Haus bis 200.000 € im Osten','Wohnung in Bratislava','Grundstück mit Garten'] },
+      },
+    };
+    return D[this.state.lang] || D.sk;
+  }
+
+  fmtPrice(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' €'; }
+
+  localize(L, t) {
+    const typeLabel = (t.types.find(x => x.value === L.typeKey) || {}).label || '';
+    const chips = [];
+    if (L.area) chips.push(L.area + ' m²');
+    if (L.beds) chips.push(L.beds + t.roomAbbr);
+    if (L.beds) chips.push('A0');
+    return {
+      ...L, typeLabel,
+      title: typeLabel + ', ' + L.city,
+      location: L.region,
+      badge: t.descr[L.descr] || typeLabel,
+      price: this.fmtPrice(L.price),
+      priceNote: t.priceNote,
+      layout: L.beds ? (L.beds + t.roomAbbr) : '—',
+      chips,
+      onClick: () => this.goDetail(L),
+    };
+  }
+
+  setLang(code){ this.setState({ lang: code }); }
+  goLanding = () => { this.setState({ view:'landing' }); this.scrollTop(); };
+  goBrowse = () => { this.setState({ view:'browse' }); this.scrollTop(); };
+  goDetail = (L) => { this.setState({ view:'detail', detail:L, detailMain:L.img }); this.scrollTop(); };
+  scrollTop(){ try { window.scrollTo({ top:0, behavior:'auto' }); } catch(e){} }
+  setFilter(k,v){ this.setState({ [k]: v }); }
+  resetFilters = () => this.setState({ fType:'all', fRegion:'all', fPrice:'all', q:'' });
+  onSearch = (e) => this.setState({ q: e.target.value });
+  setImg = (el) => { if (!el) return; const s = el.getAttribute('data-src'); if (s && s.indexOf('{{') === -1) el.setAttribute('src', s); };
+  setMainImg = (el) => { this.mainImgEl = el; this.setImg(el); };
+  setDetailMain = (src) => { if (this.mainImgEl) this.mainImgEl.src = src; this.setState({ detailMain: src }); };
+  openLb = (i) => this.setState({ lbOpen: true, lbIndex: i });
+  closeLb = () => this.setState({ lbOpen: false });
+  setLbImg = (el) => { this.lbImgEl = el; if (el && this.galleryPool) el.src = this.galleryPool[this.state.lbIndex]; };
+  lbStep = (d) => { const n = (this.galleryPool || []).length; if (!n) return; const i = (this.state.lbIndex + d + n) % n; this.setState({ lbIndex: i }); if (this.lbImgEl) this.lbImgEl.src = this.galleryPool[i]; };
+  lbPrev = (e) => { if (e && e.stopPropagation) e.stopPropagation(); this.lbStep(-1); };
+  lbNext = (e) => { if (e && e.stopPropagation) e.stopPropagation(); this.lbStep(1); };
+
+  openModal = () => this.setState({ modal:'form', photoCount:0 });
+  closeModal = () => this.setState({ modal:null });
+  onPhotoChange = (e) => { this.photoFiles = e.target.files ? Array.from(e.target.files).slice(0,8) : []; this.setState({ photoCount: this.photoFiles.length }); };
+
+  toggleChat = () => this.setState(s => ({ chatOpen: !s.chatOpen }));
+  applyChatFilter = (hint) => { this.setState({ view:'browse', fType: hint ? hint.fType : 'all', fRegion: hint ? hint.fRegion : 'all', fPrice:'all', q:'', chatOpen:false }); this.scrollTop(); };
+  onChatInput = (e) => this.setState({ chatInput: e.target.value });
+  sendChat = (e) => { if (e && e.preventDefault) e.preventDefault(); const txt = (this.state.chatInput || '').trim(); if (txt) this.runChat(txt); };
+  setChatBody = (el) => { this.chatBodyEl = el; };
+
+  SB_URL = 'https://vrzztcgwmmzegkiexgpl.supabase.co';
+  SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZyenp0Y2d3bW16ZWdraWV4Z3BsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYyNTA5NjUsImV4cCI6MjA5MTgyNjk2NX0.tHAGNJdnjW1O7fH8jbHVzI52il9HFhOuDMxzVXj6TFE';
+  SUPA(){ return { url:(this.props&&this.props.supabaseUrl)||this.SB_URL, key:(this.props&&this.props.supabaseAnonKey)||this.SB_KEY }; }
+  list(){ return (this.state.remoteListings && this.state.remoteListings.length) ? this.state.remoteListings : this.RAW; }
+  mapRow(x,i){ const imgs=['dom1/FD1.png','dom2/FD2.png','dom1/FD3.png','dom2/FD4.png','dom1/FD5.png','dom2/FD6.png']; const beds=x.dispozicia?(parseInt(x.dispozicia,10)||null):null; return { img:(x.photos&&x.photos.length?x.photos[0]:imgs[i%imgs.length]), typeKey:x.typ, region:x.kraj, city:x.obec, price:Number(x.cena)||0, area:(x.plocha!=null?Number(x.plocha):null), beds, descr:'', nazov:x.nazov, popis:x.popis, dispozicia:x.dispozicia }; }
+  async loadListings(){ const {url,key}=this.SUPA(); if(!url||!key) return; try{ const r=await fetch(`${url}/rest/v1/submitted_listings?status=eq.approved&order=created_at.desc`,{headers:{apikey:key,Authorization:'Bearer '+key}}); if(!r.ok) return; const rows=await r.json(); if(Array.isArray(rows)&&rows.length) this.setState({ remoteListings: rows.map((x,i)=>this.mapRow(x,i)) }); }catch(e){} }
+  async submitToSupabase(data, files){ const {url,key}=this.SUPA(); if(!url||!key) return; const auth={apikey:key,Authorization:'Bearer '+key}; const photos=[]; for(const f of (files||[])){ try{ const safe=(f.name||'foto').replace(/[^\w.\-]/g,'_'); const path=`${Date.now()}-${Math.random().toString(36).slice(2)}-${safe}`; const up=await fetch(`${url}/storage/v1/object/listing-photos/${encodeURIComponent(path)}`,{method:'POST',headers:{...auth,'Content-Type':f.type||'image/jpeg'},body:f}); if(up.ok) photos.push(`${url}/storage/v1/object/public/listing-photos/${path}`); }catch(e){} } const base={ nazov:data.nazov,popis:data.popis,cena:Number(data.cena)||0,typ:data.typ,obec:data.obec,kraj:data.kraj,dispozicia:data.dispozicia||null,submitter_name:data.name,submitter_email:data.email,submitter_phone:data.phone||null,status:'pending' }; const full={ ...base, plocha:data.plocha?Number(data.plocha):null, photos }; await this.insertRow(full, base); }
+  async insertRow(full, base){ const {url,key}=this.SUPA(); const headers={apikey:key,Authorization:'Bearer '+key,'Content-Type':'application/json',Prefer:'return=minimal'}; try{ let r=await fetch(`${url}/rest/v1/submitted_listings`,{method:'POST',headers,body:JSON.stringify(full)}); if(r.ok) return true; r=await fetch(`${url}/rest/v1/submitted_listings`,{method:'POST',headers,body:JSON.stringify(base)}); return r.ok; }catch(e){ return false; } }
+  componentDidMount(){ this.loadListings(); }
+  componentDidUpdate(){ if (this.state.chatOpen && this.chatBodyEl) { try { this.chatBodyEl.scrollTop = this.chatBodyEl.scrollHeight; } catch(e){} } }
+
+  buildPrompt(txt){
+    const cat = this.list().map((L,i)=>`#${i}: ${L.typeKey}, ${L.city} (${L.region}), ${L.price} EUR, ${L.area} m2, ${L.beds?L.beds+' rooms':'no rooms'}, feature:${L.descr}`).join('\n');
+    return `You are the friendly property-search assistant for the Slovak real-estate portal 484.sk. Pick the listings that best fit the user request.\n\nLISTINGS:\n${cat}\n\nUSER REQUEST: "${txt}"\n\nReply in the language with code "${this.state.lang}" (sk=Slovak, en=English, ua=Ukrainian, de=German). Keep the reply to 1-2 short sentences. Choose up to 4 best matches, best first. If nothing fits, return an empty list and say so politely.\n\nRespond with STRICT JSON only, no markdown, no code fences:\n{"reply":"<your message>","ids":[<listing numbers>]}`;
+  }
+  parseChat(raw){
+    try { const m = String(raw).match(/\{[\s\S]*\}/); const o = JSON.parse(m ? m[0] : raw); const ids = Array.isArray(o.ids) ? o.ids.map(n=>parseInt(n,10)).filter(n=>n>=0 && n<this.list().length) : []; return { reply: (o.reply||'').toString().trim(), ids: ids.slice(0,4) }; }
+    catch(e){ return { reply:'', ids: this.localMatch(String(raw)) }; }
+  }
+  localMatch(txt){
+    const s = (txt||'').toLowerCase();
+    const nums = (s.match(/\d[\d\s.]*/g)||[]).map(x=>parseInt(x.replace(/[^\d]/g,''),10)).filter(n=>n>1000);
+    const maxP = nums.length ? Math.max(...nums) : null;
+    const tw = { dom:['dom','house','budyn','\u0431\u0443\u0434\u0438\u043d','haus'], byt:['byt','apart','wohn','\u043a\u0432\u0430\u0440\u0442'], pozemok:['pozemok','land','grund','\u0434\u0456\u043b\u044f\u043d'], kancelaria:['kancel','office','b\u00fcro','\u043e\u0444\u0456\u0441'] };
+    return this.list().map((L,i)=>{
+      let sc = 0;
+      if (s.includes(L.city.toLowerCase())) sc += 3;
+      if (s.includes(L.region.toLowerCase())) sc += 2;
+      if ((tw[L.typeKey]||[]).some(w=>s.includes(w))) sc += 3;
+      if (maxP && L.price <= maxP) sc += 2;
+      if (/zahrad|z\u00e1hrad|garden|garten|\u0441\u0430\u0434/.test(s) && L.descr==='garden') sc += 2;
+      if (/teras|terrace|\u0442\u0435\u0440\u0430\u0441/.test(s) && L.descr==='terrace') sc += 2;
+      return { i, sc };
+    }).filter(x=>x.sc>0).sort((a,b)=>b.sc-a.sc).slice(0,4).map(x=>x.i);
+  }
+  localReply(ids, t){ return ids.length ? t.chat.foundReply : t.chat.noneReply; }
+  async runChat(txt){
+    const t = this.dict();
+    this.setState(s => ({ chatMsgs: s.chatMsgs.concat([{ role:'user', text:txt }]), chatInput:'', chatLoading:true }));
+    let reply = '', ids = [];
+    try {
+      if (window.claude && window.claude.complete) {
+        const raw = await window.claude.complete(this.buildPrompt(txt));
+        const p = this.parseChat(raw); reply = p.reply; ids = p.ids;
+      } else { ids = this.localMatch(txt); }
+    } catch(e){ ids = this.localMatch(txt); }
+    if (!reply) reply = this.localReply(ids, t);
+    const matched = ids.map(id => this.list()[id]).filter(Boolean);
+    let hint = null;
+    if (matched.length) {
+      const types = [...new Set(matched.map(m=>m.typeKey))];
+      const regions = [...new Set(matched.map(m=>m.region))];
+      hint = { fType: types.length===1 ? types[0] : 'all', fRegion: regions.length===1 ? regions[0] : 'all' };
+    }
+    this.setState(s => ({ chatMsgs: s.chatMsgs.concat([{ role:'bot', text:reply, ids:ids, hint:hint }]), chatLoading:false }));
+  }
+
+  async fireCallMeBot(data){
+    const user = (this.props && this.props.telegramUser) || '@CallMeBot_txtbot';
+    if (!user) return;
+    const msg = `Novy inzerat na 484.sk\n${data.nazov||''}\n${data.cena||''} EUR · ${data.obec||''}, ${data.kraj||''}\nKontakt: ${data.name||''} ${data.phone||''} ${data.email||''}`;
+    const url = `https://api.callmebot.com/text.php?user=${encodeURIComponent(user)}&text=${encodeURIComponent(msg)}`;
+    try { await fetch(url, { mode:'no-cors' }); } catch(e){}
+  }
+  submitForm = (e) => {
+    e.preventDefault();
+    const form = this.formEl;
+    if (form && !form.checkValidity()) { form.reportValidity(); return; }
+    const data = {};
+    if (form) new FormData(form).forEach((v,k)=>{ data[k]=v; });
+    const files = this.photoFiles || [];
+    this.setState({ modal:'submitting' });
+    this.fireCallMeBot(data);
+    this.submitToSupabase(data, this.photoFiles||[]).then(()=>{ this.loadListings(); }).finally(()=>{ setTimeout(()=>this.setState({ modal:'success' }), 900); });
+  };
+
+  matchPrice(p){
+    const f = this.state.fPrice;
+    if (f==='lt') return p < 100000;
+    if (f==='mid') return p >= 100000 && p <= 200000;
+    if (f==='gt') return p > 200000;
+    return true;
+  }
+
+  renderVals(){
+    const t = this.dict();
+    const lang = this.state.lang;
+    const view = this.state.view;
+
+    const langs = [{code:'sk',label:'SK',name:'Slovenčina'},{code:'en',label:'EN',name:'English'},{code:'ua',label:'UA',name:'Українська'},{code:'de',label:'DE',name:'Deutsch'}];
+    const lbBase = 'border:none;padding:6px 9px;font-family:DM Mono,monospace;font-size:11.5px;font-weight:500;cursor:pointer;letter-spacing:0.03em;';
+    const langButtons = langs.map(l => ({ label:l.label, name:l.name, style: lbBase + (lang===l.code?'background:#1a6b3c;color:#fff;':'background:#fff;color:#6e7870;'), onClick: () => this.setLang(l.code) }));
+
+    const ic = (paths) => React.createElement('svg',{width:20,height:20,viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:2,strokeLinecap:'round',strokeLinejoin:'round'},paths.map((d,i)=>React.createElement('path',{key:i,d})));
+    const icons = [ic(['M12 5v14','M5 12h14']), ic(['M20 6 9 17l-5-5']), ic(['M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.63 3.44 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6.11 6.11l.98-.98a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z'])];
+    const steps = t.steps.map((s,i)=>({ ...s, icon: icons[i] }));
+
+    const all = this.list().map(L => this.localize(L, t));
+    const featured = all.slice(0,3);
+
+    // filters
+    const q = this.state.q.trim().toLowerCase();
+    const filtered = all.filter(L => {
+      if (this.state.fType !== 'all' && L.typeKey !== this.state.fType) return false;
+      if (this.state.fRegion !== 'all' && L.region !== this.state.fRegion) return false;
+      if (!this.matchPrice(L.price)) return false;
+      if (q && !(L.title+' '+L.city+' '+L.region+' '+L.badge).toLowerCase().includes(q)) return false;
+      return true;
+    });
+
+    const pillBase = 'padding:5px 11px;border-radius:18px;font-size:12px;font-weight:500;border:1.5px solid #ccceca;background:#fff;color:#4a524d;cursor:pointer;font-family:inherit;white-space:nowrap;';
+    const pillOn = 'padding:5px 11px;border-radius:18px;font-size:12px;font-weight:500;border:1.5px solid #1a6b3c;background:#1a6b3c;color:#fff;cursor:pointer;font-family:inherit;white-space:nowrap;';
+    const typePills = [{key:'all',label:t.allTypes}].concat(t.types.map(x=>({key:x.value,label:x.label}))).map(p=>({ label:p.label, style: this.state.fType===p.key?pillOn:pillBase, onClick: () => this.setFilter('fType',p.key) }));
+    const regionPills = [{key:'all',label:t.allRegions}].concat(this.REGIONS.map(r=>({key:r,label:r}))).map(p=>({ label:p.label, style: this.state.fRegion===p.key?pillOn:pillBase, onClick: () => this.setFilter('fRegion',p.key) }));
+    const pricePills = [{key:'all',label:t.priceAll},{key:'lt',label:t.priceLt},{key:'mid',label:t.priceMid},{key:'gt',label:t.priceGt}].map(p=>({ label:p.label, style: this.state.fPrice===p.key?pillOn:pillBase, onClick: () => this.setFilter('fPrice',p.key) }));
+
+    // detail
+    let d = null, specs = [], gallery = [];
+    if (this.state.detail) {
+      const L = this.localize(this.state.detail, t);
+      d = {
+        eyebrow: L.typeLabel + ' · ' + L.region,
+        title: L.title, price: L.price, priceNote: L.priceNote,
+        city: this.state.detail.city, region: L.region,
+        desc: (t.detailDesc || '').replace('{city}', this.state.detail.city).replace('{area}', this.state.detail.area || '—'),
+      };
+      specs = [
+        {k:t.specTyp,v:L.typeLabel},{k:t.specKraj,v:L.region},{k:t.specObec,v:this.state.detail.city},
+        {k:t.specPlocha,v:this.state.detail.area?this.state.detail.area+' m²':'—'},{k:t.specDispozicia,v:L.layout},{k:t.specEnergia,v:this.state.detail.beds?'A0':'—'},
+        {k:t.specVlastnictvo,v:t.ownership},{k:t.specStav,v:L.badge},
+      ];
+      const pool = [this.state.detail.img,'dom1/FD3.png','dom2/FD4.png','dom2/FD6.png','dom1/FD1.png'].filter((v,i,a)=>a.indexOf(v)===i).slice(0,5);
+      this.galleryPool = pool;
+      const thumbBase = 'aspect-ratio:1;border-radius:8px;overflow:hidden;cursor:pointer;border:2px solid transparent;';
+      gallery = pool.map(src => ({ src, onClick: () => this.setDetailMain(src), style: thumbBase + (src===this.state.detailMain?'border-color:#1a6b3c;':'border-color:#e8eae8;') }));
+    }
+
+    const modal = this.state.modal;
+    const isSubmitting = modal==='submitting';
+    const submitBtnBase = 'flex:1;padding:13px;font-size:14px;font-weight:700;border-radius:8px;border:none;color:#fff;cursor:pointer;font-family:inherit;background:#1a6b3c;display:inline-flex;align-items:center;justify-content:center;';
+    const photoText = this.state.photoCount>0 ? (this.state.photoCount + ' · ' + t.photoMany) : t.photoHint;
+
+    const chatRender = this.state.chatMsgs.map(m => {
+      const isUser = m.role === 'user';
+      const cards = (m.ids || []).map(id => {
+        const c = this.localize(this.list()[id], t);
+        return { ...c, onClick: () => { this.goDetail(this.list()[id]); this.setState({ chatOpen:false }); } };
+      });
+      return {
+        isUser,
+        rowStyle: 'display:flex;flex-direction:column;gap:8px;align-items:' + (isUser ? 'flex-end' : 'flex-start') + ';',
+        bubbleStyle: isUser
+          ? 'max-width:82%;background:#1a6b3c;color:#fff;padding:9px 13px;border-radius:13px 13px 3px 13px;font-size:13.5px;line-height:1.55;'
+          : 'max-width:88%;background:#f1f4f2;color:#1a1c1a;padding:9px 13px;border-radius:13px 13px 13px 3px;font-size:13.5px;line-height:1.55;',
+        text: m.text, hasText: !!m.text,
+        showMatches: !isUser && cards.length > 0,
+        cards,
+        showViewAll: !isUser && cards.length > 0,
+        viewAll: () => this.applyChatFilter(m.hint),
+      };
+    });
+
+    return {
+      t, lang, langButtons,
+      heroImg: (this.props && this.props.heroImage) || 'dom1/FD1.png',
+      showSavings: (this.props && this.props.showSavingsCard!==undefined) ? this.props.showSavingsCard : true,
+      stats: t.stats, steps, types: t.types, regions: this.REGIONS,
+      featured, filtered,
+      resultsLabel: filtered.length + ' ' + t.resultsWord,
+      hasResults: filtered.length > 0, noResults: filtered.length === 0,
+      typePills, regionPills, pricePills, q: this.state.q,
+      onSearch: this.onSearch, resetFilters: this.resetFilters,
+      d, specs, gallery, detailMain: this.state.detailMain, setImg: this.setImg, setMainImg: this.setMainImg,
+      lbOpen: this.state.lbOpen, setLbImg: this.setLbImg, closeLb: this.closeLb, lbPrev: this.lbPrev, lbNext: this.lbNext,
+      lbCounter: this.galleryPool ? ((this.state.lbIndex + 1) + ' / ' + this.galleryPool.length) : '',
+      onMainClick: () => { const i = (this.galleryPool || []).indexOf(this.state.detailMain); this.openLb(i < 0 ? 0 : i); },
+      locTitle: ({sk:'Poloha',en:'Location',ua:'Розташування',de:'Lage'})[lang] || 'Poloha',
+      locNote: ({sk:'Presná adresa bude upresnená pri obhliadke.',en:'Exact address provided at viewing.',ua:'Точну адресу буде уточнено під час огляду.',de:'Genaue Adresse bei der Besichtigung.'})[lang] || '',
+      isLanding: view==='landing', isBrowse: view==='browse', isDetail: view==='detail' && !!this.state.detail,
+      goLanding: this.goLanding, goBrowse: this.goBrowse,
+      openModal: this.openModal, closeModal: this.closeModal,
+      stop: (e)=>e.stopPropagation(), setFormRef:(el)=>{this.formEl=el;}, submitForm:this.submitForm,
+      onPhotoChange:this.onPhotoChange, photoText,
+      modalOpen: modal!==null, isForm: modal==='form'||modal==='submitting', isSuccess: modal==='success', isSubmitting,
+      submitLabel: isSubmitting ? t.submitting : t.btnSubmit,
+      submitBtnStyle: submitBtnBase + (isSubmitting?'opacity:0.7;cursor:wait;':''),
+      chatOpen: this.state.chatOpen, chatClosed: !this.state.chatOpen,
+      toggleChat: this.toggleChat, chatRender, chatEmpty: this.state.chatMsgs.length === 0,
+      chatLoading: this.state.chatLoading, chatInput: this.state.chatInput,
+      onChatInput: this.onChatInput, sendChat: this.sendChat, setChatBody: this.setChatBody,
+      chatMatchesLabel: t.chat.matches, chatViewAllLabel: t.chat.viewAll,
+      chatSuggestions: t.chat.suggest.map(sg => ({ label: sg, onClick: () => this.runChat(sg) })),
+    };
+  }
+}
+</script>
+</body>
+</html>
